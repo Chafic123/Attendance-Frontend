@@ -1,0 +1,335 @@
+#body-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 11.21%;
+}
+
+body p {
+    margin: 0;
+}
+
+#image-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32%;
+}
+
+#image-cont img {
+    width: 99%;
+}
+
+#form-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 43.2px;
+    width: 33%;
+    height: 564px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 80%;
+}
+
+#form-txt {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+#form-title {
+    color: rgba(72, 43, 112, 1);
+    font-size: 48px;
+    font-weight: 700;
+    text-align: left;
+}
+
+#form-des {
+    color: rgba(96, 64, 153, 1);
+    font-size: 15.29px;
+    font-weight: 400;
+    text-align: left;
+    width: 274.37px;
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.user-input {
+    height: 51.99px;
+    border-radius: 15.95px;
+    border: 1.74px solid rgba(84, 51, 129, 1);
+    font-size: 15.29px;
+    font-weight: 400;
+    padding-left: 15px;
+    color: rgba(84, 51, 129, 1);
+    outline: none;
+}
+
+.user-input::placeholder {
+    color: rgba(91, 93, 97, 0.602);
+}
+
+.input-label {
+    color: rgba(72, 43, 112, 1);
+    font-size: 15.29px;
+    font-weight: 400;
+    margin-left: 16px;
+}
+
+#post-input {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+}
+
+#remember-cont {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#remember-label {
+    color: rgba(84, 51, 129, 1);
+    font-size: 15.29px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#Remember-Me {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 23.18px;
+    height: 20.44px;
+    border-radius: 3.47px;
+    border: 2px solid rgba(84, 51, 129, 1);
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Remember-Me:checked {
+    background-color: rgba(84, 51, 129, 1);
+}
+
+#Remember-Me:checked::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+}
+
+#forget-pass {
+    cursor: pointer;
+    color: rgba(105, 70, 153, 1);
+    font-size: 15.29px;
+    font-weight: 500;
+}
+
+#log-in-btn {
+    color: #D9D9D9;
+    background-color: rgba(84, 51, 129, 1);
+    width: 100%;
+    height: 62.36px;
+    border-radius: 18.12px;
+    text-align: center;
+    border: 0;
+    font-size: 20.6px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+@media (max-width : 1146px) {
+    #form-div {
+        width: 39%;
+        height: 530px;
+    }
+}
+
+@media (max-width : 910px) {
+    #container {
+        gap: 8.21%;
+    }
+
+    #form-div {
+        width: 42%;
+        height: 472px;
+    }
+
+    #form-title {
+        font-size: 37px;
+    }
+
+    .user-input {
+        height: 37.99px;
+    }
+
+    #log-in-btn {
+        height: 50px;
+        font-size: 15.29px;
+    }
+}
+
+@media (max-width: 820px) {
+    form {
+        gap: 17px;
+    }
+
+    #form-div {
+        width: 39%;
+        height: 524px;
+    }
+
+    #form-div {
+        width: 44%;
+        height: 422px;
+    }
+
+    #image-cont img {
+        width: 109%;
+    }
+
+    #forget-pass {
+        font-size: 13.29px;
+    }
+
+    #remember-label { 
+        font-size: 13.29px;
+    }
+
+    #form-title {
+        font-size: 31px;
+    }
+
+    #log-in-btn {
+        height: 41px;
+        font-size: 15.29px;
+    }
+}
+
+@media (max-width: 680px) {
+    #form-div {
+        width: 48%;
+        height: 369px;
+    }
+
+    form {
+        gap: 11px;
+    }
+    .user-input {
+        height: 30.99px;
+    }
+    .user-input {
+        font-size: 13.29px;
+    }
+    #forget-pass {
+        font-size: 12.29px;
+    }#remember-label {
+        font-size: 12.29px;
+    }
+    #Remember-Me {
+        width: 17.18px;
+        height: 16.44px;
+    }
+}
+
+@media (max-width: 600px) {
+    #image-cont {
+        display: none;
+    }
+
+    form {
+        gap: 17px;
+    }
+
+    #form-div {
+        width: 66%;
+        height: 449px;
+    }
+    
+    #form-title {
+        font-size: 35px;
+    }
+    
+    .user-input {
+        height: 42.99px;
+        font-size: 15.29px;
+    }
+    
+    .input-label {
+        font-size: 15.29px;
+    }
+    
+    #remember-label {
+        font-size: 15.29px;
+    }
+    
+    #Remember-Me {
+        width: 23.18px;
+        height: 20.44px;
+    }
+    
+    #forget-pass {
+        font-size: 15.29px;
+    }
+    
+    #log-in-btn {
+        width: 100%;
+        height: 50.36px;
+        font-size: 20.6px;
+    }
+}
+
+@media (max-width: 545px) {
+    #forget-pass {
+        font-size: 13.29px;
+    }
+
+    #remember-label {
+        font-size: 13.29px;
+    }
+
+    #Remember-Me {
+        width: 20.18px;
+        height: 17.44px;
+    }
+}
+
+@media (max-width: 477px) {
+    .user-input {
+        height: 37.99px;
+        font-size: 14.29px;
+    }
+
+    #post-input {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    #Remember-Me, #forget-pass {
+        font-size: 12.29px;
+    }
+}
+
