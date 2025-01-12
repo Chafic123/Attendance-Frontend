@@ -1,6 +1,9 @@
 import { Icon } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard({ DashboardItems, onItemClick }) {
+  const navigate = useNavigate()
+
   const styles = {
     dashboard: {
       display: "flex",
@@ -41,6 +44,10 @@ export default function Dashboard({ DashboardItems, onItemClick }) {
     },
   };
 
+  const handleLogOutClick = () => {
+    navigate('/logout')
+  }
+
   return (
     <div id="dashboard" style={styles.dashboard}>
       {DashboardItems.map((item, index) => (
@@ -56,7 +63,7 @@ export default function Dashboard({ DashboardItems, onItemClick }) {
       ))}
       <div id="logout" style={styles.logout}>
         <Icon>logout</Icon>
-        <p style={styles.text}>Log Out</p>
+        <p style={styles.text} onClick={handleLogOutClick}>Log Out</p>
       </div>
     </div>
   );

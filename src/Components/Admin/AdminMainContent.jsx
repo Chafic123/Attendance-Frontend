@@ -1,6 +1,7 @@
-import Course from "./Course";
-import MainContentTop from "./MainContentTop";
-import StudentCard from "./StudentCard";
+import AdminFilter from "./AdminFilter";
+import Course from "../Course";
+import MainContentTop from "../MainContentTop";
+import StudentCard from "../StudentCard";
 
 export default function AdminMainContent(props) {
   return (
@@ -26,6 +27,7 @@ export default function AdminMainContent(props) {
               gap: "40px",
             }}
           >
+            <AdminFilter title="StudentFilter" />
             <StudentCard />
             <StudentCard />
             <StudentCard />
@@ -46,11 +48,26 @@ export default function AdminMainContent(props) {
           }}
         >
           <MainContentTop title="Courses" />
+          <AdminFilter title="CourseFilter" />
           <Course />
           <Course />
         </div>
       ) : props.selectedDashboardITem === "View Instructors" ? (
-        <MainContentTop title="Instructors" />
+        <div
+          style={{
+            width: "57%",
+            padding: "57px",
+            paddingBottom: "0",
+            borderRadius: "66px 0 0 66px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "17px",
+          }}
+        >
+          <MainContentTop title="Instructors" />
+          <AdminFilter title="InstructorFilter" />
+          
+        </div>
       ) : (
         <MainContentTop title="Courses" />
       )}
