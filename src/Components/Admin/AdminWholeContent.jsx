@@ -1,5 +1,6 @@
 import AdminMainContent from "./AdminMainContent";
 import AdminPanel from "./AdminPanel";
+import PropTypes from 'prop-types';
 
 export default function AdminWholeContent(props) {
   return (
@@ -17,3 +18,6 @@ export default function AdminWholeContent(props) {
     </div>
   );
 }
+AdminWholeContent.propTypes = {
+  selectedDashboardITem: PropTypes.string, 
+};

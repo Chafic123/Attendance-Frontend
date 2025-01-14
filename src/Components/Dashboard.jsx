@@ -1,8 +1,9 @@
 import { Icon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";  // Import PropTypes
 
 export default function Dashboard({ DashboardItems, onItemClick }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const styles = {
     dashboard: {
@@ -45,8 +46,8 @@ export default function Dashboard({ DashboardItems, onItemClick }) {
   };
 
   const handleLogOutClick = () => {
-    navigate('/logout')
-  }
+    navigate('/logout');
+  };
 
   return (
     <div id="dashboard" style={styles.dashboard}>
@@ -68,3 +69,15 @@ export default function Dashboard({ DashboardItems, onItemClick }) {
     </div>
   );
 }
+
+// PropTypes validation
+Dashboard.propTypes = {
+  DashboardItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      imgSrc: PropTypes.string.isRequired,
+      altText: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onItemClick: PropTypes.func.isRequired,
+};

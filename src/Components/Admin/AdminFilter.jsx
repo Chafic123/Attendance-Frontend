@@ -1,34 +1,36 @@
-import { WidthFull } from '@mui/icons-material';
-import { colors } from '@mui/material';
-import React, { useState } from 'react';
+// import { WidthFull } from '@mui/icons-material';
+// import { colors } from '@mui/material';
+import { useState } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes
 
 const AdminFilter = (props) => {
   const [filter, setFilter] = useState('');
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
+    
   };
 
   return (
     <div style={styles.filterContainer}>
       <p style={styles.p}>Filter by:</p>
 
-      {props.title == "CourseFilter" ? (
+      {props.title === "CourseFilter" ? (
         <>
-          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder='Code' />
+          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder="Code" />
           <select value={filter} onChange={handleFilterChange} style={styles.select}>
             <option value="" disabled>Section</option>
           </select>
-          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder='Instructor' />
+          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder="Instructor" />
           <select value={filter} onChange={handleFilterChange} style={styles.select}>
             <option value="" disabled>Time</option>
           </select>
         </>
-      ) : props.title == "StudentFilter" ? (
+      ) : props.title === "StudentFilter" ? (
         <>
-          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder='ID Number' />
+          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder="ID Number" />
           <select value={filter} onChange={handleFilterChange} style={styles.select}>
-            <option value="" disabled>Collage</option>
+            <option value="" disabled>College</option>
           </select>
           <select value={filter} onChange={handleFilterChange} style={styles.select}>
             <option value="" disabled>A - Z</option>
@@ -37,11 +39,11 @@ const AdminFilter = (props) => {
             <option value="" disabled>Year</option>
           </select>
         </>
-      ) : props.title == "InstructorFilter" ? (
+      ) : props.title === "InstructorFilter" ? (
         <>
-          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder='ID Number' />
+          <input type="text" onChange={handleFilterChange} style={styles.input} placeholder="ID Number" />
           <select value={filter} onChange={handleFilterChange} style={styles.select}>
-            <option value="" disabled>Collage</option>
+            <option value="" disabled>College</option>
           </select>
           <select value={filter} onChange={handleFilterChange} style={styles.select}>
             <option value="" disabled>A - Z</option>
@@ -52,6 +54,11 @@ const AdminFilter = (props) => {
       )}
     </div>
   );
+};
+
+// Add PropTypes validation
+AdminFilter.propTypes = {
+  title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired, // Restrict to specific values
 };
 
 const styles = {
@@ -68,7 +75,6 @@ const styles = {
     fontWeight: 'bold',
     color: "#000",
     fontSize: '16.667px',
-    fontWeight: '700'
   },
   select: {
     width: '18.5%',
@@ -78,7 +84,6 @@ const styles = {
     background: '#D6D2E4',
     borderRadius: '10px',
     padding: '0 5px',
-    height: '28px',
     flexGrow: '1'
   },
   option: {

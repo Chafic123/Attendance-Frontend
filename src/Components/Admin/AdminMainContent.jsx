@@ -2,6 +2,7 @@ import AdminFilter from "./AdminFilter";
 import Course from "../Course";
 import MainContentTop from "../MainContentTop";
 import StudentCard from "../StudentCard";
+import PropTypes from "prop-types"; // Import PropTypes
 
 export default function AdminMainContent(props) {
   return (
@@ -66,7 +67,6 @@ export default function AdminMainContent(props) {
         >
           <MainContentTop title="Instructors" />
           <AdminFilter title="InstructorFilter" />
-          
         </div>
       ) : (
         <MainContentTop title="Courses" />
@@ -74,3 +74,8 @@ export default function AdminMainContent(props) {
     </>
   );
 }
+
+//  PropTypes validation
+AdminMainContent.propTypes = {
+  selectedDashboardITem: PropTypes.string.isRequired, 
+};
