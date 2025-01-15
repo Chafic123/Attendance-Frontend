@@ -1,8 +1,8 @@
 import AdminMainContent from "./AdminMainContent";
 import AdminPanel from "./AdminPanel";
 import PropTypes from 'prop-types';
-
 export default function AdminWholeContent(props) {
+
   return (
     <div
       style={{
@@ -13,11 +13,13 @@ export default function AdminWholeContent(props) {
         borderRadius: "66px",
       }}
     >
+
       <AdminMainContent selectedDashboardITem={props.selectedDashboardITem} />
       <AdminPanel />
     </div>
   );
 }
+
 AdminWholeContent.propTypes = {
   selectedDashboardITem: PropTypes.string, 
 };

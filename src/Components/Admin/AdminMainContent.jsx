@@ -52,6 +52,8 @@ export default function AdminMainContent(props) {
           <AdminFilter title="CourseFilter" />
           <Course />
           <Course />
+          
+
         </div>
       ) : props.selectedDashboardITem === "View Instructors" ? (
         <div

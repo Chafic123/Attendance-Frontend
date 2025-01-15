@@ -2,7 +2,7 @@ import { useState } from "react";
 import Dashboard from "../Components/Dashboard";
 import Logo from "../Components/Logo";
 import AdminWholeContent from "../Components/Admin/AdminWholeContent";
-
+// import AdminEditCourse from "../Components/Admin/AdminEditCourse";
 export default function AdminCourses() {
   const [selectedText, setSelectedText] = useState(null);
   const DashboardItems = [

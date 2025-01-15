@@ -1,7 +1,7 @@
 // import { WidthFull } from '@mui/icons-material';
 // import { colors } from '@mui/material';
 import { useState } from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from 'prop-types'; 
 
 const AdminFilter = (props) => {
   const [filter, setFilter] = useState('');
