@@ -11,6 +11,7 @@ const EditCourseForm = ({ courseData, onChange, onSave, onCancel }) => {
             <p className="course-code">GRDS421</p>
             {/* {courseData.name} */}
             <p className="course-name">Web and Interactive Design</p>
+            <p className='instructor-name'>Myriam Chamoon</p>
             
             <form className="edit-course-form" onSubmit={onSave}>
                 <div className="form-group">
@@ -35,7 +36,7 @@ const EditCourseForm = ({ courseData, onChange, onSave, onCancel }) => {
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group" id='form-group-date'>
                     <label>Date:</label>
                     <div className="date-inputs">
                         <select
@@ -132,7 +133,7 @@ const EditCourseForm = ({ courseData, onChange, onSave, onCancel }) => {
                 <div className="form-actions">
                     <button type="button" className="cancel-btn" onClick={onCancel}>Cancel</button>
                     <button type="submit" className="save-btn">Save Changes</button>
-                </div>
+                    </div>
             </form>
         </div>
     );
