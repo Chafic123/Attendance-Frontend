@@ -1,7 +1,7 @@
 // import React from 'react';
 import PropTypes from 'prop-types';
 import "../CSS/AdminEditCourse.css";
-
+import "../App.css";
 const EditCourseForm = ({ courseData, onChange, onSave, onCancel }) => {
     return (
 

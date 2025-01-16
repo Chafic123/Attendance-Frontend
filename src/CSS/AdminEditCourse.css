@@ -77,27 +77,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 20px;
+    width: 75%;
 }
 
 #form-group-date {
-    gap: 47px;
+    gap: 42px;
 }
 
-.time-inputs {
-    gap: 7px;
-    width: 38%;
+.time-inputs input {
+    width: 70%;
+    padding-left: 27px;
 }
-
 
 .arrow {
     color: #B0B0B0;
 }
 
 .form-row {
+    width: 91%;
     display: flex;
     justify-content: space-between;
-    gap: 16px;
+    gap: 0px;
 }
 
 .form-row .form-group {
@@ -106,14 +107,14 @@
 }
 
 .form-actions {
-    width: 100%;
+    width: 84%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 8px;
-    margin-left: 19px;
+    margin-left: 40px;
     text-align: center;
-    gap: 50px;
+    gap: 40px;
 }
 
 .cancel-btn,
@@ -126,13 +127,13 @@
     cursor: pointer;
     transition: background-color 0.3s;
     flex-grow: 1;
-    width: 40%;
+    width: 20%;
     font-size: 12px;
 
 }
 
 .cancel-btn {
-    background: #FFF;
+    background: rgba(245, 243, 253, 1);
     border: 1px solid #543381;
     color: #482B70;
     
@@ -150,4 +151,38 @@
 
 .save-btn:hover {
     background-color: #3d2280;
+}
+
+
+/* Ipad Pro */
+
+@media (min-width: 1024px) {
+
+.date-inputs, .time-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0px;
+    width: 75%;
+}
+
+.date-inputs, .time-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 0;
+    width: 75%;
+}
+
+.form-actions {
+    width: 102%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    margin-left: 0px;
+    text-align: center;
+    gap: 40px;
+}
 }
