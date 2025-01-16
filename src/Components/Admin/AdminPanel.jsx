@@ -1,5 +1,5 @@
-// import React from "react";
-import AdminEditCourse from "../Admin/AdminEditCourse";
+import AdminAddCourse from "./AdminAddCourse";
+
 export default function AdminPanel() {
   return (
     <div
@@ -9,7 +9,10 @@ export default function AdminPanel() {
         borderRadius: "0 66px 66px 0",
       }}
     >
-      <AdminEditCourse />
+      {/* <AdminEditCourse /> */}
+    
+    <AdminAddCourse/>
+
     </div>
   );
 }

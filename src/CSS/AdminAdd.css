@@ -1,4 +1,4 @@
-.edit-course-card {
+.add-card {
     max-width: 90%;
     margin: 0 auto;
     padding: 24px;
@@ -13,30 +13,7 @@
     margin-bottom: 8px;
 }
 
-.course-code {
-    color: #4A2B99;
-    font-size: 14px;
-    font-weight: 700;
-    color: #4A4A4A;
-    margin-bottom: 4px;
-}
-
-.course-name {
-    font-size: 14px;
-    color: #6B6B6B;
-    margin-bottom: 5px;
-}
-
-.instructor-name {
-    width: 120px;
-    flex-shrink: 0;
-    color: #929396;
-    font-size: 11px;
-    font-weight: 500;
-    margin-bottom: .8rem;
-}
-
-.edit-course-form {
+.add-form {
     width: 90%;
     gap: 20px;
     display: flex;
