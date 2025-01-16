@@ -5,6 +5,19 @@ import StudentCard from "../StudentCard";
 import PropTypes from "prop-types"; // Import PropTypes
 
 export default function AdminMainContent(props) {
+
+  const handleCourseClick = (id) => {
+    
+  }
+
+  const handleStudentClick = (id) => {
+    
+  }
+
+  const handleInstructorClick = (id) => {
+    
+  }
+
   return (
     <>
       {props.selectedDashboardITem === "View Students" ? (
@@ -50,7 +63,7 @@ export default function AdminMainContent(props) {
         >
           <MainContentTop title="Courses" />
           <AdminFilter title="CourseFilter" />
-          <Course />
+          <Course/>
           <Course />
           
 
