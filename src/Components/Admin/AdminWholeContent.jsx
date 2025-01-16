@@ -15,11 +15,13 @@ export default function AdminWholeContent(props) {
     >
 
       <AdminMainContent selectedDashboardITem={props.selectedDashboardITem} />
-      <AdminPanel />
+      
+      <AdminPanel title={props.selectedAddItem} />
+        
     </div>
   );
 }
 
 AdminWholeContent.propTypes = {
-  selectedDashboardITem: PropTypes.string, 
+  selectedDashboardITem: PropTypes.string,
 };

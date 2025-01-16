@@ -1,4 +1,4 @@
-.add-card {
+.add-course-card {
     max-width: 90%;
     margin: 0 auto;
     padding: 24px;
@@ -6,28 +6,28 @@
     color: #4A2B99;
 }
 
-.card-title {
+.card-course-title {
     color: #4A2B99;
     font-size: 24px;
     font-family: Arial, sans-serif;
     margin-bottom: 8px;
 }
 
-.add-form {
+.add-course-form {
     width: 90%;
     gap: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.form-group {
+.form-course-group {
     width: 100%;
     display: flex;
     align-items: center;
     gap: 42px;
 }
 
-.form-group label {
+.form-course-group label {
     color: #482B70;
     font-size: 16px;
     font-weight: 400;
@@ -36,8 +36,8 @@
     color: #482B70;
 }
 
-.form-group input,
-.form-group select {
+.form-course-group input,
+.form-course-group select {
     width: 70%;
     padding: 10px 12px;
     border: 1px solid #4A2B99;
@@ -49,8 +49,8 @@
     font-weight: 400;
 }
 
-.date-inputs,
-.time-inputs {
+.course-date-inputs,
+.course-time-inputs {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -58,43 +58,43 @@
     width: 75%;
 }
 
-.time-inputs {
+.course-time-inputs {
     gap: 7px;
 }
 
-.time-inputs input {
+.course-time-inputs input {
     width: 35%;
 }
 
-.date-inputs {
+.course-date-inputs {
     gap: 13px;
 }
 
-.date-inputs select {
+.course-date-inputs select {
     width: 40%;
 }
 
-#form-group-date {
+#form-course-group-date {
     gap: 42px;
 }
 
-.arrow {
+.course-arrow {
     color: #B0B0B0;
 }
 
-.form-row {
+.form-course-row {
     width: 91%;
     display: flex;
     justify-content: space-between;
     gap: 0px;
 }
 
-.form-row .form-group {
+.form-course-row .form-course-group {
     width: 40%;
     gap: 40px;
 }
 
-.form-actions {
+.form-course-actions {
     width: 84%;
     display: flex;
     justify-content: center;
@@ -146,8 +146,8 @@
 
 @media (max-width: 1024px) {
 
-    .date-inputs,
-    .time-inputs {
+    .course-date-inputs,
+    .course-time-inputs {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -155,8 +155,8 @@
         width: 75%;
     }
 
-    .date-inputs,
-    .time-inputs {
+    .course-date-inputs,
+    .course-time-inputs {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -165,7 +165,7 @@
         width: 75%;
     }
 
-    .form-actions {
+    .form-course-actions {
         width: 102%;
         display: flex;
         justify-content: center;

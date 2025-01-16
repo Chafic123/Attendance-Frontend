@@ -42,7 +42,7 @@ export default function AdminCourses() {
     >
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
-      <AdminWholeContent selectedDashboardITem={selectedText} />
+      <AdminWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
     </div>
   );
 }

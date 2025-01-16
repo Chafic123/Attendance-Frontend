@@ -1,13 +1,13 @@
-import "../../CSS/AdminAdd.css";
+import "../../CSS/AdminAddCourse.css";
 import PropTypes from 'prop-types';
 const AdminAddCourse = () => {
     return (
 
-        <div className="add-card">
-            <h2 className="card-title">Add Course</h2>
+        <div className="add-course-card">
+            <h2 className="card-course-title">Add Course</h2>
             
-            <form className="add-form" >
-                <div className="form-group">
+            <form className="add-course-form" >
+                <div className="form-course-group">
                     <label htmlFor="code">Code:</label>
                     <input
                         type="text"
@@ -16,7 +16,7 @@ const AdminAddCourse = () => {
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-course-group">
                     <label htmlFor="name">Name:</label>
                     <input
                         type="text"
@@ -25,9 +25,9 @@ const AdminAddCourse = () => {
                     />
                 </div>
 
-                <div className="form-group" id='form-group-date'>
+                <div className="form-course-group" id='form-group-date'>
                     <label>Date:</label>
-                    <div className="date-inputs">
+                    <div className="course-date-inputs">
                         <select
                             name="startDate"
                         >
@@ -37,7 +37,7 @@ const AdminAddCourse = () => {
                             <option value="Thursday">Thursday</option>
                             <option value="Friday">Friday</option>
                         </select>
-                        <span className="arrow">→</span>
+                        <span className="course-arrow">→</span>
                         <select
                             name="endDate"
                         >
@@ -50,15 +50,15 @@ const AdminAddCourse = () => {
                     </div>
                 </div>
 
-                <div className="form-group">
+                <div className="form-course-group">
                     <label>Time:</label>
-                    <div className="time-inputs">
+                    <div className="course-time-inputs">
                         <input
                             type="time"
                             name="startTime"
 
                         />
-                        <span className="arrow">→</span>
+                        <span className="course-arrow">→</span>
                         <input
                             type="time"
                             name="endTime"
@@ -67,7 +67,7 @@ const AdminAddCourse = () => {
                     </div>
                 </div>
 
-                <div className="form-group">
+                <div className="form-course-group">
                     <label htmlFor="instructor">Instructor:</label>
                     <input
                         type="text"
@@ -77,7 +77,7 @@ const AdminAddCourse = () => {
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-course-group">
                     <label htmlFor="instructorId">ID:</label>
                     <input
                         type="text"
@@ -87,29 +87,29 @@ const AdminAddCourse = () => {
                     />
                 </div>
 
-                <div className="form-row">
-                    <div className="form-group">
-                        <label htmlFor="room">Room:</label>
+                <div className="form-course-row">
+                    <div className="form-course-group">
+                        <label htmlFor="course-room">Room:</label>
                         <input
                             type="text"
-                            id="room"
+                            id="course-room"
                             name="room"
                             
                         />
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="credits">Credits:</label>
+                    <div className="form-course-group">
+                        <label htmlFor="course-credits">Credits:</label>
                         <input
                             type="number"
-                            id="credits"
+                            id="course-credits"
                             name="credits"
                             
                         />
                     </div>
                 </div>
 
-                <div className="form-actions">
+                <div className="form-course-actions">
                     <button type="button" className="cancel-btn">Cancel</button>
                     <button type="submit" className="save-btn">Save Changes</button>
                     </div>

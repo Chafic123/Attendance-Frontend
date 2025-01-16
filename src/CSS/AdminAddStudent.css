@@ -1,0 +1,128 @@
+.add-student-card {
+    max-width: 88%;
+    margin: 0 auto;
+    padding: 24px;
+    color: #4A2B99;
+}
+
+.card-student-title {
+    color: #4A2B99;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.add-student-form {
+    width: 90%;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 38px;
+}
+
+.form-student-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.form-student-group label {
+    width: 100px;
+    color: #482B70;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.form-student-group input {
+    width: 60%;
+    padding: 10px 12px;
+    border: 1px solid #4A2B99;
+    background-color: rgb(245, 243, 253);
+    border-radius: 15px;
+    font-size: 14px;
+    outline: none;
+    color: #47494D;
+    font-weight: 400;
+}
+
+.form-student-row {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 10px;
+    gap: 40px;
+
+}
+
+.form-student-row .form-student-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 23px;
+}
+
+.form-student-actions {
+    width: 84%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    margin-left: 40px;
+    text-align: center;
+    gap: 40px;
+}
+
+.cancel-btn,
+.save-btn {
+    color: #482B70;
+    padding: 9px 10px;
+    font-weight: 400;
+    border-radius: 30px;
+    border: 1px solid #543381;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex-grow: 1;
+    width: 20%;
+    font-size: 12px;
+
+}
+
+.cancel-btn {
+    background: rgba(245, 243, 253, 1);
+    border: 1px solid #543381;
+    color: #482B70;
+
+}
+
+.cancel-btn:hover {
+    background-color: #F5F5F5;
+}
+
+.save-btn {
+    color: #FFF;
+    background: #482B70;
+    font-weight: 400;
+}
+
+.save-btn:hover {
+    background-color: #3d2280;
+}
+
+
+/* Ipad Pro */
+
+@media (max-width: 1024px) {
+
+    .form-student-actions {
+        width: 102%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 8px;
+        margin-left: 0px;
+        text-align: center;
+        gap: 40px;
+    }
+}

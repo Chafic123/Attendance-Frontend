@@ -1,6 +1,8 @@
 import AdminAddCourse from "./AdminAddCourse";
-
-export default function AdminPanel() {
+import AdminAddStudent from "./AdminAddStudent";
+import AdminAddInstructor from "./AdminAddInstructor";
+ 
+export default function AdminPanel(props) {
   return (
     <div
       style={{
@@ -10,9 +12,21 @@ export default function AdminPanel() {
       }}
     >
       {/* <AdminEditCourse /> */}
-    
-    <AdminAddCourse/>
 
-    </div>
+
+      {
+        props.title == "View Courses" ? (
+          <AdminAddCourse />
+        ) : props.title == "View Students" ? (
+          <AdminAddStudent />
+        ) : props.title == "View Instructors" ? (
+          <AdminAddInstructor />
+        ) : (
+          null
+        )
+      }
+
+
+    </div >
   );
 }

@@ -3,20 +3,21 @@ import Course from "../Course";
 import MainContentTop from "../MainContentTop";
 import StudentCard from "../StudentCard";
 import PropTypes from "prop-types"; // Import PropTypes
+// import AdminPanel from "./AdminPanel";
 
 export default function AdminMainContent(props) {
 
-  const handleCourseClick = (id) => {
+  // const handleCourseClick = (id) => {
     
-  }
+  // }
 
-  const handleStudentClick = (id) => {
+  // const handleStudentClick = (id) => {
     
-  }
+  // }
 
-  const handleInstructorClick = (id) => {
+  // const handleInstructorClick = (id) => {
     
-  }
+  // }
 
   return (
     <>
@@ -65,7 +66,7 @@ export default function AdminMainContent(props) {
           <AdminFilter title="CourseFilter" />
           <Course/>
           <Course />
-          
+          {/* <AdminPanel title="AddCourse"/> */}
 
         </div>
       ) : props.selectedDashboardITem === "View Instructors" ? (
