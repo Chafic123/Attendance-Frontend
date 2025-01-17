@@ -1,7 +1,7 @@
 import AdminFilter from "./AdminFilter";
-import Course from "../Course";
+import Course from "../Generals/Course";
 import MainContentTop from "../MainContentTop";
-import StudentCard from "../StudentCard";
+import StudentCard from "../Generals/StudentCard";
 import PropTypes from "prop-types"; 
 // import AdminPanel from "./AdminPanel";
 

@@ -1,4 +1,4 @@
-import Logo from "../Components/Logo";
+import Logo from "../Components/Generals/Logo";
 import "../CSS/Login.css";
 import { useNavigate } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Dashboard from "../Components/Dashboard";
-import Logo from "../Components/Logo";
+import Dashboard from "../Components/Generals/Dashboard";
+import Logo from "../Components/Generals/Logo";
 import AdminWholeContent from "../Components/Admin/AdminWholeContent";
 // import AdminEditCourse from "../Components/Admin/AdminEditCourse";
 export default function AdminCourses() {

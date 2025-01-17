@@ -1,6 +1,6 @@
 import { Icon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";  // Import PropTypes
+import PropTypes from "prop-types";  
 
 export default function Dashboard({ DashboardItems, onItemClick }) {
   const navigate = useNavigate();
@@ -70,7 +70,6 @@ export default function Dashboard({ DashboardItems, onItemClick }) {
   );
 }
 
-// PropTypes validation
 Dashboard.propTypes = {
   DashboardItems: PropTypes.arrayOf(
     PropTypes.shape({
