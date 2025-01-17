@@ -1,26 +1,52 @@
-// import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function ActionIcons({ onSearch, onAdd }) {
+  const [showInput, setShowInput] = useState(false);
+
+  const handleSearchClick = () => {
+    setShowInput((prev) => !prev);
+  };
+
   return (
-    <div>
+    <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+      <input
+        type="text"
+        placeholder="Search..."
+        onChange={(e) => onSearch(e.target.value)}
+        style={{
+          width: showInput ? '200px' : '0',
+          opacity: showInput ? 1 : 0,
+          transition: 'width 0.3s ease, opacity 0.3s ease',
+          marginRight: '10px',
+          border: '1px solid rgba(84, 51, 129, 1)',
+          padding: showInput ? '5px 10px' : '0',
+          color: 'rgba(84, 51, 129, 1)',
+          overflow: 'hidden',
+          borderRadius: '16px',
+        }}
+      />
+      
+      {/* Search Icon */}
       <img
         src="../public/Images/Search-icon.png"
         alt="Search Icon"
         style={{ marginRight: '10px', cursor: 'pointer' }}
-        onClick={onSearch} 
+        onClick={handleSearchClick}
       />
+      
+      {/* Add Icon */}
       <img
         src="../public/Images/Add-icon.png"
         alt="Add Icon"
         style={{ cursor: 'pointer' }}
-        onClick={onAdd} 
+        onClick={onAdd}
       />
     </div>
   );
 }
 
 ActionIcons.propTypes = {
-  onSearch: PropTypes.func.isRequired, 
-  onAdd: PropTypes.func.isRequired, 
+  onSearch: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };
