@@ -2,7 +2,7 @@ import AdminFilter from "./AdminFilter";
 import Course from "../Course";
 import MainContentTop from "../MainContentTop";
 import StudentCard from "../StudentCard";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types"; 
 // import AdminPanel from "./AdminPanel";
 
 export default function AdminMainContent(props) {
@@ -91,7 +91,6 @@ export default function AdminMainContent(props) {
   );
 }
 
-//  PropTypes validation
 AdminMainContent.propTypes = {
   selectedDashboardITem: PropTypes.string.isRequired, 
 };

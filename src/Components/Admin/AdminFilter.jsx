@@ -56,9 +56,8 @@ const AdminFilter = (props) => {
   );
 };
 
-// Add PropTypes validation
 AdminFilter.propTypes = {
-  title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired, // Restrict to specific values
+  title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired, 
 };
 
 const styles = {

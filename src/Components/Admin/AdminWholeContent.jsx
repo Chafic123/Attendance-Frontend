@@ -24,4 +24,5 @@ export default function AdminWholeContent(props) {
 
 AdminWholeContent.propTypes = {
   selectedDashboardITem: PropTypes.string,
+  selectedAddItem: PropTypes.string,
 };

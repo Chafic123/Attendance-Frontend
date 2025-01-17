@@ -1,7 +1,7 @@
 import AdminAddCourse from "./AdminAddCourse";
 import AdminAddStudent from "./AdminAddStudent";
 import AdminAddInstructor from "./AdminAddInstructor";
- 
+import PropTypes from "prop-types";
 export default function AdminPanel(props) {
   return (
     <div
@@ -30,3 +30,7 @@ export default function AdminPanel(props) {
     </div >
   );
 }
+  AdminPanel.propTypes = {
+    title: PropTypes.string,
+  };
+
