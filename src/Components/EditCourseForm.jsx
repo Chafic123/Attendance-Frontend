@@ -12,7 +12,7 @@ const EditCourseForm = ({ courseData, onChange, onSave, onCancel }) => {
             {/* {courseData.name} */}
             <p className="course-name">Web and Interactive Design</p>
             <p className='instructor-name'>Myriam Chamoon</p>
-            
+
             <form className="edit-course-form" onSubmit={onSave}>
                 <div className="form-group">
                     <label htmlFor="code">Code:</label>

@@ -13,7 +13,7 @@ export default function Dashboard({ DashboardItems, onItemClick }) {
       justifyContent: "center",
       gap: "44px",
       marginBottom: "100px",
-    },
+    },  
     dashboardItem: {
       display: "flex",
       justifyContent: "center",

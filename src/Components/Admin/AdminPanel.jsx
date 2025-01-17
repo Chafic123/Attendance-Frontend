@@ -13,7 +13,6 @@ export default function AdminPanel(props) {
     >
       {/* <AdminEditCourse /> */}
 
-
       {
         props.title == "View Courses" ? (
           <AdminAddCourse />
@@ -25,7 +24,6 @@ export default function AdminPanel(props) {
           null
         )
       }
-
 
     </div >
   );

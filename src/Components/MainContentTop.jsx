@@ -1,41 +1,25 @@
-import PropTypes from 'prop-types';  
+// import React from 'react';
+import PropTypes from 'prop-types';
+import HeaderTitle from './HeaderTitle';
+import ActionIcons from './ActionIcons';
 
-export default function MainContentTop(props) {
+export default function MainContentTop({ title, onSearch, onAdd }) {
   return (
-    <div 
+    <div
       style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
     >
-      <p 
-        style={{
-          fontSize: '36px',
-          fontWeight: 'bold',
-          color: 'rgba(84, 51, 129, 1)',
-        }}
-      >
-        {props.title}
-      </p>
-      <div>
-        <img 
-          src="../public/Images/Search-icon.png" 
-          alt="Search Icon" 
-          style={{
-            marginRight: '10px',
-          }} 
-        />
-        <img 
-          src="../public/Images/Add-icon.png" 
-          alt="Add Icon" 
-        />
-      </div>
+      <HeaderTitle title={title} />
+      <ActionIcons onSearch={onSearch} onAdd={onAdd} />
     </div>
   );
 }
 
-// PropTypes validation
 MainContentTop.propTypes = {
-  title: PropTypes.string.isRequired, // title is required and must be a string
+  title: PropTypes.string.isRequired, 
+  onSearch: PropTypes.func, 
+  onAdd: PropTypes.func, 
 };
