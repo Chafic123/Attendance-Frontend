@@ -1,9 +1,9 @@
 // import React from 'react';
 import PropTypes from 'prop-types';
-import HeaderTitle from './HeaderTitle';
-import ActionIcons from './ActionIcons';
+import HeaderTitle from '../Generals/HeaderTitle';
+import ActionIcons from '../Generals/ActionIcons';
 
-export default function MainContentTop({ title, onSearch, onAdd }) {
+export default function MainContentTopSI({ title, onSearch, onAdd }) {
   return (
     <div
       style={{
@@ -13,12 +13,12 @@ export default function MainContentTop({ title, onSearch, onAdd }) {
       }}
     >
       <HeaderTitle title={title} />
-      <ActionIcons onSearch={onSearch} onAdd={onAdd} />
+      <ActionIcons onSearch={onSearch} onAdd={onAdd} DashboardSelected={title}/>
     </div>
   );
 }
 
-MainContentTop.propTypes = {
+MainContentTopSI.propTypes = {
   title: PropTypes.string.isRequired, 
   onSearch: PropTypes.func, 
   onAdd: PropTypes.func, 

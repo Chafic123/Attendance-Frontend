@@ -1,6 +1,6 @@
 import StudentFilter from "./StudentFilter";
 import Course from "../Generals/Course";
-import MainContentTop from "../Generals/MainContentTop";
+import MainContentTopSI from "./MainContentTopSI";
 import PropTypes from "prop-types";
 
 export default function StudentMainContent(props) {
@@ -31,7 +31,7 @@ export default function StudentMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTop title="Courses" />
+          <MainContentTopSI title="Courses" />
           <div>
             <StudentFilter title="StudentFilter" />
           </div>
@@ -49,7 +49,7 @@ export default function StudentMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTop title="Schedule" />
+          <MainContentTopSI title="Schedule" />
         </div>
       ) : props.selectedDashboardITem === "View Notifications" ? (
         <div
@@ -63,10 +63,10 @@ export default function StudentMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTop title="Notifications" />
+          <MainContentTopSI title="Notifications" />
         </div>
       ) : (
-        <MainContentTop title="Courses" />
+        <MainContentTopSI title="Courses" />
       )}
     </>
   );
