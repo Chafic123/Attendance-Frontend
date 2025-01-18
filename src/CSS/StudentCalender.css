@@ -1,0 +1,101 @@
+.custom-calendar-wrapper {
+    width: 100%; 
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 25%;
+  }
+/*Calender Width*/
+.MuiDateCalendar-root{
+    width: 80% !important;
+    margin-left: 30px !important;
+    gap: 0;
+  }
+  /* Styling for the calendar header */
+  .MuiPickersCalendarHeader-root, .css-1nxbkmn-MuiPickersCalendarHeader-root {
+    width: 100%;
+  }
+  .MuiPickersCalendarHeader-labelContainer, .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
+    margin-right: 15% !important;
+  }
+  /* Calender grid */
+  .MuiDayCalendar-root, .css-q5we01-MuiDayCalendar-root {
+    width: 150%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+  
+/* Ensure the calendar wrapper and calendar inside take up full width */
+
+  .css-84tv42-MuiDateCalendar-root.MuiDateCalendar-root{
+        display: flex;
+        align-items: start;
+  }
+
+.MuiPickersCalendarHeader-root{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+}
+
+  
+  /* Styling days */
+  .custom-calendar-wrapper .MuiTypography-root {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #543381;
+    padding: 0 7px;
+
+  }
+  /* Styling arrows */
+  .custom-calendar-wrapper .MuiPickersArrowSwitcher-root button {
+    color: #584B9F;
+    font-size: 30px;
+  }
+
+
+  /* Styling for the label container (month/year header) */
+.MuiPickersCalendarHeader-labelContainer {
+    display: flex; 
+    flex-direction: row;
+    font-family: Arial, sans-serif; 
+    font-weight: 700;
+    color: #543381;
+    background-color: transparent;
+
+  }
+  
+  .MuiPickersCalendarHeader-label {
+   display: flex;
+   flex-direction: row;
+   font-size: 27.09px;
+
+  }
+ 
+  
+  
+
+
+  /* Targetting Days [Dates] */
+  .css-1fx2l1t-MuiButtonBase-root-MuiPickersDay-root.MuiPickersDay-root {
+    color:#606071;
+    font-size: 15.29px;
+    padding: 0 25px;
+  }
+.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.MuiPickersDay-root {
+    color:#606071;
+    font-size: 15.29px;
+    padding: 0 25px;
+  }
+  
+
+  
+  .MuiPickersDay-root.Mui-selected {
+    background-color: #584B9F !important; /* Change the circle's background color */
+    color: #fff !important; /* White text color */
+  }
+  
+ 
