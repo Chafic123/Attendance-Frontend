@@ -21,22 +21,7 @@ export default function StudentFilter() {
         style={styles.select}
       >
         <option value="" disabled>
-          Section
-        </option>
-      </select>
-      <input
-        type="text"
-        onChange={handleFilterChange}
-        style={styles.input}
-        placeholder="Instructor"
-      />
-      <select
-        value={filter}
-        onChange={handleFilterChange}
-        style={styles.select}
-      >
-        <option value="" disabled>
-          Time
+          A-Z
         </option>
       </select>
     </div>

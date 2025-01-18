@@ -1,6 +1,7 @@
 import { Icon } from "@mui/material";
+import PropTypes from 'prop-types';
 
-export default function Course() {
+export default function Course( props ) {
   const styles = {
     course: {
       display: "flex",
@@ -60,7 +61,11 @@ export default function Course() {
           <p style={styles.courseInstructor}>Myriam Chamoon</p>
         </div>
       </div>
-      <Icon>more_vert</Icon>
+      {props.user === "Admin" ? (<Icon>more_vert</Icon>) : null}
     </div>
   );
 }
+
+Course.propTypes = {
+  user: PropTypes.string.isRequired,
+};

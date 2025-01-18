@@ -1,6 +1,7 @@
 import { Icon } from "@mui/material";
+import PropTypes from 'prop-types';
 
-export default function StudentCard() {
+export default function StudentCard( props ) {
   const styles = {
     student: {
       display: "flex",
@@ -57,7 +58,12 @@ export default function StudentCard() {
           <p style={styles.studentId}>20210908</p>
         </div>
       </div>
-      <Icon>more_vert</Icon>
+      {props.user === "Admin" ? (<Icon>more_vert</Icon>) : null}
+      
     </div>
   );
 }
+
+StudentCard.propTypes = {
+  user: PropTypes.string.isRequired,
+};

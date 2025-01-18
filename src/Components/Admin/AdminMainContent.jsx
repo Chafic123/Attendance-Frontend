@@ -42,11 +42,11 @@ export default function AdminMainContent(props) {
             }}
           >
             <AdminFilter title="StudentFilter" />
-            <StudentCard />
-            <StudentCard />
-            <StudentCard />
-            <StudentCard />
-            <StudentCard />
+            <StudentCard user="Admin"/>
+            <StudentCard user="Admin"/>
+            <StudentCard user="Admin"/>
+            <StudentCard user="Admin"/>
+            <StudentCard user="Admin"/>
           </div>
         </div>
       ) : props.selectedDashboardITem === "View Courses" ? (
@@ -63,8 +63,7 @@ export default function AdminMainContent(props) {
         >
           <MainContentTop title="Courses" />
           <AdminFilter title="CourseFilter" />
-          <Course/>
-          <Course />
+          <Course user="Admin"/>
 
         </div>
       ) : props.selectedDashboardITem === "View Instructors" ? (
