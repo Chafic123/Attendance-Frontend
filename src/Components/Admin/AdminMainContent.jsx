@@ -1,7 +1,9 @@
 import AdminFilter from "./AdminFilter";
 import Course from "../Generals/Course";
+import Calender from "../Generals/CalenderForm";
 import MainContentTop from "../MainContentTop";
 import StudentCard from "../Generals/StudentCard";
+
 import PropTypes from "prop-types"; 
 // import AdminPanel from "./AdminPanel";
 
@@ -83,6 +85,7 @@ export default function AdminMainContent(props) {
         >
           <MainContentTop title="Instructors" />
           <AdminFilter title="InstructorFilter" />
+          <Calender />
         </div>
       ) : (
         <MainContentTop title="Courses" />
