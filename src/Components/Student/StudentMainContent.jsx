@@ -1,10 +1,9 @@
-import AdminFilter from "./AdminFilter";
+import StudentFilter from "./StudentFilter";
 import Course from "../Generals/Course";
 import MainContentTop from "../Generals/MainContentTop";
-import StudentCard from "../Generals/StudentCard";
 import PropTypes from "prop-types";
 
-export default function AdminMainContent(props) {
+export default function StudentMainContent(props) {
 
   // const handleCourseClick = (id) => {
     
@@ -20,36 +19,7 @@ export default function AdminMainContent(props) {
 
   return (
     <>
-      {props.selectedDashboardITem === "View Students" ? (
-        <div
-          style={{
-            width: "48%",
-            padding: "57px",
-            paddingBottom: "0",
-            borderRadius: "66px 0 0 66px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "17px",
-          }}
-        >
-          <MainContentTop title="Students" />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: "40px",
-            }}
-          >
-            <AdminFilter title="StudentFilter" />
-            <StudentCard />
-            <StudentCard />
-            <StudentCard />
-            <StudentCard />
-            <StudentCard />
-          </div>
-        </div>
-      ) : props.selectedDashboardITem === "View Courses" ? (
+      {props.selectedDashboardITem === "View Courses" ? (
         <div
           style={{
             width: "48%",
@@ -62,12 +32,12 @@ export default function AdminMainContent(props) {
           }}
         >
           <MainContentTop title="Courses" />
-          <AdminFilter title="CourseFilter" />
-          <Course/>
+          <div>
+            <StudentFilter title="StudentFilter" />
+          </div>
           <Course />
-
         </div>
-      ) : props.selectedDashboardITem === "View Instructors" ? (
+      ) : props.selectedDashboardITem === "View Schedule" ? (
         <div
           style={{
             width: "48%",
@@ -79,8 +49,21 @@ export default function AdminMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTop title="Instructors" />
-          <AdminFilter title="InstructorFilter" />
+          <MainContentTop title="Schedule" />
+        </div>
+      ) : props.selectedDashboardITem === "View Notifications" ? (
+        <div
+          style={{
+            width: "48%",
+            padding: "57px",
+            paddingBottom: "0",
+            borderRadius: "66px 0 0 66px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "17px",
+          }}
+        >
+          <MainContentTop title="Notifications" />
         </div>
       ) : (
         <MainContentTop title="Courses" />
@@ -89,6 +72,6 @@ export default function AdminMainContent(props) {
   );
 }
 
-AdminMainContent.propTypes = {
+StudentMainContent.propTypes = {
   selectedDashboardITem: PropTypes.string.isRequired, 
 };

@@ -1,7 +1,7 @@
 // import React from 'react';
 import PropTypes from 'prop-types';
-import HeaderTitle from './Generals/HeaderTitle';
-import ActionIcons from './Generals/ActionIcons';
+import HeaderTitle from './HeaderTitle';
+import ActionIcons from './ActionIcons';
 
 export default function MainContentTop({ title, onSearch, onAdd }) {
   return (

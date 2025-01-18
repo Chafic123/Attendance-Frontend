@@ -6,7 +6,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     const handleLoginClick = () => {
-        navigate('/Admin');
+        navigate('/Student');
     };
 
     return (
