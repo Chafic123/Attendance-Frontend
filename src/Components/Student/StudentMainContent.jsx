@@ -2,6 +2,7 @@ import StudentFilter from "./StudentFilter";
 import Course from "../Generals/Course";
 import MainContentTopSI from "./MainContentTopSI";
 import PropTypes from "prop-types";
+import StudentNotificationCenter from "./StudentNotificationCenter";
 
 export default function StudentMainContent(props) {
 
@@ -56,7 +57,7 @@ export default function StudentMainContent(props) {
       ) : props.selectedDashboardITem === "View Notifications" ? (
         <div
           style={{
-            width: "48%",
+            width: "48%",   
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",
@@ -66,6 +67,7 @@ export default function StudentMainContent(props) {
           }}
         >
           <MainContentTopSI title="Notifications" />
+          <StudentNotificationCenter />
         </div>
       ) : (
         <MainContentTopSI title="Courses" />

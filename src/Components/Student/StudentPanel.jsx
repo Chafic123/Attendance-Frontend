@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import StudentSchedule from "./StudentSchedule"
 import StudentProfile from "./StudentProfile"
 import "../../CSS/StudentCalender.css";
+import StudentNotifications from "./StudentNotifications";
 export default function AdminPanel(props) {
   return (
     <div
@@ -22,9 +23,15 @@ export default function AdminPanel(props) {
         ) : props.title === "View Schedule" ? (
             <StudentSchedule />
         ) : props.title === "View Notifications" ? (
-          <div className="custom-calendar-wrapper">
+          <div>
+
+            <div className="custom-calendar-wrapper">
             <Calender />
             </div>
+            <StudentNotifications />
+
+          </div>
+          
         ) : (
           null
         )

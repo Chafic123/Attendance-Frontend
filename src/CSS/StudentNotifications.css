@@ -1,0 +1,80 @@
+
+#container{
+    width: 58%;
+    min-height: 35%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: start;
+    justify-content: start;
+    margin: 5% 0 0 10%;
+    padding: 30px 30px;
+    border-radius: 43px;
+}
+.title{
+    font-family: Arial, sans-serif;
+    font-size: 23.99px;
+    font-weight: 700;
+    color: #543381;
+
+}
+.gray-line {
+    border-bottom: 1px solid gray; 
+    width: 100%; 
+    margin: 10px 0;
+  }
+.notifications{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 5px;
+}
+.notification-title-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;
+    margin: 0 0 0 -20px;
+}
+.purple-circle{
+    width: 11px;
+    height: 10px;
+}
+.notification-title{
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #F22327;
+}
+.temp{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;  
+}
+.notification-content-container{
+    display: flex;
+    flex-direction: column;
+
+
+}
+.notification-content, .course-name{
+
+    font-size: 11.38px;
+    font-weight: 400;
+    color: #47494D;
+
+}
+.mark-as-read{
+    width: 71px;
+    height: 18px;
+    font-size: 7.16px;
+    font-weight: 400;
+    background-color: #482B70;
+    color: #FFFFFF;
+    border-radius: 5.97px;
+    border: none;
+}
