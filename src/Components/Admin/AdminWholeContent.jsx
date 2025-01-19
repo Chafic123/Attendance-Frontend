@@ -1,10 +1,11 @@
 import AdminMainContent from "./AdminMainContent";
 import AdminPanel from "./AdminPanel";
 import PropTypes from 'prop-types';
+// import "../../CSS/AdminWholeContent.css"
 export default function AdminWholeContent(props) {
 
   return (
-    <div
+    <div className="AdminWholeContent"
       style={{
         display: "flex",
         width: "82%",

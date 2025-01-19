@@ -44,18 +44,9 @@ const AdminAddStudent = () => {
                     />
                 </div>
 
-                <div className="form-student-row">
-                    <div className="form-student-group">
-                        <label htmlFor="Image" id="image">Image</label>
-                        <img src="Images/Upload_img.png" alt="" />
-                        <label htmlFor="" >Upload New</label>
-                    </div>
-
-                    <div className="form-student-group">
-                        <label htmlFor="Video" id="video">Video</label>
-                        <img src="Images/Upload_img.png" alt="" />
-                        <label htmlFor="">Upload New</label>
-                    </div>
+                <div className="form-student-group">
+                    <label htmlFor="Image" id="image">Image</label>
+                    <input type="file" />
                 </div>
 
                 <div className="form-student-actions">

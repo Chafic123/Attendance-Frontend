@@ -45,23 +45,15 @@
     font-weight: 400;
 }
 
-.form-student-row {
+
+.form-student-row .form-student-group {
     width: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
-    margin-top: 10px;
-    gap: 40px;
-
+  
 }
 
-.form-student-row .form-student-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 23px;
-}
 
 .form-student-actions {
     width: 84%;
@@ -115,14 +107,57 @@
 
 @media (max-width: 1024px) {
 
+    .form-student-group {
+        gap: 9px !important;
+    }
+
+    .form-student-group label {
+      
+        font-size: 14px !important;
+ 
+    }
+
+    .form-student-group input {
+        width: 64% !important;
+        font-size: 12px !important;
+    }
+
     .form-student-actions {
-        width: 102%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 8px;
-        margin-left: 0px;
-        text-align: center;
-        gap: 40px;
+        width: 100% !important;
+        margin-left: 0 !important;
+        gap: 19px !important;
+    }
+
+    .cancel-btn, .save-btn {
+       
+        font-size: 11px !important;
+    }
+}
+
+@media (max-width: 820px) {
+
+    .add-student-form {
+        width: 92%;
+        
+    }
+
+    .form-student-group label {
+        width: 71px !important;
+        font-size: 11px !important;
+    }
+
+    .form-student-group input {
+        width: 49% !important;
+        font-size: 7px !important;
+    }
+
+    .form-student-actions {
+        width: 117% !important;
+        margin-left: -10px !important;
+        gap: 16px !important;
+    }
+
+    .cancel-btn, .save-btn {
+        font-size: 9px !important;
     }
 }

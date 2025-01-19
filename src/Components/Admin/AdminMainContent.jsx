@@ -33,15 +33,16 @@ export default function AdminMainContent(props) {
           }}
         >
           <MainContentTop title="Students" />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: "40px",
-            }}
+          <AdminFilter title="StudentFilter" />
+
+          <div className="StuentContainer"
+            // style={{
+            //   display: "flex",
+            //   flexDirection: "row",
+            //   flexWrap: "wrap",
+            //   gap: "40px",
+            // }}
           >
-            <AdminFilter title="StudentFilter" />
             <StudentCard user="Admin"/>
             <StudentCard user="Admin"/>
             <StudentCard user="Admin"/>

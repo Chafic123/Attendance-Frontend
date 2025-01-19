@@ -2,7 +2,7 @@ import { useState } from "react";
 import Dashboard from "../Components/Generals/Dashboard";
 import Logo from "../Components/Generals/Logo";
 import AdminWholeContent from "../Components/Admin/AdminWholeContent";
-// import AdminEditCourse from "../Components/Admin/AdminEditCourse";
+import "../CSS/AdminPage.css"
 export default function AdminCourses() {
   const [selectedText, setSelectedText] = useState(null);
   const DashboardItems = [
@@ -31,15 +31,7 @@ export default function AdminCourses() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        height: "100vh",
-        width: "100%",
-      }}
-    >
+    <div className="AdminPage">
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <AdminWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>

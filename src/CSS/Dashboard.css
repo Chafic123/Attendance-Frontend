@@ -1,0 +1,77 @@
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 44px;
+    margin-bottom: 100px;
+}
+
+.dashboard-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dashboard-item img {
+    width: 20px;
+}
+
+#logout {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    color: white;
+    bottom: 40px;
+    left: 30px;
+    gap: 10px;
+    cursor: pointer;
+}
+
+#logout .logout-icon {
+    font-size: 24px;
+}
+
+#logout .logout-text {
+    font-size: 20px;
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    #dashboard {
+        margin-bottom: 220px;
+    }
+
+    .dashboard-item {
+        gap: 12px;
+    }
+
+    .dashboard-item img {
+        width: 18px;
+    }
+
+    .dashboard-item p{
+        font-size: smaller;
+    }
+}
+
+@media (max-width: 820px) {
+    #dashboard {
+        margin-bottom: 233px;
+    }
+
+    .dashboard-item {
+        gap: 12px;
+    }
+
+    .dashboard-item img {
+        width: 16px;
+    }
+    .dashboard-item p {
+        font-size: small;
+    }
+}

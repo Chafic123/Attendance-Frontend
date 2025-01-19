@@ -1,0 +1,91 @@
+.filter-container {
+    width: 100%;
+    display: flex;
+    margin: 7px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+}
+
+.filter-container p {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #000;
+    font-size: 16.667px;
+}
+
+.filter-container select {
+    width: 18.5%;
+    height: 26px;
+    outline: none;
+    border: 0;
+    background: #D6D2E4;
+    border-radius: 10px;
+    padding: 0 5px;
+    flex-grow: 1;
+    font-size: 14px;
+
+}
+
+.filter-container option {
+    color: rgba(71, 73, 77, 1);
+    font-weight: 400;
+}
+
+.filter-container input {
+    width: 18.5%;
+    height: 28px;
+    outline: none;
+    border: 0;
+    background: #D6D2E4;
+    border-radius: 10px;
+    padding: 0 5px;
+    color: rgba(71, 73, 77, 1);
+    flex-grow: 1;
+    font-size: 14px;
+
+}
+
+
+@media (max-width: 1024px)
+{
+    .filter-container {
+        gap: 3px !important;
+    }
+
+    .filter-container input,
+    .filter-container select{
+        font-size: 11px !important;
+    }
+
+    .filter-container input{
+        width: 12.5% !important;
+    }
+
+    .filter-container select{
+        width: 16.5% !important;
+    }
+}
+
+@media (max-width: 820px) {
+    .filter-container {
+        gap: 1px !important;
+    }
+
+    .filter-container p {
+        font-size: 10.667px;
+    }
+
+    .filter-container input, .filter-container select {
+        font-size: 6px !important;
+        height: 16px;
+    }
+
+    .filter-container input {
+        width: 8.5% !important;
+    }
+
+    .filter-container select {
+        width: 13.5% !important;
+    }
+}
