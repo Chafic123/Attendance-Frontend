@@ -6,16 +6,9 @@
     width: 100%;
 }
 
-@media (max-width: 1024px)
-{
-    .AdminPage {
-        height: 56vh;
-    }
-}
 
 @media (max-width: 820px) {
     .AdminPage {
-        height: 65vh;
         width: 98%;
     }
 }

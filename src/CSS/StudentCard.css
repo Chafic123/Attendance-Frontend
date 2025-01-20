@@ -62,7 +62,7 @@
     }
 
     .student-card {
-        width: 43.3%;
+        width: 40.3%;
         height: 73px;
     }
 
@@ -89,17 +89,17 @@
 
 @media (max-width: 820px) {
     .StuentContainer {
-        gap: 12px;
+        gap: 9px;
     }
 
     .student-card {
-        width: 40.3%;
+        width: 39%;
         height: 55px;
     }
 
-    .student-card img{
-        width: 3vw !important;
-        height: 3vw !important;
+    .student-card img {
+        width: 4vw !important;
+        height: 4vw !important;
     }
 
     .student-details {
@@ -111,13 +111,13 @@
     }
 
     .student-major {
-        font-size: 7px;
+        font-size: 6px;
     }
 
     .student-id {
         font-size: 7.87px !important;
     }
     .css-1n5qiej-MuiIcon-root {
-        font-size: 0.8rem !important;
+        font-size: 0.6rem !important;
     }
 }
