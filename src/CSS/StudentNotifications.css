@@ -1,7 +1,6 @@
-
-#container{
-    width: 58%;
-    min-height: 35%;
+#container {
+    width: 67%;
+    min-height: 34%;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -23,13 +22,12 @@
     width: 100%; 
     margin: 10px 0;
   }
-.notifications{
+  .notifications {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .notification-title-container{
     display: flex;

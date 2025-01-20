@@ -15,8 +15,9 @@ export default function StudentWholeContent(props) {
     >
 
       <StudentMainContent selectedDashboardITem={props.selectedDashboardITem} />
+      {props.selectedDashboardITem === "View Schedule" ? (
+                  null) : <StudentPanel title={props.selectedAddItem} />}
       
-      <StudentPanel title={props.selectedAddItem} />
         
     </div>
   );

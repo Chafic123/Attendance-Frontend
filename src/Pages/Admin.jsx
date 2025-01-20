@@ -3,7 +3,7 @@ import Dashboard from "../Components/Generals/Dashboard";
 import Logo from "../Components/Generals/Logo";
 import AdminWholeContent from "../Components/Admin/AdminWholeContent";
 import "../CSS/AdminPage.css"
-export default function AdminCourses() {
+export default function Admin() {
   const [selectedText, setSelectedText] = useState(null);
   const DashboardItems = [
     {

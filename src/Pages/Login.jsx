@@ -15,7 +15,7 @@ export default function Login() {
         >
             <Logo />
             <div id="body-container">
-                <div id="container">
+                <div id="body-login">
                     <div id="image-cont">
                         <img src="../public/Images/Login.png" alt="Login Illustration" />
                     </div>

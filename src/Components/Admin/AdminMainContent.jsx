@@ -17,7 +17,6 @@ export default function AdminMainContent(props) {
   // const handleInstructorClick = (id) => {
     
   // }
-
   return (
     <>
       {props.selectedDashboardITem === "View Students" ? (
@@ -51,22 +50,22 @@ export default function AdminMainContent(props) {
           </div>
         </div>
       ) : props.selectedDashboardITem === "View Courses" ? (
-        <div
-          style={{
-            width: "48%",
-            padding: "57px",
-            paddingBottom: "0",
-            borderRadius: "66px 0 0 66px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "17px",
-          }}
-        >
-          <MainContentTop title="Courses" />
-          <AdminFilter title="CourseFilter" />
-          <Course user="Admin"/>
+          <div
+            style={{
+              width: "48%",
+              padding: "57px",
+              paddingBottom: "0",
+              borderRadius: "66px 0 0 66px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "17px",
+            }}
+          >
+            <MainContentTop title="Courses" />
+            <AdminFilter title="CourseFilter" />
+            <Course user="Admin"/>
 
-        </div>
+          </div>
       ) : props.selectedDashboardITem === "View Instructors" ? (
         <div
           style={{
@@ -82,9 +81,7 @@ export default function AdminMainContent(props) {
           <MainContentTop title="Instructors" />
           <AdminFilter title="InstructorFilter" />
         </div>
-      ) : (
-        <MainContentTop title="Courses" />
-      )}
+      ): null}
     </>
   );
 }

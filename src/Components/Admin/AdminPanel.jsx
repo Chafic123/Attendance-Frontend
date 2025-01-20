@@ -1,7 +1,6 @@
 import AdminAddCourse from "./AdminAddCourse";
 import AdminAddStudent from "./AdminAddStudent";
 import AdminAddInstructor from "./AdminAddInstructor";
-import Calender from "../Generals/CalenderForm";
 import PropTypes from "prop-types";
 
 export default function AdminPanel(props) {
@@ -25,7 +24,6 @@ export default function AdminPanel(props) {
         ) : props.title === "View Instructors" ? (
           <div style={{ display: "flex", flexDirection: "column", gap: "0px", width: "100%" }}>
             <AdminAddInstructor />
-            <Calender />
           </div>
         ) : (
           null

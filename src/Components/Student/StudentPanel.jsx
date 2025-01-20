@@ -4,7 +4,7 @@ import StudentSchedule from "./StudentSchedule"
 import StudentProfile from "./StudentProfile"
 import "../../CSS/StudentCalender.css";
 import StudentNotifications from "./StudentNotifications";
-export default function AdminPanel(props) {
+export default function StudentPanel(props) {
   return (
     <div
       style={{
@@ -40,6 +40,6 @@ export default function AdminPanel(props) {
   );
 }
 
-AdminPanel.propTypes = {
+StudentPanel.propTypes = {
   title: PropTypes.string,
 };
