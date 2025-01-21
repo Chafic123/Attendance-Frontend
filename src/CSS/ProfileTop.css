@@ -1,0 +1,16 @@
+body{
+    position: relative;
+}
+.profileTop-container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50px;
+    right: 80px;
+    gap: 15px;
+}
+.profile-icon{
+    width: 37.01px;
+    height: 32.01px;
+}

@@ -3,6 +3,7 @@ import Dashboard from "../Components/Generals/Dashboard";
 import Logo from "../Components/Generals/Logo";
 import AdminWholeContent from "../Components/Admin/AdminWholeContent";
 import "../CSS/AdminPage.css"
+import ProfileTop from "../Components/Generals/ProfileTop";
 export default function Admin() {
   const [selectedText, setSelectedText] = useState(null);
   const DashboardItems = [
@@ -32,6 +33,7 @@ export default function Admin() {
 
   return (
     <div className="AdminPage">
+      <ProfileTop />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <AdminWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>

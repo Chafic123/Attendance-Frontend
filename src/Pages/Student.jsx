@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Dashboard from "../Components/Generals/Dashboard";
+import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import StudentWholeContent from "../Components/Student/StudentWholeContent";
 
@@ -40,6 +41,7 @@ export default function Student() {
         width: "100%",
       }}
     >
+      <ProfileTop />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <StudentWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
