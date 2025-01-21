@@ -1,0 +1,13 @@
+.Logo {
+    position: absolute;
+    top: 40px;
+    left: 30px;
+    width: 10vw;
+}
+
+@media (max-width: 430px) {
+    .Logo {
+        left: 6px;
+        width: 12vw;
+    }
+}

@@ -1,14 +1,10 @@
-// import React from 'react';
 import PropTypes from 'prop-types';
+import "../../CSS/HeaderTitle.css"
 
 export default function HeaderTitle({ title }) {
   return (
-    <p
-      style={{
-        fontSize: '36px',
-        fontWeight: 'bold',
-        color: 'rgba(84, 51, 129, 1)',
-      }}
+    <p className='Header-title'
+      
     >
       {title}
     </p>
