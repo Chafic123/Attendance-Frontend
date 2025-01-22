@@ -1,6 +1,19 @@
 import "../../CSS/AdminAddInstructor.css";
 import PropTypes from 'prop-types';
+import { useState } from "react";
+
 const AdminAddInstructor = () => {
+
+        const [instructorImage, setInstructorImage] = useState("Upload New")
+    
+
+    const handleInstructorImage = (event) => {
+        if (event.target.files.length > 0) {
+            setInstructorImage(event.target.files[0].name);
+        } else {
+            setInstructorImage("Upload New");
+        }
+    };
     return (
 
         <div className="add-instructor-card">
@@ -44,12 +57,23 @@ const AdminAddInstructor = () => {
                     />
                 </div>
 
-                <div className="form-instructor-row">
-                    <div className="form-instructor-group">
-                        <label htmlFor="Image" id="image">Image</label>
-                        <img src="Images/Upload_img.png" alt="" />
-                        <span htmlFor="" >Upload New</span>
-                    </div>
+                <div className="imgParent">
+                    <input
+                        type="file"
+                        id="fileInput"
+                        className="img-input"
+                        onChange={handleInstructorImage}
+                    />
+
+                    <label htmlFor="fileInput" className="imageLabel">
+                        Image
+                    </label>
+
+                    <label htmlFor="fileInput" className="upload-img-btn">
+                        <img src="../Images/Upload_img.png" alt="Upload" />
+                    </label>
+
+                    <span className="img-name">{instructorImage}</span>
                 </div>
 
                 <div className="form-instructor-actions">

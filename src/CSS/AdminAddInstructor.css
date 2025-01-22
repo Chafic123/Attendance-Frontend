@@ -64,6 +64,39 @@
     gap: 22px;
 }
 
+.imgParent {
+    display: flex;
+    align-items: center;
+    margin-left: -5px;
+}
+.img-input {
+    display: none;
+}
+
+.imageLabel {
+    margin: 0 5px;
+    color: #482B70;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.upload-img-btn {
+    display: inline-block;
+    padding: 5px 5px;
+    color: #47494D;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+.img-name {
+    font-size: 10.759px;
+    color: #47494D;
+    font-weight: 400;
+    margin-left: 5px;
+}
+
 .form-instructor-actions {
     width: 84%;
     display: flex;
@@ -125,5 +158,85 @@
         margin-left: 0px;
         text-align: center;
         gap: 40px;
+    }
+
+    .imageLabel {
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .add-instructor-form {
+        gap: 15px;
+    }
+
+    .add-instructor-card {
+        padding-top: 50px !important;
+        padding-left: 4px !important;
+    }
+
+    .card-instructor-title {
+        font-size: 18px !important;
+    }
+
+    .form-instructor-group {
+        align-items: center;
+        gap: 16px !important;
+    }
+
+    #form-group-date {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 9px !important;
+    }
+
+    .form-instructor-group label {
+        font-size: 10px !important;
+        width: 43px !important;
+    }
+
+    .instructor-date-inputs {
+        align-items: flex-start !important;
+        gap: 1px !important;
+        font-size: 5px !important; 
+        padding: 0 !important;
+        margin-left: -2px !important;
+        width: 104% !important;
+    }
+
+    .form-instructor-group input {
+        width: 90% !important;
+        font-size: 9px !important;
+        padding: 2px 27px !important;
+    }
+    
+    .form-instructor-row {
+        width: 100% !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        gap: 11px !important;
+    }
+
+    .form-instructor-row .form-instructor-group {
+        width: 99% !important;
+        gap: 13px !important;
+    }
+
+    .form-instructor-row .form-instructor-group:last-child {
+        gap: 11px !important;
+    }
+
+    .form-instructor-actions {
+        width: 123% !important;
+        gap: 15px !important;
+        margin-left: -3px !important;
+        margin-top: 3px !important;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        font-size: 8px !important;
     }
 }

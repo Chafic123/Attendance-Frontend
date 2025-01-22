@@ -3,6 +3,7 @@ import Course from "../Generals/Course";
 import MainContentTop from "./AdminMainContentTop";
 import StudentCard from "../Generals/StudentCard";
 import PropTypes from "prop-types";
+import InstructorCard from "../Generals/InstructorCard";
 
 export default function AdminMainContent(props) {
 
@@ -80,6 +81,13 @@ export default function AdminMainContent(props) {
         >
           <MainContentTop title="Instructors" />
           <AdminFilter title="InstructorFilter" />
+
+          <div className="InstructorContainer">
+            <InstructorCard user="Admin"/>
+            <InstructorCard user="Admin"/>
+            <InstructorCard user="Admin"/>
+            
+          </div>
         </div>
       ) : null}
     </>

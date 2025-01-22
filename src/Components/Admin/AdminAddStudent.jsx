@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { useState } from "react";
 const AdminAddStudent = () => {
 
-    const [fileName, setFileName] = useState("Upload New")
+    const [studentImage, setStudentImage] = useState("Upload New")
 
-    const handleFileChange = (event) => {
+    const handleStudentImage = (event) => {
         if (event.target.files.length > 0) {
-            setFileName(event.target.files[0].name);
+            setStudentImage(event.target.files[0].name);
         } else {
-            setFileName("Upload New");
+            setStudentImage("Upload New");
         }
     };
 
@@ -61,7 +61,7 @@ const AdminAddStudent = () => {
                         type="file"
                         id="fileInput"
                         className="img-input"
-                        onChange={handleFileChange}
+                        onChange={handleStudentImage}
                     />
 
                     <label htmlFor="fileInput" className="imageLabel">
@@ -72,7 +72,7 @@ const AdminAddStudent = () => {
                         <img src="../Images/Upload_img.png" alt="Upload" />
                     </label>
 
-                    <span className="img-name">{fileName}</span>
+                    <span className="img-name">{studentImage}</span>
                 </div>
 
                 <div className="form-student-actions">
