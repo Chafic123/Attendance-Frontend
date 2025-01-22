@@ -55,6 +55,39 @@
 }
 
 
+.imgParent {
+    display: flex;
+    align-items: center;
+    margin-left: -5px;
+}
+.img-input {
+    display: none;
+}
+
+.imageLabel {
+    margin: 0 5px;
+    color: #482B70;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.upload-img-btn {
+    display: inline-block;
+    padding: 5px 5px;
+    color: #47494D;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+.img-name {
+    font-size: 10.759px;
+    color: #47494D;
+    font-weight: 400;
+    margin-left: 5px;
+}
+
 .form-student-actions {
     width: 84%;
     display: flex;
@@ -103,6 +136,8 @@
 }
 
 
+
+
 /* Ipad Pro */
 
 @media (max-width: 1024px) {
@@ -120,6 +155,10 @@
     .form-student-group input {
         width: 64% !important;
         font-size: 12px !important;
+    }
+
+    .imageLabel {
+        font-size: 14px !important;
     }
 
     .form-student-actions {
@@ -160,6 +199,18 @@
         width: 49% !important;
         font-size: 6px !important;
         padding: 3px 2px !important;
+    }
+
+    .imageLabel {
+        font-size: 10px !important;
+    }
+
+    .imgParent img {
+        width: 13px;
+    }
+
+    .img-name {
+        font-size: 6.759px;
     }
 
     .form-student-actions {

@@ -1,6 +1,18 @@
 import "../../CSS/AdminAddStudent.css";
 import PropTypes from 'prop-types';
+import { useState } from "react";
 const AdminAddStudent = () => {
+
+    const [fileName, setFileName] = useState("Upload New")
+
+    const handleFileChange = (event) => {
+        if (event.target.files.length > 0) {
+            setFileName(event.target.files[0].name);
+        } else {
+            setFileName("Upload New");
+        }
+    };
+
     return (
 
         <div className="add-student-card">
@@ -44,9 +56,23 @@ const AdminAddStudent = () => {
                     />
                 </div>
 
-                <div className="form-student-group">
-                    <label htmlFor="Image" id="image">Image</label>
-                    <input type="file" />
+                <div className="imgParent">
+                    <input
+                        type="file"
+                        id="fileInput"
+                        className="img-input"
+                        onChange={handleFileChange}
+                    />
+
+                    <label htmlFor="fileInput" className="imageLabel">
+                        Image
+                    </label>
+
+                    <label htmlFor="fileInput" className="upload-img-btn">
+                        <img src="../Images/Upload_img.png" alt="Upload" />
+                    </label>
+
+                    <span className="img-name">{fileName}</span>
                 </div>
 
                 <div className="form-student-actions">
