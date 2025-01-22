@@ -62,6 +62,7 @@ export default function AdminMainContent(props) {
           <div className="CourseContainer">
             <Course user="Admin" />
             <Course user="Admin" />
+            <Course user="Admin" />
           </div>
 
         </div>

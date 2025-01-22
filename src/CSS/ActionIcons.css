@@ -49,8 +49,8 @@
     .search-input.visible {
         position: absolute;
         top: 20px;
-        width: 137px;
-        right: -10px;
+        width: 331%;
+        right: 30%;
         height: 6px;
         font-size: 9px;
     }
