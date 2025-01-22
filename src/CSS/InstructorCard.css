@@ -34,23 +34,22 @@
 
 .Instructor-name {
     font-size: 15px;
-    font-weight: bold;
-    color: rgba(84, 51, 129, 1);
+    color: #543381;
     margin: 0;
+font-weight: 600;
 }
 
 .Instructor-title {
     font-size: 15px;
-    font-weight: 400;
-    color: rgba(71, 73, 77, 1);
     margin: 0;
+    color: #000;
 }
 
 .Instructor-Department {
     font-size: 11px;
-    font-weight: 500;
-    color: rgba(146, 147, 150, 1);
+    color: #929396;
     margin: 0;
+    font-weight: 600;
 }
 
 

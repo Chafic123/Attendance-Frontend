@@ -200,7 +200,7 @@
     }
 
     .form-course-group {
-        align-items: flex-start;
+        align-items: center;
         gap: 11px;
     }
 
@@ -221,19 +221,19 @@
         font-size: 5px;
         padding: 0;
         margin-left: -2px;
-        width: 104%;
+        width: 131%;
     }
 
     .form-course-group select {
-        width: 84%;
-        padding: 3px 1px;
+        width: 82%;
+        padding: 6px 2px;
         font-size: 8px;
     }
 
     .form-course-group input {
         width: 85%;
         font-size: 6px;
-        padding: 2px 2px;
+        padding: 8px 4px;
     }
 
     #form-group-time {

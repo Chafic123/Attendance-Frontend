@@ -34,7 +34,7 @@
 }
 
 .form-student-group input {
-    width: 60%;
+    width: 71%;
     padding: 10px 12px;
     border: 1px solid #4A2B99;
     background-color: rgb(245, 243, 253);
@@ -198,7 +198,7 @@
     .form-student-group input {
         width: 49% !important;
         font-size: 6px !important;
-        padding: 3px 2px !important;
+        padding: 8px 3px !important;
     }
 
     .imageLabel {

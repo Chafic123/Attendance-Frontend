@@ -31,9 +31,9 @@
 }
 
 .form-instructor-group label {
-    width: 105px;
+    width: 107px;
     color: #482B70;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
 }
 
@@ -208,7 +208,7 @@
     .form-instructor-group input {
         width: 90% !important;
         font-size: 9px !important;
-        padding: 2px 27px !important;
+        padding: 7px 32px !important;
     }
     
     .form-instructor-row {
