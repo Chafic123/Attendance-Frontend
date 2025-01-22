@@ -1,0 +1,95 @@
+.CourseContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.course {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(236, 236, 239, 1);
+    height: 91px;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    padding-right: 10px;
+    width: 47%;
+}
+
+.courseDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.courseBorder {
+    height: 91px;
+    width: 24px;
+    background-color: rgba(84, 51, 129, 1);
+    border-radius: 16px;
+}
+
+.courseText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+}
+
+.courseCode {
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(84, 51, 129, 1);
+    margin: 0;
+}
+
+.courseName {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(71, 73, 77, 1);
+    margin: 0;
+}
+
+.courseInstructor {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(146, 147, 150, 1);
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+
+    .CourseContainer {
+        width: 110%;
+        gap: 10px;
+    }
+
+    .course {
+        width: 45.9%;
+        height: 80px;
+    }
+
+    .courseBorder {
+        width: 21px;
+        height: 80px;
+    }
+
+    .courseText {
+        gap: 3px;
+    }
+
+    .courseCode {
+        font-size: 13px;
+    }
+
+    .courseName {
+        font-size: 12px;
+    }
+
+    .courseInstructor {
+        font-size: 9px;
+    }
+}
