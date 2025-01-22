@@ -50,7 +50,7 @@ const AdminAddCourse = () => {
                     </div>
                 </div>
 
-                <div className="form-course-group">
+                <div className="form-course-group" id="form-group-time">
                     <label>Time:</label>
                     <div className="course-time-inputs">
                         <input
