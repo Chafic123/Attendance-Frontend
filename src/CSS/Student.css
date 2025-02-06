@@ -1,0 +1,21 @@
+/* iPad Pro Portrait */
+.whole-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+
+}
+
+@media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+    .whole-container{
+        height: 50vh;
+        width: 95%;
+
+    }  }
+  
+
+  
+
+  

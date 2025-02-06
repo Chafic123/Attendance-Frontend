@@ -1,6 +1,40 @@
 import "../../CSS/StudentProfile.css";
-
+import { useEffect,useState } from "react";
 export default function StudentProfile(){
+    const [studentImage, setStudentImage] = useState("Upload New")
+        
+    const handleStudentImage = (event) => {
+        if (event.target.files.length > 0) {
+            setStudentImage(event.target.files[0].name);
+        } else {
+            setStudentImage("Upload New");
+        }
+        };
+    useEffect(() => {
+      
+        const changeButtonText = () => {
+            const button = document.querySelector('.save-btn');
+            if (button) {
+                if (window.matchMedia("(width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2)").matches) {
+                    button.textContent = "Save";  // Set to "Save" on match
+                } else {
+                    button.textContent = "Save Changes";  // Reset to "Save Changes" if the condition no longer matches
+                }
+            }
+        };
+    
+        // Call the function on component mount
+        changeButtonText();
+    
+        // Optional: Add event listener to handle changes in screen size dynamically
+        window.addEventListener('resize', changeButtonText);
+    
+        // Cleanup the event listener on component unmount
+        return () => {
+            window.removeEventListener('resize', changeButtonText);
+        };
+    }, []);
+    
     return (
         <div className="student-profile">
         <h2 className="profile-title">My Profile</h2>
@@ -58,9 +92,22 @@ export default function StudentProfile(){
 
             <div className="form-student-row">
                 <div className="form-student-group">
-                    <label htmlFor="Image" id="image">Image</label>
-                    <img src="Images/Upload_img.png" alt="" />
-                    <span htmlFor="" >Upload New</span>
+                <input
+                        type="file"
+                        id="fileInput"
+                        className="img-input"
+                        onChange={handleStudentImage}
+                    />
+
+                    <label htmlFor="fileInput" className="imageLabel">
+                        Image
+                    </label>
+
+                    <label htmlFor="fileInput" className="upload-img-btn">
+                        <img src="../Images/Upload_img.png" alt="Upload" />
+                    </label>
+
+                    <span className="img-name">{studentImage}</span>
                 </div>
             </div>
 

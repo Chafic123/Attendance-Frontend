@@ -17,7 +17,7 @@ export default function Course(props) {
   }, [props.studentEmail]);  // Runs whenever studentEmail prop changes
 
   return (
-    <div className="courses-container">
+    <div className="CourseContainer">
       {courses.map((course, index) => (
         <div className="course" key={index}>
           <div className="courseDetails">

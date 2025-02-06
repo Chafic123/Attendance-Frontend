@@ -14,3 +14,10 @@ body{
     width: 37.01px;
     height: 32.01px;
 }
+@media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+    .profileTop-container{
+        top: 30px;
+        right: 120px;
+        gap: 15px;
+    }
+}

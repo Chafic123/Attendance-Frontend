@@ -1,18 +1,11 @@
 import StudentMainContent from "./StudentMainContent";
 import StudentPanel from "./StudentPanel";
 import PropTypes from 'prop-types';
+import "../../CSS/StudentWholeContent.css"
 export default function StudentWholeContent(props) {
 
   return (
-    <div
-      style={{
-        display: "flex",
-        width: "82%",
-        height: "95%",
-        backgroundColor: "white",
-        borderRadius: "66px",
-      }}
-    >
+    <div className="whole-content-container" >
 
       <StudentMainContent selectedDashboardITem={props.selectedDashboardITem} />
       {props.selectedDashboardITem === "View Schedule" ? (

@@ -138,3 +138,25 @@
     background-color: #3d2280;
 }
 
+
+
+@media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+
+    
+    .imageLabel{
+        margin-left: 25px;
+    }
+    .student-profile{
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 24px;
+        font-family: Arial, sans-serif;
+        color: #4A2B99;
+        padding-top: 50px;
+
+    }
+    .profile-icon{
+        height: 30px;
+        width: 30px;
+    }
+}

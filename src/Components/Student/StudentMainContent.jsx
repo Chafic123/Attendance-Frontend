@@ -37,7 +37,7 @@ export default function StudentMainContent(props) {
             <StudentFilter title="StudentFilter" />
           </div>
           <Course studentEmail="student1@example.com" />
-
+          <Course studentEmail="student1@example.com" />
 
         </div>
       ) : props.selectedDashboardITem === "View Schedule" ? (

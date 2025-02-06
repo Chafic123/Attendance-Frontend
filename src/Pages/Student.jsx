@@ -3,7 +3,7 @@ import Dashboard from "../Components/Generals/Dashboard";
 import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import StudentWholeContent from "../Components/Student/StudentWholeContent";
-
+import "../CSS/Student.css"
 export default function Student() {
   const [selectedText, setSelectedText] = useState(null);
   const DashboardItems = [
@@ -32,14 +32,7 @@ export default function Student() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        height: "100vh",
-        width: "100%",
-      }}
+    <div className="whole-container"
     >
       <ProfileTop />
       <Logo />
