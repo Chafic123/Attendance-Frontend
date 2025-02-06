@@ -61,9 +61,7 @@ export default function Login() {
                         <form onSubmit={(e) => e.preventDefault()}>
                             <div id="form-txt">
                                 <p id="form-title">Log In</p>
-                                <p id="form-des">
-                                    Welcome back! Please log in to your account.
-                                </p>
+                                
                             </div>
                             <div className="form-inputs">
                                 <label htmlFor="email" className="input-label">Email</label>
