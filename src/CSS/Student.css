@@ -1,21 +1,33 @@
-/* iPad Pro Portrait */
-.whole-container{
+/* General styling */
+.whole-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 100vh;
     width: 100%;
-
 }
 
+
+/* For iPad Pro Portrait */
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
-    .whole-container{
+    .whole-container {
         height: 50vh;
         width: 95%;
+    }
+}
+/* For iPhone 14 Pro Max (or similar screen size) */
+@media only screen and (max-width: 431px) and (height: 932px) {
+    html,body{
+        margin: 0;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+    .whole-container {
+      height: 55vh;
+      width: 100%;
+      
+    }
+      
 
-    }  }
-  
-
-  
-
+  }
   

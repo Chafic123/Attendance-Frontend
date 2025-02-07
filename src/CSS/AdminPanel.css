@@ -15,9 +15,6 @@
     width: 100%;
 }
 
-@media (max-width: 430px) {
-    .AdminPanelParent {
-        width: 36%;
-        padding: 10px;
-    }
+@media only screen and (width: 431px) and (height: 932px) {
+   
 }

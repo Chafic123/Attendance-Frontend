@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "../../CSS/ActionIcons.css"
+import "../../CSS/ActionIcons.css";
 
 export default function ActionIcons({
   onSearch,
@@ -15,9 +15,7 @@ export default function ActionIcons({
   };
 
   return (
-    <div className="iconsParent"
-
-    >
+    <div className="iconsParent">
       <input
         className={`search-input ${showInput ? "visible" : ""}`}
         type="text"
@@ -25,11 +23,11 @@ export default function ActionIcons({
         onChange={(e) => onSearch(e.target.value)}
       />
 
-      {DashboardSelected === "Notifications" ||
-        DashboardSelected === "Schedule" ? null : (
+      {DashboardSelected === "Notifications" || DashboardSelected === "Schedule" ? null : (
         <>
           {/* Search Icon */}
-          <img className="search-icon"
+          <img
+            className="search-icon"
             src="../public/Images/Search-icon.png"
             alt="Search Icon"
             onClick={handleSearchClick}
@@ -37,10 +35,10 @@ export default function ActionIcons({
 
           {/* Add Icon */}
           {user === "Admin" ? (
-            <img className="add-icon"
+            <img
+              className="add-icon"
               src="../public/Images/Add-icon.png"
               alt="Add Icon"
-
               onClick={onAdd}
             />
           ) : null}

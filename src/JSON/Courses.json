@@ -6,6 +6,24 @@
       "studentEmail": "student1@example.com"
     },
     {
+      "courseId": "GRDS424",
+      "courseName": "Web and Interactive Design",
+      "courseInstructor": "Myriam Chamoon",
+      "studentEmail": "student1@example.com"
+    },
+    {
+      "courseId": "GRDS424",
+      "courseName": "Web and Interactive Design",
+      "courseInstructor": "Myriam Chamoon",
+      "studentEmail": "student1@example.com"
+    },
+    {
+      "courseId": "GRDS424",
+      "courseName": "Web and Interactive Design",
+      "courseInstructor": "Myriam Chamoon",
+      "studentEmail": "student1@example.com"
+    },
+    {
       "courseId": "CS101",
       "courseName": "Introduction to Computer Science",
       "courseInstructor": "John Doe",

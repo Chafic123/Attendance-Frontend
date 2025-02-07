@@ -4,23 +4,10 @@ import MainContentTopSI from "./MainContentTopSI";
 import PropTypes from "prop-types";
 import StudentNotificationCenter from "./StudentNotificationCenter";
 
-export default function StudentMainContent(props) {
-
-  // const handleCourseClick = (id) => {
-    
-  // }
-
-  // const handleStudentClick = (id) => {
-    
-  // }
-
-  // const handleInstructorClick = (id) => {
-    
-  // }
-
+export default function StudentMainContent({ selectedDashboardITem, onAdd }) {
   return (
     <>
-      {props.selectedDashboardITem === "View Courses" ? (
+      {selectedDashboardITem === "View Courses" ? (
         <div
           style={{
             width: "48%",
@@ -32,15 +19,13 @@ export default function StudentMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Courses" />
+          <MainContentTopSI title="Courses" onAdd={onAdd} />
           <div>
             <StudentFilter title="StudentFilter" />
           </div>
           <Course studentEmail="student1@example.com" />
-          <Course studentEmail="student1@example.com" />
-
         </div>
-      ) : props.selectedDashboardITem === "View Schedule" ? (
+      ) : selectedDashboardITem === "View Schedule" ? (
         <div
           style={{
             width: "48%",
@@ -52,12 +37,12 @@ export default function StudentMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Schedule" />
+          <MainContentTopSI title="Schedule" onAdd={onAdd} />
         </div>
-      ) : props.selectedDashboardITem === "View Notifications" ? (
+      ) : selectedDashboardITem === "View Notifications" ? (
         <div
           style={{
-            width: "48%",   
+            width: "48%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",
@@ -66,16 +51,17 @@ export default function StudentMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Notifications" />
+          <MainContentTopSI title="Notifications" onAdd={onAdd} />
           <StudentNotificationCenter />
         </div>
       ) : (
-        <MainContentTopSI title="Courses" />
+        <MainContentTopSI title="Courses" onAdd={onAdd} />
       )}
     </>
   );
 }
 
 StudentMainContent.propTypes = {
-  selectedDashboardITem: PropTypes.string.isRequired, 
+  selectedDashboardITem: PropTypes.string.isRequired,
+  onAdd: PropTypes.func.isRequired, // Added prop type for onAdd
 };

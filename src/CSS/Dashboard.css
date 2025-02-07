@@ -74,10 +74,10 @@
     }
 }
 
-@media (max-width: 430px) {
+@media only screen and (width: 430px) and (height: 932px) {
     #dashboard {
         position: relative;
-        margin-bottom: 384px;
+        margin-bottom: 44px;
     }
 
     .dashboard-item p {
@@ -90,7 +90,7 @@
     #logout {
         gap: 11px;
         left: 1px;
-        bottom: -412px;
+        bottom: -172px;
         font-size: larger;
     }
     
@@ -104,6 +104,8 @@
     }
 }
 
+
+
   /* Target iPad Pro (11-inch and 12.9-inch) */
   @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     #dashboard {
@@ -111,5 +113,8 @@
     }
     #logout {
         bottom: -162px;
-    }  }
+    }  
+}
   
+ 
+      

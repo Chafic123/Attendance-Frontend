@@ -3,20 +3,20 @@ import PropTypes from "prop-types";
 import StudentSchedule from "./StudentSchedule"
 import StudentProfile from "./StudentProfile"
 import "../../CSS/StudentCalender.css";
+import "../../CSS/Student.css"
+import "../../CSS/StudentProfile.css"
 import StudentNotifications from "./StudentNotifications";
 export default function StudentPanel(props) {
+  const hideProfile = () => {
+    const panel = document.querySelector('.panel-container.visible'); // Targeting both classes
+    if (panel) {
+      panel.classList.remove('visible'); // Remove the 'visible' class
+    }
+    console.log("Profile hidden");
+  };
+  
   return (
-    <div
-      style={{
-        width: "40%",
-        backgroundColor: "rgba(245, 243, 253, 1)",
-        borderRadius: "0 66px 66px 0",
-        display: "flex", 
-        flexDirection: "column", 
-        gap: "20px", 
-        padding: "20px", 
-      }}
-    >
+    <div className="panel-container">
       {
         props.title === "View Courses" ? (
             <StudentProfile />
@@ -36,6 +36,7 @@ export default function StudentPanel(props) {
           null
         )
       }
+      <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hideProfile} alt="cancel icon" />
     </div>
   );
 }
