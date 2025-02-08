@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import "../../CSS/AdminFilter.css";
 
 const AdminFilter = (props) => {
@@ -7,7 +7,7 @@ const AdminFilter = (props) => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
-    
+
   };
 
   return (
@@ -56,7 +56,7 @@ const AdminFilter = (props) => {
 };
 
 AdminFilter.propTypes = {
-  title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired, 
+  title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired,
 };
 
 

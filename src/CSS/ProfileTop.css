@@ -1,34 +1,44 @@
-body{
+body {
     position: relative;
 }
-.profileTop-container{
+
+.profileTop-container {
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 50px;
+    top: 20px;
     right: 80px;
     gap: 15px;
 }
-.profile-icon{
-    width: 37.01px;
-    height: 32.01px;
+
+.profile-icon {
+    width: 2vw;
+    height: 5vh;
 }
+
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
-    .profileTop-container{
-        top: 30px;
-        right: 120px;
-        gap: 15px;
+    .profileTop-container {
+        top: 33px;
+        right: 60px;
+        gap: 7px;
+    }
+
+    .profile-icon {
+        height: 2vh;
+        width: 2vw;
     }
 }
+
 @media only screen and (max-width: 431px) and (height: 932px) {
-    .profileTop-container{
+    .profileTop-container {
         top: 30px;
-        left: 10px;
+        left: -62px;
         gap: 10px;
     }
-    .profile-icon{
-        width: 27.01px;
-        height: 22.01px;
+
+    .profile-icon {
+        width: 3vw;
+        height: 2vh;
     }
 }

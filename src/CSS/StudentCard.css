@@ -54,15 +54,15 @@
 }
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (height: 1366px){
 
     .StudentContainer {
         gap: 10px;
     }
 
     .student-card {
+        width: 41.5%;
         height: 73px;
-        flex-basis: 43.3%;
     }
 
     .student-details {
@@ -86,36 +86,38 @@
     }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 430px) and (height: 932px){
 
     .StudentContainer {
-        width: 241%;
-        margin-left: -30px;
-        align-items: center;
-        justify-content: flex-start;
+        width: 161%;
+        margin-left: -23px;
+        max-height: 250px;
+        gap: 8px;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
 
     .student-card {
-        flex-basis: 59.3%;
-        justify-content: space-between;
+        flex-basis: 41%;
+        height: 59px;
     }
 
     .student-card img {
-        width: 10vw !important;
-        height: 5vh !important;
+        width: 8vw !important;
+        height: 4vh !important;
     }
 
     .student-name {
-        font-size: 7.87px !important;
+        font-size: 6.87px !important;
     }
 
     .student-major {
-        font-size: 9px !important;
+        font-size: 8px !important;
     }
 
     .student-id {
-        font-size: 6.87px !important;
+        font-size: 5.87px !important;
     }
 
     .css-1n5qiej-MuiIcon-root {

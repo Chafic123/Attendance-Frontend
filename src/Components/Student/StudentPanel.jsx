@@ -14,24 +14,24 @@ export default function StudentPanel(props) {
     }
     console.log("Profile hidden");
   };
-  
+
   return (
     <div className="panel-container">
       {
         props.title === "View Courses" ? (
-            <StudentProfile />
+          <StudentProfile />
         ) : props.title === "View Schedule" ? (
-            <StudentSchedule />
+          <StudentSchedule />
         ) : props.title === "View Notifications" ? (
           <div>
 
             <div className="custom-calendar-wrapper">
-            <Calender />
+              <Calender />
             </div>
             <StudentNotifications />
 
           </div>
-          
+
         ) : (
           null
         )

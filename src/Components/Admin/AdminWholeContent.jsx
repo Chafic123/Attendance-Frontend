@@ -1,23 +1,22 @@
 import AdminMainContent from "./AdminMainContent";
 import AdminPanel from "./AdminPanel";
 import PropTypes from 'prop-types';
-// import "../../CSS/AdminWholeContent.css"
+import "../../CSS/AdminWholeContent.css"
+import { useState } from "react";
 export default function AdminWholeContent(props) {
+  
+const [isAdminPanel, setAdminPanel] = useState(true)
+
+const showAdminPanel = (state) => {
+  setAdminPanel(state)
+}
 
   return (
-    <div className="AdminWholeContent"
-      style={{
-        display: "flex",
-        width: "82%",
-        height: "95%",
-        backgroundColor: "white",
-        borderRadius: "66px",
-      }}
-    >
+    <div className="AdminWholeContent">
 
-      <AdminMainContent selectedDashboardITem={props.selectedDashboardITem} />
+      <AdminMainContent selectedDashboardITem={props.selectedDashboardITem} showAdminPanel={showAdminPanel}/>
       
-      <AdminPanel title={props.selectedAddItem} />
+      <AdminPanel title={props.selectedAddItem} isAdminPanel={isAdminPanel}/>
         
     </div>
   );

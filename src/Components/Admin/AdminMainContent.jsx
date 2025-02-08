@@ -18,6 +18,7 @@ export default function AdminMainContent(props) {
   // const handleInstructorClick = (id) => {
 
   // }
+
   return (
     <>
       {props.selectedDashboardITem === "View Students" ? (
@@ -32,7 +33,7 @@ export default function AdminMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTop title="Students" />
+          <MainContentTop title="Students" showAdminPanel={props.showAdminPanel}/>
           <AdminFilter title="StudentFilter" />
 
           <div className="StudentContainer"
@@ -79,7 +80,7 @@ export default function AdminMainContent(props) {
             gap: "17px",
           }}
         >
-          <MainContentTop title="Instructors" />
+          <MainContentTop title="Instructors"/>
           <AdminFilter title="InstructorFilter" />
 
           <div className="InstructorContainer">

@@ -69,6 +69,7 @@
     align-items: center;
     margin-left: -5px;
 }
+
 .img-input {
     display: none;
 }
@@ -147,7 +148,33 @@
 
 /* Ipad Pro */
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (height: 1366px) {
+
+    .add-instructor-card {
+
+        padding-top: 47px;
+    }
+
+    .form-instructor-group {
+
+        gap: 0px;
+    }
+
+    .form-instructor-group label {
+        width: 127px;
+        font-size: 13px;
+    }
+
+    .form-instructor-group input {
+        width: 71%;
+        padding: 5px;
+    }
+
+    .add-instructor-form .imgParent .imageLabel {
+
+        margin-left: 7px;
+
+    }
 
     .form-instructor-actions {
         width: 102%;
@@ -199,7 +226,7 @@
     .instructor-date-inputs {
         align-items: flex-start !important;
         gap: 1px !important;
-        font-size: 5px !important; 
+        font-size: 5px !important;
         padding: 0 !important;
         margin-left: -2px !important;
         width: 104% !important;
@@ -210,7 +237,7 @@
         font-size: 9px !important;
         padding: 7px 32px !important;
     }
-    
+
     .form-instructor-row {
         width: 100% !important;
         flex-direction: column !important;

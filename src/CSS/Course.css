@@ -60,9 +60,10 @@
     font-weight: 500;
     color: rgba(146, 147, 150, 1);
     margin: 0;
-    }
-    /*Ipad Pro*/
-    @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+}
+
+/*Ipad Pro*/
+@media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
     .CourseContainer {
         width: 110%;
@@ -73,7 +74,7 @@
         width: 42.9%;
         height: 80px;
 
-   }
+    }
 
     .courseBorder {
         width: 21px;
@@ -96,30 +97,33 @@
         font-size: 9px;
     }
 }
+
 /*Iphone 14 Pro Max*/
 @media only screen and (max-width: 431px) and (height: 932px) {
     .CourseContainer {
         width: 60%;
         margin-left: -30px;
         flex-direction: row;
-        overflow-y: auto; /* Enable vertical scrolling */
-        overflow-x: hidden; /* Prevent horizontal scrolling */
+        overflow-y: auto;
+        /* Enable vertical scrolling */
+        overflow-x: hidden;
+        /* Prevent horizontal scrolling */
         max-height: 250px;
         padding: 10px 150px 10px 0px;
         border-bottom: 1px solid rgb(196, 192, 192);
         border-top: 1px solid rgb(196, 192, 192);
-        
+
     }
-    
-    
-      
+
+
+
     .course {
         width: 100px;
         height: 80px;
         padding-right: 110px;
     }
-    
- 
+
+
 
     .courseCode {
         font-size: 12px;

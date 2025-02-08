@@ -2,13 +2,11 @@ import AdminAddCourse from "./AdminAddCourse";
 import AdminAddStudent from "./AdminAddStudent";
 import AdminAddInstructor from "./AdminAddInstructor";
 import PropTypes from "prop-types";
-import "../../CSS/AdminPanel.css"
+import "../../CSS/AdminPanel.css";
 
 export default function AdminPanel(props) {
   return (
-    <div className="AdminPanelParent"
-     
-    >
+    <div className="AdminPanelParent" style={{ display: props.isAdminPanel ? "block" : "none" }}>
       {
         props.title === "View Courses" ? (
           <AdminAddCourse />
@@ -18,14 +16,13 @@ export default function AdminPanel(props) {
           <div className="AdminAddInstructorParent">
             <AdminAddInstructor />
           </div>
-        ) : (
-          null
-        )
+        ) : null
       }
     </div>
   );
 }
 
 AdminPanel.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired, // Ensures title is required
+  isAdminPanel: PropTypes.bool.isRequired, // Added missing prop type
 };

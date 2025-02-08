@@ -29,7 +29,7 @@
     margin-top: 3px;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 430px) and (height: 1366px){
     
     .iconsParent {
         display: flex;

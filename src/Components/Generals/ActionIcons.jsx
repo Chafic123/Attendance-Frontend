@@ -4,15 +4,20 @@ import "../../CSS/ActionIcons.css";
 
 export default function ActionIcons({
   onSearch,
-  onAdd,
   user,
   DashboardSelected,
+  showAdminPanel
+  
 }) {
   const [showInput, setShowInput] = useState(false);
 
   const handleSearchClick = () => {
     setShowInput((prev) => !prev);
   };
+
+  const setShowAdminPanel = (status) => {
+    showAdminPanel(status);
+  }
 
   return (
     <div className="iconsParent">
@@ -39,7 +44,8 @@ export default function ActionIcons({
               className="add-icon"
               src="../public/Images/Add-icon.png"
               alt="Add Icon"
-              onClick={onAdd}
+              onClick={() => setShowAdminPanel(true)}
+              
             />
           ) : null}
         </>

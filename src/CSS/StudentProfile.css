@@ -8,7 +8,7 @@
     padding: 20px;
 }
 
-.student-profile{
+.student-profile {
     max-width: 90%;
     margin: 0 auto;
     padding: 24px;
@@ -17,34 +17,38 @@
     padding-top: 110px;
     padding-left: 0px;
 }
-.profile-title{
+
+.profile-title {
     color: #543381;
     font-family: Arial, sans-serif;
     font-size: 36px;
     font-weight: 700;
     text-align: left;
 }
-.student-info{
+
+.student-info {
     display: flex;
     flex-direction: column;
     gap: 5px;
     padding-top: 10px;
 }
-.student-name{
+
+.student-name {
     font-size: 13.87px;
     font-weight: 400;
     margin: 0;
     color: #47494D;
 
 }
-.student-id{
+
+.student-id {
     font-size: 13.87px;
     font-weight: 400;
     color: #929396;
 
 }
 
-.student-profile-form{
+.student-profile-form {
     width: 90%;
     gap: 10px;
     display: flex;
@@ -57,7 +61,7 @@
     display: flex;
     align-items: center;
     gap: 42px;
-  
+
 }
 
 .form-student-group label {
@@ -94,7 +98,7 @@
     gap: 22px;
 }
 
-.x-icon{
+.x-icon {
     display: none;
     height: 20px;
     width: 20px;
@@ -155,11 +159,12 @@
 
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
-    
-    .imageLabel{
+
+    .imageLabel {
         margin-left: 25px;
     }
-    .student-profile{
+
+    .student-profile {
         max-width: 90%;
         margin: 0 auto;
         padding: 24px;
@@ -168,63 +173,79 @@
         padding-top: 50px;
 
     }
-    .profile-icon{
-        height: 30px;
-        width: 30px;
+
+    .profile-icon {
+        height: 2vh;
+        width: 2vw;
     }
 }
+
 @media only screen and (max-width: 431px) and (height: 932px) {
-    .student-profile{
+    .student-profile {
         max-width: 90%;
         padding-top: 0px;
     }
+
     .panel-container {
-        display: none; /* Initially hidden */
+        display: none;
+        /* Initially hidden */
         visibility: hidden;
-        transform: translateX(-50%) translateY(-20px); /* Start slightly offscreen */
-        transition: 
-        transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), /* Smooth bounce-like effect for position */
-        opacity 0.5s ease-in-out, /* Fade in/out smoothly */
-        border-radius 0.5s ease-in-out, /* Smooth border-radius animation */
-        width 0.5s ease-in-out, /* Smooth width resizing */
-        height 0.5s ease-in-out; /* Smooth height resizing */
+        transform: translateX(-50%) translateY(-20px);
+        /* Start slightly offscreen */
+        transition:
+            transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+            /* Smooth bounce-like effect for position */
+            opacity 0.5s ease-in-out,
+            /* Fade in/out smoothly */
+            border-radius 0.5s ease-in-out,
+            /* Smooth border-radius animation */
+            width 0.5s ease-in-out,
+            /* Smooth width resizing */
+            height 0.5s ease-in-out;
+        /* Smooth height resizing */
         position: absolute;
         top: 50px;
         left: 50%;
         z-index: -1;
-      }
-      
-      .panel-container.visible {
-        display: block; /* Or flex, depending on layout */
+    }
+
+    .panel-container.visible {
+        display: block;
+        /* Or flex, depending on layout */
         visibility: visible;
         top: 15px;
         left: 58.7%;
         width: 60.5%;
         height: 82%;
         border-radius: 66px;
-        opacity: 1; /* Fully visible */
-        transform: translateX(-50%) translateY(0); /* Centered */
+        opacity: 1;
+        /* Fully visible */
+        transform: translateX(-50%) translateY(0);
+        /* Centered */
         z-index: 1000;
         padding-top: 50px;
-      }
-      
-    .x-icon{
+    }
+
+    .x-icon {
         display: flex;
         position: relative;
         top: -400px;
         right: -220px;
         cursor: pointer;
     }
-    .profile-title{
-        font-size: 30px;   
+
+    .profile-title {
+        font-size: 30px;
     }
-    label{
+
+    label {
         white-space: nowrap;
         font-size: 20px;
     }
-    input{
+
+    input {
         font-size: 16px;
     }
-   
-    
+
+
 }

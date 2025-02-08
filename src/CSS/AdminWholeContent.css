@@ -5,3 +5,13 @@
     background-color: white;
     border-radius: 66px;
 }
+
+@media only screen and (width: 1024px) and (height: 1366px) {
+    .AdminWholeContent {
+       
+        height: 75%;
+        margin-top: -155px;
+        width: 70%;
+        
+    }
+}

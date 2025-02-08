@@ -50,7 +50,7 @@
 
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (height: 1366px){
     .filter-container {
         gap: 3px !important;
     }
@@ -73,17 +73,16 @@
 
     .filter-container {
         gap: 5px !important;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        justify-content: center;
         align-items: center;
-        margin-top: 12px;
-        width: 148%;
+        margin-top: 4px;
+        width: 153%;
         margin-left: -18px;
     }
 
     .filter-container p {
         margin-right: 0px;
-        font-size: 10.667px;
+        font-size: 9.667px;
     }
 
     .filter-container input {
