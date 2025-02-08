@@ -47,7 +47,7 @@ export default function Student() {
   return (
     <div className="whole-container"
     >
-      <ProfileTop onAdd={handleAdd}/>
+      <ProfileTop viewProfile={viewProfile}/>
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <StudentWholeContent viewProfile={viewProfile} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>

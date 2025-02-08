@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import HeaderTitle from "../Generals/HeaderTitle";
 import ActionIcons from "../Generals/ActionIcons";
 import "../../CSS/MainContentTopSI.css"
-export default function MainContentTopSI({ title, onSearch, onAdd }) {
+export default function MainContentTopSI({ title, onSearch, viewProfile }) {
   return (
     <div className="top-content-container">
       <HeaderTitle title={title} />
       <ActionIcons
         onSearch={onSearch}
-        onAdd={onAdd} 
+        viewProfile={viewProfile} 
         DashboardSelected={title}
         user="Student"
       />
@@ -20,5 +20,5 @@ export default function MainContentTopSI({ title, onSearch, onAdd }) {
 MainContentTopSI.propTypes = {
   title: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired, // Made it required
-  onAdd: PropTypes.func.isRequired, // Made it required
+  viewProfile: PropTypes.func.isRequired, // Made it required
 };

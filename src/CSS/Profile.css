@@ -214,8 +214,8 @@
         /* Or flex, depending on layout */
         visibility: visible;
         top: 15px;
-        left: 58.7%;
-        width: 60.5%;
+        left: 54.7%;
+        width: 71.5%;
         height: 82%;
         border-radius: 66px;
         opacity: 1;
@@ -230,7 +230,7 @@
         display: flex;
         position: relative;
         top: -400px;
-        right: -220px;
+        right: -280px;
         cursor: pointer;
     }
 
