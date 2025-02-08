@@ -33,7 +33,7 @@ body {
 @media only screen and (max-width: 431px) and (height: 932px) {
     .profileTop-container {
         top: 30px;
-        left: -62px;
+        left: -10px;
         gap: 10px;
     }
 

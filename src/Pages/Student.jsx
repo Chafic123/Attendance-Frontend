@@ -5,16 +5,18 @@ import Logo from "../Components/Generals/Logo";
 import StudentWholeContent from "../Components/Student/StudentWholeContent";
 import "../CSS/SI.css"
 export default function Student() {
-  const handleAdd = () => {
+  const handleAdd = ()=>{
+    const temp = 0
+  }
+  const viewProfile = () => {
     console.log("View Profile")
     const panel = document.querySelector('.panel-container');
     if (panel) {
       panel.style.display = 'flex'; // Show the container (or use block depending on layout)
       setTimeout(() => {
         panel.classList.add('visible'); // Add the visible class for opacity/transform
-      }, 10); // Small delay to ensure the transition applies
+      }, 10); 
     }
-    console.log("Add clicked");
   };
   const [selectedText, setSelectedText] = useState(null);
   const DashboardItems = [
@@ -48,7 +50,7 @@ export default function Student() {
       <ProfileTop onAdd={handleAdd}/>
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
-      <StudentWholeContent onAdd={handleAdd} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
+      <StudentWholeContent viewProfile={viewProfile} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
     </div>
   );
 }

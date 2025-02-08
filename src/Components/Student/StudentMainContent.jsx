@@ -4,7 +4,7 @@ import MainContentTopSI from "./MainContentTopSI";
 import PropTypes from "prop-types";
 import StudentNotificationCenter from "./StudentNotificationCenter";
 
-export default function StudentMainContent({ selectedDashboardITem, onAdd }) {
+export default function StudentMainContent({ selectedDashboardITem, viewProfile }) {
   return (
     <>
       {selectedDashboardITem === "View Courses" ? (
@@ -19,7 +19,7 @@ export default function StudentMainContent({ selectedDashboardITem, onAdd }) {
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Courses" onAdd={onAdd} />
+          <MainContentTopSI title="Courses" viewProfile={viewProfile} />
           <div>
             <StudentFilter title="StudentFilter" />
           </div>
@@ -37,7 +37,7 @@ export default function StudentMainContent({ selectedDashboardITem, onAdd }) {
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Schedule" onAdd={onAdd} />
+          <MainContentTopSI title="Schedule" viewProfile={viewProfile} />
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
         <div
@@ -51,11 +51,11 @@ export default function StudentMainContent({ selectedDashboardITem, onAdd }) {
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Notifications" onAdd={onAdd} />
+          <MainContentTopSI title="Notifications" viewProfile={viewProfile} />
           <StudentNotificationCenter />
         </div>
       ) : (
-        <MainContentTopSI title="Courses" onAdd={onAdd} />
+        <MainContentTopSI title="Courses" viewProfile={viewProfile} />
       )}
     </>
   );
@@ -63,5 +63,5 @@ export default function StudentMainContent({ selectedDashboardITem, onAdd }) {
 
 StudentMainContent.propTypes = {
   selectedDashboardITem: PropTypes.string.isRequired,
-  onAdd: PropTypes.func.isRequired, // Added prop type for onAdd
+  viewProfile: PropTypes.func.isRequired, 
 };
