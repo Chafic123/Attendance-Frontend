@@ -1,12 +1,12 @@
 import Calender from "../Generals/CalenderForm";
 import PropTypes from "prop-types";
-import StudentSchedule from "./StudentSchedule"
-import StudentProfile from "./StudentProfile"
+import InstructorSchedule from "./InstructorSchedule"
+import InstructorProfile from "./InstructorProfile"
 import "../../CSS/SICalender.css";
 import "../../CSS/SI.css"
 import "../../CSS/Profile.css"
-import StudentNotifications from "./StudentNotifications";
-export default function StudentPanel(props) {
+import InstructorNotifications from "./InstructorNotifications";
+export default function InstructorPanel(props) {
   const hideProfile = () => {
     const panel = document.querySelector('.panel-container.visible'); // Targeting both classes
     if (panel) {
@@ -19,16 +19,16 @@ export default function StudentPanel(props) {
     <div className="panel-container">
       {
         props.title === "View Courses" ? (
-          <StudentProfile />
+          <InstructorProfile />
         ) : props.title === "View Schedule" ? (
-          <StudentSchedule />
+          <InstructorSchedule />
         ) : props.title === "View Notifications" ? (
           <div>
 
             <div className="custom-calendar-wrapper">
               <Calender />
             </div>
-            <StudentNotifications />
+            <InstructorNotifications />
 
           </div>
 
@@ -41,6 +41,6 @@ export default function StudentPanel(props) {
   );
 }
 
-StudentPanel.propTypes = {
+InstructorPanel.propTypes = {
   title: PropTypes.string,
 };

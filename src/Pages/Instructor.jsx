@@ -2,9 +2,9 @@ import { useState } from "react";
 import Dashboard from "../Components/Generals/Dashboard";
 import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
-import StudentWholeContent from "../Components/Student/StudentWholeContent";
+import InstructorWholeContent from "../Components/Instructor/InstructorWholeContent";
 import "../CSS/SI.css"
-export default function Student() {
+export default function Instructor() {
   const handleAdd = () => {
     console.log("View Profile")
     const panel = document.querySelector('.panel-container');
@@ -45,10 +45,10 @@ export default function Student() {
   return (
     <div className="whole-container"
     >
-      <ProfileTop onAdd={handleAdd}/>
+      <ProfileTop onAdd={handleAdd} />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
-      <StudentWholeContent onAdd={handleAdd} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
+      <InstructorWholeContent onAdd={handleAdd} selectedDashboardITem={selectedText} selectedAddItem={selectedText} />
     </div>
   );
 }

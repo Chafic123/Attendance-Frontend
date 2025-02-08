@@ -1,7 +1,7 @@
 import StudentMainContent from "./StudentMainContent";
 import StudentPanel from "./StudentPanel";
 import PropTypes from 'prop-types';
-import "../../CSS/StudentWholeContent.css";
+import "../../CSS/SIWholeContent.css";
 
 export default function StudentWholeContent({ selectedDashboardITem, selectedAddItem, onAdd }) {
   return (

@@ -6,6 +6,8 @@ import { useState } from 'react';
 // Import JSON files as modules
 import adminData from '../json/AdminLogin.json';
 import studentData from '../json/StudentLogin.json';
+import instructorData from '../json/InstructorLogin.json';
+
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -24,7 +26,11 @@ export default function Login() {
         if (userData) {
             if (userData.type === "admin") {
                 navigate('/Admin');  // Navigate to Admin page
-            } else {
+            }
+            else if (userData.type === "instructor") {
+                navigate("/Instructor")
+            }
+            else {
                 navigate('/Student');  // Navigate to Student page
             }
         } else {
@@ -46,6 +52,11 @@ export default function Login() {
             return { type: 'student' };
         }
 
+        let instructortUser = instructortUser.find(user => user.email === email);
+        if (instructortUser && instructortUser.password === password) {
+            return { type: 'instructor' };
+        }
+
         return null; // If no match found
     };
 
@@ -61,7 +72,7 @@ export default function Login() {
                         <form onSubmit={(e) => e.preventDefault()}>
                             <div id="form-txt">
                                 <p id="form-title">Log In</p>
-                                
+
                             </div>
                             <div className="form-inputs">
                                 <label htmlFor="email" className="input-label">Email</label>
@@ -72,7 +83,7 @@ export default function Login() {
                                     placeholder="Enter your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    
+
                                 />
                             </div>
                             <div className="form-inputs">
@@ -84,7 +95,7 @@ export default function Login() {
                                     placeholder="*********"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    
+
                                 />
                             </div>
                             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}  {/* Display error message */}

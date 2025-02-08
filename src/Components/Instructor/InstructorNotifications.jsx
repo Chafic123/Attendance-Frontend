@@ -1,6 +1,6 @@
 
 import "../../CSS/SINotifications.css"
-export default function StudentNotifications(){
+export default function InstructorNotifications(){
     return(
         <div id="container">
             <h2 className="title">Notification</h2>

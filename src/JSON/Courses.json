@@ -1,51 +1,58 @@
 [
-    {
-      "courseId": "GRDS424",
-      "courseName": "Web and Interactive Design",
-      "courseInstructor": "Myriam Chamoon",
-      "studentEmail": "student1@example.com"
-    },
-    {
-      "courseId": "GRDS424",
-      "courseName": "Web and Interactive Design",
-      "courseInstructor": "Myriam Chamoon",
-      "studentEmail": "student1@example.com"
-    },
-    {
-      "courseId": "GRDS424",
-      "courseName": "Web and Interactive Design",
-      "courseInstructor": "Myriam Chamoon",
-      "studentEmail": "student1@example.com"
-    },
-    {
-      "courseId": "GRDS424",
-      "courseName": "Web and Interactive Design",
-      "courseInstructor": "Myriam Chamoon",
-      "studentEmail": "student1@example.com"
-    },
-    {
-      "courseId": "CS101",
-      "courseName": "Introduction to Computer Science",
-      "courseInstructor": "John Doe",
-      "studentEmail": "student2@example.com"
-    },
-    {
-      "courseId": "MATH201",
-      "courseName": "Linear Algebra",
-      "courseInstructor": "Jane Smith",
-      "studentEmail": "student1@example.com"
-    },
-    {
-      "courseId": "HIST102",
-      "courseName": "World History",
-      "courseInstructor": "Alice Brown",
-      "studentEmail": "student2@example.com"
-    },
-    {
-        "courseId": "HIST1022",
-        "courseName": "World History",
-        "courseInstructor": "Alice",
-        "studentEmail": "student2@example.com"
-      }
-  ]
-  
+  {
+    "courseId": "GRDS424",
+    "courseName": "Web and Interactive Design",
+    "courseInstructor": "Myriam Chamoon",
+    "studentEmail": "student1@example.com",
+    "instructorEmail": "instructor1@example.com"
+  },
+  {
+    "courseId": "GRDS424",
+    "courseName": "Web and Interactive Design",
+    "courseInstructor": "Myriam Chamoon",
+    "studentEmail": "student1@example.com",
+    "instructorEmail": "instructor2@example.com"
+  },
+  {
+    "courseId": "GRDS424",
+    "courseName": "Web and Interactive Design",
+    "courseInstructor": "Myriam Chamoon",
+    "studentEmail": "student1@example.com",
+    "instructorEmail": "instructor3@example.com"
+  },
+  {
+    "courseId": "GRDS424",
+    "courseName": "Web and Interactive Design",
+    "courseInstructor": "Myriam Chamoon",
+    "studentEmail": "student1@example.com",
+    "instructorEmail": "instructor4@example.com"
+  },
+  {
+    "courseId": "CS101",
+    "courseName": "Introduction to Computer Science",
+    "courseInstructor": "John Doe",
+    "studentEmail": "student2@example.com",
+    "instructorEmail": "instructor5@example.com"
+  },
+  {
+    "courseId": "MATH201",
+    "courseName": "Linear Algebra",
+    "courseInstructor": "Jane Smith",
+    "studentEmail": "student1@example.com",
+    "instructorEmail": "instructor1@example.com"
+  },
+  {
+    "courseId": "HIST102",
+    "courseName": "World History",
+    "courseInstructor": "Alice Brown",
+    "studentEmail": "student2@example.com",
+    "instructorEmail": "instructor2@example.com"
+  },
+  {
+    "courseId": "HIST1022",
+    "courseName": "World History",
+    "courseInstructor": "Alice",
+    "studentEmail": "student2@example.com",
+    "instructorEmail": "instructor3@example.com"
+  }
+]

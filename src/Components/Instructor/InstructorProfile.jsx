@@ -1,13 +1,13 @@
 import "../../CSS/Profile.css";
 import { useEffect,useState } from "react";
-export default function StudentProfile(){
-    const [studentImage, setStudentImage] = useState("Upload New")
+export default function InstructorProfile(){
+    const [instructorImage, setInstructorImage] = useState("Upload New")
         
-    const handleStudentImage = (event) => {
+    const handleInstructorImage = (event) => {
         if (event.target.files.length > 0) {
-            setStudentImage(event.target.files[0].name);
+            setInstructorImage(event.target.files[0].name);
         } else {
-            setStudentImage("Upload New");
+            setInstructorImage("Upload New");
         }
         };
     useEffect(() => {
@@ -36,15 +36,15 @@ export default function StudentProfile(){
     }, []);
     
     return (
-        <div className="student-profile">
+        <div className="instructor-profile">
         <h2 className="profile-title">My Profile</h2>
-        <div className="student-info">
-             <p className="student-name" id="student-name">Majd Abou Ghoush</p>
-            <p className="student-id" id="student-id">20220222</p>
+        <div className="instructor-info">
+             <p className="instructor-name" id="instructor-name">Majd Abou Ghoush</p>
+            <p className="instructor-id" id="instructor-id">20220222</p>
         </div>
        
-        <form className="student-profile-form" >
-            <div className="form-student-group">
+        <form className="instructor-profile-form" >
+            <div className="form-instructor-group">
                 <label htmlFor="First-Name">First Name:</label>
                 <input
                     type="text"
@@ -53,7 +53,7 @@ export default function StudentProfile(){
                 />
             </div>
 
-            <div className="form-student-group">
+            <div className="form-instructor-group">
                 <label htmlFor="Last-Name">Last Name:</label>
                 <input
                     type="text"
@@ -62,7 +62,7 @@ export default function StudentProfile(){
                 />
             </div>
 
-            <div className="form-student-group">
+            <div className="form-instructor-group">
                 <label htmlFor="ID-Number">ID Number:</label>
                 <input
                     type="text"
@@ -72,7 +72,7 @@ export default function StudentProfile(){
                 />
             </div>
 
-            <div className="form-student-group">
+            <div className="form-instructor-group">
                 <label htmlFor="Email">Email:</label>
                 <input
                     type="text"
@@ -81,7 +81,7 @@ export default function StudentProfile(){
                 />
             </div>
 
-            <div className="form-student-group">
+            <div className="form-instructor-group">
                 <label htmlFor="Password">Password:</label>
                 <input
                     type="text"
@@ -90,13 +90,13 @@ export default function StudentProfile(){
                 />
             </div>
 
-            <div className="form-student-row">
-                <div className="form-student-group">
+            <div className="form-instructor-row">
+                <div className="form-instructor-group">
                 <input
                         type="file"
                         id="fileInput"
                         className="img-input"
-                        onChange={handleStudentImage}
+                        onChange={handleInstructorImage}
                     />
 
                     <label htmlFor="fileInput" className="imageLabel">
@@ -107,11 +107,11 @@ export default function StudentProfile(){
                         <img src="../Images/Upload_img.png" alt="Upload" />
                     </label>
 
-                    <span className="img-name">{studentImage}</span>
+                    <span className="img-name">{instructorImage}</span>
                 </div>
             </div>
 
-            <div className="form-student-actions">
+            <div className="form-instructor-actions">
                 <button type="button" className="cancel-btn">Cancel</button>
                 <button type="submit" className="save-btn">Save Changes</button>
             </div>

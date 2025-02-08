@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../CSS/SIFilter.css"
-export default function StudentFilter() {
+export default function InstructorFilter() {
   const [filter, setFilter] = useState("");
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
