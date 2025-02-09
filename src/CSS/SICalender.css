@@ -1,115 +1,110 @@
+/* Wrapper for the calendar */
 .custom-calendar-wrapper {
   width: 100%;
   height: 50%;
   display: flex;
-  text-align: center;
   justify-content: center;
-  margin-top: 10%;
+  text-align: center;
+  margin-top: 7%;
+  margin-left: -20px;
 }
 
-.MuiDateCalendar-root.css-84tv42-MuiDateCalendar-root {
-  height: 100%;
-}
-
-/*Calender Width*/
-.MuiDateCalendar-root {
-  width: 80% !important;
-  margin-left: 30px !important;
+/* Overall Calendar Styling */
+.react-calendar {
+  width: 80%;
+  margin-left: 30px;
   gap: 0;
+  border: none; /* Remove default border */
 }
 
-/* Styling for the calendar header */
-.MuiPickersCalendarHeader-root,
-.css-1nxbkmn-MuiPickersCalendarHeader-root {
+/* Header Styling */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Month/Year Label Styling */
+.react-calendar__navigation__label {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: 27.09px;
+  color: #543381;
+  border: none;
+  margin-bottom: 10px;
+  background-color: transparent;
+}
+
+/* Navigation Arrows */
+.react-calendar__navigation__arrow {
+  color: #584B9F;
+  font-size: 30px;
+  border: none;
+  margin-bottom: 10px;
+  background-color: transparent;
+}
+
+/* Days Grid Styling */
+.react-calendar__month-view__days {
   width: 100%;
-}
-
-.MuiPickersCalendarHeader-labelContainer,
-.css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
-  margin-right: 15% !important;
-}
-
-/* Calender grid */
-.MuiDayCalendar-root,
-.css-q5we01-MuiDayCalendar-root {
-  width: 150%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: start;
   align-items: start;
 }
 
-/* Ensure the calendar wrapper and calendar inside take up full width */
-
-.css-84tv42-MuiDateCalendar-root.MuiDateCalendar-root {
-  display: flex;
-  align-items: start;
-}
-
-.MuiPickersCalendarHeader-root {
-  display: flex;
-  align-items: start;
-  justify-content: start;
-}
-
-
-/* Styling days */
-.custom-calendar-wrapper .MuiTypography-root {
+/* Individual Day Tile Styling */
+.react-calendar__tile {
   font-family: Arial, sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #543381;
-  padding: 0 7px;
-
-}
-
-/* Styling arrows */
-.custom-calendar-wrapper .MuiPickersArrowSwitcher-root button {
-  color: #584B9F;
-  font-size: 30px;
-}
-
-
-/* Styling for the label container (month/year header) */
-.MuiPickersCalendarHeader-labelContainer {
-  display: flex;
-  flex-direction: row;
-  font-family: Arial, sans-serif;
-  font-weight: 700;
-  color: #543381;
+  padding: 7px 5px;
+  text-align: center;
+  border: none;
   background-color: transparent;
 
 }
 
-.MuiPickersCalendarHeader-label {
+
+/* Target only the active tile */
+.react-calendar__tile--active {
+  background-color: #584B9F;
+  color: #fff ; 
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  padding: 0; 
   display: flex;
-  flex-direction: row;
-  font-size: 27.09px;
-
+  justify-content: center;
+  align-items: center;
+  /* flex: 0 0 auto !important; */
 }
 
 
 
 
 
-/* Targetting Days [Dates] */
-.css-1fx2l1t-MuiButtonBase-root-MuiPickersDay-root.MuiPickersDay-root {
+/* Styling for Current Day */
+.react-calendar__tile--now {
+  background-color: #ffde59;
+  color: #543381;
+  border-radius: 50%; /* Circular shape */
+  height: 30px;
+  width: 30px; /* Tighter width */
+}
+
+/* Disabled Days */
+.react-calendar__tile--disabled {
   color: #606071;
   font-size: 15.29px;
-  padding: 0 25px;
+  padding: 10px 25px;
 }
 
-.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.MuiPickersDay-root {
-  color: #606071;
-  font-size: 15.29px;
-  padding: 0 25px;
-}
-
-
-
-.MuiPickersDay-root.Mui-selected {
-  background-color: #584B9F !important;
-  /* Change the circle's background color */
-  color: #fff !important;
-  /* White text color */
+/* Weekday Header (Mon, Tue, etc.) */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: #543381;
 }

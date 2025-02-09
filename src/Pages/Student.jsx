@@ -8,14 +8,38 @@ export default function Student() {
   const handleAdd = ()=>{
     const temp = 0
   }
+  const viewPanel= ()=> {
+    const profile = document.querySelector('.profile-holder');
+    const panelContent = document.querySelector('.panel-content');
+    const goBackIcon = document.querySelector('.go-back-icon');
+
+    if (profile && panelContent && goBackIcon) {
+      console.log("Hide Profile")
+      console.log("View Panel")
+      panelContent.style.display = 'flex'; 
+      profile.style.display = 'none'; 
+      goBackIcon.style.display = 'none'
+   
+    }
+  }
   const viewProfile = () => {
-    console.log("View Profile")
-    const panel = document.querySelector('.panel-container');
-    if (panel) {
-      panel.style.display = 'flex'; // Show the container (or use block depending on layout)
-      setTimeout(() => {
-        panel.classList.add('visible'); // Add the visible class for opacity/transform
-      }, 10); 
+    const panelContainer = document.querySelector('.panel-container')
+    const profile = document.querySelector('.profile-holder');
+    const panelContent = document.querySelector('.panel-content');
+    const goBackIcon = document.querySelector('.go-back-icon');
+    const isIphone14ProMax = window.matchMedia('(max-width: 430px) and (max-height: 932px)').matches;
+    if (isIphone14ProMax && profile && panelContent && goBackIcon){
+      panelContainer.style.zIndex = '1000';
+      panelContent.style.display = 'none';
+      profile.style.display = 'flex';
+    }
+    else if (profile && panelContent && goBackIcon) {
+      console.log("View Profile")
+      console.log("Hide Panel")
+      panelContent.style.display = 'none'; // Show the container (or use block depending on layout)
+      profile.style.display = 'flex'; // Show the container (or use block depending on layout)
+      goBackIcon.style.display = 'flex';
+
     }
   };
   const [selectedText, setSelectedText] = useState(null);
@@ -50,7 +74,7 @@ export default function Student() {
       <ProfileTop viewProfile={viewProfile}/>
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
-      <StudentWholeContent viewProfile={viewProfile} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
+      <StudentWholeContent viewPanel={viewPanel} viewProfile={viewProfile} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
     </div>
   );
 }

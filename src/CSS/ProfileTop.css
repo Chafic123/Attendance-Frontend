@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 20px;
+    top: 40px;
     right: 80px;
     gap: 15px;
 }

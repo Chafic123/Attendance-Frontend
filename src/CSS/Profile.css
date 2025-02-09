@@ -1,20 +1,16 @@
-.panel-container {
-    width: 40%;
-    background-color: rgba(245, 243, 253, 1);
-    border-radius: 0 66px 66px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+
+.profile-holder{
+    display: none;
 }
 
 .student-profile {
+    /* display: none; */
     max-width: 90%;
     margin: 0 auto;
     padding: 24px;
     font-family: Arial, sans-serif;
     color: #4A2B99;
-    padding-top: 110px;
+    padding-top: 70px;
     padding-left: 0px;
 }
 
@@ -97,7 +93,14 @@
     align-items: center;
     gap: 22px;
 }
-
+.go-back-icon{
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 390px;
+    height: 50px;
+    width: 30px;
+}
 .x-icon {
     display: none;
     height: 20px;
@@ -178,59 +181,22 @@
         height: 2vh;
         width: 2vw;
     }
+    .go-back-icon{
+        right: 290px;
+    }
 }
 
 @media only screen and (max-width: 431px) and (height: 932px) {
     .student-profile {
         max-width: 90%;
-        padding-top: 0px;
-    }
-
-    .panel-container {
-        display: none;
-        /* Initially hidden */
-        visibility: hidden;
-        transform: translateX(-50%) translateY(-20px);
-        /* Start slightly offscreen */
-        transition:
-            transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
-            /* Smooth bounce-like effect for position */
-            opacity 0.5s ease-in-out,
-            /* Fade in/out smoothly */
-            border-radius 0.5s ease-in-out,
-            /* Smooth border-radius animation */
-            width 0.5s ease-in-out,
-            /* Smooth width resizing */
-            height 0.5s ease-in-out;
-        /* Smooth height resizing */
-        position: absolute;
-        top: 50px;
-        left: 50%;
-        z-index: -1;
-    }
-
-    .panel-container.visible {
-        display: block;
-        /* Or flex, depending on layout */
-        visibility: visible;
-        top: 15px;
-        left: 54.7%;
-        width: 71.5%;
-        height: 82%;
-        border-radius: 66px;
-        opacity: 1;
-        /* Fully visible */
-        transform: translateX(-50%) translateY(0);
-        /* Centered */
-        z-index: 1000;
         padding-top: 50px;
     }
 
     .x-icon {
         display: flex;
         position: relative;
-        top: -400px;
-        right: -280px;
+        top: -420px;
+        right: -260px;
         cursor: pointer;
     }
 

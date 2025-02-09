@@ -1,4 +1,6 @@
 import "../../CSS/Profile.css";
+import "../../CSS/SIPanel.css";
+
 import { useEffect,useState } from "react";
 export default function StudentProfile(){
     const [studentImage, setStudentImage] = useState("Upload New")
