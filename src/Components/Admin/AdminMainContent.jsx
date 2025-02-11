@@ -97,4 +97,5 @@ export default function AdminMainContent(props) {
 
 AdminMainContent.propTypes = {
   selectedDashboardITem: PropTypes.string.isRequired,
+  showAdminPanel: PropTypes.bool.isRequired,
 };

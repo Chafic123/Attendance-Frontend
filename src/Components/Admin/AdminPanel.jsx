@@ -23,6 +23,6 @@ export default function AdminPanel(props) {
 }
 
 AdminPanel.propTypes = {
-  title: PropTypes.string.isRequired, // Ensures title is required
-  isAdminPanel: PropTypes.bool.isRequired, // Added missing prop type
+  title: PropTypes.string.isRequired, 
+  isAdminPanel: PropTypes.bool.isRequired,
 };

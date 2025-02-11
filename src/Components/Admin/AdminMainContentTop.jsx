@@ -17,5 +17,6 @@ export default function MainContentTop({ title, onSearch, showAdminPanel }) {
 MainContentTop.propTypes = {
   title: PropTypes.string.isRequired, 
   onSearch: PropTypes.func, 
-  onAdd: PropTypes.func, 
+  onAdd: PropTypes.func,
+  showAdminPanel: PropTypes.bool,
 };

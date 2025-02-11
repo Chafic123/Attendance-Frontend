@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Icon } from "@mui/material";
 import PropTypes from "prop-types";
 import "../../CSS/Course.css";
