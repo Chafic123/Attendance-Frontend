@@ -34,7 +34,7 @@ body {
     .profileTop-container {
         width: fit-content;
         top: 30px;
-        left: 92px;
+        right: 90px;
         gap: 10px;
     }
 

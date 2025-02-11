@@ -32,6 +32,7 @@ export default function Student() {
       panelContainer.style.zIndex = '1000';
       panelContent.style.display = 'none';
       profile.style.display = 'flex';
+      goBackIcon.style.display = 'none';
     }
     else if (profile && panelContent && goBackIcon) {
       console.log("View Profile")
