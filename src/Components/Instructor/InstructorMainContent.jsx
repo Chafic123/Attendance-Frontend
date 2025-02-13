@@ -55,8 +55,24 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
           <InstructorNotificationCenter />
         </div>
       ) : (
+        <div
+        style={{
+          width: "48%",
+          padding: "57px",
+          paddingBottom: "0",
+          borderRadius: "66px 0 0 66px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "17px",
+        }}
+      >
         <MainContentTopSI title="Courses" onAdd={onAdd} />
-      )}
+        <div>
+          <InstructorFilter title="InstructorFilter" />
+        </div>
+        <Course instructorEmail="instructor1@example.com" />
+      </div>
+          )}
     </>
   );
 }

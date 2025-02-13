@@ -90,7 +90,32 @@ export default function AdminMainContent(props) {
             
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div
+        style={{
+          width: "48%",
+          padding: "57px",
+          paddingBottom: "0",
+          borderRadius: "66px 0 0 66px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "17px",
+        }}
+      >
+        <MainContentTop title="Students" showAdminPanel={props.showAdminPanel}/>
+        <AdminFilter title="StudentFilter" />
+
+        <div className="StudentContainer"
+
+        >
+          <StudentCard user="Admin" />
+          <StudentCard user="Admin" />
+          <StudentCard user="Admin" />
+          <StudentCard user="Admin" />
+          <StudentCard user="Admin" />
+        </div>
+      </div>
+      )}
     </>
   );
 }

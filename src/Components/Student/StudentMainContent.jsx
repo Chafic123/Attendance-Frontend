@@ -47,8 +47,23 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           <StudentNotificationCenter />
         </div>
       ) : (
-        <MainContentTopSI title="Courses" viewProfile={viewProfile} />
-      )}
+          <div
+          style={{
+            width: "48%",
+            padding: "57px",
+            paddingBottom: "0",
+            borderRadius: "66px 0 0 66px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "17px",
+          }}
+        >
+          <MainContentTopSI title="Courses" viewProfile={viewProfile} />
+          <div>
+            <StudentFilter title="StudentFilter" />
+          </div>
+          <Course studentEmail="student1@example.com" />
+        </div>      )}
     </>
   );
 }
