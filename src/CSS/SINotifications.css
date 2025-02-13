@@ -1,6 +1,6 @@
-#container {
+#notification-container {
     width: 67%;
-    min-height: 34%;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -9,7 +9,7 @@
     margin: 5% 0 0 6%;
     padding: 30px 30px;
     border-radius: 43px;
-
+    margin-top: -70px;
 }
 .title{
     font-family: Arial, sans-serif;
@@ -68,12 +68,39 @@
 
 }
 .mark-as-read{
-    width: 71px;
-    height: 18px;
-    font-size: 7.16px;
+    font-size: 10.16px;
     font-weight: 400;
     background-color: #482B70;
     color: #FFFFFF;
     border-radius: 5.97px;
     border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+@media only screen and (max-width: 431px) and (height: 932px) {
+    #notification-container{
+        position: relative;
+        bottom: -170px;
+    }
+    .mark-as-read{
+        font-size: 8.16px;
+        white-space: nowrap;
+        margin-left: 10px;
+    }
+    .title{
+        font-size: 14px;
+    }
+    .gray-line{
+        margin: 5px 0;
+    }
+    .purple-circle{
+        height: 7px;
+        width: 7px;
+    }
+    .notification-title{
+        font-size: 12px;
+    }
+    .notification-content, .course-name{
+        font-size: 8.38px;
+    }
 }

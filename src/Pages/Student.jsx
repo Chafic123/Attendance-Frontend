@@ -5,13 +5,18 @@ import Logo from "../Components/Generals/Logo";
 import StudentWholeContent from "../Components/Student/StudentWholeContent";
 import "../CSS/SI.css"
 export default function Student() {
+  const panelContainer = document.querySelector('.panel-container')
+  const profile = document.querySelector('.profile-holder');
+  const panelContent = document.querySelector('.panel-content');
+  const goBackIcon = document.querySelector('.go-back-icon');
+  const isIphone14ProMax = window.matchMedia('(max-width: 430px) and (max-height: 932px)').matches;
+  const xIcon = document.querySelector('.x-icon');
+
   const handleAdd = ()=>{
     const temp = 0
   }
   const viewPanel= ()=> {
-    const profile = document.querySelector('.profile-holder');
-    const panelContent = document.querySelector('.panel-content');
-    const goBackIcon = document.querySelector('.go-back-icon');
+
 
     if (profile && panelContent && goBackIcon) {
       console.log("Hide Profile")
@@ -19,15 +24,10 @@ export default function Student() {
       panelContent.style.display = 'flex'; 
       profile.style.display = 'none'; 
       goBackIcon.style.display = 'none'
-   
+      xIcon.style.display = "flex";
     }
   }
   const viewProfile = () => {
-    const panelContainer = document.querySelector('.panel-container')
-    const profile = document.querySelector('.profile-holder');
-    const panelContent = document.querySelector('.panel-content');
-    const goBackIcon = document.querySelector('.go-back-icon');
-    const isIphone14ProMax = window.matchMedia('(max-width: 430px) and (max-height: 932px)').matches;
     if (isIphone14ProMax && profile && panelContent && goBackIcon){
       panelContainer.style.zIndex = '1000';
       panelContent.style.display = 'none';
@@ -36,10 +36,18 @@ export default function Student() {
     }
     else if (profile && panelContent && goBackIcon) {
       console.log("View Profile")
-      console.log("Hide Panel")
       panelContent.style.display = 'none'; // Show the container (or use block depending on layout)
       profile.style.display = 'flex'; // Show the container (or use block depending on layout)
       goBackIcon.style.display = 'flex';
+
+    }
+  };
+  const viewPanelIphone = () =>{
+
+    if (isIphone14ProMax && panelContainer && panelContent){
+      console.log("View Panel")
+      panelContainer.style.zIndex = '1000';
+      panelContent.style.display = 'flex';
 
     }
   };
@@ -75,7 +83,7 @@ export default function Student() {
       <ProfileTop viewProfile={viewProfile}/>
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
-      <StudentWholeContent viewPanel={viewPanel} viewProfile={viewProfile} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
+      <StudentWholeContent viewPanel={viewPanel} viewPanelIphone={viewPanelIphone} viewProfile={viewProfile} selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
     </div>
   );
 }

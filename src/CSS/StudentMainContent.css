@@ -1,0 +1,27 @@
+.main-content-container{
+    width: 48%;
+    padding: 57px;
+    padding-bottom: 0;
+    border-radius: 66px 0 0 66px;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    position: relative;
+}
+.notification-schedule-icon {
+    display: flex;
+    width: 30px;
+    height: 35px;
+    position: absolute;
+    top: 30px;
+    right: 82px;
+    filter: invert(18%) sepia(20%) saturate(5214%) hue-rotate(245deg) brightness(101%) contrast(86%);
+    display: none;
+
+
+}
+@media only screen and (max-width: 431px) and (height: 932px) {
+    .notification-schedule-icon {
+        display: flex; 
+    }
+}

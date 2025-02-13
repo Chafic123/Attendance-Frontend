@@ -65,12 +65,12 @@ export default function StudentProfile(){
             </div>
 
             <div className="form-student-group">
-                <label htmlFor="ID-Number">ID Number:</label>
+                <label htmlFor="Major">Major:</label>
                 <input
                     type="text"
-                    id="ID-Number"
-                    name="ID-Number"
-
+                    id="Major"
+                    name="Major"
+                    disabled
                 />
             </div>
 
@@ -83,14 +83,6 @@ export default function StudentProfile(){
                 />
             </div>
 
-            <div className="form-student-group">
-                <label htmlFor="Password">Password:</label>
-                <input
-                    type="text"
-                    id="Password"
-                    name="Password"
-                />
-            </div>
 
             <div className="form-student-row">
                 <div className="form-student-group">

@@ -195,7 +195,7 @@
     .x-icon {
         display: flex;
         position: relative;
-        top: -420px;
+        top: -400px;
         right: -260px;
         cursor: pointer;
     }
@@ -209,8 +209,8 @@
         font-size: 20px;
     }
 
-    input {
-        font-size: 16px;
+    .form-student-group input {
+        font-size: 10px;
     }
 
 

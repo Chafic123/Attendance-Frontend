@@ -1,7 +1,7 @@
 import AdminMainContent from "./AdminMainContent";
 import AdminPanel from "./AdminPanel";
 import PropTypes from 'prop-types';
-import "../../CSS/AdminWholeContent.css"
+import "../../CSS/SIWholeContent.css"
 import { useState } from "react";
 export default function AdminWholeContent(props) {
   
@@ -12,7 +12,7 @@ const showAdminPanel = (state) => {
 }
 
   return (
-    <div className="AdminWholeContent">
+    <div className="whole-content-container">
 
       <AdminMainContent selectedDashboardITem={props.selectedDashboardITem} showAdminPanel={showAdminPanel}/>
       

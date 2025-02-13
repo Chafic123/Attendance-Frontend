@@ -8,11 +8,12 @@ body {
     justify-content: center;
     align-items: center;
     top: 40px;
-    right: 80px;
+    right: 100px;
     gap: 15px;
 }
 
 .profile-icon {
+    
     width: 2vw;
     height: 5vh;
 }
@@ -34,7 +35,7 @@ body {
     .profileTop-container {
         width: fit-content;
         top: 30px;
-        right: 90px;
+        right: 120px;
         gap: 10px;
     }
 

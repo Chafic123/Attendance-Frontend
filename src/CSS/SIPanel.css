@@ -10,6 +10,9 @@
 .panel-content{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
 }
 
 
@@ -42,5 +45,7 @@
         height: 88%;
     }
 
-  
+    .panel-content{
+        height: 70%;
+    }
 }

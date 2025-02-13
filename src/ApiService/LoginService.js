@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://e4cd-185-26-85-248.ngrok-free.app/api/auth/'; //hydal server ha w2fo hlaa 
+const BASE_URL = 'https://128d-77-42-248-178.ngrok-free.app/api/auth/'; //hydal server ha w2fo hlaa 
 
 export const loginUser = async (identifier, password, rememberMe = false) => {
     try {

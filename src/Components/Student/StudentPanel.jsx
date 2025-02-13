@@ -9,14 +9,16 @@ import "../../CSS/SI.css";
 import "../../CSS/Profile.css";
 
 export default function StudentPanel({ title, viewPanel }) {
-  const hideProfile = () => {
-    const profile = document.querySelector('.profile-holder'); 
-    const panleContainer = document.querySelector('.panel-container'); 
+  const profile = document.querySelector('.profile-holder'); 
+  const panleContainer = document.querySelector('.panel-container'); 
+  const xIcon = document.querySelector('.x-icon');
+
+  const hidePanel = () => {
+
     if(profile && panleContainer){
       profile.style.display = "none";
       panleContainer.style.zIndex = '-1';
       console.log("Panel hidden");
-
     }
   };
 
@@ -69,7 +71,7 @@ export default function StudentPanel({ title, viewPanel }) {
       <img
         src="../public/Images/X-Icon.png"
         className="x-icon"
-        onClick={hideProfile}
+        onClick={hidePanel}
         alt="Close panel"
       />
     </div>

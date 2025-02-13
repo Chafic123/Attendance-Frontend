@@ -3,10 +3,10 @@ import StudentPanel from "./StudentPanel";
 import PropTypes from 'prop-types';
 import "../../CSS/SIWholeContent.css";
 
-export default function StudentWholeContent({ selectedDashboardITem, selectedAddItem, viewProfile, viewPanel }) {
+export default function StudentWholeContent({ selectedDashboardITem, selectedAddItem, viewProfile, viewPanel, viewPanelIphone }) {
   return (
     <div className="whole-content-container">
-      <StudentMainContent viewProfile={viewProfile} selectedDashboardITem={selectedDashboardITem} />
+      <StudentMainContent viewPanelIphone = {viewPanelIphone} viewProfile={viewProfile} selectedDashboardITem={selectedDashboardITem} />
       {selectedDashboardITem === "View Schedule" ? null : <StudentPanel viewPanel={viewPanel} title={selectedAddItem} />}
     </div>
   );

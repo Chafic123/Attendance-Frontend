@@ -2,7 +2,7 @@
 import "../../CSS/SINotifications.css"
 export default function StudentNotifications(){
     return(
-        <div id="container">
+        <div id="notification-container">
             <h2 className="title">Notification</h2>
             <div className="gray-line"></div>
             <div className="notifications">
