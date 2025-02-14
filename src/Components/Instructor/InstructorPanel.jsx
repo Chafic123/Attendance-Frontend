@@ -19,21 +19,51 @@ export default function InstructorPanel(props) {
     <div className="panel-container">
       {
         props.title === "View Courses" ? (
-          <InstructorProfile />
+          <div>
+            <div className="panel-content">
+              <div className="custom-calendar-wrapper">
+                <Calender />
+              </div>
+              <InstructorNotifications />
+            </div>
+            <div className="profile-holder">
+              <InstructorProfile />
+            </div>
+          </div>
         ) : props.title === "View Schedule" ? (
-          <InstructorSchedule />
+          <div>
+            <div className="panel-content">
+              <InstructorSchedule />
+            </div>
+            <div className="profile-holder">
+              <InstructorProfile />
+            </div>
+          </div>
         ) : props.title === "View Notifications" ? (
           <div>
-
-            <div className="custom-calendar-wrapper">
-              <Calender />
+            <div className="panel-content">
+              <div className="custom-calendar-wrapper">
+                <Calender />
+              </div>
+              <InstructorNotifications />
             </div>
-            <InstructorNotifications />
-
+            <div className="profile-holder">
+              <InstructorProfile />
+            </div>
           </div>
 
         ) : (
-          null
+          <div>
+            <div className="panel-content">
+              <div className="custom-calendar-wrapper">
+                <Calender />
+              </div>
+              <InstructorNotifications />
+            </div>
+            <div className="profile-holder">
+              <InstructorProfile />
+            </div>
+          </div>
         )
       }
       <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hideProfile} alt="cancel icon" />
