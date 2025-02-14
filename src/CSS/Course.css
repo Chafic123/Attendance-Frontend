@@ -62,7 +62,36 @@
     color: rgba(146, 147, 150, 1);
     margin: 0;
 }
+.course.activeCourse{
+    background-color:#543381;
+}
+.course.activeCourse .courseText P{
+    color: white;
+}
+.percentageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    text-align: center;
+}
+.percentageContainer span{
+    font-weight: 500;
+    font-size: 10.96px;
+    line-height: 9.33px;
+    letter-spacing: 0%;
 
+}
+.course.activeCourse .percentageContainer{
+    color: white;
+}
+.coursePercentage{
+    font-weight: 400;
+    font-size: 19.48px;
+    line-height: 22.83px;
+    letter-spacing: 0%;
+
+}
 /*Ipad Pro*/
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 

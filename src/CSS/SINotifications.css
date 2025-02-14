@@ -9,10 +9,11 @@
     margin: 5% 0 0 6%;
     padding: 30px 30px;
     border-radius: 43px;
-    margin-top: -20px;
+    margin-top: -40px;
     max-height: 200px;
     overflow-y: scroll;
 }
+
 .title{
     font-family: Arial, sans-serif;
     font-size: 23.99px;

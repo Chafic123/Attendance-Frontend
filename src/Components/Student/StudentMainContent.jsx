@@ -28,8 +28,17 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           <Course studentEmail="student1@example.com" />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
-        <div id="main-content-container">
+        <div   style={{
+          width: "48%",
+          padding: "57px",
+          paddingBottom: "0",
+          borderRadius: "66px 0 0 66px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "17px",
+        }}>
           <MainContentTopSI title="Schedule" viewProfile={viewProfile} />
+          
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
         <div
