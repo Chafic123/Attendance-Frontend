@@ -4,7 +4,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 15px;
-
+    overflow-y: scroll;
+    height: 78%;
 }
 
 .course {
@@ -16,7 +17,7 @@
     border-radius: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     padding-right: 10px;
-    width: 44%;
+    width: 100%;
 }
 
 .courseDetails {
@@ -31,20 +32,20 @@
     width: 24px;
     background-color: rgba(84, 51, 129, 1);
     border-radius: 16px;
+    margin-right: 10px;
 }
 
 .courseText {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 3px;
+    gap: 5px;
 }
 
 .courseCode {
     font-size: 15px;
     color: #543381;
     margin: 0;
-
     font-weight: 600;
 }
 
