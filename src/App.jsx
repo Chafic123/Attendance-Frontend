@@ -4,21 +4,26 @@ import Login from "./Pages/Login";
 import Admin from "./Pages/Admin";
 import Student from "./Pages/Student";
 import Instructor from "./Pages/Instructor";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Admin" element={<Admin />} />
-          <Route path="/logout" element={<Login />} />
-          <Route path="/Student" element={<Student />} />
-          <Route path="/Instructor" element={<Instructor/>} />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Login />} />
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/student" element={<Student />} />
+          <Route path="/instructor" element={<Instructor />} />
+        </Route>
+
+      </Routes>
+    </Router>
   );
 }
 

@@ -2,24 +2,31 @@ import { useState, useEffect } from "react";
 import { Icon } from "@mui/material";
 import PropTypes from "prop-types";
 import "../../CSS/Course.css";
-import coursesData from "../../JSON/Courses.json";
+import { getCourses } from "../../ApiService/CourseService";
 
-export default function Course(props) {
+export default function Course() {
   const [courses, setCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Filter courses based on student email
-    const filteredCourses = coursesData.filter(
-      (course) => course.studentEmail === props.studentEmail
+    const fetchCourses = async () => {
+      try {
+        const courseData = await getCourses();
+        setCourses(Array.isArray(courseData) ? courseData : []);
+      } catch (error) {
+        console.error("Failed to fetch courses:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    );
-    setCourses(filteredCourses);
-  }, [props.studentEmail]); // Runs whenever studentEmail prop changes
+    fetchCourses();
+  }, []);
+  const handleCourseClick = (index) => setActiveIndex(index);
 
-  const handleCourseClick = (index) => {
-    setActiveIndex(index);
-  };
+  if (loading) return <p>Loading courses...</p>;
+  if (!courses.length) return <p>No courses available.</p>;
 
   return (
     <div className="CourseContainer">
@@ -32,24 +39,20 @@ export default function Course(props) {
           <div className="courseDetails">
             <div className="courseBorder"></div>
             <div className="courseText">
-              <p className="courseCode">{course.courseId}</p>
-              <p className="courseName">{course.courseName}</p>
-              <p className="courseInstructor">{course.courseInstructor}</p>
+              <p className="courseCode">{course.course_code}</p>
+              <p className="courseName">{course.course_name}</p>
+              <p className="courseInstructor">{course.instructor_name}</p>
             </div>
           </div>
           <div className="percentageContainer">
-              <p className="coursePercentage">75%</p>
-              <span>Absence</span>
-              <span>Percentage</span>
-            </div>
-          {props.user === "Admin" ? <Icon>more_vert</Icon> : null}
+            <p className="coursePercentage">75%</p>
+            <span>Absence</span>
+            <span>Percentage</span>
+          </div>
         </div>
       ))}
     </div>
   );
 }
 
-Course.propTypes = {
-  user: PropTypes.string.isRequired,
-  studentEmail: PropTypes.string.isRequired, // Ensuring student email is passed
-};
+

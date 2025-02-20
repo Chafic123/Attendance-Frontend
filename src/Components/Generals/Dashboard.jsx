@@ -2,14 +2,25 @@ import "../../CSS/Dashboard.css";
 import { Icon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { logoutUser } from "../../ApiService/LogoutService";
 
 export default function Dashboard({ DashboardItems, onItemClick }) {
   const navigate = useNavigate();
 
-  const handleLogOutClick = () => {
-    navigate('/logout');
+  const handleLogOutClick = async () => {
+    try {
+      const response = await logoutUser();
+      console.log(response.message);
+  
+      localStorage.removeItem("authToken");
+      sessionStorage.removeItem("authToken");
+  
+      navigate("/", { replace: true });
+    } catch (error) {
+      alert(error.message || "Logout failed.");
+    }
   };
-
+  
   return (
     <div id="dashboard">
       {DashboardItems.map((item, index) => (

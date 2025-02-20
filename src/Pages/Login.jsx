@@ -5,20 +5,20 @@ import { useState } from "react";
 import { loginUser } from "../ApiService/LoginService"; // from LoginService.js
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [identifier, setidentifier] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleLoginClick = async () => {
-    if (!email || !password) {
-      setErrorMessage("Please fill in both email and password.");
+    if (!identifier || !password) {
+      setErrorMessage("Please fill in both ID and password.");
       return;
     }
 
     try {
-      const response = await loginUser(email, password, rememberMe);
+      const response = await loginUser(identifier, password, rememberMe);
 
       if (response) {
         const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
@@ -57,12 +57,12 @@ export default function Login() {
                   Enter your credentials
                 </label>
                 <input
-                  type="text"  //change to text was email
+                  type="text"
                   id="identifier"
                   className="user-input"
-                  placeholder="Enter your email or student ID"
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
+                  placeholder="Enter your student ID"
+                  value={identifier} 
+                  onChange={(e) => setidentifier(e.target.value)} 
                 />
               </div>
 
