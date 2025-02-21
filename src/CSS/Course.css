@@ -72,12 +72,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     text-align: center;
+    margin-right: 10px;
 }
 .percentageContainer span{
     font-weight: 500;
-    font-size: 10.96px;
+    font-size: 9.96px;
     line-height: 9.33px;
     letter-spacing: 0%;
 
@@ -87,7 +88,7 @@
 }
 .coursePercentage{
     font-weight: 400;
-    font-size: 19.48px;
+    font-size: 17.48px;
     line-height: 22.83px;
     letter-spacing: 0%;
 

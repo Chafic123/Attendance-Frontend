@@ -1,26 +1,31 @@
 import "../../CSS/InstructorCard.css";
 import { Icon } from "@mui/material";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-export default function InstructorCard(props) {
+export default function InstructorCard({ user, firstName, lastName, department, id }) {
   return (
     <div className="Instructor-card">
       <div className="Instructor-details">
-        <img src="../../Images/Student-img.png" alt="Instructor" style={{
-          width: "5vw",
-          height: "5vw"
-        }} />
+        <img
+          src="../../Images/Student-img.png"  //Static image 
+          alt="Instructor"
+          style={{ width: "5vw", height: "5vw" }}
+        />
         <div className="Instructor-text">
-          <p className="Instructor-name">Ahmad Hijazi</p>
-          <p className="Instructor-title">Professor</p>
-          <p className="Instructor-Department">CIS College</p>
+          <p className="Instructor-name">{`${firstName} ${lastName}`}</p>
+          <p className="Instructor-Department">{department || "N/A"}</p>
+          <p className="Instructor-id">{id || "N/A"}</p>
         </div>
       </div>
-      {props.user === "Admin" ? <Icon>more_vert</Icon> : null}
+      {user === "Admin" && <Icon>more_vert</Icon>}
     </div>
   );
 }
 
 InstructorCard.propTypes = {
   user: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  title: PropTypes.string,    
+  department: PropTypes.string,
 };

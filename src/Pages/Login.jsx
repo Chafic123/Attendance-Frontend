@@ -60,7 +60,7 @@ export default function Login() {
                   type="text"
                   id="identifier"
                   className="user-input"
-                  placeholder="Enter your student ID"
+                  placeholder="Enter your Email or ID"
                   value={identifier} 
                   onChange={(e) => setidentifier(e.target.value)} 
                 />

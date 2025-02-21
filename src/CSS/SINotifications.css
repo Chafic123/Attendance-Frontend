@@ -79,6 +79,7 @@
     border: none;
     cursor: pointer;
     padding: 5px 10px;
+    margin: 20px 0 0 10px;
 }
 @media only screen and (max-width: 431px) and (height: 932px) {
     #notification-container{

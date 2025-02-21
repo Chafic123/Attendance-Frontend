@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Admin from "./Pages/Admin";
 import Student from "./Pages/Student";
@@ -15,13 +15,18 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Login />} />
 
-        {/* Protected Routes */}
-        <Route element={<ProtectedRoute />}>
+        {/* Protected Routes with Role-Based Access */}
+        <Route element={<ProtectedRoute requiredRole="admin" />}>
           <Route path="/admin" element={<Admin />} />
-          <Route path="/student" element={<Student />} />
-          <Route path="/instructor" element={<Instructor />} />
         </Route>
 
+        <Route element={<ProtectedRoute requiredRole="student" />}>
+          <Route path="/student" element={<Student />} />
+        </Route>
+
+        <Route element={<ProtectedRoute requiredRole="instructor" />}>
+          <Route path="/instructor" element={<Instructor />} />
+        </Route>
       </Routes>
     </Router>
   );
