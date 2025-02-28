@@ -4,7 +4,7 @@ import MainContentTopSI from "./MainContentTopSI";
 import PropTypes from "prop-types";
 import StudentNotificationCenter from "./StudentNotificationCenter";
 import "../../CSS/StudentMainContent.css"
-
+import StudentScheduleReport from "./StudentScheduleReport";
 export default function StudentMainContent({ selectedDashboardITem, viewProfile, viewPanelIphone }) {
   return (
     <>
@@ -38,7 +38,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           gap: "17px",
         }}>
           <MainContentTopSI title="Schedule" viewProfile={viewProfile} />
-          
+          <StudentScheduleReport />
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
         <div

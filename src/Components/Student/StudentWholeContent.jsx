@@ -7,7 +7,6 @@ export default function StudentWholeContent({ selectedDashboardITem, selectedAdd
   return (
     <div className="whole-content-container">
       <StudentMainContent viewPanelIphone = {viewPanelIphone} viewProfile={viewProfile} selectedDashboardITem={selectedDashboardITem} />
-      {selectedDashboardITem === "View Schedule" ? null : <StudentPanel viewPanel={viewPanel} title={selectedAddItem} />}
     </div>
   );
 }
