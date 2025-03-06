@@ -6,7 +6,8 @@ import "../../CSS/SIWholeContent.css";
 export default function StudentWholeContent({ selectedDashboardITem, selectedAddItem, viewProfile, viewPanel, viewPanelIphone }) {
   return (
     <div className="whole-content-container">
-      <StudentMainContent viewPanelIphone = {viewPanelIphone} viewProfile={viewProfile} selectedDashboardITem={selectedDashboardITem} />
+      <StudentMainContent  viewPanelIphone = {viewPanelIphone} viewProfile={viewProfile} selectedDashboardITem={selectedDashboardITem} />
+      <StudentPanel viewPanel={viewPanel} title= {selectedDashboardITem} />
     </div>
   );
 }

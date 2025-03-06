@@ -28,21 +28,19 @@ export default function Student() {
   }, []);
 
   const viewPanel = () => {
-    // Access DOM elements after they are rendered
     const profile = document.querySelector('.profile-holder');
     const panelContent = document.querySelector('.panel-content');
     const goBackIcon = document.querySelector('.go-back-icon');
-
+    console.log("View Panel")
     if (profile && panelContent && goBackIcon) {
       console.log("View Panel");
-      panelContent.style.display = 'flex'; // Show panel content
-      profile.style.display = 'none'; // Hide profile content
-      goBackIcon.style.display = 'none'; // Hide go-back icon
+      panelContent.style.display = 'flex'; 
+      profile.style.display = 'none'; 
+      goBackIcon.style.display = 'none'; 
     }
   };
 
   const viewProfile = () => {
-    // Access DOM elements after they are rendered
     const profile = document.querySelector('.profile-holder');
     const panelContent = document.querySelector('.panel-content');
     const goBackIcon = document.querySelector('.go-back-icon');
@@ -50,18 +48,16 @@ export default function Student() {
 
     if (profile && panelContent && goBackIcon && panelContainer) {
       if (isIphone14ProMax) {
-        // iPhone behavior
         console.log("View Profile (iPhone)");
-        panelContainer.style.zIndex = '1000'; // Ensure panel is above other elements
-        panelContent.style.display = 'none'; // Hide panel content
-        profile.style.display = 'flex'; // Show profile content
-        goBackIcon.style.display = 'none'; // Hide go-back icon
+        panelContainer.style.zIndex = '1000';
+        panelContent.style.display = 'none'; 
+        profile.style.display = 'flex'; 
+        goBackIcon.style.display = 'none'; 
       } else {
-        // Desktop behavior
         console.log("View Profile (Desktop)");
-        panelContent.style.display = 'none'; // Hide panel content
-        profile.style.display = 'flex'; // Show profile content
-        goBackIcon.style.display = 'flex'; // Show go-back icon
+        panelContent.style.display = 'none'; 
+        profile.style.display = 'flex';
+        goBackIcon.style.display = 'flex';
       }
     }
   };
