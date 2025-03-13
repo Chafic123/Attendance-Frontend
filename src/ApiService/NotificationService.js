@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://b5a4-185-26-85-248.ngrok-free.app/api/';
+const BASE_URL = 'https://a95f-185-26-85-248.ngrok-free.app/api/';
 
 export const getStudentNotifications = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-
+  console.log("hi")
   if (!token) {
     console.warn("No authentication token found. Please log in again.");
     return [];
@@ -13,9 +13,9 @@ export const getStudentNotifications = async () => {
   try {
     const { data } = await axios.get(`${BASE_URL}student/notifications`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       withCredentials: true, // In case cookies or session are needed
 

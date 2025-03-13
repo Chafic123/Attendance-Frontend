@@ -42,7 +42,7 @@ export default function Course({ onCourseDoubleClick }) {
           className={`course ${activeIndex === index ? "activeCourse" : ""}`}
           key={index}
           onClick={() => handleCourseClick(index)}
-          onDoubleClick={() => handleCourseDoubleClick(course.id)}  // ✅ Added double-click
+          onDoubleClick={() => handleCourseDoubleClick(course.id)}  //Added double-click
         >
           <div className="courseDetails">
             <div className="courseBorder"></div>
@@ -61,7 +61,9 @@ export default function Course({ onCourseDoubleClick }) {
           {userRole?.toLowerCase() === "student" && (
             <div className="percentageContainer">
               <p className="coursePercentage">
-                {course.attendance_percentage !== undefined ? `${course.attendance_percentage}%` : "N/A"}
+                {course.attendance_percentage !== undefined
+                  ? `${course.attendance_percentage}%`
+                  : "N/A"}
               </p>
               <span>Absence</span>
               <span>Percentage</span>

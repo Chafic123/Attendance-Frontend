@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const BASE_URL = "https://b5a4-185-26-85-248.ngrok-free.app/api";
+const BASE_URL = "https://4aec-185-26-85-248.ngrok-free.app/api";
 
 export const getCourses = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
-
   if (!token) {
     console.log("No authentication token found. Please log in again.");
     return [];

@@ -35,6 +35,7 @@ export default function StudentScheduleReport() {
                     </div>
                 </div>
             </div>
+            <div className="schedule-table-container">
             <table className="schedule-table">
                 <thead>
                     <tr>
@@ -111,6 +112,7 @@ export default function StudentScheduleReport() {
                     </tr>
                 </tbody>
             </table>
+            </div>
             <span className="credits">Credits:    13</span>
         </div>
     )
