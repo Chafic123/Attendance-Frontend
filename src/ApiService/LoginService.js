@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = '';
+const BASE_URL = 'https://a95f-185-26-85-248.ngrok-free.app/api/auth/';
 
 export const loginUser = async (identifier, password, rememberMe = false) => {
     try {

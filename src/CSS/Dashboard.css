@@ -40,11 +40,12 @@
     font-size: 20px;
     margin: 0;
 }
-
+/*Ipad Pro*/
 @media (max-width: 1024px) {
     #dashboard {
         position: relative;
-        margin-bottom: 283px;
+        margin-bottom: 683px;
+        margin-left: 3px;
     }
 
     .dashboard-item {
@@ -62,7 +63,7 @@
     #logout {
         gap: 12px;
         left: 7px;
-        bottom: -387px;
+        bottom: -220px;
     }
 
     #logout .logout-icon {

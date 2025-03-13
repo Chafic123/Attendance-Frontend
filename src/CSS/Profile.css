@@ -160,7 +160,7 @@
 
 
 
-@media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
 
     .imageLabel {
@@ -173,16 +173,19 @@
         padding: 24px;
         font-family: Arial, sans-serif;
         color: #4A2B99;
-        padding-top: 50px;
+        padding-top: 80px;
 
     }
-
-    .profile-icon {
-        height: 2vh;
-        width: 2vw;
+    .student-profile label{
+        white-space: nowrap;
     }
+
     .go-back-icon{
-        right: 290px;
+        right: 310px;
+        top: 25px;
+    }
+    .student-profile-form{
+        gap: 20px;
     }
 }
 

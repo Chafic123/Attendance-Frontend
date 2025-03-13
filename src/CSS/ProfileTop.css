@@ -18,16 +18,16 @@ body {
     height: 5vh;
 }
 
-@media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     .profileTop-container {
-        top: 33px;
+        top: 20px;
         right: 60px;
         gap: 7px;
     }
 
     .profile-icon {
-        height: 2vh;
-        width: 2vw;
+        height: 2.4vh;
+        width: 2.4vw;
     }
 }
 
