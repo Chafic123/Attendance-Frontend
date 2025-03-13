@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://b5a4-185-26-85-248.ngrok-free.app/api/auth/';
+const BASE_URL = '';
 
 export const loginUser = async (identifier, password, rememberMe = false) => {
     try {
@@ -16,6 +16,8 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
         const { access_token, status: userRole } = response.data || {};
 
         if (access_token && userRole) {
+            // Extract access token and user role from response data
+            console.log('Login Response:', response.data);
             const storage = rememberMe ? localStorage : sessionStorage;
 
             // Store token and user role
@@ -27,6 +29,7 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
 
         return null;
     } catch (error) {
+        console.log(error);
         console.error("Login Error:", error.response?.data || error.message);
         throw error.response?.data || 'Something went wrong!';
     }

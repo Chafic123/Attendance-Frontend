@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "https://b5a4-185-26-85-248.ngrok-free.app/api";
+const BASE_URL = "";
 
 export const getStudents = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
