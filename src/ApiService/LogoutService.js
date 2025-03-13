@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://a95f-185-26-85-248.ngrok-free.app/auth/';
+const BASE_URL = 'https://cf74-185-26-85-235.ngrok-free.app/api/auth/';
 
 export const logoutUser = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
