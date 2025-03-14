@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://a95f-185-26-85-248.ngrok-free.app/api/';
+import BASE_URL from './BaseURL';
 
 export const getStudentNotifications = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
@@ -11,7 +10,7 @@ export const getStudentNotifications = async () => {
   }
 
   try {
-    const { data } = await axios.get(`${BASE_URL}student/notifications`, {
+    const { data } = await axios.get(`${BASE_URL}/student/notifications`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

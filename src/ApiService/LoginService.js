@@ -1,13 +1,12 @@
 import axios from 'axios';
-
-const BASE_URL = 'http://localhost:8001/api/auth/';
+import BASE_URL from './BaseURL';
 
 export const loginUser = async (identifier, password, rememberMe = false) => {
     try {
         const payload = { identifier, password, remember_me: rememberMe };
 
         console.log('Login Payload:', payload);
-        const response = await axios.post(`${BASE_URL}login`, payload, {
+        const response = await axios.post(`${BASE_URL}/auth/login`, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

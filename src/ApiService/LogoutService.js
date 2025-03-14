@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://cf74-185-26-85-235.ngrok-free.app/api/auth/';
+import BASE_URL from './BaseURL';
 
 export const logoutUser = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
@@ -11,7 +10,7 @@ export const logoutUser = async () => {
 
   try {
     const response = await axios.post(
-      `${BASE_URL}logout`,
+      `${BASE_URL}/auth/logout`,
       {},
       {
         headers: {

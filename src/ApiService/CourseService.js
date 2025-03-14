@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = "https://4aec-185-26-85-248.ngrok-free.app/api";
+import BASE_URL from './BaseURL';
 
 export const getCourses = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
