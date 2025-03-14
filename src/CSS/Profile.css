@@ -22,12 +22,6 @@
     text-align: left;
 }
 
-.student-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding-top: 10px;
-}
 
 .student-name {
     font-size: 13.87px;
@@ -189,32 +183,38 @@
     }
 }
 
-@media only screen and (max-width: 431px) and (height: 932px) {
+@media only screen and (max-width: 431px) and (max-height: 932px) {
     .student-profile {
         max-width: 90%;
         padding-top: 50px;
     }
-
+    body{
+        position: relative;
+    }
     .x-icon {
         display: flex;
-        position: relative;
-        top: -400px;
-        right: -260px;
+        position: absolute;
+        top: 25px;
+        right: 50px;
         cursor: pointer;
     }
 
     .profile-title {
-        font-size: 30px;
+        font-size: 27px;
     }
 
-    label {
+     .form-student-group label {
         white-space: nowrap;
-        font-size: 20px;
+        font-size: 12px;
     }
 
     .form-student-group input {
         font-size: 10px;
+        
+    }
+    .form-student-row{
+        margin-left: 14px;
     }
 
-
+    
 }

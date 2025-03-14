@@ -6,6 +6,8 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    height: 93.5%;
+
 }
 .panel-content{
     display: flex;
@@ -13,12 +15,17 @@
     justify-content: center;
     align-items: center;
     gap: 0;
+    height: 100%;
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+    .panel-content{
+        height: 70%;
+    }
 }
 
 
-
-
-@media only screen and (max-width: 431px) and (height: 932px) {
+@media only screen and (max-width: 431px) and (max-height: 932px) {
 
 
     .panel-container {
@@ -46,6 +53,6 @@
     }
 
     .panel-content{
-        height: 70%;
+        height: 40%;
     }
 }

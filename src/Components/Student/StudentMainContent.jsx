@@ -68,7 +68,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           }}
         >
           <MainContentTopSI title="Courses" viewProfile={viewProfile} />
-          <div>
+          <div className="studentFilterContainer">
             <StudentFilter title="StudentFilter" />
           </div>
           <Course studentEmail="student1@example.com" />

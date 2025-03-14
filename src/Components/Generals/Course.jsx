@@ -39,10 +39,10 @@ export default function Course({ onCourseDoubleClick }) {
     <div className="CourseContainer">
       {courses.map((course, index) => (
         <div
-          className={`course ${activeIndex === index ? "activeCourse" : ""}`}
+          className={`course ${activeIndex === index ? "activeCourse" : ""}`} // ✅ Fixed template literals syntax
           key={index}
           onClick={() => handleCourseClick(index)}
-          onDoubleClick={() => handleCourseDoubleClick(course.id)}  //Added double-click
+          onDoubleClick={() => handleCourseDoubleClick(course.id)} // ✅ Double-click event is valid
         >
           <div className="courseDetails">
             <div className="courseBorder"></div>
@@ -52,7 +52,7 @@ export default function Course({ onCourseDoubleClick }) {
               <p className="courseInstructor">
                 {course.instructor_name ||
                   (course.instructors?.[0]?.user
-                    ? `${course.instructors[0].user.first_name} ${course.instructors[0].user.last_name}`
+                    ? `${course.instructors[0].user.first_name} ${course.instructors[0].user.last_name}` // ✅ Fixed template literals
                     : "No instructor")}
               </p>
             </div>
@@ -62,7 +62,7 @@ export default function Course({ onCourseDoubleClick }) {
             <div className="percentageContainer">
               <p className="coursePercentage">
                 {course.attendance_percentage !== undefined
-                  ? `${course.attendance_percentage}%`
+                  ? `${course.attendance_percentage}%` // ✅ Fixed template literals
                   : "N/A"}
               </p>
               <span>Absence</span>

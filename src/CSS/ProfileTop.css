@@ -12,6 +12,13 @@ body {
     gap: 15px;
 }
 
+.student-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 10px;
+}
+
 .profile-icon {
     
     width: 2vw;
@@ -31,14 +38,20 @@ body {
     }
 }
 
-@media only screen and (max-width: 431px) and (height: 932px) {
+@media only screen and (max-width: 431px) and (max-height: 932px) {
     .profileTop-container {
         width: fit-content;
-        top: 30px;
-        right: 120px;
+        top: 32px;
+        right: 95px;
         gap: 10px;
     }
-
+    .student-info{
+        gap: 2px;
+        margin-top: -7px;
+    }
+    .student-info p{
+        font-size: 10px;  
+    }
     .profile-icon {
         width: 3vw;
         height: 2vh;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Dashboard from "../Components/Generals/Dashboard";
 import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
@@ -7,101 +7,79 @@ import "../CSS/SI.css";
 
 export default function Student() {
   const [selectedText, setSelectedText] = useState(null);
-  const [isIphone14ProMax, setIsIphone14ProMax] = useState(
-    window.matchMedia('(max-width: 430px) and (max-height: 932px)').matches
-  );
+  const [isIphone14ProMax, setIsIphone14ProMax] = useState(false);
 
-  // Listen for screen size changes
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 430px) and (max-height: 932px)');
+    const mediaQuery = window.matchMedia("(max-width: 431px) and (max-height: 932px)");
+    const isIphone = /iPhone/.test(navigator.userAgent) && !window.MSStream;
 
-    const handleResize = (event) => {
-      setIsIphone14ProMax(event.matches);
+    const checkDevice = () => {
+      setIsIphone14ProMax(isIphone && mediaQuery.matches);
     };
 
-    mediaQuery.addEventListener('change', handleResize);
+    checkDevice();
+    mediaQuery.addEventListener("change", checkDevice);
+    window.addEventListener("resize", checkDevice);
 
-    // Cleanup listener on unmount
     return () => {
-      mediaQuery.removeEventListener('change', handleResize);
+      mediaQuery.removeEventListener("change", checkDevice);
+      window.removeEventListener("resize", checkDevice);
     };
   }, []);
 
-  const viewPanel = () => {
-    const profile = document.querySelector('.profile-holder');
-    const panelContent = document.querySelector('.panel-content');
-    const goBackIcon = document.querySelector('.go-back-icon');
-    console.log("View Panel")
-    if (profile && panelContent && goBackIcon) {
-      console.log("View Panel");
-      panelContent.style.display = 'flex'; 
-      profile.style.display = 'none'; 
-      goBackIcon.style.display = 'none'; 
-    }
-  };
+  const viewPanel = useCallback(() => {
+    document.querySelector(".profile-holder")?.style.setProperty("display", "none");
+    document.querySelector(".panel-content")?.style.setProperty("display", "flex");
+    document.querySelector(".go-back-icon")?.style.setProperty("display", "none");
+  }, []);
 
-  const viewProfile = () => {
-    const profile = document.querySelector('.profile-holder');
-    const panelContent = document.querySelector('.panel-content');
-    const goBackIcon = document.querySelector('.go-back-icon');
-    const panelContainer = document.querySelector('.panel-container');
+  const viewProfile = useCallback(() => {
+    const profile = document.querySelector(".profile-holder");
+    const panelContent = document.querySelector(".panel-content");
+    const goBackIcon = document.querySelector(".go-back-icon");
+    const panelContainer = document.querySelector(".panel-container");
 
     if (profile && panelContent && goBackIcon && panelContainer) {
       if (isIphone14ProMax) {
-        console.log("View Profile (iPhone)");
-        panelContainer.style.zIndex = '1000';
-        panelContent.style.display = 'none'; 
-        profile.style.display = 'flex'; 
-        goBackIcon.style.display = 'none'; 
+        panelContainer.style.zIndex = "1000";
+        panelContent.style.display = "none";
+        profile.style.display = "flex";
+        goBackIcon.style.display = "none";
       } else {
-        console.log("View Profile (Desktop)");
-        panelContent.style.display = 'none'; 
-        profile.style.display = 'flex';
-        goBackIcon.style.display = 'flex';
+        panelContent.style.display = "none";
+        profile.style.display = "flex";
+        goBackIcon.style.display = "flex";
       }
     }
-  };
+  }, [isIphone14ProMax]);
 
-  const viewPanelIphone = () => {
-    // Access DOM elements after they are rendered
-    const panelContainer = document.querySelector('.panel-container');
-    const panelContent = document.querySelector('.panel-content');
-
-    if (isIphone14ProMax && panelContainer && panelContent) {
-      console.log("View Panel (iPhone)");
-      panelContainer.style.zIndex = '1000'; // Show panel on iPhone
-      panelContent.style.display = 'flex'; // Show panel content
+  const viewPanelIphone = useCallback(() => {
+    if (isIphone14ProMax) {
+      const panelContainer = document.querySelector(".panel-container");
+      const panelContent = document.querySelector(".panel-content");
+  
+      if (panelContainer && panelContent) {
+        panelContainer.style.zIndex = "1000";
+        panelContent.style.display = "flex";
+      } else {
+        console.warn("Panel elements not found in the DOM");
+      }
     }
-  };
-
-  const DashboardItems = [
-    {
-      imgSrc: "../public/Images/Course-icon.png",
-      altText: "Course Icon",
-      text: "View Courses",
-      id: "course-navigate",
-    },
-    {
-      imgSrc: "../public/Images/Schedule-icon.png",
-      altText: "Schedule Icon",
-      text: "View Schedule",
-      id: "Schedule-navigate",
-    },
-    {
-      imgSrc: "../public/Images/Notification-icon.png",
-      altText: "Notification Icon",
-      text: "View Notifications",
-      id: "Notification-navigate",
-    },
-  ];
-
+  }, [isIphone14ProMax]);
+  
   const handleItemClick = (text) => {
     setSelectedText(text);
   };
 
+  const DashboardItems = [
+    { imgSrc: "../public/Images/Course-icon.png", altText: "Course Icon", text: "View Courses", id: "course-navigate" },
+    { imgSrc: "../public/Images/Schedule-icon.png", altText: "Schedule Icon", text: "View Schedule", id: "Schedule-navigate" },
+    { imgSrc: "../public/Images/Notification-icon.png", altText: "Notification Icon", text: "View Notifications", id: "Notification-navigate" },
+  ];
+
   return (
     <div className="whole-container">
-      <ProfileTop viewProfile={viewProfile} /> {/* ProfileTop is always visible */}
+      <ProfileTop viewProfile={viewProfile} />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <StudentWholeContent
