@@ -24,11 +24,11 @@ export default function Login() {
         const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
         if (token) {
           if (response.user.status === "Admin") {
-            navigate("/Admin");
+            navigate("/admin");
           } else if (response.user.status === "Instructor") {
-            navigate("/Instructor");
+            navigate("/instructor");
           } else {
-            navigate("/Student");
+            navigate("/student");
           }
         } else {
           setErrorMessage("Authentication failed. Please log in again.");
