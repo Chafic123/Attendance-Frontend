@@ -4,6 +4,8 @@ import BASE_URL from './BaseURL';
 export const getCourses = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
+  console.log(userRole)
+
   if (!token) {
     console.log("No authentication token found. Please log in again.");
     return [];
@@ -15,7 +17,6 @@ export const getCourses = async () => {
   }
 
   const endpoint = `${BASE_URL}/${userRole.toLowerCase()}/courses`;
-
   try {
     const { data } = await axios.get(endpoint, {
       headers: {
