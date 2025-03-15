@@ -17,6 +17,7 @@ export const getStudentNotifications = async () => {
         'Authorization': `Bearer ${token}`,
       },
       withCredentials: true, // In case cookies or session are needed
+      credentials: 'include',
 
     });
 

@@ -10,7 +10,7 @@
     padding: 24px;
     font-family: Arial, sans-serif;
     color: #4A2B99;
-    padding-top: 70px;
+    padding-top: 80px;
     padding-left: 0px;
 }
 
@@ -40,7 +40,7 @@
 
 .student-profile-form {
     width: 90%;
-    gap: 10px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
     margin-top: 15px;
