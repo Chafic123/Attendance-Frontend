@@ -36,7 +36,7 @@ export default function Course({ filters, onCourseDoubleClick }) {
     // ✅ Search by course name
     if (searchQuery) {
       filtered = filtered.filter(course =>
-        course.course_name.toLowerCase().includes(searchQuery)
+        course.course_name?.toLowerCase().includes(searchQuery) || course.name?.toLowerCase().includes(searchQuery)
       );
     }
 
@@ -86,13 +86,9 @@ export default function Course({ filters, onCourseDoubleClick }) {
             </div>
           </div>
 
-          {userRole?.toLowerCase() === "student" && (
+          {userRole?.toLowerCase() === "student" && course.attendance_percentage !== undefined && (
             <div className="percentageContainer">
-              <p className="coursePercentage">
-                {course.attendance_percentage !== undefined
-                  ? `${course.attendance_percentage}%`
-                  : "N/A"}
-              </p>
+              <p className="coursePercentage">{`${course.attendance_percentage}%`}</p>
               <span>Absence</span>
               <span>Percentage</span>
             </div>
