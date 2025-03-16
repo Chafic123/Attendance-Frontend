@@ -62,9 +62,24 @@
   white-space: nowrap;
 
 }
-.css-q5we01-MuiDayCalendar-root {
-  margin-top: -11px;
+
 }
+.css-5wchs2-MuiDateCalendar-root{
+  height: 440px !important;
+  margin-top: -100px !important;
+
+  
+}
+
+  .css-1nxbkmn-MuiPickersCalendarHeader-root {
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color:white !important;
+  }
+  .css-16hplv9-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton {
+    color: white !important;
+}
+.css-1ckov0h-MuiSvgIcon-root {
+  color: white !important;
 }
 @media only screen and (max-width: 431px) and (max-height: 932px) {
   .css-5wchs2-MuiDateCalendar-root {

@@ -87,6 +87,9 @@
     align-items: center;
     gap: 22px;
 }
+.form-student-group:last-child{
+    margin-left: 4px;
+}
 .go-back-icon{
     display: none;
     position: absolute;
@@ -151,6 +154,7 @@
 .save-btn:hover {
     background-color: #3d2280;
 }
+
 
 
 

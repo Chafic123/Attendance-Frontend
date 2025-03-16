@@ -1,43 +1,51 @@
 import "../../CSS/Profile.css";
 import "../../CSS/SIPanel.css";
-
 import { useEffect, useState } from "react";
+import { getStudentDetails } from "../../ApiService/ProfileService";
+
 export default function StudentProfile() {
-    const [studentImage, setStudentImage] = useState("Upload New")
+    const [student, setStudent] = useState(null);
+    const [studentImage, setStudentImage] = useState("");
+
+    useEffect(() => {
+        const fetchStudentDetails = async () => {
+            try {
+                const data = await getStudentDetails();
+                if (data) {
+                    setStudent(data);
+                    setStudentImage(`http://localhost:8001/${data.student.image}`);
+                }
+            } catch (error) {
+                console.error("Error fetching student details:", error);
+            }
+        };
+
+        fetchStudentDetails();
+    }, []);
 
     const handleStudentImage = (event) => {
         if (event.target.files.length > 0) {
-            setStudentImage(event.target.files[0].name);
+            setStudentImage(URL.createObjectURL(event.target.files[0]));
         } else {
-            setStudentImage("Upload New");
+            setStudentImage(`http://localhost:8001/${student.student.image}`);
         }
     };
-    useEffect(() => {
 
+    useEffect(() => {
         const changeButtonText = () => {
             const button = document.querySelector('.save-btn');
-
             if (button) {
                 if (window.matchMedia("(width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2)").matches) {
-                    button.textContent = "Save";  // iPad Pro resolution
+                    button.textContent = "Save"; // iPad Pro resolution
                 } else if (window.matchMedia("(max-width: 431px) and (height: 932px)").matches) {
-                    button.textContent = "Save";  // iPhone 14 Pro Max resolution
+                    button.textContent = "Save"; // iPhone 14 Pro Max resolution
                 } else {
-                    button.textContent = "Save Changes";  // Default for all other devices
+                    button.textContent = "Save Changes"; // Default for all other devices
                 }
             }
         };
 
-        // Run on page load
         changeButtonText();
-
-        // Listen for screen size changes dynamically
-        window.addEventListener
-
-
-        changeButtonText();
-
-        // Optional: Add event listener to handle changes in screen size dynamically
         window.addEventListener('resize', changeButtonText);
 
         return () => {
@@ -45,21 +53,25 @@ export default function StudentProfile() {
         };
     }, []);
 
+    if (!student) return <p>Loading...</p>;
+
     return (
         <div className="student-profile">
             <h2 className="profile-title">My Profile</h2>
             <div className="student-info">
-                <p className="student-name" id="student-name">Majd Abou Ghoush</p>
-                <p className="student-id" id="student-id">20220222</p>
+                <p className="student-name" id="student-name">{student.user.first_name} {student.user.last_name}</p>
+                <p className="student-id" id="student-id">{student.student.student_id}</p>
             </div>
 
-            <form className="student-profile-form" >
+            <form className="student-profile-form">
                 <div className="form-student-group">
                     <label htmlFor="First-Name">First Name:</label>
                     <input
                         type="text"
                         id="First-Name"
                         name="First-Name"
+                        value={student.user.first_name}
+                        onChange={() => {}}
                     />
                 </div>
 
@@ -69,6 +81,8 @@ export default function StudentProfile() {
                         type="text"
                         id="Last-Name"
                         name="Last-Name"
+                        value={student.user.last_name}
+                        onChange={() => {}}
                     />
                 </div>
 
@@ -78,6 +92,7 @@ export default function StudentProfile() {
                         type="text"
                         id="Major"
                         name="Major"
+                        value={student.student.major}
                         disabled
                     />
                 </div>
@@ -88,10 +103,10 @@ export default function StudentProfile() {
                         type="text"
                         id="Email"
                         name="Email"
+                        value={student.user.email}
                         disabled
                     />
                 </div>
-
 
                 <div className="form-student-row">
                     <div className="form-student-group">
@@ -107,10 +122,10 @@ export default function StudentProfile() {
                         </label>
 
                         <label htmlFor="fileInput" className="upload-img-btn">
-                            <img src="../Images/Upload_img.png" alt="Upload" />
+                        <img src="/Images/Upload_img.png" alt="Upload" />
                         </label>
 
-                        <span className="img-name">{studentImage}</span>
+                        <span className="img-name">Upload New</span>
                     </div>
                 </div>
 
@@ -120,5 +135,5 @@ export default function StudentProfile() {
                 </div>
             </form>
         </div>
-    )
+    );
 }

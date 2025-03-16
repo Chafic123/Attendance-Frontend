@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Calender from "../Generals/CalenderForm";
 import PropTypes from "prop-types";
 import StudentProfile from "./StudentProfile";
-import StudentNotifications from "./StudentNotifications";
 import "../../CSS/SIPanel.css";
 import "../../CSS/SICalender.css";
 import "../../CSS/SI.css";
@@ -49,10 +48,7 @@ export default function StudentPanel({ title, viewPanel }) {
   return title === "View Schedule" ? null : (
     <div className="panel-container">
       <div className="panel-content">
-        <div className="custom-calendar-wrapper">
           <Calender />
-        </div>
-        <StudentNotifications />
       </div>
       <div className="profile-holder">
         <StudentProfile />

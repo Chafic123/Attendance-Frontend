@@ -17,7 +17,6 @@ export const getStudentSchedule = async () => {
         'Authorization': `Bearer ${token}`,
       },
       withCredentials: true, 
-      credentials: 'include',
     });
 
     console.log('Student Schedule API Response:', data);
