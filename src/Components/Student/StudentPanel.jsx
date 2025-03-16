@@ -40,8 +40,8 @@ export default function StudentPanel({ title, viewPanel }) {
     const panelContent = document.querySelector(".panel-content");
 
     if (profile && panelContainer && panelContent) {
-      profile.style.display = "none"; // Hide profile content
-      panelContainer.style.zIndex = "-1000"; // Hide panel for iPhone
+      profile.style.display = "none"; 
+      panelContainer.style.zIndex = "-1000"; 
       console.log("Panel hidden");
     }
   };

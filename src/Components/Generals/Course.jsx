@@ -79,9 +79,9 @@ export default function Course({ filters, onCourseDoubleClick }) {
           <div className="courseDetails">
             <div className="courseBorder"></div>
             <div className="courseText">
-              <p className="courseCode">{course.course_code }</p>
-              <p className="courseName">{course.course_name}</p>
-              <p className="courseInstructor">Roaa Soloh</p>
+              <p className="courseCode">{course.course_code || 'N/A'}</p>
+              <p className="courseName">{course.course_name || 'N/A'}</p>
+              <p className="courseInstructor">{course.instructor_name}</p>
             </div>
           </div>
 

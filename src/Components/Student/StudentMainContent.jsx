@@ -17,7 +17,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
     if (selectedDashboardITem !== "View Courses") {
       setSearchParams({}, { replace: true }); // ✅ Clears URL search query when leaving "View Courses"
     }
-  }, [selectedDashboardITem]); // ✅ Runs whenever the user changes tabs
+  }, [selectedDashboardITem, setSearchParams]); // ✅ Runs whenever the user changes tabs
 
   // ✅ Prevent unnecessary URL updates
   const handleSearch = (query) => {
