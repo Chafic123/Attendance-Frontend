@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
 import "../../CSS/SINotifications.css";
-import { getStudentNotifications } from "../../ApiService/NotificationService";
+import { getStudentNotifications, markStudentNotificationAsRead } from "../../ApiService/NotificationService";
 
 export default function StudentNotifications() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Function to mark a notification as read
+  const handleMarkAsRead = async (notificationId) => {
+    const response = await markStudentNotificationAsRead(notificationId);
+    if (response) {
+      setNotifications(notifications.filter((notification) => notification.id !== notificationId));
+    }
+  };
+
+  // ✅ Fetch notifications on component mount
   useEffect(() => {
     const fetchNotifications = async () => {
       const data = await getStudentNotifications();
@@ -35,12 +44,18 @@ export default function StudentNotifications() {
               <div className="temp">
                 <div className="notification-content-container">
                   <p className="notification-content">{notification.message}</p>
-                  <p className="notification-course-name">{notification.course.name}</p>
-                  <p className="instructor-name">Instructor: {notification.instructor_name}</p>
+                  <p className="notification-course-name">
+                    {notification.course ? notification.course.name : "Unknown Course"}
+                  </p>
+                  <p className="instructor-name">
+                    Instructor: {notification.instructor_name || "Unknown Instructor"}
+                  </p>
                 </div>
               </div>
             </div>
-            <button className="mark-as-read">Mark As Read</button>
+            <button className="mark-as-read" onClick={() => handleMarkAsRead(notification.id)}>
+              Mark As Read
+            </button>
           </div>
         </div>
       ))}

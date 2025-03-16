@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import "../../CSS/StudentNorificationCenter.css";
-import { getStudentNotifications } from "../../ApiService/NotificationService";
+import { getStudentNotifications, markStudentNotificationAsRead } from "../../ApiService/NotificationService";
 
 export default function StudentNotificationsCenter() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Fetch notifications on component mount
   useEffect(() => {
     const fetchNotifications = async () => {
       const data = await getStudentNotifications();
@@ -15,6 +16,14 @@ export default function StudentNotificationsCenter() {
 
     fetchNotifications();
   }, []);
+
+  // ✅ Function to mark a notification as read
+  const handleMarkAsRead = async (notificationId) => {
+    const response = await markStudentNotificationAsRead(notificationId);
+    if (response) {
+      setNotifications(notifications.filter((notification) => notification.id !== notificationId));
+    }
+  };
 
   if (loading) return <p>Loading notifications...</p>;
   if (!notifications.length) return <p>No notifications available.</p>;
@@ -34,12 +43,20 @@ export default function StudentNotificationsCenter() {
               <div className="temp">
                 <div className="notificationCard-content-container">
                   <p className="notificationCard-content">{notification.message}</p>
-                  <p className="notificationCard-course-name">{notification.course.name}</p>
-                  <p className="instructorCard-name">Instructor: {notification.instructor_name}</p>
+                  <p className="notificationCard-course-name">
+                    {notification.course ? notification.course.name : "Unknown Course"}
+                  </p>
+                  <p className="instructorCard-name">
+                    Instructor: {notification.instructor_name || "Unknown Instructor"}
+                  </p>
                 </div>
               </div>
             </div>
-            <button className="mark-as-readCard">Mark As Read</button>
+
+            {/* ✅ "Mark As Read" Button */}
+            <button className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
+              Mark As Read
+            </button>
           </div>
         </div>
       ))}

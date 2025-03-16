@@ -4,7 +4,6 @@ import BASE_URL from './BaseURL';
 export const getCourses = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
-  console.log(userRole)
 
   if (!token) {
     console.log("No authentication token found. Please log in again.");
@@ -17,6 +16,7 @@ export const getCourses = async () => {
   }
 
   const endpoint = `${BASE_URL}/${userRole.toLowerCase()}/courses`;
+
   try {
     const { data } = await axios.get(endpoint, {
       headers: {
@@ -27,26 +27,23 @@ export const getCourses = async () => {
       withCredentials: true,
     });
 
-    console.log('Courses Response:', data);
+    console.log('Courses API Response:', data);
 
-    // ✅ Handle both cases:
-    // - If 'data' is an array (student case), return it directly.
-    // - If 'data' is an object with 'data' field (admin case), return data.data.
+    // ✅ Ensure response is always returned as an array, considering admin & student cases
     if (Array.isArray(data)) {
-      return data; // Student API returns direct array
+      return data; // Student API case (returns an array)
     } else if (data?.data && Array.isArray(data.data)) {
-      return data.data; // Admin API returns paginated object with 'data' array
+      return data.data; // Admin API case (returns { data: [...] })
+    } else {
+      console.warn("Unexpected API response structure:", data);
+      return [];
     }
-
-    console.warn("Unexpected API response structure.");
-    return [];
 
   } catch (error) {
     console.error('API Error:', error.response?.status, error.response?.data || error.message);
     return [];
   }
 };
-
 
 export const getCourseStudents = async (courseId) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
