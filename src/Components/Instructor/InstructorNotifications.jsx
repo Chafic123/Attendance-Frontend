@@ -19,7 +19,7 @@ export default function InstructorNotifications(){
                 <div className="temp">
                     <div className="notification-content-container">
                         <p className="notification-content">You missed your Introduction to</p>
-                        <p className="course-name">Management Course</p>
+                        <p className="notification-course-name">Management Course</p>
                     </div>  
 
                 </div>

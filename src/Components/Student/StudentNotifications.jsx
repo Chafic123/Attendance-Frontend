@@ -35,7 +35,8 @@ export default function StudentNotifications() {
               <div className="temp">
                 <div className="notification-content-container">
                   <p className="notification-content">{notification.message}</p>
-                  <p className="course-name">Instructor: {notification.instructor_name}</p>
+                  <p className="notification-course-name">{notification.course.name}</p>
+                  <p className="instructor-name">Instructor: {notification.instructor_name}</p>
                 </div>
               </div>
             </div>

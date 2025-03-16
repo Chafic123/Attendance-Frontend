@@ -1,47 +1,65 @@
+import { useEffect, useState } from "react";
+import { getStudentSchedule } from "../../ApiService/StudentScheduleReportService";
 import "../../CSS/StudentScheduleReport.css";
 
-
 export default function StudentScheduleReport() {
+    const [studentData, setStudentData] = useState(null);
+
+    useEffect(() => {
+        const fetchSchedule = async () => {
+            const data = await getStudentSchedule();
+            if (data) {
+                setStudentData(data);
+            }
+        };
+
+        fetchSchedule();
+    }, []);
+
+    if (!studentData) {
+        return <div>Loading...</div>;
+    }
+    const { student, courses } = studentData;
+
     return (
         <div>
             <div className="schedule-top">
                 <div className="schedule-top-element">
                     <div className="schedule-top-info">
                         <label htmlFor="">Student ID:</label>
-                        <span>20220004</span>
+                        <span>{student.student_id}</span>
                     </div>
                     <div className="schedule-top-info">
                         <label htmlFor="">Name: </label>
-                        <span>Osama Awad</span>
+                        <span>{student.first_name} {student.last_name}</span>
                     </div>
                     <div className="schedule-top-info">
                         <label htmlFor="">Major: </label>
-                        <span>Computer Science</span>
+                        <span>{student.major}</span>
                     </div>
-
                 </div>
                 <div className="schedule-top-element">
                     <div className="schedule-top-info">
                         <label htmlFor="">Year: </label>
-                        <span>Junior</span>
+                        <span>{student.year || "N/A"}</span>
                     </div>
                     <div className="schedule-top-info">
                         <label htmlFor="">Semester: </label>
-                        <span>Fall 2025</span>
+                        <span>{courses.length > 0 ? courses[0].term : "N/A"} {courses.length > 0 ? courses[0].year : "N/A"}</span>
                     </div>
                     <div className="schedule-top-info">
                         <label htmlFor="">Advisor: </label>
-                        <span>Dr. Roaa Soloh</span>
+                        <span>{student.advisor || "N/A"}</span>
                     </div>
                 </div>
             </div>
+
             <div className="schedule-table-container">
             <table className="schedule-table">
                 <thead>
                     <tr>
                         <th className="schedule-th">Course Code</th>
                         <th className="schedule-th">Course Name</th>
-                        <th className="schedule-th">Type</th>
                         <th className="schedule-th">Room</th>
                         <th className="schedule-th">Day</th>
                         <th className="schedule-th">Time</th>
@@ -50,70 +68,21 @@ export default function StudentScheduleReport() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>COSC343</td>
-                        <td className="courseName-td">Introduction to Web Programming</td>
-                        <td className="course-type-library"><span>Laboratary</span></td>
-                        <td>H102</td>
-                        <td>MW</td>
-                        <td>9:00AM - 10:15PM</td>
-                        <td>Roaa Soloh</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>COSC343</td>
-                        <td className="courseName-td">Introduction to Web Programming</td>
-                        <td className="course-type"><span>Lecture</span></td>
-                        <td>H102</td>
-                        <td>MW</td>
-                        <td>9:00AM - 10:15PM</td>
-                        <td>Roaa Soloh</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>COSC343</td>
-                        <td className="courseName-td">Introduction to Web Programming</td>
-                        <td className="course-type"><span>Lecture</span></td>
-                        <td>H102</td>
-                        <td>MW</td>
-                        <td>9:00AM - 10:15PM</td>
-                        <td>Roaa Soloh</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>COSC343</td>
-                        <td className="courseName-td">Introduction to Web Programming</td>
-                        <td className="course-type"><span>Lecture</span></td>
-                        <td>H102</td>
-                        <td>MW</td>
-                        <td>9:00AM - 10:15PM</td>
-                        <td>Roaa Soloh</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>COSC343</td>
-                        <td className="courseName-td">Introduction to Web Programming</td>
-                        <td className="course-type"><span>Lecture</span></td>
-                        <td>H102</td>
-                        <td>MW</td>
-                        <td>9:00AM - 10:15PM</td>
-                        <td>Roaa Soloh</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>COSC343</td>
-                        <td className="courseName-td">Introduction to Web Programming</td>
-                        <td className="course-type-library"><span>Laboratary</span></td>
-                        <td>H102</td>
-                        <td>MW</td>
-                        <td>9:00AM - 10:15PM</td>
-                        <td>Roaa Soloh</td>
-                        <td>3</td>
-                    </tr>
-                </tbody>
+                        {courses.map((course, index) => (
+                            <tr key={index}>
+                                <td>{course.course_code}</td>
+                                <td className="courseName-td">{course.course_name}</td>
+                                <td>{course.room_name}</td>
+                                <td>{course.day_of_week.join(", ")}</td>
+                                <td>{course.time_start} - {course.time_end}</td>
+                                <td>{course.instructors.map(inst => `${inst.first_name} ${inst.last_name}`).join(", ")}</td>
+                                <td>3</td>
+                            </tr>
+                        ))}
+                    </tbody>
             </table>
             </div>
-            <span className="credits">Credits:    13</span>
+            <span className="credits">Credits:    12</span>
         </div>
     )
 }

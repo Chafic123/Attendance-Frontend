@@ -1,11 +1,12 @@
 /* Wrapper for the calendar */
 .custom-calendar-wrapper {
   width: 100%;
-  height: 30% ;
+  height: 30%;
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 10%;
+  margin-top: -3%;
+  margin-bottom: 11%;
 }
 /* Weekday Row (Mon, Tue, etc.) */
 .MuiDayCalendar-weekDayLabel {
