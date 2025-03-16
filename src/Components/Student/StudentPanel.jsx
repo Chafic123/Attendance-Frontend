@@ -9,7 +9,6 @@ import "../../CSS/SI.css";
 import "../../CSS/Profile.css";
 
 export default function StudentPanel({ title, viewPanel }) {
-  const isIphone14ProMax = window.matchMedia("(max-width: 431px) and (height: 932px)").matches;
 
   // Function to show the panel again when switching back from iPhone
   useEffect(() => {

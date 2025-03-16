@@ -8,7 +8,7 @@ export default function StudentFilter() {
 
   return (
     <div className="filterContainer">
-      <p className="filterTitle">Filter by:</p>
+      <p className="filterTitle" style={styles.p}>Filter by:</p>
       <input
         type="text"
         onChange={handleFilterChange}
@@ -20,7 +20,7 @@ export default function StudentFilter() {
         onChange={handleFilterChange}
         className="selectInput"
       >
-        <option value="" disabled>
+        <option value="" disabled style={styles.option}>
           A-Z
         </option>
       </select>

@@ -27,7 +27,6 @@ export const getStudents = async () => {
 
     console.log('Fetched Students:', data);
 
-    // ✅ Return the 'data' array from the paginated response
     return Array.isArray(data?.data) ? data.data : [];
 
   } catch (error) {
