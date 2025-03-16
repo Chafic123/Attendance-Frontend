@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import StudentFilter from "./StudentFilter";
 import Course from "../Generals/Course";
@@ -6,24 +7,26 @@ import PropTypes from "prop-types";
 import StudentNotificationCenter from "./StudentNotificationCenter";
 import "../../CSS/StudentMainContent.css";
 import StudentScheduleReport from "./StudentScheduleReport";
-import { useEffect } from "react";
 
 export default function StudentMainContent({ selectedDashboardITem, viewProfile, viewPanelIphone }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  useEffect(() => {
-    if (searchParams.get("search")) {
-      setSearchParams({});
-    }
-  }, []); 
+  const [filterOptions, setFilterOptions] = useState({ code: "", sort: "" });
 
+  // ✅ Clear search query from URL when switching views (except when in "View Courses")
+  useEffect(() => {
+    if (selectedDashboardITem !== "View Courses") {
+      setSearchParams({}, { replace: true }); // ✅ Clears URL search query when leaving "View Courses"
+    }
+  }, [selectedDashboardITem]); // ✅ Runs whenever the user changes tabs
+
+  // ✅ Prevent unnecessary URL updates
   const handleSearch = (query) => {
     const currentSearch = searchParams.get("search") || "";
-    
     if (query !== currentSearch) {
       if (query) {
-        setSearchParams({ search: query }); // ✅ Update only if different
+        setSearchParams({ search: query }, { replace: true });
       } else {
-        setSearchParams({});
+        setSearchParams({}, { replace: true });
       }
     }
   };
@@ -36,6 +39,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
         src="../public/Images/Notification-Schedule-icon.png"
         alt=""
       />
+
       {selectedDashboardITem === "View Courses" ? (
         <div
           style={{
@@ -48,12 +52,12 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
             gap: "17px",
           }}
         >
-          {/* ✅ Pass `handleSearch` to prevent unnecessary URL updates */}
+          {/* ✅ Show search bar only in "View Courses" */}
           <MainContentTopSI title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
-          <div>
-            <StudentFilter title="StudentFilter" />
-          </div>
-          <Course studentEmail="student1@example.com" />
+
+          {/* ✅ Pass filters */}
+          <StudentFilter onFilterChange={setFilterOptions} />
+          <Course filters={filterOptions} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -67,6 +71,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
             gap: "17px",
           }}
         >
+          {/* ❌ No search bar here */}
           <MainContentTopSI title="Schedule" viewProfile={viewProfile} />
           <StudentScheduleReport />
         </div>
@@ -82,6 +87,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
             gap: "17px",
           }}
         >
+          {/* ❌ No search bar here */}
           <MainContentTopSI title="Notifications" viewProfile={viewProfile} />
           <StudentNotificationCenter />
         </div>
@@ -97,11 +103,10 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
             gap: "17px",
           }}
         >
+          {/* ✅ Search bar only for "View Courses" */}
           <MainContentTopSI title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
-          <div className="studentFilterContainer">
-            <StudentFilter title="StudentFilter" />
-          </div>
-          <Course />
+          <StudentFilter onFilterChange={setFilterOptions} />
+          <Course filters={filterOptions} />
         </div>
       )}
     </>

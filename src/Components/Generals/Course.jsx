@@ -4,12 +4,12 @@ import "../../CSS/Course.css";
 import { getCourses } from "../../ApiService/CourseService";
 import PropTypes from "prop-types";
 
-export default function Course({ onCourseDoubleClick }) {
+export default function Course({ filters, onCourseDoubleClick }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams(); // Listen to search parameters
+  const [searchParams] = useSearchParams();
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function Course({ onCourseDoubleClick }) {
       try {
         const courseData = await getCourses();
         setCourses(Array.isArray(courseData) ? courseData : []);
-        setFilteredCourses(Array.isArray(courseData) ? courseData : []); // Default to full list
+        setFilteredCourses(Array.isArray(courseData) ? courseData : []);
       } catch (error) {
         console.error("Failed to fetch courses:", error);
       } finally {
@@ -28,25 +28,33 @@ export default function Course({ onCourseDoubleClick }) {
     fetchCourses();
   }, []);
 
-  // ✅ Listen for search query in the URL and filter courses properly
   useEffect(() => {
-    const searchQuery = searchParams.get("search")?.toLowerCase() || "";
+    let searchQuery = searchParams.get("search")?.toLowerCase() || "";
+    let filtered = [...courses];
 
-    if (!searchQuery) {
-      setFilteredCourses([...courses]); // ✅ Reset courses when search is cleared
-    } else {
-      const filtered = courses.filter(course =>
+    // ✅ Apply search filtering
+    if (searchQuery) {
+      filtered = filtered.filter(course =>
         course.course_name.toLowerCase().includes(searchQuery)
       );
-      setFilteredCourses(filtered);
     }
-  }, [searchParams, courses]); // ✅ Include `courses` in dependencies to update properly
 
-  // ✅ Function to clear search completely and reset the URL
-  const clearSearch = () => {
-    setSearchParams({}); // ✅ Remove search query from the URL
-    setFilteredCourses([...courses]); // ✅ Restore full course list
-  };
+    // ✅ Apply course code filtering
+    if (filters.code) {
+      filtered = filtered.filter(course => 
+        course.course_code.toLowerCase().includes(filters.code.toLowerCase())
+      );
+    }
+
+    // ✅ Apply sorting (A-Z, Z-A)
+    if (filters.sort === "asc") {
+      filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));
+    } else if (filters.sort === "desc") {
+      filtered.sort((a, b) => b.course_name.localeCompare(a.course_name));
+    }
+
+    setFilteredCourses(filtered);
+  }, [searchParams, courses, filters]);
 
   const handleCourseClick = (index) => setActiveIndex(index);
 
@@ -71,8 +79,8 @@ export default function Course({ onCourseDoubleClick }) {
           <div className="courseDetails">
             <div className="courseBorder"></div>
             <div className="courseText">
-              <p className="courseCode">{course.course_code || course.Code}</p>
-              <p className="courseName">{course.course_name || course.name}</p>
+              <p className="courseCode">{course.course_code }</p>
+              <p className="courseName">{course.course_name}</p>
               <p className="courseInstructor">Roaa Soloh</p>
             </div>
           </div>
@@ -95,5 +103,9 @@ export default function Course({ onCourseDoubleClick }) {
 }
 
 Course.propTypes = {
+  filters: PropTypes.shape({
+    code: PropTypes.string,
+    sort: PropTypes.string,
+  }).isRequired,
   onCourseDoubleClick: PropTypes.func.isRequired,
 };

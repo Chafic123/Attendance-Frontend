@@ -1,30 +1,54 @@
-import axios from 'axios';
-import BASE_URL from './BaseURL';
+import axios from "axios";
+import BASE_URL from "./BaseURL";
 
+// ✅ Fetch Student Notifications
 export const getStudentNotifications = async () => {
-  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-  console.log("hi")
+  const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
   if (!token) {
-    console.warn("No authentication token found. Please log in again.");
+    console.error("No authentication token found.");
     return [];
   }
 
   try {
-    const { data } = await axios.get(`${BASE_URL}/student/notifications`, {
+    const response = await axios.get(`${BASE_URL}/student/notifications`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
-      withCredentials: true, 
-
     });
 
-    console.log('Notification API Response:', data); 
-    return Array.isArray(data) ? data : [];
+    console.log("Student Notifications:", response.data);
+    return Array.isArray(response.data) ? response.data : [];
 
   } catch (error) {
-    console.error('Notification API Error:', error.response?.status, error.response?.data || error.message);
+    console.error("Error fetching student notifications:", error.response?.data || error.message);
     return [];
+  }
+};
+
+// ✅ Mark Student Notification as Read (DELETE)
+export const markStudentNotificationAsRead = async (notificationId) => {
+  const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+  if (!token) {
+    console.error("No authentication token found.");
+    return null;
+  }
+
+  try {
+    const response = await axios.delete(`${BASE_URL}/student/notifications/${notificationId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    console.log("Notification deleted:", response.data);
+    return response.data; // Return success message
+
+  } catch (error) {
+    console.error("Error marking student notification as read:", error.response?.data || error.message);
+    return null;
   }
 };
