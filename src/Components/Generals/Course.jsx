@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import "../../CSS/Course.css";
 import { getCourses } from "../../ApiService/CourseService";
 import PropTypes from "prop-types";
@@ -9,7 +8,6 @@ export default function Course({ filters, onCourseDoubleClick }) {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [searchParams] = useSearchParams();
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
   useEffect(() => {
@@ -30,15 +28,8 @@ export default function Course({ filters, onCourseDoubleClick }) {
 
   // ✅ Apply filtering by search, code, and sorting
   useEffect(() => {
-    let searchQuery = searchParams.get("search")?.toLowerCase() || "";
     let filtered = [...courses];
 
-    // ✅ Search by course name
-    if (searchQuery) {
-      filtered = filtered.filter(course =>
-        course.course_name?.toLowerCase().includes(searchQuery) || course.name?.toLowerCase().includes(searchQuery)
-      );
-    }
 
     // ✅ Filter by course code
     if (filters?.code) {
@@ -62,7 +53,7 @@ export default function Course({ filters, onCourseDoubleClick }) {
     }
 
     setFilteredCourses(filtered);
-  }, [searchParams, courses, filters]);
+  }, [courses, filters]);
 
   const handleCourseClick = (index) => setActiveIndex(index);
 
