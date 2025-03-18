@@ -5,9 +5,10 @@ import Admin from "./Pages/Admin";
 import Student from "./Pages/Student";
 import Instructor from "./Pages/Instructor";
 import ProtectedRoute from "./ProtectedRoute";
-
+import { CourseProvider } from "./Contexts/CourseContext";
 function App() {
   return (
+    <CourseProvider>
     <Router>
       <Routes>
         {/* Public Routes */}
@@ -29,6 +30,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </CourseProvider>
   );
 }
 

@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import "../../CSS/Course.css";
 import { getCourses } from "../../ApiService/CourseService";
+import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService";
 import PropTypes from "prop-types";
-
-export default function Course({ filters, onCourseDoubleClick }) {
+import { useCourse } from "../../Contexts/CourseContext";
+export default function Course({ filters }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [calendarData, setCalendarData] = useState([]); // State for storing calendar data
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+  const { setCourseId } = useCourse();  // Access the setter function to set Course ID
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -26,26 +29,25 @@ export default function Course({ filters, onCourseDoubleClick }) {
     fetchCourses();
   }, []);
 
-  // ✅ Apply filtering by search, code, and sorting
+  // Apply filtering by search, code, and sorting
   useEffect(() => {
     let filtered = [...courses];
 
-
-    // ✅ Filter by course code
+    // Filter by course code
     if (filters?.code) {
       filtered = filtered.filter(course =>
         course.course_code.toUpperCase().includes(filters.code.toUpperCase())
       );
     }
 
+    // Filter by course name
     if (filters?.name) {
       filtered = filtered.filter(course =>
         course.course_name.toUpperCase().includes(filters.name.toUpperCase())
       );
     }
 
-
-    // ✅ Sort courses (A-Z, Z-A)
+    // Sort courses (A-Z, Z-A)
     if (filters?.sort === "asc") {
       filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));
     } else if (filters?.sort === "desc") {
@@ -55,13 +57,33 @@ export default function Course({ filters, onCourseDoubleClick }) {
     setFilteredCourses(filtered);
   }, [courses, filters]);
 
-  const handleCourseClick = (index) => setActiveIndex(index);
+  // Fetch calendar data when a course is clicked
+  const userID = localStorage.getItem('userID') || sessionStorage.getItem('userID');
+  console.log('user ID:', userID);
 
-  const handleCourseDoubleClick = (courseId) => {
-    if (onCourseDoubleClick) {
-      onCourseDoubleClick(courseId);
-    }
+  const handleCourseClick = (index, courseId) => {
+    setCourseId(courseId);
+    setActiveIndex(index);
+
   };
+  // const handleCourseClick = (index, courseId) => {
+  //   setActiveIndex(index);
+
+  //   if (courseId) {
+  //     const fetchCalendarData = async () => {
+  //       try {
+  //         // Fetch calendar data based on selected courseId and studentId (replace 'studentId' with the actual student ID)
+  //         const data = await getStudentCourseCalendar(courseId, userID);
+  //         console.log("Calendar Data:",data)
+  //         setCalendarData(data); // Set the fetched calendar data
+  //       } catch (error) {
+  //         console.error("Error fetching calendar data:", error);
+  //       }
+  //     };
+
+  //     fetchCalendarData();
+  //   }
+  // };
 
   if (loading) return <p>Loading courses...</p>;
   if (!filteredCourses.length) return <p>No courses found.</p>;
@@ -72,8 +94,7 @@ export default function Course({ filters, onCourseDoubleClick }) {
         <div
           className={`course ${activeIndex === index ? "activeCourse" : ""}`}
           key={index}
-          onClick={() => handleCourseClick(index)}
-          onDoubleClick={() => handleCourseDoubleClick(course.id)}
+          onClick={() => handleCourseClick(index, course.course_id)} // Pass the course id here
         >
           <div className="courseDetails">
             <div className="courseBorder"></div>
@@ -93,6 +114,14 @@ export default function Course({ filters, onCourseDoubleClick }) {
           )}
         </div>
       ))}
+
+      {/* Display the calendar data if available */}
+      {calendarData.length > 0 && (
+        <div className="calendarData">
+          <h2>Attendance Calendar</h2>
+          {/* Render your calendar here */}
+        </div>
+      )}
     </div>
   );
 }
@@ -101,6 +130,6 @@ Course.propTypes = {
   filters: PropTypes.shape({
     code: PropTypes.string,
     sort: PropTypes.string,
+    name: PropTypes.string,
   }),
-  onCourseDoubleClick: PropTypes.func.isRequired,
 };
