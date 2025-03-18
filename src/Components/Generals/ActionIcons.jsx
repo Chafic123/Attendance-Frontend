@@ -3,10 +3,18 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../../CSS/ActionIcons.css";
 
-export default function ActionIcons({ onSearch, user, DashboardSelected, showAdminPanel }) {
+export default function ActionIcons({ onSearch, user, DashboardSelected, showAdminPanel, onFilterChange }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
   const [showInput, setShowInput] = useState(false);
+  const [filterName, setFilterName] = useState("");
+
+ // ✅ Handle filtering by course name
+  const handleNameChange = (event) => {
+  const value = event.target.value;
+  setFilterName(value);
+  onFilterChange({ code: "", sort: "", name: value }); // Pass updated filters
+};
 
   useEffect(() => {
     // Call onSearch when the component mounts with the search query in URL
@@ -41,8 +49,8 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
           className="search-input visible"
           type="text"
           placeholder="Search by course name..."
-          value={searchQuery}
-          onChange={handleInputChange}
+          value={filterName}
+          onChange={handleNameChange}
         />
       )}
 

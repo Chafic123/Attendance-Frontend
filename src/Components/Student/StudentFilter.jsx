@@ -10,7 +10,7 @@ export default function StudentFilter({ onFilterChange }) {
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
-    onFilterChange({ code: value, sort: sortOrder }); // Pass updated filters
+    onFilterChange({ code: value, sort: sortOrder , name:""}); // Pass updated filters
   };
 
   // ✅ Handle sorting (A-Z, Z-A)

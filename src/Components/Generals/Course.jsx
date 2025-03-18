@@ -47,6 +47,13 @@ export default function Course({ filters, onCourseDoubleClick }) {
       );
     }
 
+    if (filters?.name) {
+      filtered = filtered.filter(course =>
+        course.course_name.toUpperCase().includes(filters.name.toUpperCase())
+      );
+    }
+
+
     // ✅ Sort courses (A-Z, Z-A)
     if (filters?.sort === "asc") {
       filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));

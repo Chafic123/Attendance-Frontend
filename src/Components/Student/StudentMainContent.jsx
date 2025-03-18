@@ -10,7 +10,7 @@ import StudentScheduleReport from "./StudentScheduleReport";
 
 export default function StudentMainContent({ selectedDashboardITem, viewProfile, viewPanelIphone }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [filterOptions, setFilterOptions] = useState({ code: "", sort: "" });
+  const [filterOptions, setFilterOptions] = useState({ code: "", sort: "",name: "" });
 
   // ✅ Clear search query from URL when switching views (except when in "View Courses")
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           }}
         >
           {/* ✅ Show search bar only in "View Courses" */}
-          <MainContentTopSI title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
 
           {/* ✅ Pass filters */}
           <StudentFilter onFilterChange={setFilterOptions} />
@@ -104,7 +104,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           }}
         >
           {/* ✅ Search bar only for "View Courses" */}
-          <MainContentTopSI title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
           <StudentFilter onFilterChange={setFilterOptions} />
           <Course filters={filterOptions} />
         </div>
