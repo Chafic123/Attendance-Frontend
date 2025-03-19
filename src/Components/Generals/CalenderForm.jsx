@@ -25,7 +25,6 @@ export default function Calendar() {
                     console.log("Fetched Calendar Data:", data); // Log the fetched data for verification
 
                     if (Array.isArray(data)) {
-                        console.log("Calendar data is an array with length:", data.length);
                         setCalendarData(data); // Set the calendar data
                     } else {
                         console.error("Calendar data is not an array", data);
@@ -49,22 +48,17 @@ export default function Calendar() {
     // Function to apply styles to each date based on its status
     const getDayStyle = useCallback((date) => {
         const formattedDate = dayjs(date).format("YYYY-MM-DD");
-        console.log("Checking for date:", formattedDate); // Log the date being checked
 
         // Look for the status of this date in the calendar data
         const status = dayStatusMap()[formattedDate];
         if (status) {
-            console.log(`Found status for ${formattedDate}:`, status); // Log found status
 
             // Apply different styles based on the status
             if (status === "present") {
-                console.log(`Applying purple background for ${formattedDate}`);
                 return { background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)", borderRadius: "50%" }; // Purple for present
             } else if (status === "absent") {
-                console.log(`Applying red background for ${formattedDate}`);
                 return { background: "red", borderRadius: "50%" }; // Red for absent
             } else if (status === "upcoming") {
-                console.log(`Applying yellow background for ${formattedDate}`);
                 return { background: "yellow", borderRadius: "50%" }; // Yellow for upcoming
             }
         }
