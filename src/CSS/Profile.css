@@ -47,7 +47,7 @@
 }
 
 .form-student-group {
-    width: 100%;
+    max-width: 400px;
     display: flex;
     align-items: center;
     gap: 42px;
@@ -77,7 +77,7 @@
     width: 100%;
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
+    gap: 20px;
 }
 
 .form-student-row .form-student-group {
@@ -118,6 +118,10 @@
     text-align: center;
     gap: 40px;
 }
+.save-btn.disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
 
 .cancel-btn,
 .save-btn {
@@ -157,7 +161,6 @@
 
 
 
-
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
 
@@ -185,6 +188,38 @@
     .student-profile-form{
         gap: 20px;
     }
+}
+
+/*Popup Box*/
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dim the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-message {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.popup-close-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 431px) and (max-height: 932px) {

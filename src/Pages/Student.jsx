@@ -4,7 +4,7 @@ import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import StudentWholeContent from "../Components/Student/StudentWholeContent";
 import "../CSS/SI.css";
-
+import { getStudentDetails } from "../ApiService/ProfileService";
 export default function Student() {
   const [selectedText, setSelectedText] = useState(null);
   const [isIphone14ProMax, setIsIphone14ProMax] = useState(false);
@@ -77,12 +77,29 @@ export default function Student() {
     { imgSrc: "../public/Images/Notification-icon.png", altText: "Notification Icon", text: "View Notifications", id: "Notification-navigate" },
   ];
 
+
+
+  /*To link Student Profile and Profile Top*/
+  const [student, setStudent] = useState(null);
+
+  const refreshProfile = async () => {
+      try {
+          const data = await getStudentDetails();
+          if (data) {
+              setStudent(data);
+          }
+      } catch (error) {
+          console.error("Error refreshing student profile:", error);
+      }
+  };
+
   return (
     <div className="whole-container">
-      <ProfileTop viewProfile={viewProfile} />
+      <ProfileTop refreshProfile={refreshProfile} student={student} viewProfile={viewProfile} />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <StudentWholeContent
+        refreshProfile={refreshProfile}
         viewPanel={viewPanel}
         viewPanelIphone={viewPanelIphone}
         viewProfile={viewProfile}

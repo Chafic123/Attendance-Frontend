@@ -2,10 +2,18 @@ import "../../CSS/Profile.css";
 import "../../CSS/SIPanel.css";
 import { useEffect, useState } from "react";
 import { getStudentDetails } from "../../ApiService/ProfileService";
+import { updateStudentProfile } from "../../ApiService/UpdateStudentProfile"; // Import the API call
 
-export default function StudentProfile() {
+export default function StudentProfile({ refreshProfile }) {
     const [student, setStudent] = useState(null);
     const [studentImage, setStudentImage] = useState("");
+    const [studentVideo, setStudentVideo] = useState(null); // State for video file
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [imageFilename, setImageFilename] = useState(""); // State for image filename
+    const [videoFilename, setVideoFilename] = useState(""); // State for video filename
+    const [successMessage, setSuccessMessage] = useState(""); // State for success message visibility
+    const [noChangesMessage, setNoChangesMessage] = useState(""); // State for no changes message visibility
 
     useEffect(() => {
         const fetchStudentDetails = async () => {
@@ -13,7 +21,9 @@ export default function StudentProfile() {
                 const data = await getStudentDetails();
                 if (data) {
                     setStudent(data);
-                    setStudentImage(`http://localhost:8001/${data.student.image}`);
+                    setStudentImage(`${data.student.image}`);
+                    setFirstName(data.user.first_name || "");
+                    setLastName(data.user.last_name || "");
                 }
             } catch (error) {
                 console.error("Error fetching student details:", error);
@@ -24,10 +34,56 @@ export default function StudentProfile() {
     }, []);
 
     const handleStudentImage = (event) => {
-        if (event.target.files.length > 0) {
-            setStudentImage(URL.createObjectURL(event.target.files[0]));
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            setStudentImage(file);
+            setImageFilename(file.name);
         } else {
-            setStudentImage(`http://localhost:8001/${student.student.image}`);
+            console.error("Invalid image file selected");
+        }
+    };
+
+    const handleStudentVideo = (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('video/')) {
+            setStudentVideo(file);
+            setVideoFilename(file.name);
+        } else {
+            console.error("Invalid video file selected");
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // Validate first name and last name
+        if (!firstName.trim() || !lastName.trim()) {
+            console.error("First name and last name are required.");
+            return;
+        }
+
+        // Check if anything was changed
+        const isChanged = firstName !== student.user.first_name || lastName !== student.user.last_name || imageFilename || videoFilename;
+
+        if (!isChanged) {
+            setNoChangesMessage("Nothing has been changed.");
+            return; // Prevent submission if nothing has changed
+        } else {
+            setNoChangesMessage(""); // Clear the "nothing changed" message if there are changes
+        }
+
+        try {
+            const updatedData = await updateStudentProfile(
+                firstName,
+                lastName,
+                studentImage instanceof File ? studentImage : null,
+                studentVideo instanceof File ? studentVideo : null
+            );
+            setSuccessMessage("Profile updated successfully!"); // Show success message
+            console.log("Profile Updated Successfully:", updatedData);
+            refreshProfile(); // Call the function to refresh ProfileTop data
+        } catch (error) {
+            console.error("Failed to update profile:", error);
         }
     };
 
@@ -59,19 +115,41 @@ export default function StudentProfile() {
         <div className="student-profile">
             <h2 className="profile-title">My Profile</h2>
             <div className="student-info">
-                <p className="student-name" id="student-name">{student.user.first_name} {student.user.last_name}</p>
+                <p className="student-name" id="student-name">
+                    {student.user.first_name} {student.user.last_name}
+                </p>
                 <p className="student-id" id="student-id">{student.student.student_id}</p>
             </div>
 
-            <form className="student-profile-form">
+            {/* Success message as popup */}
+            {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message">
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+
+            {/* No changes message */}
+            {noChangesMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noChangesMessage}</p>
+                        <button onClick={() => setNoChangesMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+
+            <form className="student-profile-form" onSubmit={handleSubmit}>
                 <div className="form-student-group">
                     <label htmlFor="First-Name">First Name:</label>
                     <input
                         type="text"
                         id="First-Name"
                         name="First-Name"
-                        value={student.user.first_name}
-                        onChange={() => {}}
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)} // Handling first name change
                     />
                 </div>
 
@@ -81,8 +159,8 @@ export default function StudentProfile() {
                         type="text"
                         id="Last-Name"
                         name="Last-Name"
-                        value={student.user.last_name}
-                        onChange={() => {}}
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)} // Handling last name change
                     />
                 </div>
 
@@ -96,7 +174,6 @@ export default function StudentProfile() {
                         disabled
                     />
                 </div>
-
                 <div className="form-student-group">
                     <label htmlFor="Email">Email:</label>
                     <input
@@ -116,16 +193,27 @@ export default function StudentProfile() {
                             className="img-input"
                             onChange={handleStudentImage}
                         />
-
-                        <label htmlFor="fileInput" className="imageLabel">
-                            Image
-                        </label>
-
+                        <label htmlFor="fileInput" className="imageLabel">Image</label>
                         <label htmlFor="fileInput" className="upload-img-btn">
-                        <img src="/Images/Upload_img.png" alt="Upload" />
+                            <img src="/Images/Upload_img.png" alt="Upload" />
                         </label>
+                        <span className="img-name">{imageFilename ? "Uploaded Successfully" : "Upload New"}</span> {/* Display filename or default text */}
+                    </div>
+                </div>
 
-                        <span className="img-name">Upload New</span>
+                <div className="form-student-row">
+                    <div className="form-student-group">
+                        <input
+                            type="file"
+                            id="videoInput"
+                            className="img-input"
+                            onChange={handleStudentVideo}
+                        />
+                        <label htmlFor="videoInput" className="imageLabel">Video</label>
+                        <label htmlFor="videoInput" className="upload-img-btn">
+                            <img src="/Images/Upload_img.png" alt="Upload" />
+                        </label>
+                        <span className="img-name">{videoFilename ? "Uploaded Successfully" : "Upload Video"}</span> {/* Display filename or default text */}
                     </div>
                 </div>
 

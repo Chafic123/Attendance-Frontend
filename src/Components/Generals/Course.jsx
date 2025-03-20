@@ -57,33 +57,13 @@ export default function Course({ filters }) {
     setFilteredCourses(filtered);
   }, [courses, filters]);
 
-  // Fetch calendar data when a course is clicked
-  const userID = localStorage.getItem('userID') || sessionStorage.getItem('userID');
-  console.log('user ID:', userID);
 
   const handleCourseClick = (index, courseId) => {
     setCourseId(courseId);
     setActiveIndex(index);
 
   };
-  // const handleCourseClick = (index, courseId) => {
-  //   setActiveIndex(index);
-
-  //   if (courseId) {
-  //     const fetchCalendarData = async () => {
-  //       try {
-  //         // Fetch calendar data based on selected courseId and studentId (replace 'studentId' with the actual student ID)
-  //         const data = await getStudentCourseCalendar(courseId, userID);
-  //         console.log("Calendar Data:",data)
-  //         setCalendarData(data); // Set the fetched calendar data
-  //       } catch (error) {
-  //         console.error("Error fetching calendar data:", error);
-  //       }
-  //     };
-
-  //     fetchCalendarData();
-  //   }
-  // };
+  
 
   if (loading) return <p>Loading courses...</p>;
   if (!filteredCourses.length) return <p>No courses found.</p>;
@@ -105,9 +85,9 @@ export default function Course({ filters }) {
             </div>
           </div>
 
-          {userRole?.toLowerCase() === "student" && course.attendance_percentage !== undefined && (
+          {userRole?.toLowerCase() === "student" && course.absence_percentage !== undefined && (
             <div className="percentageContainer">
-              <p className="coursePercentage">{`${course.attendance_percentage}%`}</p>
+              <p className="coursePercentage">{`${course.absence_percentage}%`}</p>
               <span>Absence</span>
               <span>Percentage</span>
             </div>

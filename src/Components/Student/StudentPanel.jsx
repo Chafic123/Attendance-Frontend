@@ -7,7 +7,7 @@ import "../../CSS/SICalender.css";
 import "../../CSS/SI.css";
 import "../../CSS/Profile.css";
 
-export default function StudentPanel({ title, viewPanel }) {
+export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 
   // Function to show the panel again when switching back from iPhone
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function StudentPanel({ title, viewPanel }) {
           <Calender />
       </div>
       <div className="profile-holder">
-        <StudentProfile />
+        <StudentProfile refreshProfile={refreshProfile} />
       </div>
 
       <img

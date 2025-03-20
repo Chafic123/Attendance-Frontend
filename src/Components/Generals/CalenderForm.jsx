@@ -48,7 +48,6 @@ export default function Calendar() {
     // Function to apply styles to each date based on its status
     const getDayStyle = useCallback((date) => {
         const formattedDate = dayjs(date).format("YYYY-MM-DD");
-
         // Look for the status of this date in the calendar data
         const status = dayStatusMap()[formattedDate];
         if (status) {
@@ -73,8 +72,7 @@ export default function Calendar() {
                     day: (props) => {
                         const { day, ...otherProps } = props;
                         const dayStyle = getDayStyle(day); // Get the style for the current day
-                        console.log("Rendering day:", day.format("YYYY-MM-DD")); // Debugging
-                        console.log("Day style:", dayStyle); // Debugging
+
 
                         return (
                             <PickersDay {...otherProps} day={day} style={dayStyle} />
