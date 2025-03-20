@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../CSS/Course.css";
 import { getCourses } from "../../ApiService/CourseService";
-import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService";
+// import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService";
 import PropTypes from "prop-types";
 import { useCourse } from "../../Contexts/CourseContext";
 export default function Course({ filters }) {
@@ -9,7 +9,7 @@ export default function Course({ filters }) {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [calendarData, setCalendarData] = useState([]); // State for storing calendar data
+  const [calendarData] = useState([]); // State for storing calendar data
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const { setCourseId } = useCourse();  // Access the setter function to set Course ID
 
