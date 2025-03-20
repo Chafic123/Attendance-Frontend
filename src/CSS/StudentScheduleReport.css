@@ -51,7 +51,10 @@
 .schedule-th:last-child {
     padding-right: 50px;
 }
-
+table th{
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color:white;
+}
 tbody td {
     padding: 13px 54px 13px 9px;
     white-space: nowrap;

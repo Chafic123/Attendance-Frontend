@@ -1,34 +1,22 @@
+import "../../CSS/InstructorSendNotification.css";
+import { useState } from "react";
 
-import "../../CSS/SINotifications.css"
-export default function InstructorNotifications(){
-    return(
+export default function InstructorNotifications() {
+    const [notification, setNotification] = useState("");
+
+    return (
         <div id="notification-container">
-            <h2 className="title">Notification</h2>
-            <div className="gray-line"></div>
-            <div className="notifications">
-                <div style={{
-                    display:"flex",
-                    flexDirection:"column",
-                    gap:"5px"
-                }}>
-                <div className="notification-title-container">
-                    <img className="purple-circle" src="../public/Images/Purple-circle.png" alt="" />
-                    <p className="notification-title">Absence Warning</p>
-                </div>
-
-                <div className="temp">
-                    <div className="notification-content-container">
-                        <p className="notification-content">You missed your Introduction to</p>
-                        <p className="notification-course-name">Management Course</p>
-                    </div>  
-
-                </div>
-                </div>
-                <button className="mark-as-read">Mark As Read</button>
-    
-            </div>
-            <div className="gray-line"></div>
-
+            <h2 className="title">Send Notification:</h2>
+            <span>To: Ahmad Hijazi</span>
+            <input 
+                type="text" 
+                value={notification} 
+                className="sendNotification-input"
+                onChange={(e) => setNotification(e.target.value)} // Corrected: using onChange instead of onClick
+                placeholder="Write a message" 
+            />
+            <div className="purple-line"></div>
+            <button className="sendNotification-btn">Send</button>
         </div>
-    )   
+    );
 }

@@ -81,17 +81,20 @@ export default function Student() {
 
   /*To link Student Profile and Profile Top*/
   const [student, setStudent] = useState(null);
-
   const refreshProfile = async () => {
       try {
           const data = await getStudentDetails();
           if (data) {
               setStudent(data);
+              console.log("Student: ", student)
           }
       } catch (error) {
           console.error("Error refreshing student profile:", error);
       }
   };
+  useEffect(() => {
+    refreshProfile();
+}, []);
 
   return (
     <div className="whole-container">
