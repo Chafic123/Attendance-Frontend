@@ -1,5 +1,5 @@
 import axios from 'axios';
-import BASE_URL from './BaseURL'; // Adjust the import as needed
+import BASE_URL from './BaseURL'; 
 export const updateStudentProfile = async (firstName, lastName, imageFile, videoFile) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
 
@@ -17,7 +17,6 @@ export const updateStudentProfile = async (firstName, lastName, imageFile, video
       formData.append('video', videoFile);
     }
 
-    // Log FormData entries for debugging
     for (let pair of formData.entries()) {
       console.log(pair[0] + ": " + pair[1]);
     }

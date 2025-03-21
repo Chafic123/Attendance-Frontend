@@ -6,7 +6,7 @@ export const getStudentNotifications = async () => {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
 
   if (!token) {
-    console.error("❌ No authentication token found.");
+    console.error(" No authentication token found.");
     return [];
   }
 
@@ -18,10 +18,10 @@ export const getStudentNotifications = async () => {
       },
     });
 
-    console.log("✅ Student Notifications Response:", response.data);
+    console.log(" Student Notifications Response:", response.data);
 
     return Array.isArray(response.data)
-      ? response.data.filter((notif) => !notif.read_status) // ✅ Keep only unread ones
+      ? response.data.filter((notif) => !notif.read_status) // Keep only unread ones
       : [];
 
   } catch (error) {
@@ -30,7 +30,7 @@ export const getStudentNotifications = async () => {
   }
 };
 
-// ✅ Mark Notification as Read (`PUT` Request)
+// Mark Notification as Read (`PUT` Request)
 export const markStudentNotificationAsRead = async (notificationId) => {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
 
@@ -40,7 +40,6 @@ export const markStudentNotificationAsRead = async (notificationId) => {
   }
 
   try {
-    // ✅ Corrected API endpoint
     const endpoint = `${BASE_URL}/student/notifications/${notificationId}/read`;
     console.log(`Attempting to PUT: ${endpoint}`);
 
@@ -51,11 +50,11 @@ export const markStudentNotificationAsRead = async (notificationId) => {
       },
     });
 
-    console.log("✅ Notification marked as read:", response.data);
+    console.log(" Notification marked as read:", response.data);
     return response.data;
 
   } catch (error) {
-    console.error("❌ Error marking student notification as read:", error.response?.data || error.message);
+    console.error(" Error marking student notification as read:", error.response?.data || error.message);
     return null;
   }
 };
