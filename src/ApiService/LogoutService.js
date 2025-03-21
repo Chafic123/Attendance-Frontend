@@ -25,7 +25,7 @@ export const logoutUser = async () => {
     localStorage.removeItem('authToken');
     sessionStorage.removeItem('authToken');
 
-    return response.data; // Returns { status: "success", message: "Logged out successfully" }
+    return response.data; 
   } catch (error) {
     console.error('Logout Error:', error.response?.data || error.message);
     throw error.response?.data || 'Logout failed';

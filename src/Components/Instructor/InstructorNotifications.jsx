@@ -12,7 +12,7 @@ export default function InstructorNotifications() {
                 type="text" 
                 value={notification} 
                 className="sendNotification-input"
-                onChange={(e) => setNotification(e.target.value)} // Corrected: using onChange instead of onClick
+                onChange={(e) => setNotification(e.target.value)} 
                 placeholder="Write a message" 
             />
             <div className="purple-line"></div>

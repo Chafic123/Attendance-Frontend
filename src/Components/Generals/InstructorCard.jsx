@@ -28,4 +28,5 @@ InstructorCard.propTypes = {
   lastName: PropTypes.string.isRequired,
   title: PropTypes.string,    
   department: PropTypes.string,
+  id: PropTypes.string.isRequired,
 };

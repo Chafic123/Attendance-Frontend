@@ -53,7 +53,7 @@ export default function StudentNotificationsCenter() {
               </div>
             </div>
 
-            {/* ✅ "Mark As Read" Button */}
+            {/* "Mark As Read" Button */}
             <button className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
               Mark As Read
             </button>

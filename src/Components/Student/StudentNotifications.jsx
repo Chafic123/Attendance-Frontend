@@ -6,7 +6,7 @@ export default function StudentNotifications() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Function to mark a notification as read
+  // mark a notification as read
   const handleMarkAsRead = async (notificationId) => {
     const response = await markStudentNotificationAsRead(notificationId);
     if (response) {
@@ -14,7 +14,6 @@ export default function StudentNotifications() {
     }
   };
 
-  // ✅ Fetch notifications on component mount
   useEffect(() => {
     const fetchNotifications = async () => {
       const data = await getStudentNotifications();

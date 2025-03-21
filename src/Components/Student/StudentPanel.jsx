@@ -9,7 +9,7 @@ import "../../CSS/Profile.css";
 
 export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 
-  // Function to show the panel again when switching back from iPhone
+  // show the panel again when switching back from iPhone
   useEffect(() => {
     const checkScreenSize = () => {
       const panelContainer = document.querySelector(".panel-container");
@@ -24,7 +24,7 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
       }
     };
 
-    checkScreenSize(); // Run on load
+    checkScreenSize(); 
     window.addEventListener("resize", checkScreenSize);
 
     return () => {
@@ -32,7 +32,7 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
     };
   }, []);
 
-  // Function to hide the panel when closing
+  // hide the panel when closing
   const hidePanel = () => {
     const profile = document.querySelector(".profile-holder");
     const panelContainer = document.querySelector(".panel-container");
@@ -74,4 +74,5 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 StudentPanel.propTypes = {
   title: PropTypes.string.isRequired,
   viewPanel: PropTypes.func.isRequired,
+  refreshProfile: PropTypes.func.isRequired,
 };

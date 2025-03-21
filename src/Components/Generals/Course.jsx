@@ -9,9 +9,9 @@ export default function Course({ filters }) {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [calendarData] = useState([]); // State for storing calendar data
+  const [calendarData] = useState([]); 
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
-  const { setCourseId } = useCourse();  // Access the setter function to set Course ID
+  const { setCourseId } = useCourse();  
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -29,7 +29,6 @@ export default function Course({ filters }) {
     fetchCourses();
   }, []);
 
-  // Apply filtering by search, code, and sorting
   useEffect(() => {
     let filtered = [...courses];
 
@@ -74,7 +73,7 @@ export default function Course({ filters }) {
         <div
           className={`course ${activeIndex === index ? "activeCourse" : ""}`}
           key={index}
-          onClick={() => handleCourseClick(index, course.course_id)} // Pass the course id here
+          onClick={() => handleCourseClick(index, course.course_id)} 
         >
           <div className="courseDetails">
             <div className="courseBorder"></div>
@@ -99,7 +98,6 @@ export default function Course({ filters }) {
       {calendarData.length > 0 && (
         <div className="calendarData">
           <h2>Attendance Calendar</h2>
-          {/* Render your calendar here */}
         </div>
       )}
     </div>

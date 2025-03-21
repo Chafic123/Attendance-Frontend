@@ -1,7 +1,7 @@
 import axios from "axios";
 import BASE_URL from "./BaseURL";
 
-// ✅ Fetch Student Notifications (Only Unread)
+
 export const getStudentNotifications = async () => {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
 
@@ -20,7 +20,6 @@ export const getStudentNotifications = async () => {
 
     console.log("✅ Student Notifications Response:", response.data);
 
-    // ✅ Filter out read notifications on the frontend if backend doesn't do it
     return Array.isArray(response.data)
       ? response.data.filter((notif) => !notif.read_status) // ✅ Keep only unread ones
       : [];

@@ -29,7 +29,6 @@ export const getCourses = async () => {
 
     console.log('Courses API Response:', data);
 
-    // ✅ Ensure response is always returned as an array, considering admin & student cases
     if (Array.isArray(data)) {
       return data; // Student API case (returns an array)
     } else if (data?.data && Array.isArray(data.data)) {

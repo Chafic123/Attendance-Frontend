@@ -3,10 +3,8 @@ import BASE_URL from './BaseURL';
 
 export const getStudentCourseCalendar = async (courseId, studentId) => {
   try {
-    // Get the token from localStorage or sessionStorage
     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
     
-    // Check if token exists
     if (!token) {
       throw new Error('No authorization token found');
     }
@@ -15,13 +13,13 @@ export const getStudentCourseCalendar = async (courseId, studentId) => {
       `${BASE_URL}/student/courses/${courseId}/${studentId}/calendar`, 
       {
         headers: {
-          'Authorization': `Bearer ${token}`, // Pass the token here
+          'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json',
         },
       }
     );
     
-    return response.data; // Return the calendar data
+    return response.data; 
   } catch (error) {
     console.error("Error fetching course calendar:", error);
     throw error;

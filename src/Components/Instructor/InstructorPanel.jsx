@@ -10,7 +10,7 @@ export default function InstructorPanel(props) {
   const hideProfile = () => {
     const panel = document.querySelector('.panel-container.visible'); // Targeting both classes
     if (panel) {
-      panel.classList.remove('visible'); // Remove the 'visible' class
+      panel.classList.remove('visible'); 
     }
     console.log("Profile hidden");
   };

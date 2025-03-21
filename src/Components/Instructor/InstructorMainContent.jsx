@@ -79,5 +79,5 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
 
 InstructorMainContent.propTypes = {
   selectedDashboardITem: PropTypes.string.isRequired,
-  onAdd: PropTypes.func.isRequired, // Added prop type for onAdd
+  onAdd: PropTypes.func.isRequired, 
 };

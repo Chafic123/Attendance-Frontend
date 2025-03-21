@@ -19,6 +19,6 @@ export default function MainContentTopSI({ title, onSearch, onAdd }) {
 
 MainContentTopSI.propTypes = {
   title: PropTypes.string.isRequired,
-  onSearch: PropTypes.func.isRequired, // Made it required
-  onAdd: PropTypes.func.isRequired, // Made it required
+  onSearch: PropTypes.func.isRequired, 
+  onAdd: PropTypes.func.isRequired,   
 };

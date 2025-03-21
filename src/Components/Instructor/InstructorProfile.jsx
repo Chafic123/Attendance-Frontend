@@ -16,20 +16,18 @@ export default function InstructorProfile(){
             const button = document.querySelector('.save-btn');
             if (button) {
                 if (window.matchMedia("(width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2)").matches) {
-                    button.textContent = "Save";  // Set to "Save" on match
+                    button.textContent = "Save"; 
                 } else {
-                    button.textContent = "Save Changes";  // Reset to "Save Changes" if the condition no longer matches
+                    button.textContent = "Save Changes"; 
                 }
             }
         };
     
-        // Call the function on component mount
         changeButtonText();
     
         // Optional: Add event listener to handle changes in screen size dynamically
         window.addEventListener('resize', changeButtonText);
     
-        // Cleanup the event listener on component unmount
         return () => {
             window.removeEventListener('resize', changeButtonText);
         };

@@ -17,4 +17,5 @@ StudentWholeContent.propTypes = {
   viewProfile: PropTypes.func.isRequired,
   viewPanel: PropTypes.func.isRequired,
   viewPanelIphone: PropTypes.func.isRequired,
+  refreshProfile: PropTypes.func.isRequired,
 };

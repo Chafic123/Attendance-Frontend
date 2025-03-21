@@ -24,7 +24,7 @@ export const updateStudentProfile = async (firstName, lastName, imageFile, video
 
     const response = await axios.post(`${BASE_URL}/student/profile`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Correct header for file uploads
+        'Content-Type': 'multipart/form-data', 
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`,
       },

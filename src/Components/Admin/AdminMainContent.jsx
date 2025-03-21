@@ -88,7 +88,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
                   />
                 ))
               ) : (
-                <p>No students found.</p>
+                <p>No students found</p>
               )}
             </div>
           )}
@@ -150,7 +150,6 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
                 )}
               </div>
 
-              {/* ✅ Cancel button to return to course list */}
               <button className="viewAdminCourses" onClick={handleCancelViewCourseStudents}>
                 Cancel
               </button>

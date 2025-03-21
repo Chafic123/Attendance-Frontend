@@ -1,6 +1,7 @@
 import "../../CSS/Profile.css";
 import "../../CSS/SIPanel.css";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { getStudentDetails } from "../../ApiService/ProfileService";
 import { updateStudentProfile } from "../../ApiService/UpdateStudentProfile"; // Import the API call
 
@@ -96,7 +97,7 @@ export default function StudentProfile({ refreshProfile }) {
                 } else if (window.matchMedia("(max-width: 431px) and (height: 932px)").matches) {
                     button.textContent = "Save"; // iPhone 14 Pro Max resolution
                 } else {
-                    button.textContent = "Save Changes"; // Default for all other devices
+                    button.textContent = "Save Changes"; 
                 }
             }
         };
@@ -121,7 +122,6 @@ export default function StudentProfile({ refreshProfile }) {
                 <p className="student-id" id="student-id">{student.student.student_id}</p>
             </div>
 
-            {/* Success message as popup */}
             {successMessage && (
                 <div className="popup-container">
                     <div className="popup-message">
@@ -131,7 +131,6 @@ export default function StudentProfile({ refreshProfile }) {
                 </div>
             )}
 
-            {/* No changes message */}
             {noChangesMessage && (
                 <div className="popup-container">
                     <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
@@ -149,7 +148,7 @@ export default function StudentProfile({ refreshProfile }) {
                         id="First-Name"
                         name="First-Name"
                         value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)} // Handling first name change
+                        onChange={(e) => setFirstName(e.target.value)} 
                     />
                 </div>
 
@@ -160,7 +159,7 @@ export default function StudentProfile({ refreshProfile }) {
                         id="Last-Name"
                         name="Last-Name"
                         value={lastName}
-                        onChange={(e) => setLastName(e.target.value)} // Handling last name change
+                        onChange={(e) => setLastName(e.target.value)} 
                     />
                 </div>
 
@@ -225,3 +224,7 @@ export default function StudentProfile({ refreshProfile }) {
         </div>
     );
 }
+
+StudentProfile.propTypes = {
+    refreshProfile: PropTypes.func.isRequired,
+};

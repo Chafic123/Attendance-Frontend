@@ -10,21 +10,21 @@ export default function StudentFilter({ onFilterChange }) {
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
-    onFilterChange({ code: value, sort: sortOrder , name:""}); // Pass updated filters
+    onFilterChange({ code: value, sort: sortOrder , name:""}); 
   };
 
-  // ✅ Handle sorting (A-Z, Z-A)
+  
   const handleSortChange = (event) => {
     const value = event.target.value;
     setSortOrder(value);
-    onFilterChange({ code: filterCode, sort: value }); // Pass updated filters
+    onFilterChange({ code: filterCode, sort: value }); 
   };
 
   return (
     <div className="filterContainer">
       <p className="filterTitle" style={styles.p}>Filter by:</p>
 
-      {/* ✅ Input for filtering by course code */}
+      
       <input
         type="text"
         value={filterCode}
@@ -33,7 +33,7 @@ export default function StudentFilter({ onFilterChange }) {
         className="codeInput"
       />
 
-      {/* ✅ Dropdown for sorting */}
+      
       <select value={sortOrder} onChange={handleSortChange} className="selectInput">
         <option value="">Sort</option>
         <option value="asc">A-Z</option>
