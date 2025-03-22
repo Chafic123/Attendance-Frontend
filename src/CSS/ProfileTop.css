@@ -21,8 +21,8 @@ body {
 
 .profile-icon {
     border-radius: 50%;
-    width: 2vw;
-    height: 5vh;
+    width: 45px;
+    height: 45px;
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {

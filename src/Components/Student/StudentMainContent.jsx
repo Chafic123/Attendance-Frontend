@@ -8,7 +8,7 @@ import StudentNotificationCenter from "./StudentNotificationCenter";
 import "../../CSS/StudentMainContent.css";
 import StudentScheduleReport from "./StudentScheduleReport";
 
-export default function StudentMainContent({ selectedDashboardITem, viewProfile, viewPanelIphone }) {
+export default function StudentMainContent({ selectedDashboardITem, viewPanelIphone }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filterOptions, setFilterOptions] = useState({ code: "", sort: "",name: "" });
 
@@ -52,7 +52,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           }}
         >
           
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onSearch={handleSearch} />
 
                     <StudentFilter onFilterChange={setFilterOptions} />
           <Course filters={filterOptions} />
@@ -70,7 +70,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
           }}
         >
           
-          <MainContentTopSI title="Schedule" viewProfile={viewProfile} />
+          <MainContentTopSI title="Schedule"  />
           <StudentScheduleReport />
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
@@ -85,7 +85,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Notifications" viewProfile={viewProfile} />
+          <MainContentTopSI title="Notifications"/>
           <StudentNotificationCenter />
         </div>
       ) : (
@@ -100,7 +100,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
             gap: "17px",
           }}
         >
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" viewProfile={viewProfile} onSearch={handleSearch} />
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onSearch={handleSearch} />
           <StudentFilter onFilterChange={setFilterOptions} />
           <Course filters={filterOptions} />
         </div>
@@ -111,6 +111,5 @@ export default function StudentMainContent({ selectedDashboardITem, viewProfile,
 
 StudentMainContent.propTypes = {
   selectedDashboardITem: PropTypes.string.isRequired,
-  viewProfile: PropTypes.func.isRequired,
   viewPanelIphone: PropTypes.func.isRequired,
 };

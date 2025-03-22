@@ -27,7 +27,6 @@ export const getCourses = async () => {
       withCredentials: true,
     });
 
-    console.log('Courses API Response:', data);
 
     if (Array.isArray(data)) {
       return data; // Student API case (returns an array)

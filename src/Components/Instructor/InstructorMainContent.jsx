@@ -51,7 +51,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Notifications" onAdd={onAdd} />
+          <MainContentTopSI  title="Notifications" onAdd={onAdd} />
           <InstructorNotificationCenter />
         </div>
       ) : (

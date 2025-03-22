@@ -3,14 +3,14 @@
     display: none;
 }
 
-.student-profile {
+.user-profile {
     /* display: none; */
     max-width: 90%;
     margin: 0 auto;
     padding: 24px;
     font-family: Arial, sans-serif;
     color: #4A2B99;
-    padding-top: 80px;
+    padding-top: 100px;
     padding-left: 0px;
 }
 
@@ -23,7 +23,7 @@
 }
 
 
-.student-name {
+.user-name {
     font-size: 13.87px;
     font-weight: 400;
     margin: 0;
@@ -31,14 +31,14 @@
 
 }
 
-.student-id {
+.user-id {
     font-size: 13.87px;
     font-weight: 400;
     color: #929396;
 
 }
 
-.student-profile-form {
+.user-profile-form {
     width: 90%;
     gap: 20px;
     display: flex;
@@ -46,7 +46,7 @@
     margin-top: 15px;
 }
 
-.form-student-group {
+.form-user-group {
     max-width: 400px;
     display: flex;
     align-items: center;
@@ -54,15 +54,16 @@
 
 }
 
-.form-student-group label {
+.form-user-group label {
     width: 105px;
     color: #482B70;
     font-size: 15px;
     font-weight: 400;
+    white-space: nowrap;
 }
 
-.form-student-group input {
-    width: 71%;
+.form-user-group input {
+    width: 100%;
     padding: 5px 12px;
     border: 1px solid #4A2B99;
     background-color: rgb(245, 243, 253);
@@ -73,29 +74,29 @@
     font-weight: 400;
 }
 
-.form-student-row {
+.form-user-row {
     width: 100%;
     display: flex;
     justify-content: flex-start;
     gap: 20px;
 }
 
-.form-student-row .form-student-group {
+.form-user-row .form-user-group {
     width: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 22px;
 }
-.form-student-group:last-child{
+.form-user-group:last-child{
     margin-left: 4px;
 }
 .go-back-icon{
     display: none;
     position: absolute;
-    top: 35px;
-    right: 490px;
-    height: 50px;
+    top: 45px;
+    right: 450px;
+    height: 45px;
     width: 30px;
 }
 .x-icon {
@@ -108,7 +109,7 @@
 
 /* Action Buttons */
 
-.form-student-actions {
+.form-user-actions {
     width: 84%;
     display: flex;
     justify-content: center;
@@ -168,7 +169,7 @@
         margin-left: 25px;
     }
 
-    .student-profile {
+    .user-profile {
         max-width: 90%;
         margin: 0 auto;
         padding: 24px;
@@ -177,7 +178,7 @@
         padding-top: 80px;
 
     }
-    .student-profile label{
+    .user-profile label{
         white-space: nowrap;
     }
 
@@ -185,7 +186,7 @@
         right: 310px;
         top: 25px;
     }
-    .student-profile-form{
+    .user-profile-form{
         gap: 20px;
     }
 }
@@ -223,7 +224,7 @@
 }
 
 @media only screen and (max-width: 431px) and (max-height: 932px) {
-    .student-profile {
+    .user-profile {
         max-width: 90%;
         padding-top: 50px;
     }
@@ -242,16 +243,16 @@
         font-size: 27px;
     }
 
-     .form-student-group label {
+     .form-user-group label {
         white-space: nowrap;
         font-size: 12px;
     }
 
-    .form-student-group input {
+    .form-user-group input {
         font-size: 10px;
         
     }
-    .form-student-row{
+    .form-user-row{
         margin-left: 14px;
     }
 

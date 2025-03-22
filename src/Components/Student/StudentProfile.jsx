@@ -2,7 +2,7 @@ import "../../CSS/Profile.css";
 import "../../CSS/SIPanel.css";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getStudentDetails } from "../../ApiService/ProfileService";
+import { getUserDetails } from "../../ApiService/ProfileService";
 import { updateStudentProfile } from "../../ApiService/UpdateStudentProfile"; // Import the API call
 
 export default function StudentProfile({ refreshProfile }) {
@@ -19,7 +19,7 @@ export default function StudentProfile({ refreshProfile }) {
     useEffect(() => {
         const fetchStudentDetails = async () => {
             try {
-                const data = await getStudentDetails();
+                const data = await getUserDetails();
                 if (data) {
                     setStudent(data);
                     setStudentImage(`${data.student.image}`);
@@ -93,9 +93,9 @@ export default function StudentProfile({ refreshProfile }) {
             const button = document.querySelector('.save-btn');
             if (button) {
                 if (window.matchMedia("(width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2)").matches) {
-                    button.textContent = "Save"; // iPad Pro resolution
+                    button.textContent = "Save";
                 } else if (window.matchMedia("(max-width: 431px) and (height: 932px)").matches) {
-                    button.textContent = "Save"; // iPhone 14 Pro Max resolution
+                    button.textContent = "Save";
                 } else {
                     button.textContent = "Save Changes"; 
                 }
@@ -113,13 +113,13 @@ export default function StudentProfile({ refreshProfile }) {
     if (!student) return <p>Loading...</p>;
 
     return (
-        <div className="student-profile">
+        <div className="user-profile">
             <h2 className="profile-title">My Profile</h2>
-            <div className="student-info">
-                <p className="student-name" id="student-name">
+            <div className="user-info">
+                <p className="user-name" id="user-name">
                     {student.user.first_name} {student.user.last_name}
                 </p>
-                <p className="student-id" id="student-id">{student.student.student_id}</p>
+                <p className="user-id" id="user-id">{student.student.student_id}</p>
             </div>
 
             {successMessage && (
@@ -140,8 +140,8 @@ export default function StudentProfile({ refreshProfile }) {
                 </div>
             )}
 
-            <form className="student-profile-form" onSubmit={handleSubmit}>
-                <div className="form-student-group">
+            <form className="user-profile-form" onSubmit={handleSubmit}>
+                <div className="form-user-group">
                     <label htmlFor="First-Name">First Name:</label>
                     <input
                         type="text"
@@ -152,7 +152,7 @@ export default function StudentProfile({ refreshProfile }) {
                     />
                 </div>
 
-                <div className="form-student-group">
+                <div className="form-user-group">
                     <label htmlFor="Last-Name">Last Name:</label>
                     <input
                         type="text"
@@ -163,7 +163,7 @@ export default function StudentProfile({ refreshProfile }) {
                     />
                 </div>
 
-                <div className="form-student-group">
+                <div className="form-user-group">
                     <label htmlFor="Major">Major:</label>
                     <input
                         type="text"
@@ -173,7 +173,7 @@ export default function StudentProfile({ refreshProfile }) {
                         disabled
                     />
                 </div>
-                <div className="form-student-group">
+                <div className="form-user-group">
                     <label htmlFor="Email">Email:</label>
                     <input
                         type="text"
@@ -184,8 +184,8 @@ export default function StudentProfile({ refreshProfile }) {
                     />
                 </div>
 
-                <div className="form-student-row">
-                    <div className="form-student-group">
+                <div className="form-user-row">
+                    <div className="form-user-group">
                         <input
                             type="file"
                             id="fileInput"
@@ -200,8 +200,8 @@ export default function StudentProfile({ refreshProfile }) {
                     </div>
                 </div>
 
-                <div className="form-student-row">
-                    <div className="form-student-group">
+                <div className="form-user-row">
+                    <div className="form-user-group">
                         <input
                             type="file"
                             id="videoInput"
@@ -216,7 +216,7 @@ export default function StudentProfile({ refreshProfile }) {
                     </div>
                 </div>
 
-                <div className="form-student-actions">
+                <div className="form-user-actions">
                     <button type="button" className="cancel-btn">Cancel</button>
                     <button type="submit" className="save-btn">Save Changes</button>
                 </div>

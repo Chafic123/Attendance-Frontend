@@ -67,6 +67,12 @@ export default function InstructorPanel(prop) {
         )
       }
       <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hideProfile} alt="cancel icon" />
+      <img
+        src="../public/Images/go-back-icon.png"
+        className="go-back-icon"
+        onClick={prop.viewPanel}
+        alt="Go back"
+      />
     </div>
   );
 }

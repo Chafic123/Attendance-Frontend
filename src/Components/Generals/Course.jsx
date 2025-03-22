@@ -86,7 +86,7 @@ export default function Course({ filters }) {
 
           {userRole?.toLowerCase() === "student" && course.absence_percentage !== undefined && (
             <div className="percentageContainer">
-              <p className="coursePercentage">{`${course.absence_percentage}%`}</p>
+              <p className="coursePercentage">{`${course.absence_percentage}`}</p>
               <span>Absence</span>
               <span>Percentage</span>
             </div>

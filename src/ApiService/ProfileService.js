@@ -1,7 +1,7 @@
 import axios from "axios";
 import BASE_URL from "./BaseURL";
 
-export const getStudentDetails = async () => {
+export const getUserDetails = async () => {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
 
