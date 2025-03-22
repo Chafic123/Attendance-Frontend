@@ -3,11 +3,11 @@ import InstructorPanel from "./InstructorPanel";
 import PropTypes from 'prop-types';
 import "../../CSS/SIWholeContent.css";
 
-export default function InstructorWholeContent({ selectedDashboardITem, selectedAddItem, onAdd }) {
+export default function InstructorWholeContent({ selectedDashboardITem, selectedAddItem, onAdd,  refreshProfile }) {
   return (
     <div className="whole-content-container">
       <InstructorMainContent onAdd={onAdd} selectedDashboardITem={selectedDashboardITem} />
-      {selectedDashboardITem === "View Schedule" ? null : <InstructorPanel title={selectedAddItem} />}
+      {selectedDashboardITem === "View Schedule" ? null : <InstructorPanel  refreshProfile={refreshProfile} title={selectedAddItem} />}
     </div>
   );
 }

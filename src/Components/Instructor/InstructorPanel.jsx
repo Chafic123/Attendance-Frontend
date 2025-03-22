@@ -6,7 +6,7 @@ import "../../CSS/SICalender.css";
 import "../../CSS/SI.css"
 import "../../CSS/Profile.css"
 import InstructorNotifications from "./InstructorNotifications";
-export default function InstructorPanel(props) {
+export default function InstructorPanel(prop) {
   const hideProfile = () => {
     const panel = document.querySelector('.panel-container.visible'); // Targeting both classes
     if (panel) {
@@ -18,7 +18,7 @@ export default function InstructorPanel(props) {
   return (
     <div className="panel-container">
       {
-        props.title === "View Courses" ? (
+        prop.title === "View Courses" ? (
           <div>
             <div className="panel-content">
               <div className="custom-calendar-wrapper">
@@ -27,19 +27,19 @@ export default function InstructorPanel(props) {
               <InstructorNotifications />
             </div>
             <div className="profile-holder">
-              <InstructorProfile />
+              <InstructorProfile refreshProfile={prop.refreshProfile} />
             </div>
           </div>
-        ) : props.title === "View Schedule" ? (
+        ) : prop.title === "View Schedule" ? (
           <div>
             <div className="panel-content">
               <InstructorSchedule />
             </div>
             <div className="profile-holder">
-              <InstructorProfile />
+              <InstructorProfile refreshProfile={prop.refreshProfile} />
             </div>
           </div>
-        ) : props.title === "View Notifications" ? (
+        ) : prop.title === "View Notifications" ? (
           <div>
             <div className="panel-content">
               <div className="custom-calendar-wrapper">
@@ -48,7 +48,7 @@ export default function InstructorPanel(props) {
               <InstructorNotifications />
             </div>
             <div className="profile-holder">
-              <InstructorProfile />
+              <InstructorProfile  refreshProfile={prop.refreshProfile}/>
             </div>
           </div>
 

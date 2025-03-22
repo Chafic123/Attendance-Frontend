@@ -1,22 +1,29 @@
 import "../../CSS/ProfileTop.css";
-// import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-export default function ProfileTop({ viewProfile, student }) {
 
-    if (!student) return <p>Loading...</p>; 
-    
+export default function ProfileTop({ viewProfile, user }) {
+    console.log("Profile Top Testing:", user)
+
+    if (!user) return <p>Loading...</p>; 
+
+    const { user: userInfo, Instructor: instructorInfo } = user; // Destructure the nested objects
+
     return (
         <div className="profileTop-container">
-            <div className="student-info">
-                <p className="student-name">{`${student.user.first_name} ${student.user.last_name}`}</p>
-                <p className="student-id">{student.student.student_id}</p>
+            <div className="user-info">
+                {/* Adjusting the display based on the user type */}
+                <p className="user-name">{`${userInfo.first_name} ${userInfo.last_name}`}</p>
+                <p className="user-id">
+                    {/* Display student ID for students and user_id for instructors */}
+                    {user.student ? user.student.student_id : instructorInfo ? instructorInfo.user_id : "N/A"}
+                </p>
             </div>
 
             <img 
                 onClick={viewProfile} 
-                src={`data:image/jpeg;base64,${student.student.image}`} 
+                src={`data:image/jpeg;base64,${user.student ? user.student.image : instructorInfo ? instructorInfo.image : "default_image_base64_string"}`}
                 className="profile-icon" 
-                alt="Student Profile" 
+                alt="User Profile" 
             />
         </div>
     );
@@ -24,15 +31,18 @@ export default function ProfileTop({ viewProfile, student }) {
 
 ProfileTop.propTypes = {
     viewProfile: PropTypes.func.isRequired,
-    student: PropTypes.shape({
+    user: PropTypes.shape({
         user: PropTypes.shape({
             first_name: PropTypes.string.isRequired,
             last_name: PropTypes.string.isRequired,
         }).isRequired,
+        Instructor: PropTypes.shape({
+            user_id: PropTypes.string,
+            image: PropTypes.string,
+        }),
         student: PropTypes.shape({
-            student_id: PropTypes.string.isRequired,
-            image: PropTypes.string.isRequired,
-        }).isRequired,
+            student_id: PropTypes.string,
+            image: PropTypes.string,
+        }),
     }).isRequired,
 };
-

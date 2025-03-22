@@ -3,6 +3,7 @@ import BASE_URL from "./BaseURL";
 
 export const getStudentDetails = async () => {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+  const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
 
   if (!token) {
     console.error("No authentication token found.");
@@ -10,7 +11,7 @@ export const getStudentDetails = async () => {
   }
 
   try {
-    const response = await axios.get(`${BASE_URL}/student/user`, {
+    const response = await axios.get(`${BASE_URL}/${userRole.toLowerCase()}/user`, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",

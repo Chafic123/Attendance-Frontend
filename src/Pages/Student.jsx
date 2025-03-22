@@ -5,10 +5,9 @@ import Logo from "../Components/Generals/Logo";
 import StudentWholeContent from "../Components/Student/StudentWholeContent";
 import "../CSS/SI.css";
 import { getStudentDetails } from "../ApiService/ProfileService";
-export default function Student() {
+export default function Student({refreshProfile,user}) {
   const [selectedText, setSelectedText] = useState(null);
   const [isIphone14ProMax, setIsIphone14ProMax] = useState(false);
-
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 431px) and (max-height: 932px)");
     const isIphone = /iPhone/.test(navigator.userAgent) && !window.MSStream;
@@ -80,25 +79,11 @@ export default function Student() {
 
 
   /*To link Student Profile and Profile Top*/
-  const [student, setStudent] = useState(null);
-  const refreshProfile = async () => {
-      try {
-          const data = await getStudentDetails();
-          if (data) {
-              setStudent(data);
-              console.log("Student: ", student)
-          }
-      } catch (error) {
-          console.error("Error refreshing student profile:", error);
-      }
-  };
-  useEffect(() => {
-    refreshProfile();
-}, []);
+  
 
   return (
     <div className="whole-container">
-      <ProfileTop refreshProfile={refreshProfile} student={student} viewProfile={viewProfile} />
+      <ProfileTop refreshProfile={refreshProfile} user={user} viewProfile={viewProfile} />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <StudentWholeContent

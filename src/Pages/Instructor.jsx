@@ -4,7 +4,8 @@ import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import InstructorWholeContent from "../Components/Instructor/InstructorWholeContent";
 import "../CSS/SI.css"
-export default function Instructor() {
+import { useEffect } from "react";
+export default function Instructor({refreshProfile,user}) {
   const handleAdd = () => {
     console.log("View Profile")
     const panel = document.querySelector('.panel-container');
@@ -45,10 +46,10 @@ export default function Instructor() {
   return (
     <div className="whole-container"
     >
-      <ProfileTop onAdd={handleAdd} />
+      <ProfileTop refreshProfile={refreshProfile} user={user} onAdd={handleAdd} />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
-      <InstructorWholeContent onAdd={handleAdd} selectedDashboardITem={selectedText} selectedAddItem={selectedText} />
+      <InstructorWholeContent refreshProfile={refreshProfile} onAdd={handleAdd} selectedDashboardITem={selectedText} selectedAddItem={selectedText} />
     </div>
   );
 }
