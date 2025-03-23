@@ -2,80 +2,88 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import "../../CSS/AdminFilter.css";
 
-const AdminFilter = (props) => {
-
+const AdminFilter = ({ title, onCourseFilterChange }) => {
   const [courseCode, setCourseCode] = useState('');
-  const [courseSection, setCourseSection] = useState('');
+  const [courseSection, setCourseSection] = useState(0);
   const [courseInstructor, setCourseInstructor] = useState('');
   const [courseTime, setCourseTime] = useState('');
 
-  const [studentIdNumber, setStudentIdNumber] = useState('');
-  const [studentCollege, setStudentCollege] = useState('');
-  const [studentSortOrder, setStudentSortOrder] = useState('');
-  const [studentYear, setStudentYear] = useState('');
+  const handleInputChange = (setter) => (event) => {
+    const value = event.target.value;
+    setter(value);
 
-  const [instructorIdNumber, setInstructorIdNumber] = useState('');
-  const [instructorCollege, setInstructorCollege] = useState('');
-  const [instructorSortOrder, setInstructorSortOrder] = useState('');
-
-  const handleInputChange = (setter) => (event) => setter(event.target.value);
-
+    // Pass the updated filter values to the parent component
+    onCourseFilterChange({
+      courseCode: courseCode,
+      courseSection: courseSection,
+      courseInstructor: courseInstructor,
+      courseTime: courseTime,
+      [event.target.name]: value, // Update the specific filter field
+    });
+  };
 
   return (
     <div className='filter-container'>
       <p>Filter by:</p>
 
-      {props.title === "CourseFilter" ? (
-        
+      {title === "CourseFilter" ? (
         <>
-          <input type="text" value={courseCode} onChange={handleInputChange(setCourseCode)} placeholder="Code" />
-
-          <select value={courseSection} onChange={handleInputChange(setCourseSection)}>
+          <input
+            type="text"
+            name="courseCode"
+            value={courseCode}
+            onChange={handleInputChange(setCourseCode)}
+            placeholder="Code"
+          />
+          <select
+            name="courseSection"
+            value={courseSection}
+            onChange={handleInputChange(setCourseSection)}
+          >
             <option value="" disabled>Section</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
           </select>
-
-          <input type="text" value={courseInstructor} onChange={handleInputChange(setCourseInstructor)} placeholder="Instructor" />
-
-          <select value={courseTime} onChange={handleInputChange(setCourseTime)}>
+          <input
+            type="text"
+            name="courseInstructor"
+            value={courseInstructor}
+            onChange={handleInputChange(setCourseInstructor)}
+            placeholder="Instructor"
+          />
+          <select
+            name="courseTime"
+            value={courseTime}
+            onChange={handleInputChange(setCourseTime)}
+          >
             <option value="" disabled>Time</option>
           </select>
-
         </>
-
-      ) : props.title === "StudentFilter" ? (
+      ) : title === "StudentFilter" ? (
         <>
-        
-          <input type="text" value={studentIdNumber} onChange={handleInputChange(setStudentIdNumber)} placeholder="ID Number" />
-          
-          <select value={studentCollege} onChange={handleInputChange(setStudentCollege)}>
+          <input type="text" placeholder="ID Number" />
+          <select>
             <option value="" disabled>College</option>
           </select>
-
-          <select value={studentSortOrder} onChange={handleInputChange(setStudentSortOrder)}>
+          <select>
             <option value="" disabled>A - Z</option>
           </select>
-
-          <select value={studentYear} onChange={handleInputChange(setStudentYear)}>
+          <select>
             <option value="" disabled>Year</option>
           </select>
-
         </>
-
-      ) : props.title === "InstructorFilter" ? (
+      ) : title === "InstructorFilter" ? (
         <>
-
-          <input type="text" value={instructorIdNumber} onChange={handleInputChange(setInstructorIdNumber)} placeholder="ID Number" />
-          
-          <select value={instructorCollege} onChange={handleInputChange(setInstructorCollege)}>
+          <input type="text" placeholder="ID Number" />
+          <select>
             <option value="" disabled>College</option>
           </select>
-          
-          <select value={instructorSortOrder} onChange={handleInputChange(setInstructorSortOrder)}>
+          <select>
             <option value="" disabled>A - Z</option>
           </select>
-
         </>
-
       ) : (
         <>Error</>
       )}
@@ -85,7 +93,7 @@ const AdminFilter = (props) => {
 
 AdminFilter.propTypes = {
   title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired,
+  onCourseFilterChange: PropTypes.func.isRequired,
 };
-
 
 export default AdminFilter;

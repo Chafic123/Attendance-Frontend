@@ -1,24 +1,19 @@
 import { useState, useEffect } from "react";
 import "../../CSS/Course.css";
 import { getCourses } from "../../ApiService/CourseService";
-// import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService";
 import PropTypes from "prop-types";
-import { useCourse } from "../../Contexts/CourseContext";
-export default function Course({ filters }) {
+
+export default function Course({ coursefilter }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [calendarData] = useState([]); 
-  const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
-  const { setCourseId } = useCourse();  
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const courseData = await getCourses();
-        setCourses(Array.isArray(courseData) ? courseData : []);
-        setFilteredCourses(Array.isArray(courseData) ? courseData : []);
+        setCourses(courseData);
+        setFilteredCourses(courseData);
       } catch (error) {
         console.error("Failed to fetch courses:", error);
       } finally {
@@ -32,37 +27,34 @@ export default function Course({ filters }) {
   useEffect(() => {
     let filtered = [...courses];
 
-    // Filter by course code
-    if (filters?.code) {
+    if (coursefilter?.courseCode) {
       filtered = filtered.filter(course =>
-        course.course_code.toUpperCase().includes(filters.code.toUpperCase())
+        course.Code.toUpperCase().includes(coursefilter.courseCode.toUpperCase())
       );
     }
 
-    // Filter by course name
-    if (filters?.name) {
+    if (coursefilter?.courseSection) {
       filtered = filtered.filter(course =>
-        course.course_name.toUpperCase().includes(filters.name.toUpperCase())
+        course.Section === coursefilter.courseSection
       );
     }
 
-    // Sort courses (A-Z, Z-A)
-    if (filters?.sort === "asc") {
-      filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));
-    } else if (filters?.sort === "desc") {
-      filtered.sort((a, b) => b.course_name.localeCompare(a.course_name));
+    if (coursefilter?.courseInstructor) {
+      filtered = filtered.filter(course =>
+        course.instructors.some(instructor =>
+          instructor.username.toUpperCase().includes(coursefilter.courseInstructor.toUpperCase())
+        )
+      );
+    }
+
+    if (coursefilter?.courseTime) {
+      filtered = filtered.filter(course =>
+        course.start_time.includes(coursefilter.courseTime)
+      );
     }
 
     setFilteredCourses(filtered);
-  }, [courses, filters]);
-
-
-  const handleCourseClick = (index, courseId) => {
-    setCourseId(courseId);
-    setActiveIndex(index);
-
-  };
-  
+  }, [courses, coursefilter]);
 
   if (loading) return <p>Loading courses...</p>;
   if (!filteredCourses.length) return <p>No courses found.</p>;
@@ -70,44 +62,26 @@ export default function Course({ filters }) {
   return (
     <div className="CourseContainer">
       {filteredCourses.map((course, index) => (
-        <div
-          className={`course ${activeIndex === index ? "activeCourse" : ""}`}
-          key={index}
-          onClick={() => handleCourseClick(index, course.course_id)} 
-        >
+        <div className="course" key={index}>
           <div className="courseDetails">
             <div className="courseBorder"></div>
             <div className="courseText">
-              <p className="courseCode">{course.course_code || course.Code}</p>
-              <p className="courseName">{course.course_name || course.name}</p>
-              <p className="courseInstructor">Roaa Soloh</p>
+              <p className="courseCode">{course.Code}</p>
+              <p className="courseName">{course.name}</p>
+              <p className="courseInstructor">{course.instructors[0]?.username}</p>
             </div>
           </div>
-
-          {userRole?.toLowerCase() === "student" && course.absence_percentage !== undefined && (
-            <div className="percentageContainer">
-              <p className="coursePercentage">{`${course.absence_percentage}`}</p>
-              <span>Absence</span>
-              <span>Percentage</span>
-            </div>
-          )}
         </div>
       ))}
-
-      {/* Display the calendar data if available */}
-      {calendarData.length > 0 && (
-        <div className="calendarData">
-          <h2>Attendance Calendar</h2>
-        </div>
-      )}
     </div>
   );
 }
 
 Course.propTypes = {
-  filters: PropTypes.shape({
-    code: PropTypes.string,
-    sort: PropTypes.string,
-    name: PropTypes.string,
+  coursefilter: PropTypes.shape({
+    courseCode: PropTypes.string,
+    courseSection: PropTypes.string,
+    courseInstructor: PropTypes.string,
+    courseTime: PropTypes.string,
   }),
 };
