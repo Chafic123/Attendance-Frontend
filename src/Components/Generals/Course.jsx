@@ -147,7 +147,7 @@ export default function Course({ filters }) {
                 firstName={student.first_name}
                 lastName={student.last_name}
                 major={student.major}
-                studentId={student.student_id}
+                studentId={student.Uni_id}
                 image={student.image}
               />
             ))}
