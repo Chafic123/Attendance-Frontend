@@ -11,10 +11,10 @@ export default function StudentProfile({ refreshProfile }) {
     const [studentVideo, setStudentVideo] = useState(null); // State for video file
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [imageFilename, setImageFilename] = useState(""); // State for image filename
-    const [videoFilename, setVideoFilename] = useState(""); // State for video filename
-    const [successMessage, setSuccessMessage] = useState(""); // State for success message visibility
-    const [noChangesMessage, setNoChangesMessage] = useState(""); // State for no changes message visibility
+    const [imageFilename, setImageFilename] = useState(""); 
+    const [videoFilename, setVideoFilename] = useState("");
+    const [successMessage, setSuccessMessage] = useState(""); 
+    const [noChangesMessage, setNoChangesMessage] = useState(""); 
 
     useEffect(() => {
         const fetchStudentDetails = async () => {
@@ -82,7 +82,7 @@ export default function StudentProfile({ refreshProfile }) {
             );
             setSuccessMessage("Profile updated successfully!"); // Show success message
             console.log("Profile Updated Successfully:", updatedData);
-            refreshProfile(); // Call the function to refresh ProfileTop data
+            refreshProfile();
         } catch (error) {
             console.error("Failed to update profile:", error);
         }

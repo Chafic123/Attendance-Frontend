@@ -27,7 +27,6 @@ export const getCourses = async () => {
       withCredentials: true,
     });
 
-
     if (Array.isArray(data)) {
       return data; // Student API case (returns an array)
     } else if (data?.data && Array.isArray(data.data)) {
@@ -42,7 +41,7 @@ export const getCourses = async () => {
     return [];
   }
 };
-
+//Temporary
 export const getCourseStudents = async (courseId) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
 

@@ -4,28 +4,35 @@
     flex-wrap: wrap;
     gap: 15px;
     overflow-y: auto;
-    max-height: 98%;
-
+    max-height: 100%;
+    min-height: 35%;
     /* Hide scrollbar arrows */
-    scrollbar-width: thin; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: thin;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
 }
 
 .CourseContainer::-webkit-scrollbar {
-    width: 8px; /* Set scrollbar width */
+    width: 8px;
+    /* Set scrollbar width */
 }
 
 .CourseContainer::-webkit-scrollbar-thumb {
-    background-color: #888; /* Change scrollbar color */
-    border-radius: 10px; /* Rounded edges */
+    background-color: #888;
+    /* Change scrollbar color */
+    border-radius: 10px;
+    /* Rounded edges */
 }
 
 .CourseContainer::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Darker color on hover */
+    background-color: #555;
+    /* Darker color on hover */
 }
 
 .CourseContainer::-webkit-scrollbar-button {
-    display: none; /* Hide scrollbar arrows */
+    display: none;
+    /* Hide scrollbar arrows */
 }
 
 
@@ -83,13 +90,16 @@
     color: rgba(146, 147, 150, 1);
     margin: 0;
 }
-.course.activeCourse{
+
+.course.activeCourse {
     background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
 }
-.course.activeCourse .courseText P{
+
+.course.activeCourse .courseText P {
     color: white;
 }
-.percentageContainer{
+
+.percentageContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -99,11 +109,13 @@
     color: #47494D;
     gap: 3px;
 }
-.percentageContainer p{
+
+.percentageContainer p {
     font-size: 15px;
     margin-bottom: -4px;
 }
-.percentageContainer span{
+
+.percentageContainer span {
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 500;
     font-size: 11.96px;
@@ -111,20 +123,49 @@
     letter-spacing: 0%;
 
 }
-.course.activeCourse .percentageContainer{
+
+.course.activeCourse .percentageContainer {
     color: white;
 }
-.coursePercentage{
+
+.coursePercentage {
     font-weight: 400;
     font-size: 17.48px;
     line-height: 22.83px;
     letter-spacing: 0%;
 }
+
+
+
+
+
+
+.back-btn {
+    padding: 10px 20px;
+    background-color: #482B70;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: 20px;
+    left: 40%;
+}
+
+.back-btn:hover {
+    background-color: #3a2165;
+}
+
+
+
 /*Ipad Pro*/
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
-    body{
+    body {
         background-color: red;
     }
+
     .CourseContainer {
         width: 110%;
         gap: 10px;
@@ -175,7 +216,7 @@
     .course {
         height: 80px;
         flex: 0 0 200%;
-        max-width: 260px; 
+        max-width: 260px;
         position: relative;
     }
 
@@ -205,4 +246,3 @@
         margin: 0;
     }
 }
-

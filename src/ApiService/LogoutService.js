@@ -24,6 +24,7 @@ export const logoutUser = async () => {
 
     localStorage.removeItem('authToken');
     sessionStorage.removeItem('authToken');
+    window.location.reload(); // 🔁 refreshes the page
 
     return response.data; 
   } catch (error) {

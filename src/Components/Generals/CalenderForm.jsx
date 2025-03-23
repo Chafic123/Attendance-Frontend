@@ -12,14 +12,16 @@ export default function Calendar() {
     const [calendarData, setCalendarData] = useState([]);
     const { courseId } = useCourse();  
     const userID = localStorage.getItem('userID') || sessionStorage.getItem('userID');
+    const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
     console.log("Course ID:", courseId); 
     console.log("User ID:", userID); 
 
     useEffect(() => {
-        if (courseId && userID) {
+        if (courseId && userID && userRole=="student") {
             const fetchCalendarData = async () => {
                 try {
+                    
                     const data = await getStudentCourseCalendar(courseId, userID);
                     console.log("Fetched Calendar Data:", data); 
 

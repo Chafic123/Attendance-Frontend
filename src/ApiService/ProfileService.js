@@ -18,7 +18,7 @@ export const getUserDetails = async () => {
       },
       withCredentials: true, 
     });
-    console.log("ProfileTop: ", response.data)
+    console.log("User: ", response.data)
     return response.data;
   } catch (error) {
     console.error("Failed to fetch student details:", error.response?.data || error.message);

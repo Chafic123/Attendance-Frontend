@@ -19,16 +19,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
     }
   }, [selectedDashboardITem, setSearchParams]); // Runs whenever the user changes tabs
 
-  const handleSearch = (query) => {
-    const currentSearch = searchParams.get("search") || "";
-    if (query !== currentSearch) {
-      if (query) {
-        setSearchParams({ search: query }, { replace: true });
-      } else {
-        setSearchParams({}, { replace: true });
-      }
-    }
-  };
+  
 
   return (
     <>
@@ -52,7 +43,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
           }}
         >
           
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onSearch={handleSearch} />
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses"  />
 
                     <StudentFilter onFilterChange={setFilterOptions} />
           <Course filters={filterOptions} />
@@ -100,7 +91,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
             gap: "17px",
           }}
         >
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onSearch={handleSearch} />
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" />
           <StudentFilter onFilterChange={setFilterOptions} />
           <Course filters={filterOptions} />
         </div>

@@ -6,7 +6,6 @@ export default function StudentFilter({ onFilterChange }) {
   const [filterCode, setFilterCode] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
-  // ✅ Handle filtering by course code
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);

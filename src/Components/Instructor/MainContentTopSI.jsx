@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import HeaderTitle from "../Generals/HeaderTitle";
 import ActionIcons from "../Generals/ActionIcons";
 import "../../CSS/MainContentTopSI.css"
-export default function MainContentTopSI({ title, onSearch, onAdd }) {
+export default function MainContentTopSI({ title, onSearch, onAdd,setFilterOptions }) {
   return (
     <div className="top-content-container">
       <HeaderTitle title={title} />

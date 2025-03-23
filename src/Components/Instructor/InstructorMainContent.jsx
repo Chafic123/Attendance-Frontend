@@ -1,10 +1,13 @@
 import InstructorFilter from "./InstructorFilter";
 import Course from "../Generals/Course";
-import MainContentTopSI from "./MainContentTopSI";
+import MainContentTopSI from "../Student/MainContentTopSI";
 import PropTypes from "prop-types";
 import InstructorNotificationCenter from "./InstructorNotificationCenter";
-
+import { useUser } from "../../Contexts/UserContext";
+import { useState } from "react";
 export default function InstructorMainContent({ selectedDashboardITem, onAdd }) {
+    const [filterOptions, setFilterOptions] = useState({ code: "", sort: "",name: "" });
+
   return (
     <>
       {selectedDashboardITem === "View Courses" ? (
@@ -19,11 +22,11 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Courses" onAdd={onAdd} />
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
           <div>
-            <InstructorFilter title="InstructorFilter" />
+            <InstructorFilter onFilterChange={setFilterOptions} title="InstructorFilter" />
           </div>
-          <Course instructorEmail="instructor1@example.com" />
+          <Course filters={filterOptions} instructorEmail="instructor1@example.com" />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -37,7 +40,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Schedule" onAdd={onAdd} />
+          <MainContentTopSI  title="Schedule" onAdd={onAdd} />
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
         <div
@@ -66,11 +69,11 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
           gap: "17px",
         }}
       >
-        <MainContentTopSI title="Courses" onAdd={onAdd} />
+        <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
         <div>
-          <InstructorFilter title="InstructorFilter" />
+          <InstructorFilter onFilterChange={setFilterOptions} title="InstructorFilter" />
         </div>
-        <Course instructorEmail="instructor1@example.com" />
+        <Course filters={filterOptions} instructorEmail="instructor1@example.com" />
       </div>
           )}
     </>

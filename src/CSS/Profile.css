@@ -5,13 +5,14 @@
 
 .user-profile {
     /* display: none; */
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto;
     padding: 24px;
     font-family: Arial, sans-serif;
     color: #4A2B99;
     padding-top: 100px;
-    padding-left: 0px;
+    padding-left: 20px;
+
 }
 
 .profile-title {
@@ -39,32 +40,31 @@
 }
 
 .user-profile-form {
-    width: 90%;
+    width: 94%;
     gap: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     margin-top: 15px;
 }
 
 .form-user-group {
-    max-width: 400px;
     display: flex;
     align-items: center;
-    gap: 42px;
-
-}
-
-.form-user-group label {
-    width: 105px;
+    width: 94%;
+  }
+  
+  .form-user-group label {
+    width: 140px;
     color: #482B70;
     font-size: 15px;
     font-weight: 400;
     white-space: nowrap;
-}
-
-.form-user-group input {
-    width: 100%;
-    padding: 5px 12px;
+  }
+  
+  .form-user-group input {
+    flex: 1; /* fills the remaining space */
+    padding: 8px 12px;
     border: 1px solid #4A2B99;
     background-color: rgb(245, 243, 253);
     border-radius: 15px;
@@ -72,7 +72,8 @@
     outline: none;
     color: #47494D;
     font-weight: 400;
-}
+  }
+  
 
 .form-user-row {
     width: 100%;
@@ -88,9 +89,7 @@
     align-items: center;
     gap: 22px;
 }
-.form-user-group:last-child{
-    margin-left: 4px;
-}
+
 .go-back-icon{
     display: none;
     position: absolute;
@@ -159,8 +158,21 @@
 .save-btn:hover {
     background-color: #3d2280;
 }
+.img-name{
+    font-size: 12px;
+}
+/* Default label styling */
+.upload-img-btn {
+    margin-left:-5px;
+  }
+  
+  /* Uploaded state */
+  .uploaded-label {
+    margin-left: 3px;
+  }
+  
 
-
+  
 
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 

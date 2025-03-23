@@ -7,9 +7,9 @@ export default function StudentCard({ user, firstName, lastName, major, studentI
     <div className="student-card">
       <div className="student-details">
         <img
-          src="../../Images/Student-img.png" 
+          src={`data:image/jpeg;base64,${image}`}
           alt="Student"
-          style={{ width: "5vw", height: "5vw" }}
+          style={{ width: "5vw", height: "5vw", borderRadius: "50%" }}
         />
         <div className="student-text">
           <p className="student-name">{`${firstName} ${lastName}`}</p>

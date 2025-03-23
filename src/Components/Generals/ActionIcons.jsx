@@ -12,17 +12,12 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
  // ✅ Handle filtering by course name
   const handleNameChange = (event) => {
   const value = event.target.value;
+  console.log(value)
   setFilterName(value);
-  onFilterChange({ code: "", sort: "", name: value }); // Pass updated filters
+  onFilterChange({ code: "", sort: "", name: value })
 };
 
-  useEffect(() => {
-    // Call onSearch when the component mounts with the search query in URL
-    if (searchQuery) {
-      onSearch(searchQuery);
-    }
-  }, [searchQuery, onSearch]);
-
+ 
   const handleSearchClick = () => {
     setShowInput((prev) => !prev);
   };

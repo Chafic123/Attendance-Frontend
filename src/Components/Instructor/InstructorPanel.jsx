@@ -61,7 +61,7 @@ export default function InstructorPanel(prop) {
               <InstructorNotifications />
             </div>
             <div className="profile-holder">
-              <InstructorProfile />
+              <InstructorProfile refreshProfile={prop.refreshProfile} />
             </div>
           </div>
         )
