@@ -1,21 +1,13 @@
-import React, { useEffect } from "react";
 import "../../CSS/StudentCard.css";
 import { Icon } from "@mui/material";
 import PropTypes from "prop-types";
 
 export default function StudentCard({ user, firstName, lastName, major, studentId, image }) {
-
-  // Move the useEffect outside the return statement
-  useEffect(() => {
-    console.log("Updated image:", image);
-  }, [image]);
-
   return (
     <div className="student-card">
       <div className="student-details">
         <img
-        className="student-image"
-          src={image ? `data:image/png;base64,${image}` : "https://via.placeholder.com/100"}
+          src="../../Images/Student-img.png" 
           alt="Student"
           style={{ width: "5vw", height: "5vw" }}
         />
