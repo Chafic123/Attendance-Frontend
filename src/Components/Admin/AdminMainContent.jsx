@@ -18,8 +18,8 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
 
   const handleCancelViewCourseStudents = () => {
     setViewCourseStudents(false); // ✅ Return to course list view
-    setSelectedCourseId(null);   
-    setStudents([]);              
+    setSelectedCourseId(null);
+    setStudents([]);
   };
 
   useEffect(() => {
@@ -41,6 +41,8 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
     }
   }, [selectedDashboardITem]);
 
+  const [courseFilter, setCourseFilter] = useState({});
+
   const handleCourseDoubleClick = async (courseId) => {
     setLoading(true);
     setSelectedCourseId(courseId);
@@ -54,6 +56,10 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCourseFilterChange = (newFilters) => {
+    setCourseFilter(newFilters);
   };
 
   return (
@@ -85,6 +91,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
                     lastName={student.last_name || student.user?.last_name || ""}
                     major={student.major || "N/A"}
                     studentId={student.student_id || "N/A"}
+                    image={student.image}
                   />
                 ))
               ) : (
@@ -106,9 +113,9 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           }}
         >
           <MainContentTop title="Courses" />
-          <AdminFilter title="CourseFilter" />
+          <AdminFilter title="CourseFilter" onCourseFilterChange={handleCourseFilterChange} />
           <div className="CourseContainer">
-            <Course onCourseDoubleClick={handleCourseDoubleClick} />
+            <Course coursefilter={courseFilter} />
           </div>
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (
@@ -157,39 +164,39 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           )}
         </div>
       ) : selectedDashboardITem === "View Instructors" ? (
-      <div
-        style={{
-          width: "48%",
-          padding: "57px",
-          paddingBottom: "0",
-          borderRadius: "66px 0 0 66px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "17px",
-        }}
-      >
-        <MainContentTop title="Instructors" />
-        <AdminFilter title="InstructorFilter" />
-        {loading ? (
-          <p>Loading instructors...</p>
-        ) : (
-          <div className="InstructorContainer">
-            {instructors.length > 0 ? (
-              instructors.map((instructor) => (
-                <InstructorCard
-                  key={instructor.id}
-                  firstName={instructor.first_name || "Unknown"}
-                  lastName={instructor.last_name || ""}
-                  department={instructor.instructor?.department?.name || "N/A"}
-                  id={instructor.instructor?.id || "N/A"}
-                />
-              ))
-            ) : (
-              <p>No instructors found.</p>
-            )}
-          </div>
-        )}
-      </div>
+        <div
+          style={{
+            width: "48%",
+            padding: "57px",
+            paddingBottom: "0",
+            borderRadius: "66px 0 0 66px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "17px",
+          }}
+        >
+          <MainContentTop title="Instructors" />
+          <AdminFilter title="InstructorFilter" />
+          {loading ? (
+            <p>Loading instructors...</p>
+          ) : (
+            <div className="InstructorContainer">
+              {instructors.length > 0 ? (
+                instructors.map((instructor) => (
+                  <InstructorCard
+                    key={instructor.id}
+                    firstName={instructor.first_name || "Unknown"}
+                    lastName={instructor.last_name || ""}
+                    department={instructor.instructor?.department?.name || "N/A"}
+                    id={instructor.instructor?.id || "N/A"}
+                  />
+                ))
+              ) : (
+                <p>No instructors found.</p>
+              )}
+            </div>
+          )}
+        </div>
       ) : null}
     </>
   );
