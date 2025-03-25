@@ -4,8 +4,8 @@
     flex-wrap: wrap;
     gap: 15px;
     overflow-y: auto;
-    max-height: 100%;
-    min-height: 35%;
+    max-height: 430px;
+    min-height: 50%;
     /* Hide scrollbar arrows */
     scrollbar-width: thin;
     /* Firefox */

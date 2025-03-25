@@ -107,7 +107,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
         >
           <MainContentTop title="Courses" />
           <AdminFilter title="CourseFilter" />
-          <div className="CourseContainer">
+          <div className="">
             <Course onCourseDoubleClick={handleCourseDoubleClick} />
           </div>
         </div>
