@@ -112,38 +112,40 @@ export default function Course({ filters, handleStudentSelect, setSelectedCourse
 
         {/* 👇 IF viewing courses */}
         {!showStudents && (
-          <>
-            {filteredCourses.map((course, index) => (
-              <div
-                className={`course ${activeIndex === index ? "activeCourse" : ""}`}
-                key={index}
-                onClick={() => handleCourseClick(index, course.course_id)}
-                onDoubleClick={() => handleDoubleClick(course.course_id)}
-              >
-                <div className="courseDetails">
-                  <div className="courseBorder"></div>
-                  <div className="courseText">
-                    <p className="courseCode">{course.course_code || course.Code}</p>
-                    <p className="courseName">{course.course_name || course.name}</p>
-                    <p className="courseInstructor">
-                      {userRole?.toLowerCase() === "instructor"
-                        ? `${user?.first_name} ${user?.last_name}`
-                        : course.instructor_name}
-                    </p>
-                  </div>
-                </div>
+  <>
+    {filteredCourses.map((course, index) => (
+      <div
+        className={`course ${activeIndex === index ? "activeCourse" : ""}`}
+        key={index}
+        onClick={() => handleCourseClick(index, course.course_id)}
+        onDoubleClick={() => handleDoubleClick(course.course_id)}
+      >
+        <div className="courseDetails">
+          <div className="courseBorder"></div>
+          <div className="courseText">
+            <p className="courseCode">{course.course_code || course.Code}</p>
+            <p className="courseName">{course.course_name || course.name}</p>
+            <p className="courseInstructor">
+              {userRole?.toLowerCase() === "instructor"
+                ? `${user?.first_name} ${user?.last_name}`
+                : userRole?.toLowerCase() === "admin"
+                  ? `${course.instructors[0]?.user?.first_name || ''} ${course.instructors[0]?.user?.last_name || ''}`
+                  : course.instructor_name}
+            </p>
+          </div>
+        </div>
 
-                {userRole?.toLowerCase() === "student" && course.absence_percentage !== undefined && (
-                  <div className="percentageContainer">
-                    <p className="coursePercentage">{`${course.absence_percentage}`}</p>
-                    <span>Absence</span>
-                    <span>Percentage</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </>
+        {userRole?.toLowerCase() === "student" && course.absence_percentage !== undefined && (
+          <div className="percentageContainer">
+            <p className="coursePercentage">{`${course.absence_percentage}`}</p>
+            <span>Absence</span>
+            <span>Percentage</span>
+          </div>
         )}
+      </div>
+    ))}
+  </>
+)}
 
         {/* 👇 IF viewing students */}
         {showStudents && (
