@@ -8,7 +8,7 @@ import { useCourse } from "../../Contexts/CourseContext";
 import { useUser } from "../../Contexts/UserContext";
 import { getCourseStudents } from "../../ApiService/CourseStudentsService";
 import StudentCard from "./StudentCard";
-export default function Course({ filters }) {
+export default function Course({ filters, handleStudentSelect, setSelectedCourseID,setActiveStudent }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -19,7 +19,6 @@ export default function Course({ filters }) {
   const { user } = useUser();
   const [showStudents, setShowStudents] = useState(false); // new toggle state
   const [courseStudents, setCourseStudents] = useState([]); // to store students
-
   const handleDoubleClick = async (courseId) => {
     if (userRole !== "instructor") {
       return;
@@ -27,6 +26,7 @@ export default function Course({ filters }) {
 
     try {
       const students = await getCourseStudents(courseId);
+      setSelectedCourseID(courseId);
       console.log("Course Students", students)
       setCourseStudents(students);
       setShowStudents(true); // 🔁 toggle to student view
@@ -39,6 +39,7 @@ export default function Course({ filters }) {
     setShowStudents(false);
     setCourseStudents([]);
     setActiveIndex(null);
+    setActiveStudent(null);
   };
 
 
@@ -76,6 +77,13 @@ export default function Course({ filters }) {
       );
     }
 
+    // Filter by course section
+    if (filters?.section) {
+      filtered = filtered.filter(course =>
+        String(course.course_section) === String(filters.section)
+      );
+    }
+
     // Sort courses (A-Z, Z-A)
     if (filters?.sort === "asc") {
       filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));
@@ -85,6 +93,7 @@ export default function Course({ filters }) {
 
     setFilteredCourses(filtered);
   }, [courses, filters]);
+
 
 
   const handleCourseClick = (index, courseId) => {
@@ -138,43 +147,48 @@ export default function Course({ filters }) {
 
         {/* 👇 IF viewing students */}
         {showStudents && (
-          <div style={{ width: "100%" }} className="studentsContainer">
+          <div style={{ width: "100%" }} className="studentsContainer"
+          >
 
-            {courseStudents.map((student) => (
-              <StudentCard
-                key={student.student_id}
-                user={user.status}
-                firstName={student.first_name}
-                lastName={student.last_name}
-                major={student.major}
-                studentId={student.Uni_id}
-                image={student.image}
-              />
+
+            {courseStudents.map((student,index) => (
+              <div onClick={() => handleStudentSelect(student, index)}>
+
+                <StudentCard
+                  key={student.student_id}
+                  user={user.status}
+                  firstName={student.first_name}
+                  lastName={student.last_name}
+                  major={student.major}
+                  studentId={student.Uni_id}
+                  image={student.image}
+                />
+                </div>
             ))}
 
 
 
+              </div>
+            )}
+          </div>
+      {showStudents && (
+          <div className="backButtonContainer">
+            <button className="back-btn" onClick={handleBackToCourses}>
+              Back to Courses
+            </button>
           </div>
         )}
+
       </div>
-      {showStudents && (
-        <div className="backButtonContainer">
-          <button className="back-btn" onClick={handleBackToCourses}>
-            Back to Courses
-          </button>
-        </div>
-      )}
 
-    </div>
-
-  );
+      );
 
 }
 
-Course.propTypes = {
-  filters: PropTypes.shape({
-    code: PropTypes.string,
-    sort: PropTypes.string,
-    name: PropTypes.string,
+      Course.propTypes = {
+        filters: PropTypes.shape({
+        code: PropTypes.string,
+      sort: PropTypes.string,
+      name: PropTypes.string,
   }),
 };

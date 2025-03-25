@@ -26,7 +26,7 @@ export const getCourses = async () => {
       },
       withCredentials: true,
     });
-
+    console.log(data)
     if (Array.isArray(data)) {
       return data; // Student API case (returns an array)
     } else if (data?.data && Array.isArray(data.data)) {

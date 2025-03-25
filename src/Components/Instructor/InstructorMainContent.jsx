@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useState } from "react";
-export default function InstructorMainContent({ selectedDashboardITem, onAdd }) {
-    const [filterOptions, setFilterOptions] = useState({ code: "", sort: "",name: "" });
+export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID,setActiveStudent }) {
+  const [filterOptions, setFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
+
 
   return (
     <>
@@ -26,7 +27,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
           <div>
             <InstructorFilter onFilterChange={setFilterOptions} title="InstructorFilter" />
           </div>
-          <Course filters={filterOptions} instructorEmail="instructor1@example.com" />
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -40,7 +41,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
             gap: "17px",
           }}
         >
-          <MainContentTopSI  title="Schedule" onAdd={onAdd} />
+          <MainContentTopSI title="Schedule" onAdd={onAdd} />
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
         <div
@@ -54,33 +55,33 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd }) 
             gap: "17px",
           }}
         >
-          <MainContentTopSI  title="Notifications" onAdd={onAdd} />
+          <MainContentTopSI title="Notifications" onAdd={onAdd} />
           <InstructorNotificationCenter />
         </div>
       ) : (
         <div
-        style={{
-          width: "48%",
-          padding: "57px",
-          paddingBottom: "0",
-          borderRadius: "66px 0 0 66px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "17px",
-        }}
-      >
-        <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
-        <div>
-          <InstructorFilter onFilterChange={setFilterOptions} title="InstructorFilter" />
+          style={{
+            width: "48%",
+            padding: "57px",
+            paddingBottom: "0",
+            borderRadius: "66px 0 0 66px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "17px",
+          }}
+        >
+          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
+          <div>
+            <InstructorFilter onFilterChange={setFilterOptions} title="InstructorFilter" />
+          </div>
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} />
         </div>
-        <Course filters={filterOptions} instructorEmail="instructor1@example.com" />
-      </div>
-          )}
+      )}
     </>
   );
 }
 
 InstructorMainContent.propTypes = {
   selectedDashboardITem: PropTypes.string.isRequired,
-  onAdd: PropTypes.func.isRequired, 
+  onAdd: PropTypes.func.isRequired,
 };

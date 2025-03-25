@@ -58,3 +58,40 @@ export const markStudentNotificationAsRead = async (notificationId) => {
     return null;
   }
 };
+
+
+
+
+export const sendInstructorNotification = async (studentId, courseId, message) => {
+  const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+  if (!token) {
+    console.error("❌ No authentication token found.");
+    return;
+  }
+
+  const payload = {
+    student_id: studentId,
+    course_id: courseId,
+    message: message,
+    type: "Regular", // static type as per your request
+  };
+
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/instructor/courses/send-notification`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("Notification sent successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("❌ Error sending notification:", error.response?.data || error.message);
+    return null;
+  }
+};

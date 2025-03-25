@@ -7,10 +7,11 @@ import "../../CSS/SI.css"
 import "../../CSS/Profile.css"
 import InstructorNotifications from "./InstructorNotifications";
 export default function InstructorPanel(prop) {
+
   const hideProfile = () => {
     const panel = document.querySelector('.panel-container.visible'); // Targeting both classes
     if (panel) {
-      panel.classList.remove('visible'); 
+      panel.classList.remove('visible');
     }
     console.log("Profile hidden");
   };
@@ -24,7 +25,7 @@ export default function InstructorPanel(prop) {
               <div className="custom-calendar-wrapper">
                 <Calender />
               </div>
-              <InstructorNotifications />
+              <InstructorNotifications setActiveStudent={prop.setActiveStudent} selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
             </div>
             <div className="profile-holder">
               <InstructorProfile refreshProfile={prop.refreshProfile} />
@@ -45,10 +46,10 @@ export default function InstructorPanel(prop) {
               <div className="custom-calendar-wrapper">
                 <Calender />
               </div>
-              <InstructorNotifications />
+              <InstructorNotifications setActiveStudent={prop.setActiveStudent} selectedStudent={prop.selectedStudent} />
             </div>
             <div className="profile-holder">
-              <InstructorProfile  refreshProfile={prop.refreshProfile}/>
+              <InstructorProfile refreshProfile={prop.refreshProfile} />
             </div>
           </div>
 
@@ -58,7 +59,7 @@ export default function InstructorPanel(prop) {
               <div className="custom-calendar-wrapper">
                 <Calender />
               </div>
-              <InstructorNotifications />
+              <InstructorNotifications selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
             </div>
             <div className="profile-holder">
               <InstructorProfile refreshProfile={prop.refreshProfile} />

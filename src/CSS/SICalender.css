@@ -26,13 +26,14 @@
 .MuiPickersDay-root.Mui-selected {
   background-color: #584B9F !important;
 }
+
 .css-1n1xn3x-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
-  min-height: 150px !important;
+  min-height: 250px !important;
 
 }
-/* Target the calendar transition box */
+/*Calender Height -Mark-*/
 .css-1n1xn3x-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
-  min-height: 150px !important;
+  min-height: 200px !important;
 }
 .css-1nxbkmn-MuiPickersCalendarHeader-root {
   padding-left: 33px !important;
