@@ -94,7 +94,7 @@ export const addCourse = async (Code, name, Room, credit, Section, day_of_week, 
   formData.append('instructor_email', instructor_email)
 
   try {
-    const response = await axios.post(`${BASE_URL}/admin/courses/Addcourse`, formData, {
+    const response = await axios.post(`${BASE_URL}/admin/Addcourse`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json',
