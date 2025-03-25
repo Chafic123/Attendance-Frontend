@@ -3,7 +3,7 @@
     margin: 0 auto;
     padding: 24px;
     color: #4A2B99;
-    margin-top: 70px;
+    margin-top: 19px;
 }
 
 .card-course-title {
@@ -20,6 +20,7 @@
     flex-direction: column;
     margin-top: 25px;
 }
+
 .form-course-group {
     width: 100%;
     display: flex;
@@ -49,13 +50,17 @@
     font-weight: 400;
 }
 
-.course-date-inputs,
+/* .course-date-inputs, */
 .course-time-inputs {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
     width: 75%;
+}
+
+.course-date-inputs {
+    width: 100%;
 }
 
 .course-time-inputs {
@@ -70,8 +75,8 @@
     gap: 13px;
 }
 
-.course-date-inputs select {
-    width: 40%;
+.course-date-inputs input {
+    width: 90%;
 }
 
 #form-course-group-date {
@@ -80,6 +85,14 @@
 
 .course-arrow {
     color: #B0B0B0;
+}
+
+.instructor-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
 }
 
 .form-course-row {
@@ -92,6 +105,10 @@
 .form-course-row .form-course-group {
     width: 40%;
     gap: 40px;
+}
+
+.instructor-email {
+    height: auto !important;
 }
 
 .form-course-actions {

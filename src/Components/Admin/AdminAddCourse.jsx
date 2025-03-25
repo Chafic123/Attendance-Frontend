@@ -1,110 +1,134 @@
 import "../../CSS/AdminAddCourse.css";
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import { addCourse } from "../../ApiService/CourseService";
 const AdminAddCourse = () => {
-    return (
+    const [courseData, setCourseData] = useState({
+        Code: "",
+        name: "",
+        Room: "",
+        credit: "",
+        Section: "",
+        day_of_week: "",
+        start_time: "",
+        end_time: "",
+        instructor_first_name: "",
+        instructor_last_name: "",
+        instructor_email: "",
+    });
 
+    const handleChange = (e) => {
+        setCourseData({ ...courseData, [e.target.name]: e.target.value });
+    };
+
+    const handleAddCourse = async (e) => {
+        e.preventDefault();
+        try {
+            
+            const result = await addCourse(
+                courseData.Code,
+                courseData.name,
+                courseData.Room,
+                courseData.credit,
+                courseData.Section,
+                courseData.day_of_week,
+                courseData.start_time,
+                courseData.end_time,
+                courseData.instructor_first_name,
+                courseData.instructor_last_name,
+                courseData.instructor_email
+            );
+
+            alert("Course added successfully!");
+        } catch (error) {
+            alert("Failed to add course. Please check your input.");
+        }
+    };
+
+    return (
         <div className="add-course-card">
             <h2 className="card-course-title">Add Course</h2>
-            
-            <form className="add-course-form" >
+            <form className="add-course-form" onSubmit={handleAddCourse}>
                 <div className="form-course-group">
-                    <label htmlFor="code">Code:</label>
-                    <input
-                        type="text"
-                        id="code"
-                        name="code"
-                    />
+                    <label htmlFor="Code">Code:</label>
+                    <input type="text" id="Code" name="Code" value={courseData.Code} onChange={handleChange} required />
                 </div>
 
                 <div className="form-course-group">
                     <label htmlFor="name">Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                    />
+                    <input type="text" id="name" name="name" value={courseData.name} onChange={handleChange} required />
                 </div>
 
-                <div className="form-course-group" id='form-group-date'>
-                    <label>Date:</label>
-                    <div className="course-date-inputs">
-                        <select
-                            name="startDate"
-                        >
-                            <option value="Monday">Monday</option>
-                            <option value="Tuesday">Tuesday</option>
-                            <option value="Wednesday">Wednesday</option>
-                            <option value="Thursday">Thursday</option>
-                            <option value="Friday">Friday</option>
-                        </select>
-                        <span className="course-arrow">→</span>
-                        <select
-                            name="endDate"
-                        >
-                            <option value="Monday">Monday</option>
-                            <option value="Tuesday">Tuesday</option>
-                            <option value="Wednesday">Wednesday</option>
-                            <option value="Thursday">Thursday</option>
-                            <option value="Friday">Friday</option>
-                        </select>
-                    </div>
+                <div className="form-course-group">
+                    <label>Days:</label>
+                    <input type="text" name="day_of_week" value={courseData.day_of_week} onChange={handleChange} required />
                 </div>
 
-                <div className="form-course-group" id="form-group-time">
+                <div className="form-course-group">
                     <label>Time:</label>
                     <div className="course-time-inputs">
-                        <input
-                            type="time"
-                            name="startTime"
-
-                        />
+                        <input type="time" name="start_time" value={courseData.start_time} onChange={handleChange} required />
                         <span className="course-arrow">→</span>
-                        <input
-                            type="time"
-                            name="endTime"
-                            
-                        />
+                        <input type="time" name="end_time" value={courseData.end_time} onChange={handleChange} required />
                     </div>
                 </div>
 
                 <div className="form-course-group">
                     <label htmlFor="instructor">Instructor:</label>
+                    <div className="instructor-info-container">
+                        <input
+                            className="instructor-first-name"
+                            type="text"
+                            placeholder="First Name"
+                            name="instructor_first_name"
+                            value={courseData.instructor_first_name}
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            className="instructor-last-name"
+                            type="text"
+                            placeholder="Last Name"
+                            name="instructor_last_name"
+                            value={courseData.instructor_last_name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="form-course-group">
+                    <label htmlFor="instructor_email">Instructor Email:</label>
                     <input
-                        type="text"
-                        id="instructor"
-                        name="instructor"
-                        
+                        type="email"
+                        name="instructor_email"
+                        id="instructor_email"
+                        value={courseData.instructor_email}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
                 <div className="form-course-group">
-                    <label htmlFor="instructorId">ID:</label>
-                    <input
-                        type="text"
-                        id="instructorId"
-                        name="instructorId"
-                       
-                    />
+                    <label htmlFor="Section">Section:</label>
+                    <input type="text" name="Section" id="Section" value={courseData.Section} onChange={handleChange} required />
                 </div>
 
                 <div className="form-course-row">
                     <div className="form-course-group">
-                        <label htmlFor="course-room">Room:</label>
-                        <input
-                            type="text"
-                            id="course-room"
-                            name="room"
-                            
-                        />
+                        <label htmlFor="Room">Room:</label>
+                        <input type="text" id="Room" name="Room" value={courseData.Room} onChange={handleChange} required />
                     </div>
 
                     <div className="form-course-group">
-                        <label htmlFor="course-credits">Credits:</label>
+                        <label htmlFor="credit">Credits:</label>
                         <input
                             type="number"
-                            id="course-credits"
-                            name="credits"
-                            
+                            id="credit"
+                            name="credit"
+                            min={1}
+                            value={courseData.credit}
+                            onChange={handleChange}
+                            required
                         />
                     </div>
                 </div>
@@ -112,28 +136,10 @@ const AdminAddCourse = () => {
                 <div className="form-course-actions">
                     <button type="button" className="cancel-btn">Cancel</button>
                     <button type="submit" className="save-btn">Save Changes</button>
-                    </div>
+                </div>
             </form>
         </div>
     );
-};
-
-AdminAddCourse.propTypes = {
-    courseData: PropTypes.shape({
-        code: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        startDate: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
-        startTime: PropTypes.string.isRequired,
-        endTime: PropTypes.string.isRequired,
-        instructor: PropTypes.string.isRequired,
-        instructorId: PropTypes.string.isRequired,
-        room: PropTypes.string.isRequired,
-        credits: PropTypes.number.isRequired,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
 };
 
 export default AdminAddCourse;

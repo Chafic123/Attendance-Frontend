@@ -68,3 +68,46 @@ export const getCourseStudents = async (courseId) => {
     return [];
   }
 };
+
+export const addCourse = async (Code, name, Room, credit, Section, day_of_week, start_time, end_time,
+  instructor_first_name, instructor_last_name, instructor_email) => {
+
+  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+
+  if (!token) {
+    console.error("No authentication token found.");
+    return [];
+  }
+
+  const formData = new FormData();
+
+  formData.append('Code', Code)
+  formData.append('name', name)
+  formData.append('Room', Room)
+  formData.append('credit', credit)
+  formData.append('Section', Section)
+  formData.append('day_of_week', day_of_week)
+  formData.append('start_time', start_time)
+  formData.append('end_time', end_time)
+  formData.append('instructor_first_name', instructor_first_name)
+  formData.append('instructor_last_name', instructor_last_name)
+  formData.append('instructor_email', instructor_email)
+
+  try {
+    const response = await axios.post(`${BASE_URL}/admin/courses/Addcourse`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
+
+    console.log(response.data);
+    return response.data;
+
+  } catch (error) {
+    console.error(`Error adding course:`, error.response?.data || error.message);
+    return [];
+  }
+}
