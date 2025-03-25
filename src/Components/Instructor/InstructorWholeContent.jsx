@@ -6,14 +6,16 @@ import { useState } from "react";
 export default function InstructorWholeContent({ selectedDashboardITem, selectedAddItem, onAdd, refreshProfile, viewPanel }) {
   const [student, setActiveStudent] = useState(null);
   const [selectedCourseID, setSelectedCourseID] = useState("");
-
+  const [filterTop, setFilterTop] = useState("Courses");
   const handleStudentSelect = (student, index) => {
     setActiveStudent(student);
     console.log("Selected Student: ", student)
+    console.log(filterTop)
   };
+
   return (
     <div className="whole-content-container">
-      <InstructorMainContent setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardITem={selectedDashboardITem} />
+      <InstructorMainContent setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardITem={selectedDashboardITem} />
       {selectedDashboardITem === "View Schedule" ? null : <InstructorPanel setActiveStudent={setActiveStudent}  selectedCourseID={selectedCourseID} selectedStudent={student} viewPanel={viewPanel} refreshProfile={refreshProfile} title={selectedAddItem} />}
     </div>
   );

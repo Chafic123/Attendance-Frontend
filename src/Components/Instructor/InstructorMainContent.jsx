@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useState } from "react";
-export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID,setActiveStudent }) {
+export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID,setActiveStudent,setFilterTop, filterTop={filterTop} }) {
   const [filterOptions, setFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
 
 
@@ -25,9 +25,9 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
         >
           <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
           <div>
-            <InstructorFilter onFilterChange={setFilterOptions} title="InstructorFilter" />
+            <InstructorFilter filterTop={filterTop} onFilterChange={setFilterOptions} title="InstructorFilter" />
           </div>
-          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} />
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} setFilterTop={setFilterTop}  />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -72,9 +72,9 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
         >
           <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
           <div>
-            <InstructorFilter onFilterChange={setFilterOptions} title="InstructorFilter" />
+            <InstructorFilter filterTop={filterTop} onFilterChange={setFilterOptions} title="InstructorFilter" />
           </div>
-          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} />
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} setFilterTop={setFilterTop} />
         </div>
       )}
     </>

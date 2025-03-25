@@ -8,7 +8,7 @@ import { useCourse } from "../../Contexts/CourseContext";
 import { useUser } from "../../Contexts/UserContext";
 import { getCourseStudents } from "../../ApiService/CourseStudentsService";
 import StudentCard from "./StudentCard";
-export default function Course({ filters, handleStudentSelect, setSelectedCourseID,setActiveStudent }) {
+export default function Course({ filters, handleStudentSelect, setSelectedCourseID,setActiveStudent,setFilterTop }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -29,7 +29,8 @@ export default function Course({ filters, handleStudentSelect, setSelectedCourse
       setSelectedCourseID(courseId);
       console.log("Course Students", students)
       setCourseStudents(students);
-      setShowStudents(true); // 🔁 toggle to student view
+      setShowStudents(true);
+      setFilterTop("Course Students")
     } catch (error) {
       console.error("Failed to fetch students:", error);
     }
@@ -40,6 +41,8 @@ export default function Course({ filters, handleStudentSelect, setSelectedCourse
     setCourseStudents([]);
     setActiveIndex(null);
     setActiveStudent(null);
+    setFilterTop("Courses")
+
   };
 
 
@@ -165,6 +168,7 @@ export default function Course({ filters, handleStudentSelect, setSelectedCourse
                   studentId={student.Uni_id}
                   image={student.image}
                 />
+
                 </div>
             ))}
 
