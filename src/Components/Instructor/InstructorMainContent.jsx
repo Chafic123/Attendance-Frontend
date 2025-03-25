@@ -5,10 +5,9 @@ import PropTypes from "prop-types";
 import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useState } from "react";
-export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID,setActiveStudent,setFilterTop, filterTop={filterTop} }) {
-  const [filterOptions, setFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
-
-
+export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop }) {
+  const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
+  const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" })
   return (
     <>
       {selectedDashboardITem === "View Courses" ? (
@@ -23,11 +22,11 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
             gap: "17px",
           }}
         >
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
+          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" onAdd={onAdd} />
           <div>
-            <InstructorFilter filterTop={filterTop} onFilterChange={setFilterOptions} title="InstructorFilter" />
+            <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
           </div>
-          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} setFilterTop={setFilterTop}  />
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -41,7 +40,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Schedule" onAdd={onAdd} />
+          <MainContentTopSI  onCourseFilterChange={setCourseFilterOptions} title="Schedule" onAdd={onAdd} />
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
         <div
@@ -55,7 +54,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Notifications" onAdd={onAdd} />
+          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Notifications" onAdd={onAdd} />
           <InstructorNotificationCenter />
         </div>
       ) : (
@@ -70,11 +69,11 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
             gap: "17px",
           }}
         >
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" onAdd={onAdd} />
+          <MainContentTopSI  onCourseFilterChange={setCourseFilterOptions} title="Courses" onAdd={onAdd} />
           <div>
-            <InstructorFilter filterTop={filterTop} onFilterChange={setFilterOptions} title="InstructorFilter" />
+            <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
           </div>
-          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} filters={filterOptions} setFilterTop={setFilterTop} />
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} />
         </div>
       )}
     </>

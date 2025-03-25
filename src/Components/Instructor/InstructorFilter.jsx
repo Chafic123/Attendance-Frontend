@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../CSS/SIFilter.css";
 
-export default function InstructorFilter({ onFilterChange, filterTop }) {
+export default function InstructorFilter({ onCourseFilterChange, onStudentFilterChange, filterTop }) {
   const [filterCode, setFilterCode] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [filterSection, setSection] = useState("");
@@ -18,43 +18,44 @@ export default function InstructorFilter({ onFilterChange, filterTop }) {
     setStudentName("");
     setStudentId("");
     setMajor("");
-    onFilterChange({ code: "", sort: "", name: "", section: "", student_id: "", major: "" });
+    onCourseFilterChange({ code: "", sort: "", name: "", section: "", student_id: "", major: "" });
   }, [filterTop]);
 
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
-    onFilterChange({ code: value, sort: sortOrder, name: "", section: filterSection });
+    onCourseFilterChange({ code: value, sort: sortOrder, name: "", section: filterSection });
   };
 
   const handleSortChange = (event) => {
     const value = event.target.value;
     setSortOrder(value);
-    onFilterChange({ code: filterCode, sort: value, name: "", section: filterSection });
+    onCourseFilterChange({ code: filterCode, sort: value, name: "", section: filterSection });
   };
 
   const handleSectionChange = (event) => {
     const value = event.target.value;
     setSection(value);
-    onFilterChange({ code: filterCode, sort: sortOrder, name: "", section: value });
+    onCourseFilterChange({ code: filterCode, sort: sortOrder, name: "", section: value });
   };
 
   const handleStudentNameChange = (event) => {
     const value = event.target.value;
     setStudentName(value);
-    onFilterChange({ name: value, student_id: studentId, major: major });
+    onStudentFilterChange({ studentID: studentId, name: value, major: major })
   };
 
   const handleStudentIdChange = (event) => {
     const value = event.target.value;
     setStudentId(value);
-    onFilterChange({ name: studentName, student_id: value, major: major });
+    onStudentFilterChange({ studentID: value, name: studentName, major: major })
   };
 
   const handleMajorChange = (event) => {
     const value = event.target.value;
     setMajor(value);
-    onFilterChange({ name: studentName, student_id: studentId, major: value });
+    onStudentFilterChange({ studentID: studentId, name: studentName, major: value })
+
   };
 
   return (
@@ -87,18 +88,18 @@ export default function InstructorFilter({ onFilterChange, filterTop }) {
 
       {filterTop === "Course Students" && (
         <>
+           <input
+            type="text"
+            value={studentId}
+            onChange={handleStudentIdChange}
+            placeholder="Student ID"
+            className="codeInput"
+          />
           <input
             type="text"
             value={studentName}
             onChange={handleStudentNameChange}
             placeholder="Student Name"
-            className="codeInput"
-          />
-          <input
-            type="text"
-            value={studentId}
-            onChange={handleStudentIdChange}
-            placeholder="Student ID"
             className="codeInput"
           />
           <input

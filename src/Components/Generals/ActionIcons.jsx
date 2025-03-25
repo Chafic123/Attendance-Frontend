@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../../CSS/ActionIcons.css";
 
-export default function ActionIcons({ onSearch, user, DashboardSelected, showAdminPanel, onFilterChange }) {
+export default function ActionIcons({ onSearch, user, DashboardSelected, showAdminPanel, onCourseFilterChange }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
   const [showInput, setShowInput] = useState(false);
@@ -14,7 +14,7 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
   const value = event.target.value;
   console.log(value)
   setFilterName(value);
-  onFilterChange({ code: "", sort: "", name: value })
+  onCourseFilterChange({ code: "", sort: "", name: value })
 };
 
  
