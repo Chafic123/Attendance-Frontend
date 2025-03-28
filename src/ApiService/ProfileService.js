@@ -18,10 +18,18 @@ export const getUserDetails = async () => {
       },
       withCredentials: true, 
     });
-    console.log("User: ", response.data)
+
+    console.log("User: ", response.data);
+
+    // ✅ Save the student_id to localStorage
+    const studentId = response.data?.student?.id;
+    if (studentId) {
+      localStorage.setItem("userID", studentId);
+    }
+
     return response.data;
   } catch (error) {
-    console.error("Failed to fetch student details:", error.response?.data || error.message);
+    console.error("Failed to fetch user details:", error.response?.data || error.message);
     return null;
   }
 };
