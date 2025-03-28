@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useState } from "react";
+import InstructorSchedule from "./InstructorSchedule";
 export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop }) {
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" })
@@ -41,6 +42,8 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
           }}
         >
           <MainContentTopSI  onCourseFilterChange={setCourseFilterOptions} title="Schedule" onAdd={onAdd} />
+          <InstructorSchedule />
+
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
         <div

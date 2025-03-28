@@ -8,7 +8,6 @@ import "../../CSS/SI.css";
 import "../../CSS/Profile.css";
 import { useState } from "react";
 import StudentRequestCorrection from "./StudentRequestCorrection";
-import "../../CSS/StudentCalendar.css";
 
 export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 
