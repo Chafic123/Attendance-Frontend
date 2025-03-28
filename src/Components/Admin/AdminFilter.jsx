@@ -7,7 +7,6 @@ const AdminFilter = (props) => {
   const [courseCode, setCourseCode] = useState('');
   const [courseSection, setCourseSection] = useState('');
   const [courseInstructor, setCourseInstructor] = useState('');
-  const [courseTime, setCourseTime] = useState('');
 
   const [studentIdNumber, setStudentIdNumber] = useState('');
   const [studentCollege, setStudentCollege] = useState('');
@@ -36,9 +35,6 @@ const AdminFilter = (props) => {
 
           <input type="text" value={courseInstructor} onChange={handleInputChange(setCourseInstructor)} placeholder="Instructor" />
 
-          <select value={courseTime} onChange={handleInputChange(setCourseTime)}>
-            <option value="" disabled>Time</option>
-          </select>
 
         </>
 

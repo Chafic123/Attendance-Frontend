@@ -50,7 +50,11 @@
 .css-5wchs2-MuiDateCalendar-root{
   height: 440px !important;
   margin-top: -100px !important;
+  margin: -44px auto !important;
+  margin-top: -80px !important;
+
 }
+
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
   .custom-calendar-wrapper {
     width: 83%;

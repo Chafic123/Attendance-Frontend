@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import "../../CSS/Course.css";
 import "../../CSS/StudentCard.css";
 import { getCourses } from "../../ApiService/CourseService";
@@ -8,7 +8,8 @@ import { useCourse } from "../../Contexts/CourseContext";
 import { useUser } from "../../Contexts/UserContext";
 import { getCourseStudents } from "../../ApiService/CourseStudentsService";
 import StudentCard from "./StudentCard";
-export default function Course({ courseFilters, studentFilters, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop }) {
+import { Icon } from "@mui/material";
+export default function Course({ courseFilters, studentFilters, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
 
@@ -16,6 +17,9 @@ export default function Course({ courseFilters, studentFilters, handleStudentSel
   const [loading, setLoading] = useState(true);
   const [calendarData] = useState([]);
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+
+  const dropdownRef = useRef(null);
+  const [showMenuIndex, setShowMenuIndex] = useState(null);
 
   const { setCourseId } = useCourse();
   const { user } = useUser();
@@ -42,6 +46,11 @@ export default function Course({ courseFilters, studentFilters, handleStudentSel
     }
   };
 
+  const handleEditCourseClick = (course) => {
+    setEditedCourse(course);
+    console.log("Edited Course: ",course)
+  }
+
   const handleBackToCourses = () => {
     setShowStudents(false);
     setCourseStudents([]);
@@ -50,6 +59,23 @@ export default function Course({ courseFilters, studentFilters, handleStudentSel
     setFilterTop("Courses")
 
   };
+
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const dropdown = document.getElementById(`dropdown-${showMenuIndex}`);
+      if (dropdown && !dropdown.contains(event.target)) {
+        setShowMenuIndex(null);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMenuIndex]);
+  
 
 
 
@@ -186,6 +212,69 @@ export default function Course({ courseFilters, studentFilters, handleStudentSel
                     <span>Percentage</span>
                   </div>
                 )}
+                {userRole?.toLowerCase() === "admin" && (
+                  <div style={{ position: "relative" }} ref={dropdownRef}>
+                    <Icon
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowMenuIndex(showMenuIndex === index ? null : index);
+                        setActiveIndex(index);
+
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      more_vert
+                    </Icon>
+
+                    {showMenuIndex === index && (
+                      <div style={{
+                        position: "absolute",
+                        top: "25px",
+                        right: "0",
+                        background: "#fff",
+                        padding: "5px",
+                        zIndex: 100,
+                        minWidth: "120px"
+                      }}>
+                        <button
+                          style={{
+                            width: "100%",
+                            background: "#f0f0f0",
+                            border: "none",
+                            padding: "8px",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            marginBottom: "5px",
+                            fontWeight: "500",
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();         // Prevents bubbling
+                            handleEditCourseClick(course);
+                            setShowMenuIndex(null);      // Optional: close dropdown
+                          }}                        >
+                          Edit
+                        </button>
+
+                        <button
+                          style={{
+                            width: "100%",
+                            background: "#ffe5e5",
+                            border: "none",
+                            padding: "8px",
+                            borderRadius: "5px",
+                            color: "#c62828",
+                            cursor: "pointer",
+                            fontWeight: "500",
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+
               </div>
             ))}
           </>

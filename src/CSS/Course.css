@@ -91,12 +91,12 @@
     margin: 0;
 }
 
-.course.activeCourse {
-    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+.course.activeCourse .courseBorder {
+    background: #1496D3;
 }
 
-.course.activeCourse .courseText P {
-    color: white;
+.course.activeCourse .courseCode {
+    color: #1496D3;
 }
 
 .percentageContainer {

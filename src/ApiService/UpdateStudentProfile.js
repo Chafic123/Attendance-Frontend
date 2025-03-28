@@ -16,7 +16,7 @@ export const updateStudentProfile = async (firstName, lastName, imageFile, video
     if (videoFile) {
       formData.append('video', videoFile);
     }
-
+    console.log(imageFile)
     for (let pair of formData.entries()) {
       console.log(pair[0] + ": " + pair[1]);
     }

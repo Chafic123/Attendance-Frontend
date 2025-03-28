@@ -1,7 +1,7 @@
 .request-correction-container {
     width: 60%;
     display: flex;
-    height: 180px;
+    height: 90px;
     flex-direction: column;
     background-color: white;
     align-items: start;
@@ -11,10 +11,9 @@
     border-radius: 43px;
     max-height: 200px;
     position: relative;
-    top: -60px;
-    left: 40px;
+    top: 77px;
+    left: -11px;
 }
-
 
 .request-correction-title{
     font-family: Arial, sans-serif;
@@ -34,16 +33,20 @@
     border: none;
     outline: none;
     height: 30px;
-    margin-top: 5px;
+    margin-top: 10px;
     border-bottom: 1px solid gray;
+    padding: 5px;
 
 }
 .requestCorrection-btn{
     background-color: #482B70;
     color: white;
-    padding: 3px 7px;
+    padding: 5px 10px;
     border-radius: 10px;
     margin: 15px auto 0 auto;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
 
 }
 .request-correction-placeholder{

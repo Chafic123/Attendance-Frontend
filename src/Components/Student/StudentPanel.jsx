@@ -54,6 +54,8 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
     <div className="panel-container">
       <div className="panel-content">
           <Calender setRequestCorrectionState={setRequestCorrectionState} />
+          <StudentRequestCorrection requestCorrectionState={requestCorrectionState} />
+
       </div>
       <div className="profile-holder">
         <StudentProfile refreshProfile={refreshProfile} />
@@ -73,7 +75,6 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
         alt="Close panel"
       />
 
-      <StudentRequestCorrection requestCorrectionState={requestCorrectionState} />
       </div>
   );
 }

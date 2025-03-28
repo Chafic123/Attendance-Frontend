@@ -5,8 +5,8 @@ import InstructorProfile from "./InstructorProfile"
 import "../../CSS/SICalender.css";
 import "../../CSS/SI.css"
 import "../../CSS/Profile.css"
-import InstructorNotifications from "./InstructorNotifications";
-
+import InstructorRequests from "./InstructorRequests";
+import InstructorNotifications from "./InstructorNotification";
 export default function InstructorPanel(prop) {
 
   const hideProfile = () => {
@@ -47,7 +47,7 @@ export default function InstructorPanel(prop) {
               <div className="custom-calendar-wrapper">
                 <Calender />
               </div>
-              <InstructorNotifications setActiveStudent={prop.setActiveStudent} selectedStudent={prop.selectedStudent} />
+              <InstructorRequests />
             </div>
             <div className="profile-holder">
               <InstructorProfile refreshProfile={prop.refreshProfile} />

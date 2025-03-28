@@ -1,56 +1,34 @@
-.edit-course-card {
-    max-width: 90%;
+.add-course-card {
+    max-width: 88%;
     margin: 0 auto;
     padding: 24px;
-    font-family: Arial, sans-serif;
     color: #4A2B99;
+    margin-top: 59px;
 }
 
-.card-title {
+.card-course-title {
     color: #4A2B99;
     font-size: 24px;
     font-family: Arial, sans-serif;
     margin-bottom: 8px;
 }
 
-.course-code {
-    color: #4A2B99;
-    font-size: 14px;
-    font-weight: 700;
-    color: #4A4A4A;
-    margin-bottom: 4px;
-}
-
-.course-name {
-    font-size: 14px;
-    color: #6B6B6B;
-    margin-bottom: 5px;
-}
-
-.instructor-name {
-    width: 120px;
-    flex-shrink: 0;
-    color: #929396;
-    font-size: 11px;
-    font-weight: 500;
-    margin-bottom: .8rem;
-}
-
-.edit-course-form {
+.add-course-form {
     width: 90%;
-    gap: 20px;
+    gap: 13px;
     display: flex;
     flex-direction: column;
+    margin-top: 25px;
 }
 
-.form-group {
+.form-course-group {
     width: 100%;
     display: flex;
     align-items: center;
     gap: 42px;
 }
 
-.form-group label {
+.form-course-group label {
     color: #482B70;
     font-size: 16px;
     font-weight: 400;
@@ -59,8 +37,8 @@
     color: #482B70;
 }
 
-.form-group input,
-.form-group select {
+.form-course-group input,
+.form-course-group select {
     width: 70%;
     padding: 10px 12px;
     border: 1px solid #4A2B99;
@@ -72,8 +50,8 @@
     font-weight: 400;
 }
 
-.date-inputs,
-.time-inputs {
+/* .course-date-inputs, */
+.course-time-inputs {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -81,43 +59,59 @@
     width: 75%;
 }
 
-.time-inputs {
+.course-date-inputs {
+    width: 100%;
+}
+
+.course-time-inputs {
     gap: 7px;
 }
 
-.time-inputs input {
+.course-time-inputs input {
     width: 35%;
 }
 
-.date-inputs {
+.course-date-inputs {
     gap: 13px;
 }
 
-.date-inputs select {
-    width: 40%;
+.course-date-inputs input {
+    width: 90%;
 }
 
-#form-group-date {
+#form-course-group-date {
     gap: 42px;
 }
 
-.arrow {
+.course-arrow {
     color: #B0B0B0;
 }
 
-.form-row {
+.instructor-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.form-course-row {
     width: 91%;
     display: flex;
     justify-content: space-between;
     gap: 0px;
 }
 
-.form-row .form-group {
+.form-course-row .form-course-group {
     width: 40%;
     gap: 40px;
 }
 
-.form-actions {
+.instructor-email {
+    height: auto !important;
+}
+
+.form-course-actions {
     width: 84%;
     display: flex;
     justify-content: center;
@@ -164,41 +158,150 @@
     background-color: #3d2280;
 }
 
-@media ((min-width: 1024px) and (max-width: 1334px)) {
 
-    .date-inputs,
-    .time-inputs {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0px;
-        width: 75%;
+@media (max-width: 1024px) and (height: 1366px) {
+
+    .add-course-card {
+        margin: 1rem auto;
+
     }
 
-    .date-inputs,
-    .time-inputs {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: column;
-        gap: 0;
-        width: 75%;
+    .add-course-form {
+        gap: 9px;
     }
 
-    .form-actions {
-        width: 102%;
-        display: flex;
+    .form-course-group {
+        gap: 33px;
+    }
+
+    .form-course-group label {
+        font-size: 14px;
+        width: 37px;
+    }
+
+    .form-course-group input,
+    .form-course-group select {
+        width: 73%;
+        padding: 9px 0px;
+        font-size: 12px;
+    }
+
+    .form-course-row {
+        width: 100%;
         justify-content: center;
+        gap: 26px;
+    }
+
+    .form-course-row .form-course-group {
+        width: 50%;
+        gap: 14px;
+    }
+
+    .form-course-row .form-course-group:last-child {
+        gap: 23px;
+    }
+
+    .form-course-actions {
+        width: 100%;
+        margin-top: 21px;
+        margin-left: 7px;
+        gap: 48px;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .add-course-form {
+        gap: 15px;
+    }
+
+    .add-course-card {
+        padding-top: 50px !important;
+        padding-left: 4px !important;
+    }
+
+    .card-course-title {
+        font-size: 18px !important;
+    }
+
+    .form-course-group {
         align-items: center;
-        margin-top: 8px;
-        margin-left: 0px;
-        text-align: center;
-        gap: 40px;
+        gap: 11px;
     }
 
-    .form-row {
-
-        gap: 0px;
+    #form-group-date {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
     }
 
+    .form-course-group label {
+        font-size: 9px !important;
+        width: 33px !important;
+    }
+
+    .course-date-inputs {
+        align-items: flex-start;
+        gap: 1px;
+        font-size: 5px;
+        padding: 0;
+        margin-left: -2px;
+        width: 131%;
+    }
+
+    .form-course-group select {
+        width: 82%;
+        padding: 6px 2px;
+        font-size: 8px;
+    }
+
+    .form-course-group input {
+        width: 85%;
+        font-size: 6px;
+        padding: 8px 4px;
+    }
+
+    #form-group-time {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+    }
+
+    .course-time-inputs {
+        align-items: flex-start;
+        gap: 1px;
+        font-size: 5px;
+        padding: 0;
+        margin-left: -2px;
+        width: 104%;
+    }
+
+    .form-course-row {
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 11px;
+    }
+
+    .form-course-row .form-course-group {
+        width: 99%;
+        gap: 13px;
+    }
+
+    .form-course-row .form-course-group:last-child {
+        gap: 11px;
+    }
+
+    .form-course-actions {
+        width: 123%;
+        gap: 15px;
+        margin-left: -3px;
+        margin-top: 3px;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        font-size: 8px;
+    }
 }

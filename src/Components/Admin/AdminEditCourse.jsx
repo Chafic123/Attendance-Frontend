@@ -1,85 +1,192 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { getCourseById, updateCourse } from '../../ApiService/CourseService';
-import EditCourseForm from '../EditCourseForm';
-
-export default function EditCourse({ courseId }) {
+import { useState, useEffect } from "react";
+import "../../CSS/AdminEditCourse.css";
+import { updateCourse } from "../../ApiService/EditCourseService";
+export default function AdminEditCourse({ editedCourse, onSave, setEditedCourse }) {
     const [courseData, setCourseData] = useState({
-        code: '',
-        name: '',
-        startDate: '',
-        endDate: '',
-        startTime: '',
-        endTime: '',
-        instructor: '',
-        instructorId: '',
-        room: '',
-        credits: 0, 
+        Code: "",
+        name: "",
+        email:"",
+        day_of_week: "",
+        start_time: "",
+        end_time: "",
+        section: "",
+        room: "",
+        credits: "",
     });
 
-    const [loading, setLoading] = useState(true);
+    const onCancel = () => {
+        setEditedCourse(null);
+    }
 
     useEffect(() => {
-        getCourseById(courseId)
-            .then((response) => {
-                setCourseData(response.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error fetching course data:', error);
-                setLoading(false);
+        if (editedCourse) {
+            setCourseData({
+                Code: editedCourse.Code || "",
+                name: editedCourse.name || "",
+                email: editedCourse.instructors?.[0]?.user?.email || "",
+                day_of_week: editedCourse.day_of_week || "",
+                start_time: editedCourse.start_time || "",
+                end_time: editedCourse.end_time || "",
+                section: editedCourse.Section || "",
+                room: editedCourse.Room || "",
+                credits: editedCourse.credit || 3,
             });
-
-    }, [courseId]);
+        }
+    }, [editedCourse]);
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        setCourseData((prevData) => ({
-            ...prevData,
-            [name]: name === 'credits' ? parseInt(value, 10) : value, //  credits as a number
-        }));
+        setCourseData((prev) => ({ ...prev, [name]: value }));
     };
-
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
 
-        // Validate the form data
-        if (!courseData.code || !courseData.name || !courseData.instructor) {
-            alert('Please fill in all required fields.');
-            return;
+        try {
+            const response = await updateCourse(editedCourse.id, courseData);
+            console.log("Updated course:", response);
+            onSave(); // maybe refresh the list or close the form
+        } catch (error) {
+            alert("Failed to update course.");
         }
-
-        updateCourse(courseId, courseData)
-            .then(() => {
-                alert('Course updated successfully!');
-            })
-            .catch((error) => {
-                console.error('Error updating course:', error);
-                alert('Failed to update course.');
-            });
     };
-
-    const handleCancel = () => {
-        alert('Changes canceled');
-    };
-
-    if (loading) {
-        return <p>Loading...</p>;
-    }
 
     return (
-        <div className="admin-edit">
-            <EditCourseForm
-                courseData={courseData}
-                onChange={handleChange}
-                onSave={handleSave}
-                onCancel={handleCancel}
+        <div className="add-course-card">
+            <h2 className="card-course-title">Edit Course</h2>
+            <form className="add-course-form" onSubmit={handleSave}>
+                <div className="form-course-group">
+                    <label htmlFor="Code">Code:</label>
+                    <input
+                        type="text"
+                        name="Code"
+                        value={courseData.Code}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-course-group">
+                    <label htmlFor="name">Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={courseData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-course-group">
+                    <label htmlFor="day_of_week">Days:</label>
+                    <input
+                        type="text"
+                        name="day_of_week"
+                        value={courseData.day_of_week}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-course-group">
+                    <label>Time:</label>
+                    <div className="course-time-inputs">
+                        <input
+                            type="time"
+                            name="start_time"
+                            value={courseData.start_time}
+                            onChange={handleChange}
+                            required
+                        />
+                        <span className="course-arrow">→</span>
+                        <input
+                            type="time"
+                            name="end_time"
+                            value={courseData.end_time}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+
+                {/* <div className="form-course-group">
+          <label>Instructor:</label>
+          <div className="instructor-info-container">
+            <input
+              className="instructor-first-name"
+              type="text"
+              name="instructor_first_name"
+              value={courseData.instructor_first_name}
+              onChange={handleChange}
+              placeholder="First Name"
+              required
             />
+            <input
+              className="instructor-last-name"
+              type="text"
+              name="instructor_last_name"
+              value={courseData.instructor_last_name}
+              onChange={handleChange}
+              placeholder="Last Name"
+              required
+            />
+          </div>
+        </div> */}
+                <div className="form-course-group">
+                    <label htmlFor="Section">Email:</label>
+                    <input
+                        type="text"
+                        name="section"
+                        value={courseData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-course-group">
+                    <label htmlFor="Section">Section:</label>
+                    <input
+                        type="text"
+                        name="section"
+                        value={courseData.section}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-course-row">
+                    <div className="form-course-group">
+                        <label htmlFor="Room">Room:</label>
+                        <input
+                            type="text"
+                            name="room"
+                            value={courseData.room}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-course-group">
+                        <label htmlFor="credit">Credits:</label>
+                        <input
+                            type="number"
+                            name="credits"
+                            min={1}
+                            value={courseData.credits}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="form-course-actions">
+                    <button type="button" className="cancel-btn" onClick={onCancel}>
+                        Cancel
+                    </button>
+                    <button type="submit" className="save-btn">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }
-
-EditCourse.propTypes = {
-    courseId: PropTypes.string.isRequired,
-};

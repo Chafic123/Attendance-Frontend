@@ -9,7 +9,7 @@ import { getStudents } from "../../ApiService/StudentService";
 import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
 
-export default function AdminMainContent({ selectedDashboardITem, showAdminPanel }) {
+export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse }) {
   const [students, setStudents] = useState([]);
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -108,7 +108,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           <MainContentTop title="Courses" />
           <AdminFilter title="CourseFilter" />
           <div className="">
-            <Course onCourseDoubleClick={handleCourseDoubleClick} />
+            <Course onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
           </div>
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (

@@ -33,7 +33,6 @@ export default function Admin() {
 
   return (
     <div className="AdminPage">
-      <ProfileTop />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <AdminWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>

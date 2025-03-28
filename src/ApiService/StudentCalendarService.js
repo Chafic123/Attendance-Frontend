@@ -1,5 +1,6 @@
 import axios from 'axios';
 import BASE_URL from './BaseURL';
+import { data } from 'react-router-dom';
 
 export const getStudentCourseCalendar = async (courseId, studentId) => {
   try {
@@ -18,7 +19,7 @@ export const getStudentCourseCalendar = async (courseId, studentId) => {
         },
       }
     );
-    
+    console.log("Calendar Data: ",response.data)
     return response.data; 
   } catch (error) {
     console.error("Error fetching course calendar:", error);
