@@ -4,6 +4,7 @@ import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import InstructorWholeContent from "../Components/Instructor/InstructorWholeContent";
 import "../CSS/SI.css"
+
 import { useEffect } from "react";
 export default function Instructor({refreshProfile,user,viewProfile,viewPanel}) {
   useEffect(() => {

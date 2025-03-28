@@ -1,0 +1,49 @@
+.request-correction-container {
+    width: 60%;
+    display: flex;
+    height: 180px;
+    flex-direction: column;
+    background-color: white;
+    align-items: start;
+    justify-content: start;
+    margin: 0 0 0 6%;
+    padding: 30px 30px;
+    border-radius: 43px;
+    max-height: 200px;
+    position: relative;
+    top: -60px;
+    left: 40px;
+}
+
+
+.request-correction-title{
+    font-family: Arial, sans-serif;
+    font-size: 23.99px;
+    font-weight: 700;
+    color: #543381;
+
+}
+
+.requestCorrection-input{
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px;
+    width: 100%;
+    line-height: 100%;
+    letter-spacing: 0%;
+    border: none;
+    outline: none;
+    height: 30px;
+    margin-top: 5px;
+    border-bottom: 1px solid gray;
+
+}
+.requestCorrection-btn{
+    background-color: #482B70;
+    color: white;
+    padding: 3px 7px;
+    border-radius: 10px;
+    margin: 15px auto 0 auto;
+
+}
+

@@ -6,16 +6,19 @@ import "../../CSS/SIPanel.css";
 import "../../CSS/SICalender.css";
 import "../../CSS/SI.css";
 import "../../CSS/Profile.css";
+import { useState } from "react";
+import StudentRequestCorrection from "./StudentRequestCorrection";
+import "../../CSS/StudentCalendar.css";
 
 export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 
+  const [requestCorrectionState,setRequestCorrectionState] = useState(false);
   // show the panel again when switching back from iPhone
   useEffect(() => {
     const checkScreenSize = () => {
       const panelContainer = document.querySelector(".panel-container");
       const panelContent = document.querySelector(".panel-content");
       const profileHolder = document.querySelector(".profile-holder");
-
       if (panelContainer && panelContent && profileHolder) {
         if (!window.matchMedia("(max-width: 431px) and (height: 932px)").matches) {
           panelContainer.style.zIndex = "auto";
@@ -31,6 +34,9 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
       window.removeEventListener("resize", checkScreenSize);
     };
   }, []);
+  useEffect  (()=>{
+    console.log(requestCorrectionState)
+  },requestCorrectionState)
 
   // hide the panel when closing
   const hidePanel = () => {
@@ -48,7 +54,7 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
   return title === "View Schedule" ? null : (
     <div className="panel-container">
       <div className="panel-content">
-          <Calender />
+          <Calender setRequestCorrectionState={setRequestCorrectionState} />
       </div>
       <div className="profile-holder">
         <StudentProfile refreshProfile={refreshProfile} />
@@ -67,7 +73,9 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
         onClick={hidePanel}
         alt="Close panel"
       />
-    </div>
+
+      <StudentRequestCorrection requestCorrectionState={requestCorrectionState} />
+      </div>
   );
 }
 

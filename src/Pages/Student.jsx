@@ -4,6 +4,7 @@ import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import StudentWholeContent from "../Components/Student/StudentWholeContent";
 import "../CSS/SI.css";
+
 export default function Student({ refreshProfile, user, viewProfile, viewPanel, viewPanelIphone }) {
   const [selectedText, setSelectedText] = useState(null);
   useEffect(() => {

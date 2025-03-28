@@ -97,7 +97,7 @@ const AdminAddCourse = () => {
                 </div>
 
                 <div className="form-course-group">
-                    <label htmlFor="instructor_email">Instructor Email:</label>
+                    <label htmlFor="instructor_email">Email:</label>
                     <input
                         type="email"
                         name="instructor_email"

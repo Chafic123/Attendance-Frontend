@@ -6,6 +6,8 @@ import "../../CSS/SICalender.css";
 import "../../CSS/SI.css"
 import "../../CSS/Profile.css"
 import InstructorNotifications from "./InstructorNotifications";
+import "../../CSS/InstructorCalendar.css";
+
 export default function InstructorPanel(prop) {
 
   const hideProfile = () => {
