@@ -2,21 +2,21 @@ import { useState } from "react";
 import "../../CSS/SIFilter.css";
 import PropTypes from "prop-types";
 
-export default function StudentFilter({ onFilterChange }) {
+export default function StudentFilter({ onCourseFilterChange }) {
   const [filterCode, setFilterCode] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
-    onFilterChange({ code: value, sort: sortOrder , name:""}); 
+    onCourseFilterChange({ code: value, sort: sortOrder , name:""}); 
   };
 
   
   const handleSortChange = (event) => {
     const value = event.target.value;
     setSortOrder(value);
-    onFilterChange({ code: filterCode, sort: value }); 
+    onCourseFilterChange({ code: filterCode, sort: value }); 
   };
 
   return (
@@ -43,7 +43,7 @@ export default function StudentFilter({ onFilterChange }) {
 }
 
 StudentFilter.propTypes = {
-  onFilterChange: PropTypes.func.isRequired,
+  onCourseFilterChange: PropTypes.func.isRequired,
 };
 
 const styles = {

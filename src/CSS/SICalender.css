@@ -22,10 +22,12 @@
 
 }
 
-/* Selected Day */
+/* Highlight selected day with your custom purple */
 .MuiPickersDay-root.Mui-selected {
-  background-color: #584B9F !important;
+  border: 2px solid black !important;
+  scale: 0.9;
 }
+
 
 .css-1n1xn3x-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
   min-height: 250px !important;

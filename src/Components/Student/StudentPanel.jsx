@@ -12,6 +12,7 @@ import StudentRequestCorrection from "./StudentRequestCorrection";
 export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 
   const [requestCorrectionState,setRequestCorrectionState] = useState(false);
+  const [selectedAttendance, setSelectedAttendance] = useState(null);
   // show the panel again when switching back from iPhone
   useEffect(() => {
     const checkScreenSize = () => {
@@ -53,8 +54,8 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
   return title === "View Schedule" ? null : (
     <div className="panel-container">
       <div className="panel-content">
-          <Calender setRequestCorrectionState={setRequestCorrectionState} />
-          <StudentRequestCorrection requestCorrectionState={requestCorrectionState} />
+          <Calender setSelectedAttendance={setSelectedAttendance} setRequestCorrectionState={setRequestCorrectionState} />
+          <StudentRequestCorrection selectedAttendance={selectedAttendance} requestCorrectionState={requestCorrectionState} />
 
       </div>
       <div className="profile-holder">

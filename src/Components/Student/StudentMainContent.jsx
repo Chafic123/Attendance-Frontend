@@ -9,18 +9,9 @@ import "../../CSS/StudentMainContent.css";
 import StudentScheduleReport from "./StudentScheduleReport";
 
 export default function StudentMainContent({ selectedDashboardITem, viewPanelIphone }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [filterOptions, setFilterOptions] = useState({ code: "", sort: "",name: "" });
+  const [studentCourseFilters, setFilterOptions] = useState({ code: "", sort: "",name: "" });
 
-  // Clear search query from URL when switching views (except when in "View Courses")
-  useEffect(() => {
-    if (selectedDashboardITem !== "View Courses") {
-      setSearchParams({}, { replace: true }); // Clears URL search query when leaving "View Courses"
-    }
-  }, [selectedDashboardITem, setSearchParams]); // Runs whenever the user changes tabs
-
-  
-
+ 
   return (
     <>
       <img
@@ -43,10 +34,10 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
           }}
         >
           
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses"  />
+          <MainContentTopSI onCourseFilterChange={setFilterOptions} title="Courses"  />
 
-                    <StudentFilter onFilterChange={setFilterOptions} />
-          <Course filters={filterOptions} />
+                    <StudentFilter onCourseFilterChange={setFilterOptions} />
+          <Course studentCourseFilters={studentCourseFilters} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -91,9 +82,9 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
             gap: "17px",
           }}
         >
-          <MainContentTopSI onFilterChange={setFilterOptions} title="Courses" />
-          <StudentFilter onFilterChange={setFilterOptions} />
-          <Course filters={filterOptions} />
+          <MainContentTopSI onCourseFilterChange={setFilterOptions} title="Courses" />
+          <StudentFilter onCourseFilterChange={setFilterOptions} />
+          <Course studentCourseFilters={studentCourseFilters} />
         </div>
       )}
     </>

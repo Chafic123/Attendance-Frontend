@@ -9,7 +9,7 @@ import { useUser } from "../../Contexts/UserContext";
 import { getCourseStudents } from "../../ApiService/CourseStudentsService";
 import StudentCard from "./StudentCard";
 import { Icon } from "@mui/material";
-export default function Course({ courseFilters, studentFilters, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse }) {
+export default function Course({ studentCourseFilters, courseFilters, studentFilters, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
 
@@ -48,7 +48,7 @@ export default function Course({ courseFilters, studentFilters, handleStudentSel
 
   const handleEditCourseClick = (course) => {
     setEditedCourse(course);
-    console.log("Edited Course: ",course)
+    console.log("Edited Course: ", course)
   }
 
   const handleBackToCourses = () => {
@@ -69,13 +69,13 @@ export default function Course({ courseFilters, studentFilters, handleStudentSel
         setShowMenuIndex(null);
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showMenuIndex]);
-  
+
 
 
 
@@ -94,6 +94,38 @@ export default function Course({ courseFilters, studentFilters, handleStudentSel
 
     fetchCourses();
   }, []);
+
+
+  useEffect(() => {
+    let filtered = [...courses];
+    console.log("studentCourseFilters: ",studentCourseFilters)
+    if (studentCourseFilters?.code) {
+      filtered = filtered.filter(course =>
+        course.course_code.toUpperCase().includes(studentCourseFilters.code.toUpperCase())
+      );
+    }
+
+    if (studentCourseFilters?.name) {
+      filtered = filtered.filter(course =>
+        course.course_name.toUpperCase().includes(studentCourseFilters.name.toUpperCase())
+      );
+    }
+
+    if (studentCourseFilters?.section) {
+      filtered = filtered.filter(course =>
+        String(course.course_section) === String(studentCourseFilters.section)
+      );
+    }
+
+    if (studentCourseFilters?.sort === "asc") {
+      filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));
+    } else if (studentCourseFilters?.sort === "desc") {
+      filtered.sort((a, b) => b.course_name.localeCompare(a.course_name));
+    }
+
+    setFilteredCourses(filtered);
+  }, [courses, studentCourseFilters]);
+
 
   useEffect(() => {
     let filtered = [...courses];

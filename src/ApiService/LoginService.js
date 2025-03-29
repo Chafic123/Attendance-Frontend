@@ -14,7 +14,7 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
         });
         
         const { access_token, status: userRole } = response.data || {};
-        if (access_token && userRole && userID) {
+        if (access_token && userRole) {
             console.log('Login Response:', response.data);
             const storage = rememberMe ? localStorage : sessionStorage;
 

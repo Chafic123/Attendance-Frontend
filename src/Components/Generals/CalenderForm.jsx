@@ -8,7 +8,7 @@ import { useCourse } from '../../Contexts/CourseContext';
 import dayjs from 'dayjs'; 
 import PropTypes from 'prop-types'; 
 
-export default function Calendar({ setRequestCorrectionState }) {
+export default function Calendar({ setRequestCorrectionState, setSelectedAttendance }) {
     const [calendarData, setCalendarData] = useState([]);
     const { courseId } = useCourse();  
     const userID = localStorage.getItem('userID') || sessionStorage.getItem('userID');
@@ -45,11 +45,11 @@ export default function Calendar({ setRequestCorrectionState }) {
         const status = dayStatusMap()[formattedDate];
         if (status) {
             if (status === "present") {
-                return { background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)", borderRadius: "50%" };
+                return { background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)", borderRadius: "50%", color:"white" };
             } else if (status === "absent") {
-                return { background: "red", borderRadius: "50%" }; 
+                return { background: "red", borderRadius: "50%", color:"white" }; 
             } else if (status === "upcoming") {
-                return { background: "yellow", borderRadius: "50%" }; 
+                return { background: "gray", borderRadius: "50%",color:"white" }; 
             }
         }
         return {};
@@ -66,15 +66,23 @@ export default function Calendar({ setRequestCorrectionState }) {
                         const dayStyle = getDayStyle(day);
 
                         const handleDayClick = () => {
-                            if (status === "absent") {
+                            const selectedAttendance = calendarData.find(item => 
+                              dayjs(item.date).format("YYYY-MM-DD") === formattedDate
+                            );
+                          
+                            if (selectedAttendance) {
+                              setSelectedAttendance(selectedAttendance); // Set the full object
+                              if (selectedAttendance.status === "absent") {
                                 setRequestCorrectionState(true);
-                            }
-                            else{
+                              } else {
                                 setRequestCorrectionState(false);
-
+                              }
+                            } else {
+                              setSelectedAttendance(null);
+                              setRequestCorrectionState(false);
                             }
-                                
-                        };
+                          };
+                          
 
                         return (
                             <PickersDay
