@@ -9,7 +9,7 @@ import { useUser } from "../../Contexts/UserContext";
 import { getCourseStudents } from "../../ApiService/CourseStudentsService";
 import StudentCard from "./StudentCard";
 import { Icon } from "@mui/material";
-export default function Course({ studentCourseFilters, courseFilters, studentFilters, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse }) {
+export default function Course({ studentCourseFilters, courseFilters, studentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
 
@@ -30,13 +30,14 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
   const [filteredCourseStudents, setFilteredCourseStudents] = useState([]);
 
   const handleDoubleClick = async (courseId) => {
-    if (userRole !== "instructor") {
+    if (userRole !== "instructor" && userRole !== "admin") {
       return;
     }
-
+    if (userRole == "instructor") {
+      setSelectedCourseID(courseId);
+    }
     try {
       const students = await getCourseStudents(courseId);
-      setSelectedCourseID(courseId);
       console.log("Course Students", students)
       setCourseStudents(students);
       setShowStudents(true);
@@ -54,6 +55,7 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
   const handleBackToCourses = () => {
     setShowStudents(false);
     setCourseStudents([]);
+    setEditedStudent(null)
     setActiveIndex(null);
     setActiveStudent(null);
     setFilterTop("Courses")
@@ -98,7 +100,7 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
   useEffect(() => {
     let filtered = [...courses];
-    console.log("studentCourseFilters: ",studentCourseFilters)
+    console.log("studentCourseFilters: ", studentCourseFilters)
     if (studentCourseFilters?.code) {
       filtered = filtered.filter(course =>
         course.course_code.toUpperCase().includes(studentCourseFilters.code.toUpperCase())
@@ -219,8 +221,9 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
               <div
                 className={`course ${activeIndex === index ? "activeCourse" : ""}`}
                 key={index}
-                onClick={() => handleCourseClick(index, course.course_id)}
-                onDoubleClick={() => handleDoubleClick(course.course_id)}
+                onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
+                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id)}
+
               >
                 <div className="courseDetails">
                   <div className="courseBorder"></div>
@@ -319,17 +322,17 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
 
             {filteredCourseStudents.map((student, index) => (
-              <div onClick={() => handleStudentSelect(student, index)}>
+              <div>
+
 
                 <StudentCard
                   key={student.student_id}
-                  user={user.status}
-                  firstName={student.first_name}
-                  lastName={student.last_name}
-                  major={student.major}
-                  studentId={student.Uni_id}
-                  image={student.image}
+                  student={student}
+                  setEditedStudent={setEditedStudent}
                 />
+
+
+
 
               </div>
             ))}

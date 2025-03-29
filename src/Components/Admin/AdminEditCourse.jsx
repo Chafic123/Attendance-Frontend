@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../CSS/AdminEditCourse.css";
 import { updateCourse } from "../../ApiService/EditCourseService";
-export default function AdminEditCourse({ editedCourse, onSave, setEditedCourse }) {
+export default function AdminEditCourse({ editedCourse, setEditedCourse }) {
     const [courseData, setCourseData] = useState({
         Code: "",
         name: "",
@@ -45,7 +45,6 @@ export default function AdminEditCourse({ editedCourse, onSave, setEditedCourse 
         try {
             const response = await updateCourse(editedCourse.id, courseData);
             console.log("Updated course:", response);
-            onSave(); // maybe refresh the list or close the form
         } catch (error) {
             alert("Failed to update course.");
         }

@@ -9,7 +9,7 @@ import { getStudents } from "../../ApiService/StudentService";
 import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
 
-export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse }) {
+export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent }) {
   const [students, setStudents] = useState([]);
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -80,11 +80,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
                 students.map((student) => (
                   <StudentCard
                     key={student.student_id}
-                    user="Admin"
-                    firstName={student.first_name || student.user?.first_name || "Unknown"}
-                    lastName={student.last_name || student.user?.last_name || ""}
-                    major={student.major || "N/A"}
-                    studentId={student.student_id || "N/A"}
+                    student={student}
                   />
                 ))
               ) : (
@@ -108,7 +104,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           <MainContentTop title="Courses" />
           <AdminFilter title="CourseFilter" />
           <div className="">
-            <Course onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
+            <Course setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
           </div>
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (
@@ -138,11 +134,8 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
                   students.map((student) => (
                     <StudentCard
                       key={student.student_id}
-                      user="Admin"
-                      firstName={student.first_name || student.user?.first_name || "Unknown"}
-                      lastName={student.last_name || student.user?.last_name || ""}
-                      major={student.major || "N/A"}
-                      studentId={student.student_id || "N/A"}
+                      student={student}
+
                     />
                   ))
                 ) : (

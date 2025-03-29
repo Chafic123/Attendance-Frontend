@@ -1,32 +1,114 @@
-import "../../CSS/StudentCard.css";
-import { Icon } from "@mui/material";
 import PropTypes from "prop-types";
+import { useState, useEffect, useRef } from "react";
+import { Icon } from "@mui/material";
 
-export default function StudentCard({ user, firstName, lastName, major, studentId, image }) {
+export default function StudentCard({ student, setEditedStudent }) {
+  const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+
+  const dropdownRef = useRef(null);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const firstName = student.first_name || student.user?.first_name || "N/A";
+  const lastName = student.last_name || student.user?.last_name || "N/A";
+  const studentId = userRole === "admin"
+    ? student.student_id || "N/A"
+    : student.Uni_id || "N/A";
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="student-card">
+    <div className="student-card" style={{ position: "relative" }} ref={dropdownRef}>
       <div className="student-details">
         <img
-          src={`data:image/jpeg;base64,${image}`}
+          src={student.image ? `data:image/jpeg;base64,${student.image}` : "/default-avatar.png"}
           alt="Student"
           style={{ width: "5vw", height: "5vw", borderRadius: "50%" }}
         />
         <div className="student-text">
           <p className="student-name">{`${firstName} ${lastName}`}</p>
-          <p className="student-major">{major || "N/A"}</p>
-          <p className="student-id">{studentId || "N/A"}</p>
+          <p className="student-major">{student.major || "N/A"}</p>
+          <p className="student-id">{studentId}</p>
         </div>
       </div>
-      {user === "Admin" && <Icon>more_vert</Icon>}
+
+      {userRole === "admin" && (
+        <>
+          <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
+            more_vert
+          </Icon>
+
+          {showMenu && (
+            <div
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "0",
+                background: "#fff",
+                padding: "5px",
+                zIndex: 100,
+                minWidth: "120px",
+                border: "1px solid #ddd",
+                borderRadius: "5px",
+              }}
+            >
+              <button
+                style={{
+                  width: "100%",
+                  background: "#f0f0f0",
+                  border: "none",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  marginBottom: "5px",
+                  fontWeight: "500",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMenu(false);
+                  setEditedStudent(student);
+                }}
+              >
+                Edit
+              </button>
+
+              <button
+                style={{
+                  width: "100%",
+                  background: "#ffe5e5",
+                  border: "none",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  color: "#c62828",
+                  cursor: "pointer",
+                  fontWeight: "500",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMenu(false);
+                  // Add delete logic here if needed
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
 
 StudentCard.propTypes = {
-  user: PropTypes.string.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  major: PropTypes.string.isRequired,
-  studentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  image: PropTypes.string,
+  student: PropTypes.object.isRequired,
+  setEditedStudent: PropTypes.func,
 };
