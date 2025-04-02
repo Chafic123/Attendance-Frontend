@@ -2,7 +2,10 @@
     display: flex;
     flex-wrap: wrap;
 }
-
+.StudentContainer{
+    max-height: 450px;
+    overflow-y: auto;
+}
 .student-card {
     display: flex;
     justify-content: space-between;
@@ -12,7 +15,7 @@
     border-radius: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     padding: 0 10px;
-    margin: 10px;
+    margin: 10px 10px 10px 15px;
     flex: 0 1 calc(33.33% - 20px);
     min-width: 265px;
 }
@@ -72,6 +75,17 @@
     justify-content: center;
     align-items: center;
 }
+
+/* For Selected Students in Enrollment Page */
+.student-card-wrapper.active .student-card {
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+  }
+  .student-card-wrapper.active p {
+      color: white;
+  }
+  
+
+
 @media (max-width: 1024px) and (height: 1366px){
 
     .StudentContainer {

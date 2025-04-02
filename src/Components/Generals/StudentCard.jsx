@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@mui/material";
 
-export default function StudentCard({ student, setEditedStudent }) {
+export default function StudentCard({ student, setEditedStudent,  hideIcon }) {
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
   const dropdownRef = useRef(null);
@@ -27,7 +27,7 @@ export default function StudentCard({ student, setEditedStudent }) {
   }, []);
 
   return (
-    <div className="student-card" style={{ position: "relative" }} ref={dropdownRef}>
+    <div  className="student-card" style={{ position: "relative" }} ref={dropdownRef}>
       <div className="student-details">
         <img
           src={student.image ? `data:image/jpeg;base64,${student.image}` : "/default-avatar.png"}
@@ -41,7 +41,7 @@ export default function StudentCard({ student, setEditedStudent }) {
         </div>
       </div>
 
-      {userRole === "admin" && (
+      {userRole === "admin"  && !hideIcon && (
         <>
           <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
             more_vert

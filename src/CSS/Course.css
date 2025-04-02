@@ -134,7 +134,13 @@
 
 
 
-
+.buttonContainer{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
 
 .back-btn {
     padding: 10px 20px;
@@ -154,6 +160,19 @@
     background-color: #3a2165;
 }
 
+.enroll-btn {
+    padding: 10px 20px;
+    background-color: #482B70;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: 20px;
+    left: 40%;
+}
 
 
 /*Ipad Pro*/

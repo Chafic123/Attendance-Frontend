@@ -140,7 +140,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
       ) : selectedDashboardITem === "View Courses" && !viewCourseStudents ? (
         <div
           style={{
-            width: "48%",
+            width: "100%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",

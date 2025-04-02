@@ -9,13 +9,15 @@ import { useUser } from "../../Contexts/UserContext";
 import { getCourseStudents } from "../../ApiService/CourseStudentsService";
 import StudentCard from "./StudentCard";
 import { Icon } from "@mui/material";
+import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 export default function Course({ studentCourseFilters, courseFilters, studentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
 
+  const [courseStudentID, setCourseStudentID] = useState("")
+  
   const [activeIndex, setActiveIndex] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [calendarData] = useState([]);
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
   const dropdownRef = useRef(null);
@@ -29,7 +31,10 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
   const [courseStudents, setCourseStudents] = useState([]); // to store students
   const [filteredCourseStudents, setFilteredCourseStudents] = useState([]);
 
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
   const handleDoubleClick = async (courseId) => {
+    setCourseStudentID(courseId);
     if (userRole !== "instructor" && userRole !== "admin") {
       return;
     }
@@ -63,8 +68,14 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
   };
 
+  const handleEnrollStudents = () => {
+    setPopupVisible(true);
+  };
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
 
-  // Close dropdown when clicking outside
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       const dropdown = document.getElementById(`dropdown-${showMenuIndex}`);
@@ -79,10 +90,7 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
     };
   }, [showMenuIndex]);
 
-  // Testing 
-  // useEffect(() => {
-  //   console.log("Student Filters: ", studentFilters)
-  // }, [studentFilters]);
+
 
 
   useEffect(() => {
@@ -104,39 +112,39 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
   useEffect(() => {
     let filtered = [...courses];
-  
+
     console.log("studentCourseFilters: ", studentCourseFilters);
-  
+
     // Check for empty or undefined filters and apply them
     if (studentCourseFilters?.code) {
       filtered = filtered.filter(course =>
         course.course_code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase())
       );
     }
-  
+
     if (studentCourseFilters?.name) {
       filtered = filtered.filter(course =>
         course.course_name?.toUpperCase().includes(studentCourseFilters.name.toUpperCase())
       );
     }
-  
+
     if (studentCourseFilters?.section) {
       filtered = filtered.filter(course =>
         String(course.course_section) === String(studentCourseFilters.section)
       );
     }
-  
+
     // Sorting logic
     if (studentCourseFilters?.sort === "asc") {
       filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));
     } else if (studentCourseFilters?.sort === "desc") {
       filtered.sort((a, b) => b.course_name.localeCompare(a.course_name));
     }
-  
+
     // Set the filtered courses
     setFilteredCourses(filtered);
   }, [courses, studentCourseFilters]); // Re-run the effect when courses or studentCourseFilters change
-  
+
   useEffect(() => {
     let filtered = [...courses];
 
@@ -151,12 +159,12 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
     if (courseFilters?.name) {
       filtered = filtered.filter(course =>
-        (String(course.name).toUpperCase().includes(courseFilters.name.toUpperCase()) ||
-         String(course.course_name).toUpperCase().includes(courseFilters.name.toUpperCase()))
+      (String(course.name).toUpperCase().includes(courseFilters.name.toUpperCase()) ||
+        String(course.course_name).toUpperCase().includes(courseFilters.name.toUpperCase()))
       );
     }
-    
-    
+
+
 
     // Filter by course section
     if (courseFilters?.section) {
@@ -219,7 +227,7 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
       });
     } else if (studentFilters?.sort === "desc") {
       filteredStudents.sort((a, b) => {
-        const aName = String(a.first_name || a.last_name).toLowerCase() ||  String(a.user.first_name || a.user.last_name).toLowerCase();
+        const aName = String(a.first_name || a.last_name).toLowerCase() || String(a.user.first_name || a.user.last_name).toLowerCase();
         const bName = String(b.first_name || b.last_name).toLowerCase() || String(b.user.first_name || b.user.last_name).toLowerCase();
         return bName.localeCompare(aName);
       });
@@ -254,7 +262,6 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
                 key={index}
                 onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
                 onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id)}
-
               >
                 <div className="courseDetails">
                   <div className="courseBorder"></div>
@@ -348,7 +355,7 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
         {/* 👇 IF viewing students */}
         {showStudents && (
-          <div style={{ width: "100%" }} className="studentsContainer"
+          <div style={{ width: "100%",display:"flex", flexWrap:"wrap",flexDirection:"row" }} className="studentsContainer"
           >
 
 
@@ -374,10 +381,15 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
         )}
       </div>
       {showStudents && (
-        <div className="backButtonContainer">
+        <div className="buttonContainer">
           <button className="back-btn" onClick={handleBackToCourses}>
             Back to Courses
           </button>
+          <button className="enroll-btn" onClick={handleEnrollStudents}>
+            Enroll Students
+          </button>
+          {isPopupVisible && <AdminEnrollStudentsPopup  courseStudentID={courseStudentID} onClose={handleClosePopup} />}
+
         </div>
       )}
 

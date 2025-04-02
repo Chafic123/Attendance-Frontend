@@ -1,6 +1,15 @@
 import axios from 'axios';
 import BASE_URL from './BaseURL';
 
+const generateRandomPhoneNumber = () => {
+  const length = Math.floor(Math.random() * 9);
+  let phoneNumber = "";
+  for (let i = 0; i < length; i++) {
+    phoneNumber += Math.floor(Math.random() * 10); 
+  }
+  return phoneNumber; 
+};
+
 export const editStudent = async (studentId, studentData) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
     console.log("Student Data: ",studentData)
@@ -12,7 +21,7 @@ export const editStudent = async (studentId, studentData) => {
         first_name: studentData.first_name,
         last_name: studentData.last_name,
         email: studentData.email,
-        phone: "661616161", 
+        phone_number: generateRandomPhoneNumber(),
         major: studentData.major,
         // department: studentData.department,
         department: "Business",
@@ -45,7 +54,7 @@ export const addStudent = async (studentData) => {
   const newStudent = {
     ...studentData,
     department_id: "2", 
-    phone_number: "71231531",
+    phone_number: generateRandomPhoneNumber(),
   };
 
   try {
@@ -72,3 +81,45 @@ export const addStudent = async (studentData) => {
     throw new Error(errorMessage);
   }
 };
+
+
+
+export const enrollStudents = async (studentIds, courseId) => {
+  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  console.log("data", studentIds, courseId)
+  try {
+    const response = await fetch(`${BASE_URL}/admin/enrollStudents`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        student_ids: studentIds,
+        course_id: courseId,
+      }),
+    });
+  
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP error ${response.status}: ${errorText}`);
+    }
+  
+    const data = await response.json();
+    return {
+      success: true,
+      data: data,
+      message: data.message || 'Students enrolled successfully'
+    };
+  
+  } catch (error) {
+    console.error('Enrollment error:', error);
+    return {
+      success: false,
+      message: error.message || 'Failed to enroll students'
+    };
+  }
+  
+  
+}
+  

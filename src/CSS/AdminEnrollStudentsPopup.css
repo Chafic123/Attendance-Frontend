@@ -1,0 +1,81 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-overlay h2 {
+    color: #543381;
+    padding: 10px 0 0 20px;
+  }
+  
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 800px;
+    height: 80vh;
+    overflow-y: auto; /* Enable scrolling only when content exceeds max height */
+  }
+  
+  .student-cards-container {
+    max-height: 60vh;
+    overflow-y: auto; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    padding-top: 20px;
+  }
+  .student-cards-container .student-card{
+    min-width: 350px;
+  }
+  .centered-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .enroll-btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .close-btn {
+    background-color: #ff5c5c;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+
+  }
+  .confirm-enroll-btn {
+    background-color: rgb(78, 234, 78);
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+
+  }
+
+  
+  
+
+  .student-card-wrapper.active .student-card {
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+  };
+  .student-card-wrapper.active .student-details .student-text p {
+    color: white !important;
+}
