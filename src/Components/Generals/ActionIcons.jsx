@@ -14,7 +14,7 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
   const value = event.target.value;
   console.log(value)
   setFilterName(value);
-  onCourseFilterChange({ code: "", sort: "", name: value })
+  onCourseFilterChange({ code: "", sort: "", name: value,  section:"" })
 };
 
  

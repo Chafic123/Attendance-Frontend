@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import "../../CSS/AdminEditCourse.css";
 import { updateCourse } from "../../ApiService/EditCourseService";
 export default function AdminEditCourse({ editedCourse, setEditedCourse }) {
+    const [successMessage, setSuccessMessage] = useState(""); 
+    const [noChangesMessage, setNoChangesMessage] = useState("");
+
     const [courseData, setCourseData] = useState({
         Code: "",
         name: "",
@@ -45,13 +48,32 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse }) {
         try {
             const response = await updateCourse(editedCourse.id, courseData);
             console.log("Updated course:", response);
+            setSuccessMessage("Course Updated Successfully")
         } catch (error) {
             alert("Failed to update course.");
+            setNoChangesMessage("An Error Has Occurred!");
         }
     };
 
     return (
         <div className="add-course-card">
+             {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381"}}>
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+
+            {noChangesMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noChangesMessage}</p>
+                        <button onClick={() => setNoChangesMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
             <h2 className="card-course-title">Edit Course</h2>
             <form className="add-course-form" onSubmit={handleSave}>
                 <div className="form-course-group">

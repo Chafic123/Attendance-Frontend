@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import AdminFilter from "./AdminFilter";
 import Course from "../Generals/Course";
-import MainContentTop from "./AdminMainContentTop";
 import StudentCard from "../Generals/StudentCard";
 import InstructorCard from "../Generals/InstructorCard";
 import PropTypes from "prop-types";
 import { getStudents } from "../../ApiService/StudentService";
 import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
+import MainContentTopSI from "../Student/MainContentTopSI";
 
 export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent }) {
   const [students, setStudents] = useState([]);
@@ -15,6 +15,10 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
+
+  const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
+  const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
+  const [instrcutorFilterOptions, setInstructorFilterOptions] = useState({ studentID: "", name: "", major: "" });
 
   const handleCancelViewCourseStudents = () => {
     setViewCourseStudents(false); // ✅ Return to course list view
@@ -70,8 +74,8 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
             gap: "17px",
           }}
         >
-          <MainContentTop title="Students" showAdminPanel={showAdminPanel} />
-          <AdminFilter title="StudentFilter" />
+          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Students" showAdminPanel={showAdminPanel} />
+          <AdminFilter onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
             <p>Loading students...</p>
           ) : (
@@ -101,10 +105,10 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
             gap: "17px",
           }}
         >
-          <MainContentTop title="Courses" />
-          <AdminFilter title="CourseFilter" />
+          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" />
+          <AdminFilter onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
-            <Course setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
+            <Course courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
           </div>
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (
@@ -119,7 +123,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
             gap: "17px",
           }}
         >
-          <MainContentTop
+          <MainContentTopSI
             title="Enrolled Students"
             showAdminPanel={showAdminPanel}
           />
@@ -161,7 +165,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           gap: "17px",
         }}
       >
-        <MainContentTop title="Instructors" />
+        <MainContentTopSI title="Instructors" />
         <AdminFilter title="InstructorFilter" />
         {loading ? (
           <p>Loading instructors...</p>
