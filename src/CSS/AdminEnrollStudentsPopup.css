@@ -22,8 +22,10 @@
     border-radius: 10px;
     width: 800px;
     height: 80vh;
-    overflow-y: auto; /* Enable scrolling only when content exceeds max height */
-  }
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
   
   .student-cards-container {
     max-height: 60vh;
@@ -73,9 +75,4 @@
   
   
 
-  .student-card-wrapper.active .student-card {
-    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
-  };
-  .student-card-wrapper.active .student-details .student-text p {
-    color: white !important;
-}
+ 
