@@ -39,19 +39,19 @@ export default function InstructorFilter({ onCourseFilterChange, onStudentFilter
     onCourseFilterChange({ code: filterCode, sort: sortOrder, name: "", section: value });
   };
 
-  const handleStudentNameChange = (event) => {
+  const handleCourseStudentNameChange = (event) => {
     const value = event.target.value;
     setStudentName(value);
     onStudentFilterChange({ studentID: studentId, name: value, major: major })
   };
 
-  const handleStudentIdChange = (event) => {
+  const handleCourseStudentIdChange = (event) => {
     const value = event.target.value;
     setStudentId(value);
     onStudentFilterChange({ studentID: value, name: studentName, major: major })
   };
 
-  const handleMajorChange = (event) => {
+  const handleCourseMajorChange = (event) => {
     const value = event.target.value;
     setMajor(value);
     onStudentFilterChange({ studentID: studentId, name: studentName, major: value })
@@ -91,21 +91,21 @@ export default function InstructorFilter({ onCourseFilterChange, onStudentFilter
            <input
             type="text"
             value={studentId}
-            onChange={handleStudentIdChange}
+            onChange={handleCourseStudentIdChange}
             placeholder="Student ID"
             className="codeInput"
           />
           <input
             type="text"
             value={studentName}
-            onChange={handleStudentNameChange}
+            onChange={handleCourseStudentNameChange}
             placeholder="Student Name"
             className="codeInput"
           />
           <input
             type="text"
             value={major}
-            onChange={handleMajorChange}
+            onChange={handleCourseMajorChange}
             placeholder="Major"
             className="codeInput"
           />

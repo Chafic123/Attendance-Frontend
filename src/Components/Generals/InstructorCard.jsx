@@ -1,26 +1,34 @@
 import "../../CSS/InstructorCard.css";
 import { Icon } from "@mui/material";
 import PropTypes from "prop-types";
-import { useRef, useEffect,useState } from "react";
-export default function InstructorCard({ user, firstName, lastName, department, id }) {
+import { useRef, useState } from "react";
+
+export default function InstructorCard({ instructor, setEditedInstructor }) {
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const dropdownRef = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
 
+  // Extract instructor details
+  const firstName = instructor?.first_name || "Unknown";
+  const lastName = instructor?.last_name || "";
+  const department = instructor?.instructor?.department?.name || "N/A";
+  const id = instructor?.instructor?.id || "N/A";
+
   return (
-    <div style={{position:'relative'}} className="Instructor-card">
+    <div style={{ position: "relative" }} className="Instructor-card">
       <div className="Instructor-details">
         <img
-          src="../../Images/Student-img.png"  //Static image 
+          src="../../Images/Student-img.png" // Static image
           alt="Instructor"
           style={{ width: "5vw", height: "5vw" }}
         />
         <div className="Instructor-text">
           <p className="Instructor-name">{`${firstName} ${lastName}`}</p>
-          <p className="Instructor-Department">{department || "N/A"}</p>
-          <p className="Instructor-id">{id || "N/A"}</p>
+          <p className="Instructor-Department">{department}</p>
+          <p className="Instructor-id">{id}</p>
         </div>
       </div>
+
       {userRole === "admin" && (
         <>
           <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
@@ -55,7 +63,7 @@ export default function InstructorCard({ user, firstName, lastName, department, 
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);
-                  setEditedStudent(student);
+                  setEditedInstructor(instructor);
                 }}
               >
                 Edit
@@ -75,7 +83,6 @@ export default function InstructorCard({ user, firstName, lastName, department, 
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);
-                  // Add delete logic here if needed
                 }}
               >
                 Delete
@@ -89,10 +96,6 @@ export default function InstructorCard({ user, firstName, lastName, department, 
 }
 
 InstructorCard.propTypes = {
-  user: PropTypes.string.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  title: PropTypes.string,    
-  department: PropTypes.string,
-  id: PropTypes.string.isRequired,
+  instructor: PropTypes.object.isRequired, // Expecting the whole instructor object
+  setEditedInstructor: PropTypes.func.isRequired,
 };

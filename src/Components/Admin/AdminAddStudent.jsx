@@ -1,9 +1,20 @@
-import "../../CSS/AdminAddStudent.css";
-import PropTypes from 'prop-types';
-import { useState } from "react";
-const AdminAddStudent = () => {
+import { useState } from 'react';
+import { addStudent } from '../../ApiService/AdminStudentService';
 
-    const [studentImage, setStudentImage] = useState("Upload New")
+const AdminAddStudent = () => {
+    const [studentData, setStudentData] = useState({
+        first_name: '',
+        last_name: '',
+        address: '',
+        personal_email: '',
+        major: '',
+    });
+
+    const [studentImage, setStudentImage] = useState("Upload New");
+
+    const handleChange = (e) => {
+        setStudentData({ ...studentData, [e.target.name]: e.target.value });
+    };
 
     const handleStudentImage = (event) => {
         if (event.target.files.length > 0) {
@@ -13,65 +24,65 @@ const AdminAddStudent = () => {
         }
     };
 
-    return (
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await addStudent(studentData);
+            console.log("Student added successfully!");
+            alert("Student added successfully!");
+
+            setStudentData({
+                first_name: '',
+                last_name: '',
+                address: '',
+                personal_email: '',
+                major: '',
+            });
+            setStudentImage("Upload New");
+        } catch (error) {
+            console.error(error.message);
+            alert(error.message);
+        }
+    };
+
+    return (
         <div className="add-student-card">
             <h2 className="card-student-title">Add Student</h2>
 
-            <form className="add-student-form" >
+            <form className="add-student-form" onSubmit={handleSubmit}>
                 <div className="form-student-group">
-                    <label htmlFor="First-Name">First Name:</label>
-                    <input
-                        type="text"
-                        id="First-Name"
-                        name="First-Name"
-                    />
+                    <label htmlFor="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" value={studentData.first_name} onChange={handleChange} required />
                 </div>
 
                 <div className="form-student-group">
-                    <label htmlFor="Last-Name">Last Name:</label>
-                    <input
-                        type="text"
-                        id="Last-Name"
-                        name="Last-Name"
-                    />
+                    <label htmlFor="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" value={studentData.last_name} onChange={handleChange} required />
                 </div>
 
                 <div className="form-student-group">
-                    <label htmlFor="ID-Number">ID Number:</label>
-                    <input
-                        type="text"
-                        id="ID-Number"
-                        name="ID-Number"
-
-                    />
+                    <label htmlFor="address">Address:</label>
+                    <input type="text" id="address" name="address" value={studentData.address} onChange={handleChange} required />
                 </div>
 
                 <div className="form-student-group">
-                    <label htmlFor="Department:">Department:</label>
-                    <input
-                        type="text"
-                        id="Department:"
-                        name="Department:"
-                    />
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" id="personal_email" name="personal_email" value={studentData.personal_email} onChange={handleChange} required />
+                </div>
+
+                <div className="form-student-group">
+                    <label htmlFor="major">Major:</label>
+                    <input type="text" id="major" name="major" value={studentData.major} onChange={handleChange} required />
                 </div>
 
                 <div className="imgParent">
-                    <input
-                        type="file"
-                        id="fileInput"
-                        className="img-input"
-                        onChange={handleStudentImage}
-                    />
-
-                    <label htmlFor="fileInput" className="imageLabel">
-                        Image
-                    </label>
-
+                    <input type="file" id="fileInput" className="img-input" onChange={handleStudentImage} />
+                    <label htmlFor="fileInput" className="imageLabel">Image</label>
                     <label htmlFor="fileInput" className="upload-img-btn">
                         <img src="../Images/Upload_img.png" alt="Upload" />
                     </label>
-
                     <span className="img-name">{studentImage}</span>
                 </div>
 
@@ -82,24 +93,6 @@ const AdminAddStudent = () => {
             </form>
         </div>
     );
-};
-
-AdminAddStudent.propTypes = {
-    courseData: PropTypes.shape({
-        code: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        startDate: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
-        startTime: PropTypes.string.isRequired,
-        endTime: PropTypes.string.isRequired,
-        instructor: PropTypes.string.isRequired,
-        instructorId: PropTypes.string.isRequired,
-        room: PropTypes.string.isRequired,
-        credits: PropTypes.number.isRequired,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
 };
 
 export default AdminAddStudent;

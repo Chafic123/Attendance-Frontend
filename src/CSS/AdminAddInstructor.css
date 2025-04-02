@@ -1,40 +1,38 @@
 .add-instructor-card {
-    max-width: 90%;
+    max-width: 88%;
     margin: 0 auto;
     padding: 24px;
-    font-family: Arial, sans-serif;
     color: #4A2B99;
-    padding-top: 80px;
-    padding-left: 25px;
+    margin-top: 70px;
 }
 
 .card-instructor-title {
     color: #4A2B99;
     font-size: 24px;
-    font-family: Arial, sans-serif;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
 .add-instructor-form {
     width: 90%;
-    gap: 20px;
+    gap: 30px;
     display: flex;
     flex-direction: column;
-    margin-top: 38px;
+    margin-top: 25px;
 }
 
 .form-instructor-group {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 42px;
+    gap: 30px;
 }
 
 .form-instructor-group label {
-    width: 107px;
+    width: 100px;
     color: #482B70;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 400;
+    white-space: nowrap;
 }
 
 .form-instructor-group input {
@@ -49,20 +47,15 @@
     font-weight: 400;
 }
 
-.form-instructor-row {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
-}
 
 .form-instructor-row .form-instructor-group {
     width: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 22px;
+
 }
+
 
 .imgParent {
     display: flex;
@@ -146,120 +139,90 @@
 }
 
 
+
+
 /* Ipad Pro */
 
 @media (max-width: 1024px) and (height: 1366px) {
 
-    .add-instructor-card {
-
-        padding-top: 47px;
-    }
-
     .form-instructor-group {
-
-        gap: 0px;
+        gap: 9px !important;
     }
 
     .form-instructor-group label {
-        width: 127px;
-        font-size: 13px;
+
+        font-size: 14px !important;
+
     }
 
     .form-instructor-group input {
-        width: 71%;
-        padding: 5px;
+        width: 64% !important;
+        font-size: 12px !important;
     }
 
     .add-instructor-form .imgParent .imageLabel {
 
-        margin-left: 7px;
-
+        margin-left: 7px !important;
+        font-size: 14px !important;
     }
+
 
     .form-instructor-actions {
-        width: 102%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 8px;
-        margin-left: 0px;
-        text-align: center;
-        gap: 40px;
+        width: 100% !important;
+        margin-left: 0 !important;
+        gap: 19px !important;
     }
 
-    .imageLabel {
-        font-size: 14px !important;
+    .cancel-btn,
+    .save-btn {
+
+        font-size: 11px !important;
     }
 }
 
 @media (max-width: 430px) {
 
-    .add-instructor-form {
-        gap: 15px;
+    .add-instructor-card {
+        padding-top: 46px !important;
+        padding-left: 4px !important;
     }
 
-    .add-instructor-card {
-        padding-top: 50px !important;
-        padding-left: 4px !important;
+    .form-instructor-group {
+        width: 113% !important;
+        justify-content: space-between !important;
     }
 
     .card-instructor-title {
         font-size: 18px !important;
     }
 
-    .form-instructor-group {
-        align-items: center;
-        gap: 16px !important;
-    }
-
-    #form-group-date {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 9px !important;
-    }
-
     .form-instructor-group label {
-        font-size: 10px !important;
-        width: 43px !important;
-    }
-
-    .instructor-date-inputs {
-        align-items: flex-start !important;
-        gap: 1px !important;
-        font-size: 5px !important;
-        padding: 0 !important;
-        margin-left: -2px !important;
-        width: 104% !important;
+        font-size: 9px !important;
+        width: 33px !important;
     }
 
     .form-instructor-group input {
-        width: 90% !important;
-        font-size: 9px !important;
-        padding: 7px 32px !important;
+        width: 49% !important;
+        font-size: 6px;
+        padding: 8px 3px !important;
     }
 
-    .form-instructor-row {
-        width: 100% !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: flex-start !important;
-        gap: 11px !important;
+    .imageLabel {
+        font-size: 10px !important;
     }
 
-    .form-instructor-row .form-instructor-group {
-        width: 99% !important;
-        gap: 13px !important;
+    .imgParent img {
+        width: 11px;
     }
 
-    .form-instructor-row .form-instructor-group:last-child {
-        gap: 11px !important;
+    .img-name {
+        font-size: 6.759px;
     }
 
     .form-instructor-actions {
         width: 123% !important;
-        gap: 15px !important;
+        gap: 19px !important;
         margin-left: -3px !important;
-        margin-top: 3px !important;
     }
 
     .cancel-btn,

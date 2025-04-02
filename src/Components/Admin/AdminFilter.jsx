@@ -7,24 +7,22 @@ const AdminFilter = (props) => {
   const [sortOrder, setSortOrder] = useState("");
   const [filterSection, setSection] = useState("");
 
+  const [studentName, setStudentName] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [major, setMajor] = useState("");
+  const [studentSort, setStudentSort] = useState("");
 
-
-
-  const [studentName, setStudentName] = useState("")
-  const [studentIdNumber, setStudentIdNumber] = useState('');
-  const [studentSortOrder, setStudentSortOrder] = useState('');
-
-  const [instructorName, setInstructorName] = useState("")
+  const [instructorName, setInstructorName] = useState("");
   const [instructorIdNumber, setInstructorIdNumber] = useState('');
   const [instructorSortOrder, setInstructorSortOrder] = useState('');
 
+ 
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
     console.log(value);
     props.onCourseFilterChange({ code: value, sort: sortOrder, name: "", section: filterSection });
   };
-  
 
   const handleSortChange = (event) => {
     const value = event.target.value;
@@ -38,56 +36,130 @@ const AdminFilter = (props) => {
     props.onCourseFilterChange({ code: filterCode, sort: sortOrder, name: "", section: value });
   };
 
+  const handleStudentNameChange = (event) => {
+    const value = event.target.value;
+    setStudentName(value);
+    props.onStudentFilterChange({ studentID: studentId, name: value, major: major, sort: studentSort });
+  };
+
+  const handleStudentIdChange = (event) => {
+    const value = event.target.value;
+    setStudentId(value);
+    props.onStudentFilterChange({ studentID: value, name: studentName, major: major, sort: studentSort });
+  };
+
+  const handleMajorChange = (event) => {
+    const value = event.target.value;
+    setMajor(value);
+    props.onStudentFilterChange({ studentID: studentId, name: studentName, major: value, sort: studentSort });
+  };
+  const handleStudentSortChange = (event) => {
+    const value = event.target.value;
+    setStudentSort(value);
+    props.onStudentFilterChange({ studentID: studentId, name: studentName, major: major, sort: value });
+  };
+
   return (
     <div className='filter-container'>
       <p>Filter by:</p>
 
       {props.title === "CourseFilter" ? (
-        
         <>
-          <input type="text" value={filterCode} onChange={handleCodeChange} placeholder="Code" />
-
-    
+          {props.filterTop === "Courses" ? (
+            <>
+              <input type="text" value={filterCode} onChange={handleCodeChange} placeholder="Code" />
+              <input
+                type="text"
+                value={filterSection}
+                onChange={handleSectionChange}
+                placeholder="Section"
+                className="codeInput"
+              />
+              <select value={sortOrder} onChange={handleSortChange} className="selectInput">
+                <option value="">Sort</option>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+            </>
+          ) : props.filterTop === "Course Students" ? (
+            <>
+              <input
+                type="text"
+                value={studentId}
+                onChange={handleStudentIdChange}
+                placeholder="Student ID"
+                className="codeInput"
+              />
+              <input
+                type="text"
+                value={studentName}
+                onChange={handleStudentNameChange}
+                placeholder="Student Name"
+                className="codeInput"
+              />
+              <input
+                type="text"
+                value={major}
+                onChange={handleMajorChange}
+                placeholder="Major"
+                className="codeInput"
+              />
+              <select value={studentSort} onChange={handleStudentSortChange} className="selectInput">
+                <option value="">Sort</option>
+                <option value="asc">A - Z</option>
+                <option value="desc">Z - A</option>
+              </select>
+            </>
+          ) : null}
+        </>
+      ) : props.title === "StudentFilter" ? (
+        <>
           <input
             type="text"
-            value={filterSection}
-            onChange= {handleSectionChange}
-            placeholder="Section"
+            value={studentId}
+            onChange={handleStudentIdChange}
+            placeholder="Student ID"
             className="codeInput"
           />
-          <select value={sortOrder} onChange={handleSortChange} className="selectInput">
+          <input
+            type="text"
+            value={studentName}
+            onChange={handleStudentNameChange}
+            placeholder="Student Name"
+            className="codeInput"
+          />
+          <input
+            type="text"
+            value={major}
+            onChange={handleMajorChange}
+            placeholder="Major"
+            className="codeInput"
+          />
+          <select value={studentSort} onChange={handleStudentSortChange} className="selectInput">
             <option value="">Sort</option>
             <option value="asc">A-Z</option>
             <option value="desc">Z-A</option>
           </select>
         </>
-
-      ) : props.title === "StudentFilter" ? (
-        <>
-        
-          <input type="text" value={studentIdNumber}  placeholder="ID Number" />
-          
-
-
-          <select value={studentSortOrder} >
-            <option value="" disabled>A - Z</option>
-          </select>
-
-        </>
-
       ) : props.title === "InstructorFilter" ? (
         <>
-
-          <input type="text" value={instructorIdNumber}  placeholder="ID Number" />
-          
-\
-          
-          <select value={instructorSortOrder} >
-            <option value="" disabled>A - Z</option>
+          <input
+            type="text"
+            value={instructorIdNumber}
+            onChange={(e) => setInstructorIdNumber(e.target.value)}
+            placeholder="ID Number"
+            className="codeInput"
+          />
+          <select
+            value={instructorSortOrder}
+            onChange={(e) => setInstructorSortOrder(e.target.value)}
+            className="selectInput"
+          >
+            <option value="">Sort</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
           </select>
-
         </>
-
       ) : (
         <>Error</>
       )}
@@ -97,7 +169,10 @@ const AdminFilter = (props) => {
 
 AdminFilter.propTypes = {
   title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired,
+  filterTop: PropTypes.string,
+  onCourseFilterChange: PropTypes.func.isRequired,
+  onStudentFilterChange: PropTypes.func.isRequired,
+  onInstructorFilterChange: PropTypes.func.isRequired,
 };
-
 
 export default AdminFilter;

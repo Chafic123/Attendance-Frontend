@@ -9,21 +9,22 @@ import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
 import MainContentTopSI from "../Student/MainContentTopSI";
 
-export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent }) {
+export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [students, setStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
 
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
-  const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
+  const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "", sort: "" });
   const [instrcutorFilterOptions, setInstructorFilterOptions] = useState({ studentID: "", name: "", major: "" });
 
   const handleCancelViewCourseStudents = () => {
     setViewCourseStudents(false); // ✅ Return to course list view
-    setSelectedCourseId(null);   
-    setStudents([]);              
+    setSelectedCourseId(null);
+    setStudents([]);
   };
 
   useEffect(() => {
@@ -33,7 +34,10 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
     if (selectedDashboardITem === "View Students") {
       setLoading(true);
       getStudents()
-        .then(setStudents)
+        .then((data) => {
+          setStudents(data);
+          setFilteredStudents(data); // Set the filtered list initially to all students
+        })
         .catch((err) => console.error("Failed to fetch students:", err))
         .finally(() => setLoading(false));
     } else if (selectedDashboardITem === "View Instructors") {
@@ -44,6 +48,45 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
         .finally(() => setLoading(false));
     }
   }, [selectedDashboardITem]);
+
+
+  useEffect(() => {
+    let filtered = [...students];
+
+    // Apply filters only if there are filter options set
+    if (studentFilterOptions?.studentID) {
+      filtered = filtered.filter((student) =>
+        student.student_id?.toString().includes(studentFilterOptions.studentID)
+      );
+    }
+
+    if (studentFilterOptions?.name) {
+      filtered = filtered.filter((student) =>
+        `${student.user.first_name} ${student.user.last_name}`
+          .toUpperCase()
+          .includes(studentFilterOptions.name.toUpperCase())
+      );
+    }
+
+    if (studentFilterOptions?.major) {
+      filtered = filtered.filter((student) =>
+        student.major?.toUpperCase().includes(studentFilterOptions.major.toUpperCase())
+      );
+    }
+
+    if (studentFilterOptions?.sort === "asc") {
+      filtered.sort((a, b) =>
+        `${a.user.first_name} ${a.user.last_name}`.localeCompare(`${b.user.first_name} ${b.user.last_name}`)
+      );
+    } else if (studentFilterOptions?.sort === "desc") {
+      filtered.sort((a, b) =>
+        `${b.user.first_name} ${b.user.last_name}`.localeCompare(`${a.user.first_name} ${a.user.last_name}`)
+      );
+    }
+
+    setFilteredStudents(filtered);
+  }, [studentFilterOptions, students]);
+
 
   const handleCourseDoubleClick = async (courseId) => {
     setLoading(true);
@@ -75,16 +118,17 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           }}
         >
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Students" showAdminPanel={showAdminPanel} />
-          <AdminFilter onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
+          <AdminFilter onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
             <p>Loading students...</p>
           ) : (
             <div className="StudentContainer">
-              {students.length > 0 ? (
-                students.map((student) => (
+              {filteredStudents.length > 0 ? (
+                filteredStudents.map((student) => (
                   <StudentCard
                     key={student.student_id}
                     student={student}
+                    setEditedStudent={setEditedStudent}
                   />
                 ))
               ) : (
@@ -106,9 +150,9 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           }}
         >
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" />
-          <AdminFilter onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
+          <AdminFilter filterTop={filterTop} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
-            <Course courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
+            <Course studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
           </div>
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (
@@ -127,7 +171,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
             title="Enrolled Students"
             showAdminPanel={showAdminPanel}
           />
-          <AdminFilter title="StudentFilter" />
+          <AdminFilter filterTop={filterTop} title="StudentFilter" />
 
           {loading ? (
             <p>Loading enrolled students...</p>
@@ -154,39 +198,38 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           )}
         </div>
       ) : selectedDashboardITem === "View Instructors" ? (
-      <div
-        style={{
-          width: "48%",
-          padding: "57px",
-          paddingBottom: "0",
-          borderRadius: "66px 0 0 66px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "17px",
-        }}
-      >
-        <MainContentTopSI title="Instructors" />
-        <AdminFilter title="InstructorFilter" />
-        {loading ? (
-          <p>Loading instructors...</p>
-        ) : (
-          <div className="InstructorContainer">
-            {instructors.length > 0 ? (
-              instructors.map((instructor) => (
-                <InstructorCard
-                  key={instructor.id}
-                  firstName={instructor.first_name || "Unknown"}
-                  lastName={instructor.last_name || ""}
-                  department={instructor.instructor?.department?.name || "N/A"}
-                  id={instructor.instructor?.id || "N/A"}
-                />
-              ))
-            ) : (
-              <p>No instructors found.</p>
-            )}
-          </div>
-        )}
-      </div>
+        <div
+          style={{
+            width: "48%",
+            padding: "57px",
+            paddingBottom: "0",
+            borderRadius: "66px 0 0 66px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "17px",
+          }}
+        >
+          <MainContentTopSI title="Instructors" />
+          <AdminFilter title="InstructorFilter" />
+          {loading ? (
+            <p>Loading instructors...</p>
+          ) : (
+            <div className="InstructorContainer">
+              {instructors.length > 0 ? (
+                instructors.map((instructor) => (
+                  <InstructorCard
+                    key={instructor.id}
+                    instructor={instructor} // Pass the whole object
+                    setEditedInstructor={setEditedInstructor}
+                  />
+                ))
+              ) : (
+                <p>No instructors found.</p>
+              )}
+
+            </div>
+          )}
+        </div>
       ) : null}
     </>
   );

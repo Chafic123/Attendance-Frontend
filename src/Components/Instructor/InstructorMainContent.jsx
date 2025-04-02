@@ -8,7 +8,7 @@ import { useState } from "react";
 import InstructorSchedule from "./InstructorSchedule";
 export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop }) {
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
-  const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" })
+  const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
   return (
     <>
       {selectedDashboardITem === "View Courses" ? (

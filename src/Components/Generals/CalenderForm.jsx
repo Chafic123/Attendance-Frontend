@@ -71,7 +71,7 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                             );
                           
                             if (selectedAttendance) {
-                              setSelectedAttendance(selectedAttendance); // Set the full object
+                              setSelectedAttendance(selectedAttendance); 
                               if (selectedAttendance.status === "absent") {
                                 setRequestCorrectionState(true);
                               } else {

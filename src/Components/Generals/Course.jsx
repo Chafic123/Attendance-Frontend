@@ -53,12 +53,13 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
   }
 
   const handleBackToCourses = () => {
+    setFilterTop("Courses")
+
     setShowStudents(false);
     setCourseStudents([]);
     setEditedStudent(null)
     setActiveIndex(null);
     setActiveStudent(null);
-    setFilterTop("Courses")
 
   };
 
@@ -78,10 +79,10 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
     };
   }, [showMenuIndex]);
 
-
-  useEffect(() => {
-    console.log("Course Filters: ", courseFilters)
-  }, [courseFilters]);
+  // Testing 
+  // useEffect(() => {
+  //   console.log("Student Filters: ", studentFilters)
+  // }, [studentFilters]);
 
 
   useEffect(() => {
@@ -164,8 +165,7 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
         String(course.course_section) === String(courseFilters.section));
     }
 
-    // Sort courses (A-Z, Z-A)
-    // Sorting logic to handle both course.name and course.course_name
+
     if (courseFilters?.sort === "asc") {
       filtered.sort((a, b) => {
         const aName = String(a.name || a.course_name).toLowerCase();
@@ -189,32 +189,42 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
     let filteredStudents = [...courseStudents];
     console.log("Original Students: ", courseStudents);
 
-    // Filter students by name (first_name + last_name)
     if (studentFilters?.name) {
       filteredStudents = filteredStudents.filter(student =>
         (student.first_name + " " + student.last_name).toUpperCase().includes(studentFilters.name.toUpperCase())
       );
     }
 
-    // Filter students by student ID
     if (studentFilters?.studentID) {
-      // Debugging the student ID filter
       console.log("Filtering by ID:", studentFilters.studentID);
       filteredStudents = filteredStudents.filter(student =>
-        String(student.Uni_id).includes(studentFilters.studentID)
+        String(student.Uni_id).includes(studentFilters.studentID) ||
+        String(student.student_id).includes(studentFilters.studentID)
       );
     }
 
-    // Filter students by major
     if (studentFilters?.major) {
-      // Debugging the major filter
       console.log("Filtering by major:", studentFilters.major);
       filteredStudents = filteredStudents.filter(student =>
         student.major.toUpperCase().includes(studentFilters.major.toUpperCase())
       );
     }
 
-    // Log the filtered results
+
+    if (studentFilters?.sort === "asc") {
+      filteredStudents.sort((a, b) => {
+        const aName = String(a.first_name || a.last_name).toLowerCase() || String(a.user.first_name || a.user.last_name).toLowerCase();
+        const bName = String(b.first_name || b.last_name).toLowerCase() || String(b.user.first_name || b.user.last_name).toLowerCase();
+        return aName.localeCompare(bName);
+      });
+    } else if (studentFilters?.sort === "desc") {
+      filteredStudents.sort((a, b) => {
+        const aName = String(a.first_name || a.last_name).toLowerCase() ||  String(a.user.first_name || a.user.last_name).toLowerCase();
+        const bName = String(b.first_name || b.last_name).toLowerCase() || String(b.user.first_name || b.user.last_name).toLowerCase();
+        return bName.localeCompare(aName);
+      });
+    }
+
     console.log("Filtered Students: ", filteredStudents);
 
     // Update the filtered students

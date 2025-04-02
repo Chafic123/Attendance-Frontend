@@ -1,11 +1,28 @@
 import "../../CSS/AdminAddInstructor.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useState } from "react";
+import { addInstructor } from "../../ApiService/AdminInstrucotrService";
 
-const AdminAddInstructor = () => {
+const AdminAddInstructor = ({ onInstructorAdded }) => {
+    const [successMessage, setSuccessMessage] = useState("");
+    const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
-        const [instructorImage, setInstructorImage] = useState("Upload New")
-    
+    const [instructorData, setInstructorData] = useState({
+        first_name: "",
+        last_name: "",
+        personal_email: "",
+        phone_number: "1234567890", 
+        department: "",
+    });
+
+    const [instructorImage, setInstructorImage] = useState("Upload New");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setInstructorData({ ...instructorData, [name]: value });
+    };
 
     const handleInstructorImage = (event) => {
         if (event.target.files.length > 0) {
@@ -14,46 +31,93 @@ const AdminAddInstructor = () => {
             setInstructorImage("Upload New");
         }
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setError(null);
+
+        try {
+            const addedInstructor = await addInstructor(instructorData);
+            setSuccessMessage("Instructor added successfully!")
+            if (onInstructorAdded) {
+                onInstructorAdded(addedInstructor);
+            }
+        } catch (err) {
+            setNoSuccessMessage("Failed to add instructor")
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
-
         <div className="add-instructor-card">
-            <h2 className="card-instructor-title">Add instructor</h2>
+            <h2 className="card-instructor-title">Add Instructor</h2>
+            {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
 
-            <form className="add-instructor-form" >
+            {noSuccessMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noSuccessMessage}</p>
+                        <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+            {error && <p className="error-message">{error}</p>}
+
+            <form className="add-instructor-form" onSubmit={handleSubmit}>
                 <div className="form-instructor-group">
-                    <label htmlFor="First-Name">First Name:</label>
+                    <label htmlFor="first_name">First Name:</label>
                     <input
                         type="text"
-                        id="First-Name"
-                        name="First-Name"
+                        id="first_name"
+                        name="first_name"
+                        value={instructorData.first_name}
+                        onChange={handleInputChange}
+                        required
                     />
                 </div>
 
                 <div className="form-instructor-group">
-                    <label htmlFor="Last-Name">Last Name:</label>
+                    <label htmlFor="last_name">Last Name:</label>
                     <input
                         type="text"
-                        id="Last-Name"
-                        name="Last-Name"
+                        id="last_name"
+                        name="last_name"
+                        value={instructorData.last_name}
+                        onChange={handleInputChange}
+                        required
                     />
                 </div>
 
                 <div className="form-instructor-group">
-                    <label htmlFor="ID-Number">ID Number:</label>
+                    <label htmlFor="personal_email">Email:</label>
                     <input
-                        type="text"
-                        id="ID-Number"
-                        name="ID-Number"
-
+                        type="email"
+                        id="personal_email"
+                        name="personal_email"
+                        value={instructorData.personal_email}
+                        onChange={handleInputChange}
+                        required
                     />
                 </div>
 
                 <div className="form-instructor-group">
-                    <label htmlFor="Department:">Department:</label>
+                    <label htmlFor="department">Department:</label>
                     <input
                         type="text"
-                        id="Department:"
-                        name="Department:"
+                        id="department"
+                        name="department"
+                        value={instructorData.department}
+                        onChange={handleInputChange}
+                        required
                     />
                 </div>
 
@@ -78,7 +142,9 @@ const AdminAddInstructor = () => {
 
                 <div className="form-instructor-actions">
                     <button type="button" className="cancel-btn">Cancel</button>
-                    <button type="submit" className="save-btn">Save Changes</button>
+                    <button type="submit" className="save-btn" disabled={isSubmitting}>
+                        {isSubmitting ? "Saving..." : "Save Changes"}
+                    </button>
                 </div>
             </form>
         </div>
@@ -86,21 +152,7 @@ const AdminAddInstructor = () => {
 };
 
 AdminAddInstructor.propTypes = {
-    courseData: PropTypes.shape({
-        code: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        startDate: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
-        startTime: PropTypes.string.isRequired,
-        endTime: PropTypes.string.isRequired,
-        instructor: PropTypes.string.isRequired,
-        instructorId: PropTypes.string.isRequired,
-        room: PropTypes.string.isRequired,
-        credits: PropTypes.number.isRequired,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    onInstructorAdded: PropTypes.func, 
 };
 
 export default AdminAddInstructor;

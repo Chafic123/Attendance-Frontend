@@ -3,6 +3,7 @@ import AdminAddStudent from "./AdminAddStudent";
 import AdminAddInstructor from "./AdminAddInstructor";
 import AdminEditCourse from "./AdminEditCourse";
 import AdminEditStudent from "./AdminEditStudent";
+import AdminEditInstructor from "./AdminEditInstructor"; // Import AdminEditInstructor
 import PropTypes from "prop-types";
 import "../../CSS/AdminPanel.css";
 
@@ -12,9 +13,10 @@ export default function AdminPanel(props) {
     isAdminPanel,
     editedCourse,
     setEditedCourse,
-    handleEditSave,
     editedStudent,
     setEditedStudent,
+    editedInstructor, // Added for instructor edit
+    setEditedInstructor, // Added setter for instructor edit
   } = props;
 
   return (
@@ -33,14 +35,18 @@ export default function AdminPanel(props) {
             initialCourseData={editedCourse}
             onCancel={() => setEditedCourse(null)}
           />
+        ) : editedInstructor ? ( // Check for editedInstructor
+          <AdminEditInstructor
+            editedInstructor={editedInstructor}
+            setEditedInstructor={setEditedInstructor}
+            onCancel={() => setEditedInstructor(null)}
+          />
         ) : title === "View Courses" ? (
           <AdminAddCourse />
         ) : title === "View Students" ? (
           <AdminAddStudent />
         ) : title === "View Instructors" ? (
-          <div className="AdminAddInstructorParent">
-            <AdminAddInstructor />
-          </div>
+          <AdminAddInstructor />
         ) : null
       }
     </div>
@@ -52,8 +58,8 @@ AdminPanel.propTypes = {
   isAdminPanel: PropTypes.bool.isRequired,
   editedCourse: PropTypes.object,
   setEditedCourse: PropTypes.func,
-  handleEditSave: PropTypes.func,
   editedStudent: PropTypes.object,
   setEditedStudent: PropTypes.func,
-  handleStudentEditSave: PropTypes.func,
+  editedInstructor: PropTypes.object,
+  setEditedInstructor: PropTypes.func,
 };
