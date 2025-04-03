@@ -7,6 +7,8 @@ export default function InstructorWholeContent({ selectedDashboardITem, selected
   const [student, setActiveStudent] = useState(null);
   const [selectedCourseID, setSelectedCourseID] = useState("");
   const [filterTop, setFilterTop] = useState("Courses");
+  const [editedStudent, setEditedStudent] = useState(null);
+
   const handleStudentSelect = (student, index) => {
     setActiveStudent(student);
     console.log("Selected Student: ", student)
@@ -15,7 +17,7 @@ export default function InstructorWholeContent({ selectedDashboardITem, selected
 
   return (
     <div className="whole-content-container">
-      <InstructorMainContent setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardITem={selectedDashboardITem} />
+      <InstructorMainContent setEditedStudent={setEditedStudent} setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardITem={selectedDashboardITem} />
       {selectedDashboardITem === "View Schedule" ? null : <InstructorPanel setActiveStudent={setActiveStudent}  selectedCourseID={selectedCourseID} selectedStudent={student} viewPanel={viewPanel} refreshProfile={refreshProfile} title={selectedAddItem} />}
     </div>
   );

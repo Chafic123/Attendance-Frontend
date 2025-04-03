@@ -6,7 +6,7 @@ import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useState } from "react";
 import InstructorSchedule from "./InstructorSchedule";
-export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop }) {
+export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
   return (
@@ -27,7 +27,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
           <div>
             <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
           </div>
-          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} />
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -76,7 +76,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
           <div>
             <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
           </div>
-          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} />
+          <Course setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
         </div>
       )}
     </>

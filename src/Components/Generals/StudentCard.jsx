@@ -7,7 +7,7 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
   const { setStudentId } = useStudent();
 
 
-  const handleStudentClick = (index,id) => {
+  const handleStudentClick = (id) => {
     setStudentId(id);
     setActiveStudent(student); 
 
