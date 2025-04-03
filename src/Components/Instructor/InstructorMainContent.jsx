@@ -57,7 +57,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
             gap: "17px",
           }}
         >
-          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Notifications" onAdd={onAdd} />
+          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Correction Requests" onAdd={onAdd} />
           <InstructorNotificationCenter />
         </div>
       ) : (

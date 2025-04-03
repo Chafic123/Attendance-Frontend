@@ -64,12 +64,13 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
   }
 
   const handleBackToCourses = () => {
-    setFilterTop("Courses")
+    setEditedStudent(null)
+    setFilterTop("Courses");
+    setShowStudents(false);
+
     setActiveStudent(null);
     setStudentId(null)
-    setShowStudents(false);
     setCourseStudents([]);
-    setEditedStudent(null)
     setActiveIndex(null);
 
   };

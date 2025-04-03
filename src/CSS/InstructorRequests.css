@@ -1,0 +1,46 @@
+#request-container{
+    background-color: white;
+    border-radius: 43px;
+    min-height: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 300px;
+    padding: 20px;
+    margin-top: -40px;
+
+}
+.request-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-left: -55px;
+
+}
+.temp {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+.request-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.request-title{
+    color: #543381;
+    font-weight: bold;
+}
+.request-content{
+    color: red;
+    opacity: 0.8;
+    font-weight: bold;
+}
+
+.request-student-name,
+.request-course-name{
+    opacity: 0.8;
+    font-size: 12px;
+}

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrections";
-import "../../CSS/SINotifications.css";
+import "../../CSS/InstructorRequests.css";
 
 export default function InstructorRequests() {
-  const [notifications, setNotifications] = useState([]);
+  const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNotifications = async () => {
+    const fetchRequests = async () => {
       try {
-        const data = await getInstructorRequests(); 
-        setNotifications(data.requests || []); 
+        const data = await getInstructorRequests();
+        setRequests(data.requests || []);
       } catch (error) {
         console.error("Error fetching instructor requests:", error);
       } finally {
@@ -18,52 +18,49 @@ export default function InstructorRequests() {
       }
     };
 
-    fetchNotifications();
+    fetchRequests();
   }, []);
 
   return (
-    <div id="notification-container">
-      <h2 className="title">Notifications</h2>
-  
+    <div id="request-container">
+      <h2 className="title">Requests</h2>
+
       {loading ? (
         <p>Loading Requests...</p>
-      ) : !notifications.length ? (
+      ) : !requests.length ? (
         <p>No Requests available.</p>
       ) : (
         <>
-          {notifications.map((notification, index) => (
+          {requests.map((request, index) => (
             <div key={index}>
               <div className="gray-line"></div>
-              <div className="notifications">
+              <div className="requests">
                 <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                  <div className="notification-title-container">
+                  <div className="request-title-container">
                     <img
                       className="purple-circle"
                       src="../public/Images/Purple-circle.png"
-                      alt="Notification Icon"
+                      alt="request Icon"
                     />
-                    <p className="notification-title">Attendance Correction Request</p>
+                    <p className="request-title">Attendance Correction Request</p>
                   </div>
-  
+
                   <div className="temp">
-                    <div className="notification-content-container">
-                      <p className="notification-content">
-                        {notification.reason || "No specific reason provided."}
+                    <div className="request-content-container">
+                      <p className="request-content">
+                        {request.reason || "No specific reason provided."}
                       </p>
-                      <p className="notification-course-name">
-                        Course ID: {notification.course_id || "Unknown Course"}
+                      <p className="request-course-name">
+                        {request.course_name}
                       </p>
-                      <p className="student-name">
-                        Student: {notification.student ? notification.student.major : "Unknown Student"}
+                      <p className="request-student-name">
+                        {request.student_name}
                       </p>
 
                     </div>
                   </div>
                 </div>
-                <div className="correction-btn-container">
-                  <button className="approveCorrection">Approve</button>
-                  <button className="rejectCorrection">Reject</button>
-                </div>
+
               </div>
             </div>
           ))}

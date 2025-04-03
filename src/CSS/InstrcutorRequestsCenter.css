@@ -1,0 +1,53 @@
+.request-center-title-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.request-center-content-container{
+    margin-top: -5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+}
+.requests-btn-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.approveRequest{
+    background-color: rgb(78, 234, 78);
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+.rejectRequest{
+    background-color: #ff5c5c;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.request-center-content {
+    color: red;
+    opacity: 0.8;
+    font-weight: bold;
+    font-size: 15px;
+}
+.request-center-course-name,
+.request-center-student-name{
+    color: gray;
+    font-size: 13px;
+}
+.temp {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 0;
+    max-height: 60px;
+}

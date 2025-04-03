@@ -1,20 +1,76 @@
-export default function StudentNotificationCenter(){
-    return(
-        <div id="notification-center"
-        style={{
-            width: '100%',
-            height: '80%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <div>
-                <p style={{
-                     opacity: 0.46,
-                     fontSize: '38.08px',
-                     fontWeight: 700,
-                }}>No Notifications</p>
-            </div>
+import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrections";
+import { useEffect, useState } from "react";
+import "../../CSS/InstrcutorRequestsCenter.css";
+
+export default function StudentNotificationCenter() {
+    const [requests, setRequests] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchRequests = async () => {
+            try {
+                const data = await getInstructorRequests();
+                setRequests(data.requests || []);
+            } catch (error) {
+                console.error("Error fetching instructor requests:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRequests();
+    }, []);
+
+    return (
+        <div id="requests-center-container">
+
+            {loading ? (
+                <p>Loading Requests...</p>
+            ) : !requests.length ? (
+                <p>No Requests available.</p>
+            ) : (
+                <>
+                    {requests.map((request, index) => (
+                        <div key={index}>
+                            <div className="gray-line"></div>
+                            <div className="requests">
+                                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                                    <div className="request-center-title-container">
+                                        <img
+                                            className="purple-circle"
+                                            src="../public/Images/Purple-circle.png"
+                                            alt="request Icon"
+                                        />
+                                        <p className="request-title">Attendance Correction Request</p>
+                                    </div>
+
+                                    <div className="temp">
+                                        <div className="request-center-content-container">
+                                            <p className="request-center-content">
+                                                {request.reason || "No specific reason provided."}
+                                            </p>
+                                            <p className="request-center-course-name">
+                                            {request.course_name}
+                                            </p>
+                                            <p className="request-center-student-name">
+                                                {request.student_name}
+                                            </p>
+
+                                        </div>
+                                        <div
+                                            className="requests-btn-container">
+                                            <button className="approveRequest">Approve</button>
+                                            <button className="rejectRequest">Reject</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    ))}
+                    <div className="gray-line"></div>
+                </>
+            )}
         </div>
-    )
+    );
 }
