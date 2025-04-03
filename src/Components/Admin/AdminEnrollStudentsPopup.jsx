@@ -4,7 +4,6 @@ import "../../CSS/AdminEnrollStudentsPopup.css";
 import { getStudents } from "../../ApiService/StudentService";
 import { enrollStudents } from "../../ApiService/AdminStudentService";
 import AdminFilter from "./AdminFilter";
-import { update } from "lodash";
 
 export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onStudentFilterChange, courseStudentID }) {
     const [students, setStudents] = useState([]);

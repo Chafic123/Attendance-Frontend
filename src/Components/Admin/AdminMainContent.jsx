@@ -8,7 +8,7 @@ import { getStudents } from "../../ApiService/StudentService";
 import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
 import MainContentTopSI from "../Student/MainContentTopSI";
-import { wrap } from "lodash";
+
 
 export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [students, setStudents] = useState([]);
