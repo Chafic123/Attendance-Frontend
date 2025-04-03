@@ -11,7 +11,7 @@ export default function StudentNotificationCenter(){
             <div>
                 <p style={{
                      opacity: 0.46,
-                     fontSize: '38.08px', // or '38px' for rounding
+                     fontSize: '38.08px',
                      fontWeight: 700,
                 }}>No Notifications</p>
             </div>

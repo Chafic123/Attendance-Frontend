@@ -1,20 +1,25 @@
 import { useState, useEffect } from "react";
+import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrections";
+import "../../CSS/SINotifications.css";
 
 export default function InstructorRequests() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const data = await getInstructorRequests(); 
+        setNotifications(data.requests || []); 
+      } catch (error) {
+        console.error("Error fetching instructor requests:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-//   useEffect(() => {
-//     const fetchNotifications = async () => {
-//       const data = await getInstructorRequests();
-//       setNotifications(data);
-//       setLoading(false);
-//     };
-
-//     fetchNotifications();
-//   }, []);
-
+    fetchNotifications();
+  }, []);
 
   return (
     <div id="notification-container">
@@ -37,22 +42,28 @@ export default function InstructorRequests() {
                       src="../public/Images/Purple-circle.png"
                       alt="Notification Icon"
                     />
-                    <p className="notification-title">{notification.type || "Notification"}</p>
+                    <p className="notification-title">Attendance Correction Request</p>
                   </div>
   
                   <div className="temp">
                     <div className="notification-content-container">
-                      <p className="notification-content">{notification.message}</p>
+                      <p className="notification-content">
+                        {notification.reason || "No specific reason provided."}
+                      </p>
                       <p className="notification-course-name">
-                        {notification.course ? notification.course.name : "Unknown Course"}
+                        Course ID: {notification.course_id || "Unknown Course"}
                       </p>
-                      <p className="instructor-name">
-                        Instructor: {notification.instructor_name || "Unknown Instructor"}
+                      <p className="student-name">
+                        Student: {notification.student ? notification.student.major : "Unknown Student"}
                       </p>
+
                     </div>
                   </div>
                 </div>
-                <button className="mark-as-read">Mark As Read</button>
+                <div className="correction-btn-container">
+                  <button className="approveCorrection">Approve</button>
+                  <button className="rejectCorrection">Reject</button>
+                </div>
               </div>
             </div>
           ))}
@@ -61,5 +72,4 @@ export default function InstructorRequests() {
       )}
     </div>
   );
-  
 }

@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { addStudent } from '../../ApiService/AdminStudentService';
 
 const AdminAddStudent = () => {
+    const [successMessage, setSuccessMessage] = useState("");
+    const [noSuccessMessage, setNoSuccessMessage] = useState("");
+
     const [studentData, setStudentData] = useState({
         first_name: '',
         last_name: '',
@@ -30,9 +33,7 @@ const AdminAddStudent = () => {
 
         try {
             await addStudent(studentData);
-            console.log("Student added successfully!");
-            alert("Student added successfully!");
-
+            setSuccessMessage("Student Added Successfully!")
             setStudentData({
                 first_name: '',
                 last_name: '',
@@ -43,14 +44,30 @@ const AdminAddStudent = () => {
             setStudentImage("Upload New");
         } catch (error) {
             console.error(error.message);
-            alert(error.message);
+            setNoSuccessMessage(error.message)
         }
     };
 
     return (
         <div className="add-student-card">
             <h2 className="card-student-title">Add Student</h2>
+            {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
 
+            {noSuccessMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noSuccessMessage}</p>
+                        <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
             <form className="add-student-form" onSubmit={handleSubmit}>
                 <div className="form-student-group">
                     <label htmlFor="first_name">First Name:</label>

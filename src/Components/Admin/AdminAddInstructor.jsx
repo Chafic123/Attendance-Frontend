@@ -40,11 +40,20 @@ const AdminAddInstructor = ({ onInstructorAdded }) => {
         try {
             const addedInstructor = await addInstructor(instructorData);
             setSuccessMessage("Instructor added successfully!")
+            setInstructorData({
+                first_name: "",
+                last_name: "",
+                personal_email: "",
+                phone_number: "", 
+                department: "",
+            });
+            
             if (onInstructorAdded) {
                 onInstructorAdded(addedInstructor);
             }
         } catch (err) {
             setNoSuccessMessage("Failed to add instructor")
+            console.log(err.message)
         } finally {
             setIsSubmitting(false);
         }

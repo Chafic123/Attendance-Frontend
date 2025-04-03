@@ -8,6 +8,7 @@ import { getStudents } from "../../ApiService/StudentService";
 import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
 import MainContentTopSI from "../Student/MainContentTopSI";
+import { wrap } from "lodash";
 
 export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [students, setStudents] = useState([]);
@@ -19,7 +20,14 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
 
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "", sort: "" });
-  const [instrcutorFilterOptions, setInstructorFilterOptions] = useState({ studentID: "", name: "", major: "" });
+  const [instructorFilterOptions, setInstructorFilterOptions] = useState({ instructorName: "", department: "", sort: "" });
+  const [filteredInstructors, setFilteredInstructors] = useState([]);
+
+
+  // Testing
+  useEffect(() => {
+    console.log("instructorFilterOptions: ", instructorFilterOptions)
+  }, [instructorFilterOptions]);
 
   const handleCancelViewCourseStudents = () => {
     setViewCourseStudents(false); // ✅ Return to course list view
@@ -28,7 +36,6 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
   };
 
   useEffect(() => {
-    // Reset view when switching dashboard items
     setViewCourseStudents(false);
 
     if (selectedDashboardITem === "View Students") {
@@ -87,6 +94,38 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
     setFilteredStudents(filtered);
   }, [studentFilterOptions, students]);
 
+  useEffect(() => {
+    let filtered = [...instructors];
+
+    if (instructorFilterOptions?.instructorName) {
+      filtered = filtered.filter((instructor) =>
+        `${instructor.first_name} ${instructor.last_name}`
+          .toUpperCase()
+          .includes(instructorFilterOptions.instructorName.toUpperCase())
+      );
+    }
+
+    if (instructorFilterOptions?.department) {
+      filtered = filtered.filter((instructor) =>
+        instructor.instructor?.department?.name
+          ?.toUpperCase()
+          .includes(instructorFilterOptions.department.toUpperCase())
+      );
+    }
+
+    if (instructorFilterOptions?.sort === "asc") {
+      filtered.sort((a, b) =>
+        `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`)
+      );
+    } else if (instructorFilterOptions?.sort === "desc") {
+      filtered.sort((a, b) =>
+        `${b.first_name} ${b.last_name}`.localeCompare(`${a.first_name} ${a.last_name}`)
+      );
+    }
+
+    setFilteredInstructors(filtered);
+  }, [instructorFilterOptions, instructors]);
+
 
   const handleCourseDoubleClick = async (courseId) => {
     setLoading(true);
@@ -122,7 +161,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           {loading ? (
             <p>Loading students...</p>
           ) : (
-            <div className="StudentContainer">
+            <div className="StudentContainer" style={{display:"flex",flexWrap:"wrap"}}>
               {filteredStudents.length > 0 ? (
                 filteredStudents.map((student) => (
                   <StudentCard
@@ -140,7 +179,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
       ) : selectedDashboardITem === "View Courses" && !viewCourseStudents ? (
         <div
           style={{
-            width: "100%",
+            width: "48%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",
@@ -152,7 +191,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" />
           <AdminFilter filterTop={filterTop} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
-            <Course studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} />
+            <Course studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
           </div>
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (
@@ -210,16 +249,16 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           }}
         >
           <MainContentTopSI title="Instructors" />
-          <AdminFilter title="InstructorFilter" />
+          <AdminFilter onInstructorFilterChange={setInstructorFilterOptions} title="InstructorFilter" />
           {loading ? (
             <p>Loading instructors...</p>
           ) : (
             <div className="InstructorContainer">
-              {instructors.length > 0 ? (
-                instructors.map((instructor) => (
+              {filteredInstructors.length > 0 ? (
+                filteredInstructors.map((instructor) => (
                   <InstructorCard
                     key={instructor.id}
-                    instructor={instructor} // Pass the whole object
+                    instructor={instructor}
                     setEditedInstructor={setEditedInstructor}
                   />
                 ))

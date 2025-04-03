@@ -20,7 +20,7 @@ export default function InstructorCard({ instructor, setEditedInstructor }) {
         <img
           src="../../Images/Student-img.png" // Static image
           alt="Instructor"
-          style={{ width: "5vw", height: "5vw" }}
+          style={{ width: "4vw", height: "4vw" }}
         />
         <div className="Instructor-text">
           <p className="Instructor-name">{`${firstName} ${lastName}`}</p>

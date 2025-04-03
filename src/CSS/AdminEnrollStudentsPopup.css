@@ -10,7 +10,10 @@
     align-items: center;
     z-index: 1000;
   }
-  
+  .popup-overlay .filter-container{
+    width: 93%;
+    margin: 7px 0 0 19px;
+  }
   .popup-overlay h2 {
     color: #543381;
     padding: 10px 0 0 20px;
@@ -26,7 +29,12 @@
     display: flex;
     flex-direction: column;
 }
-  
+.popup-content .student-card .student-name {
+  font-size: 14px;
+}
+.popup-content .student-card .student-major {
+  font-size: 12px;
+}
   .student-cards-container {
     max-height: 60vh;
     overflow-y: auto; 

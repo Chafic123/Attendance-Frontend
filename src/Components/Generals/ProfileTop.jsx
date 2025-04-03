@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default function ProfileTop({ viewProfile, user }) {
 
-    if (!user) return <p>Loading...</p>; 
+    if (!user) return <p className="profileTopLoading">Loading...</p>; 
 
     const { user: userInfo, Instructor: instructorInfo } = user; 
 

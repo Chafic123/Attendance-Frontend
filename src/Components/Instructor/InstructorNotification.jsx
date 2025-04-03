@@ -7,14 +7,12 @@ export default function InstructorNotifications({ selectedStudent, selectedCours
     const [status, setStatus] = useState("");
     const [shouldResetStudent, setShouldResetStudent] = useState(false);
 
-    // Determine which student to display
     const displayStudent = shouldResetStudent ? null : selectedStudent;
     
-    // Function to clear the status message after a 3-second delay
     const clearStatusAfterDelay = () => {
         setTimeout(() => {
             setStatus("");
-        }, 3000); // 3 seconds
+        }, 3000);
     };
     const handleSendNotification = async () => {
         if (!selectedStudent) {

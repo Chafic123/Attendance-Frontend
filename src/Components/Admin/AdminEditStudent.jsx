@@ -28,7 +28,7 @@ export default function AdminEditStudent({ editedStudent, onCancel, onStudentUpd
                 email: editedStudent.email || editedStudent.user?.email || "",
                 major: editedStudent.major || "",
                 student_id: editedStudent.student_id || editedStudent.Uni_id || "",
-                department: editedStudent.department.name || "",
+                department: editedStudent.department.name || editedStudent.department || "",
             });
         }
     }, [editedStudent]);

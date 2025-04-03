@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@mui/material";
-
-export default function StudentCard({ student, setEditedStudent,  hideIcon }) {
+import { useStudent } from "../../Contexts/getClickedStudentID";
+export default function StudentCard({ student, setEditedStudent, hideIcon, setActiveStudent }) {
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+  const { setStudentId } = useStudent();
+
+
+  const handleStudentClick = (index,id) => {
+    setStudentId(id);
+    setActiveStudent(student); 
+
+  };
 
   const dropdownRef = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
@@ -27,12 +35,18 @@ export default function StudentCard({ student, setEditedStudent,  hideIcon }) {
   }, []);
 
   return (
-    <div  className="student-card" style={{ position: "relative" }} ref={dropdownRef}>
+    <div
+      onClick={() => handleStudentClick(student.student_id)}
+
+      className={`student-card`}
+      style={{ position: "relative" }}
+      ref={dropdownRef}
+    >
       <div className="student-details">
         <img
-          src={student.image ? `data:image/jpeg;base64,${student.image}` : "/default-avatar.png"}
+          src="../../Images/Student-img.png"
           alt="Student"
-          style={{ width: "5vw", height: "5vw", borderRadius: "50%" }}
+          style={{ width: "4vw", height: "4vw", borderRadius: "50%" }}
         />
         <div className="student-text">
           <p className="student-name">{`${firstName} ${lastName}`}</p>
@@ -40,8 +54,14 @@ export default function StudentCard({ student, setEditedStudent,  hideIcon }) {
           <p className="student-id">{studentId}</p>
         </div>
       </div>
-
-      {userRole === "admin"  && !hideIcon && (
+      {userRole?.toLowerCase() === "instructor" && student.attendance_percentage !== undefined && (
+        <div className="studentPercentageContainer">
+          <p className="attendancePercentage">{`${student.attendance_percentage}`}</p>
+          <span>Attendance</span>
+          <span>Percentage</span>
+        </div>
+      )}
+      {userRole === "admin" && !hideIcon && (
         <>
           <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
             more_vert
@@ -95,7 +115,6 @@ export default function StudentCard({ student, setEditedStudent,  hideIcon }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);
-                  // Add delete logic here if needed
                 }}
               >
                 Delete
@@ -111,4 +130,5 @@ export default function StudentCard({ student, setEditedStudent,  hideIcon }) {
 StudentCard.propTypes = {
   student: PropTypes.object.isRequired,
   setEditedStudent: PropTypes.func,
+  hideIcon: PropTypes.bool,
 };

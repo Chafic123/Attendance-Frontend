@@ -10,13 +10,17 @@ import { getCourseStudents } from "../../ApiService/CourseStudentsService";
 import StudentCard from "./StudentCard";
 import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
-export default function Course({ studentCourseFilters, courseFilters, studentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent }) {
+import { useStudent } from "../../Contexts/getClickedStudentID";
+export default function Course({ studentCourseFilters, courseFilters, studentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
 
   const [courseStudentID, setCourseStudentID] = useState("")
-  
+
+  const { setStudentId } = useStudent();
+
   const [activeIndex, setActiveIndex] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
@@ -26,15 +30,17 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
   const { setCourseId } = useCourse();
   const { user } = useUser();
 
-  const [showStudents, setShowStudents] = useState(false); // new toggle state
+  const [showStudents, setShowStudents] = useState(false);
 
-  const [courseStudents, setCourseStudents] = useState([]); // to store students
+  const [courseStudents, setCourseStudents] = useState([]);
   const [filteredCourseStudents, setFilteredCourseStudents] = useState([]);
 
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const handleDoubleClick = async (courseId) => {
     setCourseStudentID(courseId);
+    setCourseId(courseId);
+
     if (userRole !== "instructor" && userRole !== "admin") {
       return;
     }
@@ -59,12 +65,12 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
   const handleBackToCourses = () => {
     setFilterTop("Courses")
-
+    setActiveStudent(null);
+    setStudentId(null)
     setShowStudents(false);
     setCourseStudents([]);
     setEditedStudent(null)
     setActiveIndex(null);
-    setActiveStudent(null);
 
   };
 
@@ -235,9 +241,8 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
 
     console.log("Filtered Students: ", filteredStudents);
 
-    // Update the filtered students
     setFilteredCourseStudents(filteredStudents);
-  }, [studentFilters, courseStudents]);  // Trigger this effect when studentFilters or courseStudents change
+  }, [studentFilters, courseStudents]);
 
   const handleCourseClick = (index, courseId) => {
     setCourseId(courseId);
@@ -321,9 +326,9 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
                             fontWeight: "500",
                           }}
                           onClick={(e) => {
-                            e.stopPropagation();         // Prevents bubbling
+                            e.stopPropagation();
                             handleEditCourseClick(course);
-                            setShowMenuIndex(null);      // Optional: close dropdown
+                            setShowMenuIndex(null);
                           }}                        >
                           Edit
                         </button>
@@ -353,25 +358,19 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
           </>
         )}
 
-        {/* 👇 IF viewing students */}
         {showStudents && (
-          <div style={{ width: "100%",display:"flex", flexWrap:"wrap",flexDirection:"row" }} className="studentsContainer"
+          <div style={{ width: "100%", display: "flex", flexWrap: "wrap", flexDirection: "row" }} className="studentsContainer"
           >
 
 
             {filteredCourseStudents.map((student, index) => (
               <div>
-
-
                 <StudentCard
                   key={student.student_id}
                   student={student}
                   setEditedStudent={setEditedStudent}
+                  setActiveStudent={setActiveStudent}
                 />
-
-
-
-
               </div>
             ))}
 
@@ -385,10 +384,12 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
           <button className="back-btn" onClick={handleBackToCourses}>
             Back to Courses
           </button>
-          <button className="enroll-btn" onClick={handleEnrollStudents}>
-            Enroll Students
-          </button>
-          {isPopupVisible && <AdminEnrollStudentsPopup  courseStudentID={courseStudentID} onClose={handleClosePopup} />}
+          {userRole === "admin" && (
+            <button className="enroll-btn" onClick={handleEnrollStudents}>
+              Enroll Students
+            </button>
+          )}
+          {isPopupVisible && <AdminEnrollStudentsPopup studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
 
         </div>
       )}

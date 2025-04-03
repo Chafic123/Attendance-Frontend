@@ -11,6 +11,7 @@ import { CourseProvider } from "./Contexts/CourseContext";
 import { getUserDetails } from "./ApiService/ProfileService";
 import { useCallback } from "react";
 import { UserProvider } from "./Contexts/UserContext";
+import { StudentProvider } from "./Contexts/getClickedStudentID";
 function App() {
 
   const [user, setStudent] = useState(null);
@@ -97,42 +98,44 @@ function App() {
   }, [isIphone14ProMax]);
 
   return (
-    <UserProvider>
-      <CourseProvider>
-        <Router>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Login />} />
+    <StudentProvider>
+      <UserProvider>
+        <CourseProvider>
+          <Router>
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Login />} />
 
-            {/* Protected Routes with Role-Based Access */}
-            <Route element={<ProtectedRoute requiredRole="admin" />}>
-              <Route path="/admin" element={<Admin />} />
-            </Route>
+              {/* Protected Routes with Role-Based Access */}
+              <Route element={<ProtectedRoute requiredRole="admin" />}>
+                <Route path="/admin" element={<Admin />} />
+              </Route>
 
-            <Route element={<ProtectedRoute requiredRole="student" />}>
-              <Route path="/student" element={<Student
-                viewPanel={viewPanel}
-                viewProfile={viewProfile}
-                viewPanelIphone={viewPanelIphone}
-                refreshProfile={refreshProfile}
-                user={user} />} />
-            </Route>
+              <Route element={<ProtectedRoute requiredRole="student" />}>
+                <Route path="/student" element={<Student
+                  viewPanel={viewPanel}
+                  viewProfile={viewProfile}
+                  viewPanelIphone={viewPanelIphone}
+                  refreshProfile={refreshProfile}
+                  user={user} />} />
+              </Route>
 
-            <Route element={<ProtectedRoute requiredRole="instructor" />}>
-              <Route path="/instructor" element={<Instructor
-                viewPanel={viewPanel}
-                refreshProfile={refreshProfile}
-                user={user}
-                viewProfile={viewProfile}
-              />}
-              />
-            </Route>
-          </Routes>
-        </Router>
-      </CourseProvider>
-    </UserProvider>
+              <Route element={<ProtectedRoute requiredRole="instructor" />}>
+                <Route path="/instructor" element={<Instructor
+                  viewPanel={viewPanel}
+                  refreshProfile={refreshProfile}
+                  user={user}
+                  viewProfile={viewProfile}
+                />}
+                />
+              </Route>
+            </Routes>
+          </Router>
+        </CourseProvider>
+      </UserProvider>
+    </StudentProvider>
   );
 }
 

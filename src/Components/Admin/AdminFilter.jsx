@@ -13,10 +13,10 @@ const AdminFilter = (props) => {
   const [studentSort, setStudentSort] = useState("");
 
   const [instructorName, setInstructorName] = useState("");
-  const [instructorIdNumber, setInstructorIdNumber] = useState('');
   const [instructorSortOrder, setInstructorSortOrder] = useState('');
+  const [instructorDepartment, setInstructorDepartment] = useState("");
 
- 
+
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
@@ -58,6 +58,28 @@ const AdminFilter = (props) => {
     setStudentSort(value);
     props.onStudentFilterChange({ studentID: studentId, name: studentName, major: major, sort: value });
   };
+
+
+
+  const handleInstructorNameChange = (event) => {
+    const value = event.target.value;
+    setInstructorName(value);
+    props.onInstructorFilterChange({ instructorName: value, department: instructorDepartment, sort: instructorSortOrder });
+  };
+
+  const handleInstructorDepartmentChange = (event) => {
+    const value = event.target.value;
+    setInstructorDepartment(value);
+    props.onInstructorFilterChange({ instructorName: instructorName, department: value, sort: instructorSortOrder });
+  };
+
+  const handleInstructorSortChange = (event) => {
+    const value = event.target.value;
+    setInstructorSortOrder(value);
+    props.onInstructorFilterChange({ instructorName: instructorName, department: instructorDepartment, sort: value });
+  };
+
+
 
   return (
     <div className='filter-container'>
@@ -145,14 +167,21 @@ const AdminFilter = (props) => {
         <>
           <input
             type="text"
-            value={instructorIdNumber}
-            onChange={(e) => setInstructorIdNumber(e.target.value)}
-            placeholder="ID Number"
+            value={instructorName}
+            onChange={handleInstructorNameChange}
+            placeholder="Instructor Name"
+            className="codeInput"
+          />
+          <input
+            type="text"
+            value={instructorDepartment}
+            onChange={handleInstructorDepartmentChange}
+            placeholder="Instructor Department"
             className="codeInput"
           />
           <select
             value={instructorSortOrder}
-            onChange={(e) => setInstructorSortOrder(e.target.value)}
+            onChange={handleInstructorSortChange}
             className="selectInput"
           >
             <option value="">Sort</option>
