@@ -46,20 +46,18 @@ export default function InstructorProfile({ refreshProfile }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Validate first name and last name
         if (!firstName.trim() || !lastName.trim()) {
             console.error("First name and last name are required.");
             return;
         }
 
-        // Check if anything was changed
         const isChanged = firstName !== instructor.user.first_name || lastName !== instructor.user.last_name || imageFilename;
 
         if (!isChanged) {
             setNoChangesMessage("Nothing has been changed.");
-            return; // Prevent submission if nothing has changed
+            return;
         } else {
-            setNoChangesMessage(""); // Clear the "nothing changed" message if there are changes
+            setNoChangesMessage("");
         }
 
         try {
@@ -69,7 +67,6 @@ export default function InstructorProfile({ refreshProfile }) {
                 instructorImage instanceof File ? instructorImage : null,
             );
             setSuccessMessage("Profile updated successfully!");
-            console.log("Profile Updated Successfully:", updatedData);
             await fetchInstructorDetails();
             refreshProfile(); 
         } catch (error) {

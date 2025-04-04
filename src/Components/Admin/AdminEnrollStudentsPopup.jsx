@@ -4,15 +4,15 @@ import "../../CSS/AdminEnrollStudentsPopup.css";
 import { getStudents } from "../../ApiService/StudentService";
 import { enrollStudents } from "../../ApiService/AdminStudentService";
 import AdminFilter from "./AdminFilter";
-
-export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onStudentFilterChange, courseStudentID }) {
+import { getCourseStudents } from "../../ApiService/CourseService";
+export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onStudentFilterChange, courseStudentID, setCourseStudents }) {
     const [students, setStudents] = useState([]);
-    const [filteredStudents, setFilteredStudents] = useState([]); // State for filtered students
+    const [filteredStudents, setFilteredStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
-    const [loading, setLoading] = useState(true); // Loading state
+    const [loading, setLoading] = useState(true); 
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
-
+    console.log("Course Student Id: ", courseStudentID)
     useEffect(() => {
         const fetchStudents = async () => {
             const studentData = await getStudents();
@@ -24,7 +24,6 @@ export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onSt
         fetchStudents();
     }, []);
 
-    // Apply filters when `students` or `studentFilters` change
     useEffect(() => {
         let updatedStudents = [...students];
         console.log("Updated Students: ", updatedStudents)
@@ -71,6 +70,9 @@ export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onSt
             const response = await enrollStudents(selectedStudents, courseStudentID);
             console.log("Enrollment successful:", response);
             setSuccessMessage("Students Enrolled Successfully!")
+            const students = await getCourseStudents(courseStudentID);
+            setCourseStudents(students);
+
             onClose();
         } catch (error) {
             console.error("Error enrolling students:", error);

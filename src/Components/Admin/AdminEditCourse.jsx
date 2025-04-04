@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import "../../CSS/AdminEditCourse.css";
 import { updateCourse } from "../../ApiService/EditCourseService";
-export default function AdminEditCourse({ editedCourse, setEditedCourse }) {
+import { getCourses } from "../../ApiService/CourseService";
+
+export default function AdminEditCourse({ editedCourse, setEditedCourse,setCourses }) {
     const [successMessage, setSuccessMessage] = useState(""); 
     const [noChangesMessage, setNoChangesMessage] = useState("");
 
@@ -49,6 +51,8 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse }) {
             const response = await updateCourse(editedCourse.id, courseData);
             console.log("Updated course:", response);
             setSuccessMessage("Course Updated Successfully")
+            const courseData2 = await getCourses();
+            setCourses(Array.isArray(courseData2) ? courseData2 : []);
         } catch (error) {
             alert("Failed to update course.");
             setNoChangesMessage("An Error Has Occurred!");

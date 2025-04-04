@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { addStudent } from '../../ApiService/AdminStudentService';
-
-const AdminAddStudent = () => {
+import { getStudents } from '../../ApiService/StudentService';
+const AdminAddStudent = ({setStudents}) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
@@ -13,19 +13,12 @@ const AdminAddStudent = () => {
         major: '',
     });
 
-    const [studentImage, setStudentImage] = useState("Upload New");
 
     const handleChange = (e) => {
         setStudentData({ ...studentData, [e.target.name]: e.target.value });
     };
 
-    const handleStudentImage = (event) => {
-        if (event.target.files.length > 0) {
-            setStudentImage(event.target.files[0].name);
-        } else {
-            setStudentImage("Upload New");
-        }
-    };
+ 
 
 
     const handleSubmit = async (e) => {
@@ -34,14 +27,18 @@ const AdminAddStudent = () => {
         try {
             await addStudent(studentData);
             setSuccessMessage("Student Added Successfully!")
-            setStudentData({
+            getStudents()
+            .then((data) => {
+              setStudents(data);
+              setFilteredStudents(data); 
+            })
+                setStudentData({
                 first_name: '',
                 last_name: '',
                 address: '',
                 personal_email: '',
                 major: '',
             });
-            setStudentImage("Upload New");
         } catch (error) {
             console.error(error.message);
             setNoSuccessMessage(error.message)
@@ -94,14 +91,7 @@ const AdminAddStudent = () => {
                     <input type="text" id="major" name="major" value={studentData.major} onChange={handleChange} required />
                 </div>
 
-                <div className="imgParent">
-                    <input type="file" id="fileInput" className="img-input" onChange={handleStudentImage} />
-                    <label htmlFor="fileInput" className="imageLabel">Image</label>
-                    <label htmlFor="fileInput" className="upload-img-btn">
-                        <img src="../Images/Upload_img.png" alt="Upload" />
-                    </label>
-                    <span className="img-name">{studentImage}</span>
-                </div>
+              
 
                 <div className="form-student-actions">
                     <button type="button" className="cancel-btn">Cancel</button>

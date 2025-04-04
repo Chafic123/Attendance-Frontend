@@ -6,10 +6,9 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const { setStudentId } = useStudent();
 
-
   const handleStudentClick = (id) => {
     setStudentId(id);
-    setActiveStudent(student); 
+    setActiveStudent(student);
 
   };
 
@@ -44,11 +43,10 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
     >
       <div className="student-details">
         <img
-          src="../../Images/Student-img.png"
-          alt="Student"
+          src={student.image ? student.image : "../../Images/Profile Icon BG.png"} alt="Student"
           style={{ width: "4vw", height: "4vw", borderRadius: "50%" }}
         />
-        <div className="student-text">
+        <div className="student-text">  
           <p className="student-name">{`${firstName} ${lastName}`}</p>
           <p className="student-major">{student.major || "N/A"}</p>
           <p className="student-id">{studentId}</p>

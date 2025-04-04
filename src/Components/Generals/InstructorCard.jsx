@@ -18,14 +18,14 @@ export default function InstructorCard({ instructor, setEditedInstructor }) {
     <div style={{ position: "relative" }} className="Instructor-card">
       <div className="Instructor-details">
         <img
-          src="../../Images/Student-img.png" // Static image
+          src={instructor.instructor.image ? instructor.instructor.image : "../../Images/Profile Icon BG.png"}
           alt="Instructor"
-          style={{ width: "4vw", height: "4vw" }}
+          style={{ width: "4vw", height: "4vw", borderRadius: "50%" }}
         />
         <div className="Instructor-text">
           <p className="Instructor-name">{`${firstName} ${lastName}`}</p>
           <p className="Instructor-Department">{department}</p>
-          <p className="Instructor-id">{id}</p>
+          <p className="Instructor-email">{instructor.email}</p>
         </div>
       </div>
 

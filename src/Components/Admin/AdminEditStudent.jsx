@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../CSS/AdminEditStudent.css";
 import { editStudent } from "../../ApiService/AdminStudentService";
-
-export default function AdminEditStudent({ editedStudent, onCancel, onStudentUpdated }) {
+import { getStudents } from "../../ApiService/StudentService";
+export default function AdminEditStudent({ editedStudent, onCancel, onStudentUpdated, students, setStudents }) {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
@@ -55,9 +55,12 @@ export default function AdminEditStudent({ editedStudent, onCancel, onStudentUpd
                     department: studentData.department
                 }
             );
-
+            getStudents()
+            .then((data) => {
+                setStudents(data);
+            })
             setSuccessMessage("Student Updated Successfully!");
-
+            
             if (onStudentUpdated) {
                 onStudentUpdated(updatedStudent);
             }

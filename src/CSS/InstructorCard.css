@@ -4,6 +4,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
+    max-height: 450px;
+    overflow-y: auto;
 }
 
 .Instructor-card {
@@ -38,7 +40,10 @@
     margin: 0;
 font-weight: 600;
 }
-
+.Instructor-email{
+    font-size: 11px;
+    opacity: 0.7;
+}
 .Instructor-title {
     font-size: 15px;
     margin: 0;

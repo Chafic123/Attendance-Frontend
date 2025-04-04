@@ -1,4 +1,4 @@
-#request-container{
+#request-container {
     background-color: white;
     border-radius: 43px;
     min-height: 200px;
@@ -7,16 +7,24 @@
     width: 300px;
     padding: 20px;
     margin-top: -40px;
-
+    
+    scrollbar-width: thin; 
+    scrollbar-color: #888 #f1f1f1;
 }
+
+
+
+ 
+
+
 .request-title-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     margin-left: -55px;
-
 }
+
 .temp {
     display: flex;
     width: 100%;
@@ -37,6 +45,7 @@
     color: red;
     opacity: 0.8;
     font-weight: bold;
+    margin-top: -5px;
 }
 
 .request-student-name,

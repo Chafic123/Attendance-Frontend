@@ -10,10 +10,8 @@ import { getCourseStudents } from "../../ApiService/CourseService";
 import MainContentTopSI from "../Student/MainContentTopSI";
 
 
-export default function AdminMainContent({ selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
-  const [students, setStudents] = useState([]);
+export default function AdminMainContent({courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [filteredStudents, setFilteredStudents] = useState([]);
-  const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
@@ -30,7 +28,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
   }, [instructorFilterOptions]);
 
   const handleCancelViewCourseStudents = () => {
-    setViewCourseStudents(false); // ✅ Return to course list view
+    setViewCourseStudents(false);
     setSelectedCourseId(null);
     setStudents([]);
   };
@@ -43,7 +41,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
       getStudents()
         .then((data) => {
           setStudents(data);
-          setFilteredStudents(data); // Set the filtered list initially to all students
+          setFilteredStudents(data); 
         })
         .catch((err) => console.error("Failed to fetch students:", err))
         .finally(() => setLoading(false));
@@ -130,7 +128,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
   const handleCourseDoubleClick = async (courseId) => {
     setLoading(true);
     setSelectedCourseId(courseId);
-    setViewCourseStudents(true);  // Show enrolled students
+    setViewCourseStudents(true);
     console.log("Double Clicked")
     try {
       const enrolledStudents = await getCourseStudents(courseId);
@@ -191,7 +189,7 @@ export default function AdminMainContent({ selectedDashboardITem, showAdminPanel
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" />
           <AdminFilter filterTop={filterTop} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
-            <Course studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
+            <Course setStudentFilters={setStudentFilterOptions} courses={courses} setCourses={setCourses} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
           </div>
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (

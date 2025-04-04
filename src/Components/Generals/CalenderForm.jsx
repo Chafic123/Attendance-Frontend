@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { courseCalendar } from "../../ApiService/InstructorCalendarService";
 import { useStudent } from "../../Contexts/getClickedStudentID";
-import {getStudentCourseCalendar} from "../../ApiService/StudentCalendarService" 
+import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService"
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
 export default function Calendar({ setRequestCorrectionState, setSelectedAttendance }) {
     const [calendarData, setCalendarData] = useState([]);
@@ -23,8 +23,6 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
     console.log(studentId)
 
     useEffect(() => {
-        if (!courseId) return;
-    
         const fetchCalendarData = async () => {
             try {
                 if (userRole === "student") {
@@ -32,29 +30,31 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                     if (userID) {
                         const data = await getStudentCourseCalendar(courseId, userID);
                         if (Array.isArray(data)) setCalendarData(data);
-                        else setCalendarData([]);  
+                        else setCalendarData([]);
                     }
                 } else if (userRole === "instructor") {
                     if (!studentId) {
                         const data = await courseCalendar(courseId);
                         if (data?.sessions) {
                             setInstructorCalendarData(data.sessions);
-                            setCalendarData([]);
+                            setCalendarData([]); // Reset student data when no studentId
                         } else {
                             setInstructorCalendarData([]);
                         }
                     } else {
+                        // Reset calendar data when studentId changes
+                        setCalendarData([]);
                         const studentData = await getInstructorStudentCourseCalendar(courseId, studentId);
-                        if (Array.isArray(studentData)) {
+                        if (Array.isArray(studentData) && studentData.length > 0) {
                             setCalendarData(studentData);
                         } else {
-                            setCalendarData([]); 
+                            setInstructorCalendarData([]); // Optionally reset instructor data here
                         }
                     }
                 }
             } catch (error) {
                 console.error("Error fetching calendar data:", error);
-                setCalendarData([]); // Reset calendar data in case of an error
+                setCalendarData([]);
             }
         };
     

@@ -25,4 +25,32 @@ export const getInstructorRequests = async () => {
       throw error; 
     }
   };
+
+
+
+  export const approveRequest = async (requestId) => {
+    try {
+      const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+  
+      const response = await fetch(`${BASE_URL}/instructor/requests/${requestId}/update-status`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: "approved" }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to approve request");
+      }
+  
+      const data = await response.json();
+      console.log("Approval response: ", data);
+      return data;
+    } catch (error) {
+      console.error("Error approving request:", error);
+      throw error;
+    }
+  };
   

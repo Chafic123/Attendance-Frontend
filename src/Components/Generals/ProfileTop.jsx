@@ -2,10 +2,10 @@ import "../../CSS/ProfileTop.css";
 import PropTypes from "prop-types";
 
 export default function ProfileTop({ viewProfile, user }) {
+    console.log("User: ", user)
+    if (!user) return <p className="profileTopLoading">Loading...</p>;
 
-    if (!user) return <p className="profileTopLoading">Loading...</p>; 
-
-    const { user: userInfo, Instructor: instructorInfo } = user; 
+    const { user: userInfo, Instructor: instructorInfo } = user;
 
     return (
         <div className="profileTop-container" onClick={viewProfile}>
@@ -16,10 +16,10 @@ export default function ProfileTop({ viewProfile, user }) {
                 </p>
             </div>
 
-            <img 
-                src={`data:image/jpeg;base64,${user.student ? user.student.image : instructorInfo ? instructorInfo.image : "default_image_base64_string"}`}
-                className="profile-icon" 
-                alt="User Profile" 
+            <img
+                src={user?.student?.image || user?.Instructor?.image || "../../Images/Profile Icon BG.png"}
+                className="profile-icon"
+                alt="User Profile"
             />
         </div>
     );

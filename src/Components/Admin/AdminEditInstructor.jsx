@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../CSS/AdminEditStudent.css";
 import { editInstructor } from "../../ApiService/AdminInstrucotrService";
-
-export default function AdminEditInstructor({ editedInstructor, onCancel, onInstructorUpdated }) {
+import { getInstructors } from "../../ApiService/InstructorService";
+export default function AdminEditInstructor({ editedInstructor, onCancel, onInstructorUpdated, setInstructors }) {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
@@ -52,7 +52,10 @@ export default function AdminEditInstructor({ editedInstructor, onCancel, onInst
             );
 
             setSuccessMessage("Instructor Updated Successfully!");
-
+            getInstructors()
+            .then(setInstructors)
+            .catch((err) => console.error("Failed to fetch instructors:", err))
+        
             if (onInstructorUpdated) {
                 onInstructorUpdated(updatedInstructor);
             }

@@ -21,7 +21,7 @@ export const editStudent = async (studentId, studentData) => {
         first_name: studentData.first_name,
         last_name: studentData.last_name,
         email: studentData.email,
-        phone_number: generateRandomPhoneNumber(),
+        phone: generateRandomPhoneNumber(),
         major: studentData.major,
         // department: studentData.department,
         department: "Business",

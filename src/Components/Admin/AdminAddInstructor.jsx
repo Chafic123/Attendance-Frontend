@@ -2,8 +2,8 @@ import "../../CSS/AdminAddInstructor.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { addInstructor } from "../../ApiService/AdminInstrucotrService";
-
-const AdminAddInstructor = ({ onInstructorAdded }) => {
+import { getInstructors } from "../../ApiService/InstructorService";
+const AdminAddInstructor = ({ onInstructorAdded, setInstructors }) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
@@ -15,7 +15,6 @@ const AdminAddInstructor = ({ onInstructorAdded }) => {
         department: "",
     });
 
-    const [instructorImage, setInstructorImage] = useState("Upload New");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
 
@@ -24,14 +23,7 @@ const AdminAddInstructor = ({ onInstructorAdded }) => {
         setInstructorData({ ...instructorData, [name]: value });
     };
 
-    const handleInstructorImage = (event) => {
-        if (event.target.files.length > 0) {
-            setInstructorImage(event.target.files[0].name);
-        } else {
-            setInstructorImage("Upload New");
-        }
-    };
-
+ 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -40,6 +32,11 @@ const AdminAddInstructor = ({ onInstructorAdded }) => {
         try {
             const addedInstructor = await addInstructor(instructorData);
             setSuccessMessage("Instructor added successfully!")
+            getInstructors()
+            .then(setInstructors)
+            .catch((err) => console.error("Failed to fetch instructors:", err))
+           
+        
             setInstructorData({
                 first_name: "",
                 last_name: "",
@@ -130,24 +127,7 @@ const AdminAddInstructor = ({ onInstructorAdded }) => {
                     />
                 </div>
 
-                <div className="imgParent">
-                    <input
-                        type="file"
-                        id="fileInput"
-                        className="img-input"
-                        onChange={handleInstructorImage}
-                    />
-
-                    <label htmlFor="fileInput" className="imageLabel">
-                        Image
-                    </label>
-
-                    <label htmlFor="fileInput" className="upload-img-btn">
-                        <img src="../Images/Upload_img.png" alt="Upload" />
-                    </label>
-
-                    <span className="img-name">{instructorImage}</span>
-                </div>
+             
 
                 <div className="form-instructor-actions">
                     <button type="button" className="cancel-btn">Cancel</button>

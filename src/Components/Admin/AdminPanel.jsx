@@ -27,6 +27,7 @@ export default function AdminPanel(props) {
             editedStudent={editedStudent}
             setEditedStudent={setEditedStudent}
             onCancel={() => setEditedStudent(null)}
+            setStudents={props.setStudents}
           />
         ) : editedCourse ? (
           <AdminEditCourse
@@ -34,19 +35,21 @@ export default function AdminPanel(props) {
             setEditedCourse={setEditedCourse}
             initialCourseData={editedCourse}
             onCancel={() => setEditedCourse(null)}
+            setCourses={props.setCourses}
           />
         ) : editedInstructor ? ( // Check for editedInstructor
           <AdminEditInstructor
             editedInstructor={editedInstructor}
             setEditedInstructor={setEditedInstructor}
-            onCancel={() => setEditedInstructor(null)}
+            onCancel={() => setEditedInstructor(null)} 
+            setInstructors={props.setInstructors}
           />
         ) : title === "View Courses" ? (
-          <AdminAddCourse />
+          <AdminAddCourse  setCourses={props.setCourses} />
         ) : title === "View Students" ? (
-          <AdminAddStudent />
+          <AdminAddStudent  setStudents={props.setStudents} />
         ) : title === "View Instructors" ? (
-          <AdminAddInstructor />
+          <AdminAddInstructor setInstructors={props.setInstructors} />
         ) : null
       }
     </div>

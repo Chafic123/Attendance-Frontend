@@ -11,8 +11,7 @@ import StudentCard from "./StudentCard";
 import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 import { useStudent } from "../../Contexts/getClickedStudentID";
-export default function Course({ studentCourseFilters, courseFilters, studentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
-  const [courses, setCourses] = useState([]);
+export default function Course({ courses, setCourses, studentCourseFilters, courseFilters, studentFilters,setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
   const [filteredCourses, setFilteredCourses] = useState([]);
 
   const [courseStudentID, setCourseStudentID] = useState("")
@@ -67,7 +66,6 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
     setEditedStudent(null)
     setFilterTop("Courses");
     setShowStudents(false);
-
     setActiveStudent(null);
     setStudentId(null)
     setCourseStudents([]);
@@ -76,9 +74,11 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
   };
 
   const handleEnrollStudents = () => {
+    setStudentFilters({ studentID: "", name: "", major: "", sort: "" });
     setPopupVisible(true);
   };
   const handleClosePopup = () => {
+    setStudentFilters({ studentID: "", name: "", major: "", sort: "" });
     setPopupVisible(false);
   };
 
@@ -390,7 +390,7 @@ export default function Course({ studentCourseFilters, courseFilters, studentFil
               Enroll Students
             </button>
           )}
-          {isPopupVisible && <AdminEnrollStudentsPopup studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
+          {isPopupVisible && <AdminEnrollStudentsPopup  setCourseStudents={setCourseStudents} studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
 
         </div>
       )}

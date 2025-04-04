@@ -5,6 +5,9 @@ import "../../CSS/SIWholeContent.css"
 import { useState } from "react";
 import { useEffect } from "react";
 export default function AdminWholeContent(props) {
+  const [students, setStudents] = useState([]);
+  const [instructors, setInstructors] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   const [isAdminPanel, setAdminPanel] = useState(true);
   const [editedCourse, setEditedCourse] = useState(null);
@@ -23,9 +26,9 @@ export default function AdminWholeContent(props) {
   return (
     <div className="whole-content-container">
 
-      <AdminMainContent filterTop={filterTop} setFilterTop={setFilterTop} setEditedInstructor={setEditedInstructor} setEditedStudent={setEditedStudent} setEditedCourse={setEditedCourse} selectedDashboardITem={props.selectedDashboardITem} showAdminPanel={showAdminPanel} />
+      <AdminMainContent courses={courses} setCourses={setCourses} instructors={instructors} setInstructors={setInstructors} students={students} setStudents={setStudents} filterTop={filterTop} setFilterTop={setFilterTop} setEditedInstructor={setEditedInstructor} setEditedStudent={setEditedStudent} setEditedCourse={setEditedCourse} selectedDashboardITem={props.selectedDashboardITem} showAdminPanel={showAdminPanel} />
 
-      <AdminPanel setEditedStudent={setEditedStudent} editedStudent={editedStudent} setEditedInstructor={setEditedInstructor} editedInstructor={editedInstructor} editedCourse={editedCourse} setEditedCourse={setEditedCourse} title={props.selectedAddItem} isAdminPanel={isAdminPanel} />
+      <AdminPanel setCourses={setCourses} setInstructors={setInstructors} setStudents={setStudents} setEditedStudent={setEditedStudent} editedStudent={editedStudent} setEditedInstructor={setEditedInstructor} editedInstructor={editedInstructor} editedCourse={editedCourse} setEditedCourse={setEditedCourse} title={props.selectedAddItem} isAdminPanel={isAdminPanel} />
 
     </div>
   );

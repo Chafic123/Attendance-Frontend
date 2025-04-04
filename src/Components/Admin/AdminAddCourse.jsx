@@ -1,7 +1,8 @@
 import "../../CSS/AdminAddCourse.css";
 import { useState } from "react";
 import { addCourse } from "../../ApiService/CourseService";
-const AdminAddCourse = () => {
+import { getCourses } from "../../ApiService/CourseService";
+const AdminAddCourse = ({setCourses}) => {
     const [courseData, setCourseData] = useState({
         Code: "",
         name: "",
@@ -23,7 +24,7 @@ const AdminAddCourse = () => {
     const handleAddCourse = async (e) => {
         e.preventDefault();
         try {
-            
+
             const result = await addCourse(
                 courseData.Code,
                 courseData.name,
@@ -39,6 +40,8 @@ const AdminAddCourse = () => {
             );
 
             alert("Course added successfully!");
+            const courseData2 = await getCourses();
+            setCourses(Array.isArray(courseData2) ? courseData2 : []);
         } catch (error) {
             alert("Failed to add course. Please check your input.");
         }

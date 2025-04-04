@@ -1,7 +1,7 @@
 import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrections";
 import { useEffect, useState } from "react";
 import "../../CSS/InstrcutorRequestsCenter.css";
-
+import { approveRequest } from "../../ApiService/InstructorRequestCorrections";
 export default function StudentNotificationCenter() {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,8 +21,22 @@ export default function StudentNotificationCenter() {
         fetchRequests();
     }, []);
 
+
+    const handleApproveRequest = async (requestId) => {
+        try {
+            const result = await approveRequest(requestId);
+            if (result) {
+                setRequests((prevRequests) =>
+                    prevRequests.filter((request) => request.id !== requestId)
+                );
+            }
+        } catch (error) {
+            console.error("Error approving request:", error);
+        }
+    };
+
     return (
-        <div id="requests-center-container">
+        <div className="requests-center-container">
 
             {loading ? (
                 <p>Loading Requests...</p>
@@ -50,7 +64,7 @@ export default function StudentNotificationCenter() {
                                                 {request.reason || "No specific reason provided."}
                                             </p>
                                             <p className="request-center-course-name">
-                                            {request.course_name}
+                                                {request.course_name}
                                             </p>
                                             <p className="request-center-student-name">
                                                 {request.student_name}
@@ -59,7 +73,7 @@ export default function StudentNotificationCenter() {
                                         </div>
                                         <div
                                             className="requests-btn-container">
-                                            <button className="approveRequest">Approve</button>
+                                            <button onClick={() => handleApproveRequest(request.id)} className="approveRequest">Approve</button>
                                             <button className="rejectRequest">Reject</button>
                                         </div>
                                     </div>

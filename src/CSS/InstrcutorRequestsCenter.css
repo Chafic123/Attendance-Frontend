@@ -16,26 +16,35 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+}
+.requests-center-container{
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 15px;
 }
 .approveRequest{
-    background-color: rgb(78, 234, 78);
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
     padding: 5px 10px;
     border-radius: 10px;
     cursor: pointer;
     border: none;
+    color: white;
 }
 .rejectRequest{
-    background-color: #ff5c5c;
+    background-color: rgb(245, 51, 51);
     border: none;
     padding: 5px 10px;
     border-radius: 10px;
     cursor: pointer;
+    color: white;
 }
 .request-center-content {
     color: red;
     opacity: 0.8;
     font-weight: bold;
     font-size: 15px;
+
 }
 .request-center-course-name,
 .request-center-student-name{
