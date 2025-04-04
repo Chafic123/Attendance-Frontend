@@ -10,6 +10,7 @@ import StudentScheduleReport from "./StudentScheduleReport";
 
 export default function StudentMainContent({ selectedDashboardITem, viewPanelIphone }) {
   const [studentCourseFilters, setFilterOptions] = useState({ code: "", sort: "",name: "" });
+  const [courses, setCourses] = useState([]);
 
  
   return (
@@ -37,7 +38,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
           <MainContentTopSI onCourseFilterChange={setFilterOptions} title="Courses"  />
 
                     <StudentFilter onCourseFilterChange={setFilterOptions} />
-          <Course studentCourseFilters={studentCourseFilters} />
+          <Course courses={courses} setCourses={setCourses} studentCourseFilters={studentCourseFilters} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
@@ -84,7 +85,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
         >
           <MainContentTopSI onCourseFilterChange={setFilterOptions} title="Courses" />
           <StudentFilter onCourseFilterChange={setFilterOptions} />
-          <Course studentCourseFilters={studentCourseFilters} />
+          <Course courses={courses} setCourses={setCourses} studentCourseFilters={studentCourseFilters} />
         </div>
       )}
     </>
