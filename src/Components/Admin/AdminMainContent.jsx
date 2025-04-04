@@ -371,6 +371,7 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
               )}
 
             </div>
+
           )}
         </div>
       ) : null}

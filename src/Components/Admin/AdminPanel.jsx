@@ -3,10 +3,10 @@ import AdminAddStudent from "./AdminAddStudent";
 import AdminAddInstructor from "./AdminAddInstructor";
 import AdminEditCourse from "./AdminEditCourse";
 import AdminEditStudent from "./AdminEditStudent";
-import AdminEditInstructor from "./AdminEditInstructor"; // Import AdminEditInstructor
+import AdminEditInstructor from "./AdminEditInstructor";
 import PropTypes from "prop-types";
 import "../../CSS/AdminPanel.css";
-import Calendar from "../Generals/CalenderForm";
+
 export default function AdminPanel(props) {
   const {
     title,
@@ -15,8 +15,8 @@ export default function AdminPanel(props) {
     setEditedCourse,
     editedStudent,
     setEditedStudent,
-    editedInstructor, // Added for instructor edit
-    setEditedInstructor, // Added setter for instructor edit
+    editedInstructor,
+    setEditedInstructor,
   } = props;
 
   return (
@@ -37,7 +37,7 @@ export default function AdminPanel(props) {
             onCancel={() => setEditedCourse(null)}
             setCourses={props.setCourses}
           />
-        ) : editedInstructor ? ( // Check for editedInstructor
+        ) : editedInstructor ? (
           <AdminEditInstructor
             editedInstructor={editedInstructor}
             setEditedInstructor={setEditedInstructor}
