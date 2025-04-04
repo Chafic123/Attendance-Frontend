@@ -8,29 +8,59 @@ import { getStudents } from "../../ApiService/StudentService";
 import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
 import MainContentTopSI from "../Student/MainContentTopSI";
+import { getStudentCourses } from "../../ApiService/CourseService";
+import { useCourse } from "../../Contexts/CourseContext";
 
-
-export default function AdminMainContent({courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
+export default function AdminMainContent({ courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
 
+  const [filteredStudentCourses, setFilteredStudentCourses] = useState([]); 
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [studentCourses, setStudentCourses] = useState([])
+
+  const { setCourseId } = useCourse();
+  const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "", sort: "" });
   const [instructorFilterOptions, setInstructorFilterOptions] = useState({ instructorName: "", department: "", sort: "" });
   const [filteredInstructors, setFilteredInstructors] = useState([]);
+  const [studentCourseFilterOptions, setStudentCourseFilterOptions] = useState({ code: "", sort: "", section: "" });
 
 
   // Testing
-  useEffect(() => {
-    console.log("instructorFilterOptions: ", instructorFilterOptions)
-  }, [instructorFilterOptions]);
+  // useEffect(() => {
+  //   console.log("studentCourseFilterOptions: ", studentCourseFilterOptions)
+  // }, [studentCourseFilterOptions]);
 
   const handleCancelViewCourseStudents = () => {
     setViewCourseStudents(false);
     setSelectedCourseId(null);
     setStudents([]);
+  };
+
+
+  const handleStudentDoubleClick = async (studentId) => {
+    if (userRole != "admin") return;
+    if (!studentId) return;
+    try {
+      const courses = await getStudentCourses(studentId);
+      setStudentCourses(courses);
+      console.log("Student ID: ", studentId, "Courses: ", courses)
+    } catch (error) {
+      console.error("Failed to fetch student courses:", error);
+    }
+  };
+
+
+  const handleBackToStudents = () => {
+    setStudentCourses([])
+    setFilterTop("Courses");
+    setActiveIndex(null);
+
   };
 
   useEffect(() => {
@@ -41,7 +71,7 @@ export default function AdminMainContent({courses, setCourses, instructors, setI
       getStudents()
         .then((data) => {
           setStudents(data);
-          setFilteredStudents(data); 
+          setFilteredStudents(data);
         })
         .catch((err) => console.error("Failed to fetch students:", err))
         .finally(() => setLoading(false));
@@ -124,6 +154,39 @@ export default function AdminMainContent({courses, setCourses, instructors, setI
     setFilteredInstructors(filtered);
   }, [instructorFilterOptions, instructors]);
 
+  useEffect(() => {
+    let filteredCourses = [...studentCourses];
+
+    if (studentCourseFilterOptions?.code) {
+      filteredCourses = filteredCourses.filter((course) =>
+        course.course_code
+          ?.toUpperCase()
+          .includes(studentCourseFilterOptions.code.toUpperCase())
+      );
+    }
+
+    if (studentCourseFilterOptions?.section) {
+      filteredCourses = filteredCourses.filter(course =>
+        String(course.section) === String(studentCourseFilterOptions.section) ||
+        String(course.course_section) === String(studentCourseFilterOptions.section)
+      );
+    }
+    
+
+    if (studentCourseFilterOptions?.sort === "asc") {
+      filteredCourses.sort((a, b) => a.course_code.localeCompare(b.course_code));
+    } else if (studentCourseFilterOptions?.sort === "desc") {
+      filteredCourses.sort((a, b) => b.course_code.localeCompare(a.course_code));
+    }
+
+    setFilteredStudentCourses(filteredCourses);
+  }, [studentCourseFilterOptions, studentCourses]);
+
+  const handleCourseClick = (index, courseId) => {
+    setCourseId(courseId);
+    setActiveIndex(index);
+
+  };
 
   const handleCourseDoubleClick = async (courseId) => {
     setLoading(true);
@@ -152,26 +215,67 @@ export default function AdminMainContent({courses, setCourses, instructors, setI
             display: "flex",
             flexDirection: "column",
             gap: "17px",
+            position: "relative",  
           }}
         >
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Students" showAdminPanel={showAdminPanel} />
-          <AdminFilter onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
+          <AdminFilter studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
+
           {loading ? (
             <p>Loading students...</p>
-          ) : (
-            <div className="StudentContainer" style={{display:"flex",flexWrap:"wrap"}}>
+          ) : studentCourses.length === 0 ? (
+            <div className="StudentContainer" style={{ display: "flex", flexWrap: "wrap" }}>
               {filteredStudents.length > 0 ? (
                 filteredStudents.map((student) => (
                   <StudentCard
                     key={student.student_id}
                     student={student}
                     setEditedStudent={setEditedStudent}
+                    handleStudentDoubleClick={handleStudentDoubleClick}
                   />
                 ))
               ) : (
                 <p>No students found</p>
               )}
             </div>
+          ) : (
+            <div className="StudentContainer" style={{ display: "flex", flexWrap: "wrap" }}>
+              {filteredStudentCourses.length > 0 ? (
+                filteredStudentCourses.map((course, index) => (
+                  <div
+                    className={`studentCourse ${activeIndex === index ? "activeCourse" : ""}`}
+                    key={index}
+                    onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
+                  >
+                    <div className="courseDetails">
+                      <div className="courseBorder"></div>
+                      <div className="courseText">
+                        <p className="courseCode">{course.course_code || course.Code}</p>
+                        <p className="courseName">{course.course_name || course.name}</p>
+                        <p className="courseInstructor">
+                          {userRole?.toLowerCase() === "instructor"
+                            ? `${user?.first_name} ${user?.last_name}`
+                            : userRole?.toLowerCase() === "admin"
+                              ? `${course.instructors[0]?.instructor_name || ''}`
+                              : course.instructor_name}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No courses found for student</p>
+              )}
+            </div>
+          )}
+
+          {studentCourses.length > 0 && (
+            <button
+              className="back-students-btn"
+              onClick={handleBackToStudents}
+            >
+              Back to Students
+            </button>
           )}
         </div>
       ) : selectedDashboardITem === "View Courses" && !viewCourseStudents ? (
@@ -189,8 +293,9 @@ export default function AdminMainContent({courses, setCourses, instructors, setI
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" />
           <AdminFilter filterTop={filterTop} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
-            <Course setStudentFilters={setStudentFilterOptions} courses={courses} setCourses={setCourses} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
+            <Course  setStudentFilters={setStudentFilterOptions} courses={courses} setCourses={setCourses} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
           </div>
+
         </div>
       ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (
         <div
@@ -233,6 +338,7 @@ export default function AdminMainContent({courses, setCourses, instructors, setI
               </button>
             </div>
           )}
+
         </div>
       ) : selectedDashboardITem === "View Instructors" ? (
         <div
@@ -268,6 +374,7 @@ export default function AdminMainContent({courses, setCourses, instructors, setI
           )}
         </div>
       ) : null}
+
     </>
   );
 }

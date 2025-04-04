@@ -37,12 +37,12 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                         const data = await courseCalendar(courseId);
                         if (data?.sessions) {
                             setInstructorCalendarData(data.sessions);
-                            setCalendarData([]); // Reset student data when no studentId
+                            setCalendarData([]);
                         } else {
                             setInstructorCalendarData([]);
                         }
                     } else {
-                        // Reset calendar data when studentId changes
+
                         setCalendarData([]);
                         const studentData = await getInstructorStudentCourseCalendar(courseId, studentId);
                         if (Array.isArray(studentData) && studentData.length > 0) {

@@ -2,7 +2,10 @@ import "../../CSS/AdminAddCourse.css";
 import { useState } from "react";
 import { addCourse } from "../../ApiService/CourseService";
 import { getCourses } from "../../ApiService/CourseService";
-const AdminAddCourse = ({setCourses}) => {
+const AdminAddCourse = ({ setCourses }) => {
+    const [successMessage, setSuccessMessage] = useState("");
+    const [noSuccessMessage, setNoSuccessMessage] = useState("");
+
     const [courseData, setCourseData] = useState({
         Code: "",
         name: "",
@@ -39,17 +42,35 @@ const AdminAddCourse = ({setCourses}) => {
                 courseData.instructor_email
             );
 
-            alert("Course added successfully!");
+            setSuccessMessage("Course Added Successfully!")
             const courseData2 = await getCourses();
             setCourses(Array.isArray(courseData2) ? courseData2 : []);
+
         } catch (error) {
-            alert("Failed to add course. Please check your input.");
+            setNoSuccessMessage(error.message)
         }
     };
 
     return (
         <div className="add-course-card">
             <h2 className="card-course-title">Add Course</h2>
+            {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+
+            {noSuccessMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noSuccessMessage}</p>
+                        <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
             <form className="add-course-form" onSubmit={handleAddCourse}>
                 <div className="form-course-group">
                     <label htmlFor="Code">Code:</label>
@@ -137,7 +158,27 @@ const AdminAddCourse = ({setCourses}) => {
                 </div>
 
                 <div className="form-course-actions">
-                    <button type="button" className="cancel-btn">Cancel</button>
+                    <button
+                        type="button"
+                        className="cancel-btn"
+                        onClick={() =>
+                            setCourseData({
+                                Code: "",
+                                name: "",
+                                Room: "",
+                                credit: "",
+                                Section: "",
+                                day_of_week: "",
+                                start_time: "",
+                                end_time: "",
+                                instructor_first_name: "",
+                                instructor_last_name: "",
+                                instructor_email: "",
+                            })
+                        }
+                    >
+                        Clear
+                    </button>
                     <button type="submit" className="save-btn">Save Changes</button>
                 </div>
             </form>

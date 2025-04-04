@@ -2,14 +2,15 @@ import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@mui/material";
 import { useStudent } from "../../Contexts/getClickedStudentID";
-export default function StudentCard({ student, setEditedStudent, hideIcon, setActiveStudent }) {
+export default function StudentCard({ student, setEditedStudent, hideIcon, setActiveStudent,handleStudentDoubleClick }) {
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const { setStudentId } = useStudent();
 
   const handleStudentClick = (id) => {
     setStudentId(id);
+    if(userRole!="admin"){
     setActiveStudent(student);
-
+  }
   };
 
   const dropdownRef = useRef(null);
@@ -32,11 +33,10 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
   return (
     <div
       onClick={() => handleStudentClick(student.student_id)}
-
+      onDoubleClick={() => handleStudentDoubleClick(student.id)}
       className={`student-card`}
       style={{ position: "relative" }}
       ref={dropdownRef}

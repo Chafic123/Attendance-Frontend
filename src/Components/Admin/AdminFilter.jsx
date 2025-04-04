@@ -16,11 +16,14 @@ const AdminFilter = (props) => {
   const [instructorSortOrder, setInstructorSortOrder] = useState('');
   const [instructorDepartment, setInstructorDepartment] = useState("");
 
+  const [studentCoursesFilterCode, setStudentCoursesFilterCode] = useState("");
+  const [studentCoursesSortOrder, setStudentCoursesSortOrder] = useState("");
+  const [studentCoursesSection, setStudentCoursesSection] = useState("");
 
+  // Handle changes for CourseFilter
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
-    console.log(value);
     props.onCourseFilterChange({ code: value, sort: sortOrder, name: "", section: filterSection });
   };
 
@@ -36,6 +39,7 @@ const AdminFilter = (props) => {
     props.onCourseFilterChange({ code: filterCode, sort: sortOrder, name: "", section: value });
   };
 
+  // Handle changes for StudentFilter
   const handleStudentNameChange = (event) => {
     const value = event.target.value;
     setStudentName(value);
@@ -53,14 +57,14 @@ const AdminFilter = (props) => {
     setMajor(value);
     props.onStudentFilterChange({ studentID: studentId, name: studentName, major: value, sort: studentSort });
   };
+
   const handleStudentSortChange = (event) => {
     const value = event.target.value;
     setStudentSort(value);
     props.onStudentFilterChange({ studentID: studentId, name: studentName, major: major, sort: value });
   };
 
-
-
+  // Handle changes for InstructorFilter
   const handleInstructorNameChange = (event) => {
     const value = event.target.value;
     setInstructorName(value);
@@ -80,6 +84,23 @@ const AdminFilter = (props) => {
   };
 
 
+  const handleStudentCoursesCodeChange = (event) => {
+    const value = event.target.value;
+    setStudentCoursesFilterCode(value);
+    props.onStudentCoursesFilterChange({ code: value, sort: studentCoursesSortOrder,section: studentCoursesSection });
+  };
+
+  const handleStudentCoursesSortChange = (event) => {
+    const value = event.target.value;
+    setStudentCoursesSortOrder(value);
+    props.onStudentCoursesFilterChange({ code: studentCoursesFilterCode, sort: value, section: filterSection });
+  };
+
+  const handleStudentCoursesSectionChange = (event) => {
+    const value = event.target.value;
+    setStudentCoursesSection(value);
+    props.onStudentCoursesFilterChange({ code: studentCoursesFilterCode, sort: studentCoursesSortOrder, section: value });
+  };
 
   return (
     <div className='filter-container'>
@@ -128,40 +149,71 @@ const AdminFilter = (props) => {
               />
               <select value={studentSort} onChange={handleStudentSortChange} className="selectInput">
                 <option value="">Sort</option>
-                <option value="asc">A - Z</option>
-                <option value="desc">Z - A</option>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
               </select>
             </>
           ) : null}
         </>
       ) : props.title === "StudentFilter" ? (
         <>
-          <input
-            type="text"
-            value={studentId}
-            onChange={handleStudentIdChange}
-            placeholder="Student ID"
-            className="codeInput"
-          />
-          <input
-            type="text"
-            value={studentName}
-            onChange={handleStudentNameChange}
-            placeholder="Student Name"
-            className="codeInput"
-          />
-          <input
-            type="text"
-            value={major}
-            onChange={handleMajorChange}
-            placeholder="Major"
-            className="codeInput"
-          />
-          <select value={studentSort} onChange={handleStudentSortChange} className="selectInput">
-            <option value="">Sort</option>
-            <option value="asc">A-Z</option>
-            <option value="desc">Z-A</option>
-          </select>
+          {props.studentCourses.length > 0 ? (
+            <>
+              <input
+                type="text"
+                value={studentCoursesFilterCode}
+                onChange={handleStudentCoursesCodeChange}
+                placeholder="Course Filter Code"
+                className="codeInput"
+              />
+              <input
+                type="text"
+                value={studentCoursesSection}
+                onChange={handleStudentCoursesSectionChange}
+                placeholder="Course Section"
+                className="codeInput"
+              />
+              <select
+                value={studentCoursesSortOrder}
+                onChange={handleStudentCoursesSortChange}
+                className="selectInput"
+              >
+                <option value="">Sort</option>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                value={studentId}
+                onChange={handleStudentIdChange}
+                placeholder="Student ID"
+                className="codeInput"
+              />
+              <input
+                type="text"
+                value={studentName}
+                onChange={handleStudentNameChange}
+                placeholder="Student Name"
+                className="codeInput"
+              />
+              <input
+                type="text"
+                value={major}
+                onChange={handleMajorChange}
+                placeholder="Major"
+                className="codeInput"
+              />
+              <select value={studentSort} onChange={handleStudentSortChange} className="selectInput">
+                <option value="">Sort</option>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+            </>
+          )}
         </>
       ) : props.title === "InstructorFilter" ? (
         <>
@@ -199,6 +251,9 @@ const AdminFilter = (props) => {
 AdminFilter.propTypes = {
   title: PropTypes.oneOf(["CourseFilter", "StudentFilter", "InstructorFilter"]).isRequired,
   filterTop: PropTypes.string,
+  studentCourses: PropTypes.array, // Add this to check the length
+  studentCourseFilterOptions: PropTypes.object, // Add this prop to pass the student course filter options
+  setStudentCourseFilterOptions: PropTypes.func.isRequired, // Add this function to update the filter options
   onCourseFilterChange: PropTypes.func.isRequired,
   onStudentFilterChange: PropTypes.func.isRequired,
   onInstructorFilterChange: PropTypes.func.isRequired,

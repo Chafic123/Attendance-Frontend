@@ -11,8 +11,10 @@ import StudentCard from "./StudentCard";
 import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 import { useStudent } from "../../Contexts/getClickedStudentID";
-export default function Course({ courses, setCourses, studentCourseFilters, courseFilters, studentFilters,setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
+
+export default function Course({ courses,   setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
   const [filteredCourses, setFilteredCourses] = useState([]);
+
 
   const [courseStudentID, setCourseStudentID] = useState("")
 
@@ -35,6 +37,8 @@ export default function Course({ courses, setCourses, studentCourseFilters, cour
   const [filteredCourseStudents, setFilteredCourseStudents] = useState([]);
 
   const [isPopupVisible, setPopupVisible] = useState(false);
+
+
 
   const handleDoubleClick = async (courseId) => {
     setCourseStudentID(courseId);
@@ -117,41 +121,7 @@ export default function Course({ courses, setCourses, studentCourseFilters, cour
     fetchCourses();
   }, []);
 
-  useEffect(() => {
-    let filtered = [...courses];
-
-    console.log("studentCourseFilters: ", studentCourseFilters);
-
-    // Check for empty or undefined filters and apply them
-    if (studentCourseFilters?.code) {
-      filtered = filtered.filter(course =>
-        course.course_code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase())
-      );
-    }
-
-    if (studentCourseFilters?.name) {
-      filtered = filtered.filter(course =>
-        course.course_name?.toUpperCase().includes(studentCourseFilters.name.toUpperCase())
-      );
-    }
-
-    if (studentCourseFilters?.section) {
-      filtered = filtered.filter(course =>
-        String(course.course_section) === String(studentCourseFilters.section)
-      );
-    }
-
-    // Sorting logic
-    if (studentCourseFilters?.sort === "asc") {
-      filtered.sort((a, b) => a.course_name.localeCompare(b.course_name));
-    } else if (studentCourseFilters?.sort === "desc") {
-      filtered.sort((a, b) => b.course_name.localeCompare(a.course_name));
-    }
-
-    // Set the filtered courses
-    setFilteredCourses(filtered);
-  }, [courses, studentCourseFilters]); // Re-run the effect when courses or studentCourseFilters change
-
+ 
   useEffect(() => {
     let filtered = [...courses];
 
@@ -371,6 +341,7 @@ export default function Course({ courses, setCourses, studentCourseFilters, cour
                   student={student}
                   setEditedStudent={setEditedStudent}
                   setActiveStudent={setActiveStudent}
+
                 />
               </div>
             ))}
@@ -390,7 +361,7 @@ export default function Course({ courses, setCourses, studentCourseFilters, cour
               Enroll Students
             </button>
           )}
-          {isPopupVisible && <AdminEnrollStudentsPopup  setCourseStudents={setCourseStudents} studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
+          {isPopupVisible && <AdminEnrollStudentsPopup setCourseStudents={setCourseStudents} studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
 
         </div>
       )}

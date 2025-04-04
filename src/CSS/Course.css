@@ -123,6 +123,28 @@
     letter-spacing: 0%;
 
 }
+.studentCourse:first-child{
+    margin-top: 0;
+}
+.studentCourse {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(236, 236, 239, 1);
+    height: 91px;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    padding-right: 10px;
+    width: 98%;
+    margin-top: 15px;
+}
+
+.studentCourse.activeCourse .courseCode{
+    color: #1496D3;
+}
+.studentCourse.activeCourse .courseBorder{
+    background: #1496D3;
+}
 
 .coursePercentage {
     font-weight: 400;
@@ -155,7 +177,20 @@
     top: 20px;
     left: 40%;
 }
-
+.back-students-btn {
+    padding: 10px 20px;
+    background-color: #482B70;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: 20px;
+    left: 30%;
+    width: 200px;
+}
 .back-btn:hover {
     background-color: #3a2165;
 }

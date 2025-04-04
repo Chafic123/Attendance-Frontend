@@ -108,6 +108,35 @@ export const addCourse = async (Code, name, Room, credit, Section, day_of_week, 
 
   } catch (error) {
     console.error(`Error adding course:`, error.response?.data || error.message);
+  }
+  
+}
+
+
+export const getStudentCourses = async (studentId) => {
+  const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+  if (!token) {
+    console.error("No authentication token found. Please log in again.");
     return [];
   }
-}
+
+  const endpoint = `${BASE_URL}/admin/students/${studentId}/courses`;
+
+  try {
+    const { data } = await axios.get(endpoint, {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
+
+    console.log("Student Courses Data:", data);
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Error fetching student courses:", error.response?.status, error.response?.data || error.message);
+    return [];
+  }
+};

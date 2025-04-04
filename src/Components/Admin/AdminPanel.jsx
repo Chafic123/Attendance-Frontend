@@ -6,7 +6,7 @@ import AdminEditStudent from "./AdminEditStudent";
 import AdminEditInstructor from "./AdminEditInstructor"; // Import AdminEditInstructor
 import PropTypes from "prop-types";
 import "../../CSS/AdminPanel.css";
-
+import Calendar from "../Generals/CalenderForm";
 export default function AdminPanel(props) {
   const {
     title,
