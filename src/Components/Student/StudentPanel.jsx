@@ -6,6 +6,7 @@ import "../../CSS/SIPanel.css";
 import "../../CSS/SICalender.css";
 import "../../CSS/SI.css";
 import "../../CSS/Profile.css";
+import MachineLearning from "../Generals/MachineLearning";
 import { useState } from "react";
 import StudentRequestCorrection from "./StudentRequestCorrection";
 
@@ -53,6 +54,7 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 
   return title === "View Schedule" ? null : (
     <div className="panel-container">
+            <MachineLearning/>
       <div className="panel-content">
           <Calender setSelectedAttendance={setSelectedAttendance} setRequestCorrectionState={setRequestCorrectionState} />
           <StudentRequestCorrection selectedAttendance={selectedAttendance} requestCorrectionState={requestCorrectionState} />
