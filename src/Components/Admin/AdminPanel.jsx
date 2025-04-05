@@ -44,10 +44,10 @@ export default function AdminPanel(props) {
             onCancel={() => setEditedInstructor(null)} 
             setInstructors={props.setInstructors}
           />
-        ) : title === "View Courses" ? (
+        ) : title === "View Courses" || !title ? (
           <AdminAddCourse  setCourses={props.setCourses} />
           
-        ) : title === "View Students" || !title ? (
+        ) : title === "View Students"  ? (
           <AdminAddStudent  setStudents={props.setStudents} />
         ) : title === "View Instructors" ? (
           <AdminAddInstructor setInstructors={props.setInstructors} />

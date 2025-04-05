@@ -51,7 +51,7 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
   return (
     <div
       onClick={() => handleStudentClick(student.student_id)}
-      onDoubleClick={() => handleStudentDoubleClick(student.id)}
+      onDoubleClick={() => handleStudentDoubleClick(student.id, `${firstName} ${lastName}`)}
       className={`student-card`}
       style={{ position: "relative" }}
       ref={dropdownRef}

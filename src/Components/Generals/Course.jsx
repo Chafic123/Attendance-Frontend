@@ -12,7 +12,7 @@ import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 
-export default function Course({ courses,   setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
+export default function Course({ setCourseTitle,setStudents , courses,   setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
   const [filteredCourses, setFilteredCourses] = useState([]);
 
 
@@ -40,10 +40,10 @@ export default function Course({ courses,   setCourses, courseFilters, studentFi
 
 
 
-  const handleDoubleClick = async (courseId) => {
+  const handleDoubleClick = async (courseId,courseName) => {
     setCourseStudentID(courseId);
+    console.log("Double Clicked")
     setCourseId(courseId);
-
     if (userRole !== "instructor" && userRole !== "admin") {
       return;
     }
@@ -55,6 +55,8 @@ export default function Course({ courses,   setCourses, courseFilters, studentFi
       console.log("Course Students", students)
       setCourseStudents(students);
       setShowStudents(true);
+      setCourseTitle(courseName);
+      setStudents(students);
       setFilterTop("Course Students")
     } catch (error) {
       console.error("Failed to fetch students:", error);
@@ -69,6 +71,7 @@ export default function Course({ courses,   setCourses, courseFilters, studentFi
   const handleBackToCourses = () => {
     setEditedStudent(null)
     setFilterTop("Courses");
+    setCourseTitle("Courses");
     setShowStudents(false);
     setActiveStudent(null);
     setStudentId(null)
@@ -229,7 +232,6 @@ export default function Course({ courses,   setCourses, courseFilters, studentFi
     <div>
       <div className="CourseContainer">
 
-        {/* 👇 IF viewing courses */}
         {!showStudents && (
           <>
             {filteredCourses.map((course, index) => (
@@ -237,7 +239,7 @@ export default function Course({ courses,   setCourses, courseFilters, studentFi
                 className={`course ${activeIndex === index ? "activeCourse" : ""}`}
                 key={index}
                 onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
-                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id)}
+                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id,course.name)}
               >
                 <div className="courseDetails">
                   <div className="courseBorder"></div>

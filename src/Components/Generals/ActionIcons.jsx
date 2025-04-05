@@ -38,7 +38,6 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
 
   return (
     <div className="iconsParent">
-      {/* Search Input */}
       {showInput && (
         <input
           className="search-input visible"
@@ -49,10 +48,8 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
         />
       )}
 
-      {/* Show search & add icons based on dashboard selection */}
       {DashboardSelected !== "Notifications" && DashboardSelected !== "Schedule" && (
         <>
-          {/* Search Icon */}
           <img
             className="search-icon"
             src="../public/Images/Search-icon.png"
@@ -60,15 +57,7 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
             onClick={handleSearchClick}
           />
 
-          {/* Add Icon (Only for Admin) */}
-          {user === "Admin" && (
-            <img
-              className="add-icon"
-              src="../public/Images/Add-icon.png"
-              alt="Add Icon"
-              onClick={() => showAdminPanel(true)}
-            />
-          )}
+  
         </>
       )}
     </div>

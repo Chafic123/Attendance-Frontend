@@ -7,17 +7,23 @@ import PropTypes from "prop-types";
 import { getStudents } from "../../ApiService/StudentService";
 import { getInstructors } from "../../ApiService/InstructorService";
 import { getCourseStudents } from "../../ApiService/CourseService";
-import MainContentTopSI from "../Student/MainContentTopSI";
+import AdminMainContentTop from "../Admin/AdminMainContentTop";
 import { getStudentCourses } from "../../ApiService/CourseService";
 import { useCourse } from "../../Contexts/CourseContext";
+import AdminEnrollStudentsPopup from "./AdminEnrollStudentsPopup";
 
-export default function AdminMainContent({ setSelectedText,courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
+export default function AdminMainContent({ setSelectedText, courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
 
-  const [filteredStudentCourses, setFilteredStudentCourses] = useState([]); 
+  const [courseTitle, setCourseTitle] = useState("Courses");
+  const [studentTitle, setStudentTitle] = useState("Students");
+
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const [filteredStudentCourses, setFilteredStudentCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [studentCourses, setStudentCourses] = useState([])
 
@@ -33,19 +39,18 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
 
   // Testing
   // useEffect(() => {
-  //   console.log("studentCourseFilterOptions: ", studentCourseFilterOptions)
-  // }, [studentCourseFilterOptions]);
-
-  const handleCancelViewCourseStudents = () => {
-    setViewCourseStudents(false);
-    setSelectedCourseId(null);
-    setStudents([]);
-  };
+  //   console.log("viewCourseStudents: ", viewCourseStudents)
+  // }, [viewCourseStudents]);
 
 
-  const handleStudentDoubleClick = async (studentId) => {
+
+ 
+
+
+  const handleStudentDoubleClick = async (studentId, studentName) => {
     if (userRole != "admin") return;
     if (!studentId) return;
+    setStudentTitle(studentName);
     try {
       const courses = await getStudentCourses(studentId);
       setStudentCourses(courses);
@@ -60,17 +65,17 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
   const handleBackToStudents = () => {
     setStudentCourses([])
     setFilterTop("Courses");
+    setStudentTitle("Students");
     setSelectedText("View Students")
     setActiveIndex(null);
 
   };
 
- 
+
 
   useEffect(() => {
     let filtered = [...students];
 
-    // Apply filters only if there are filter options set
     if (studentFilterOptions?.studentID) {
       filtered = filtered.filter((student) =>
         student.student_id?.toString().includes(studentFilterOptions.studentID)
@@ -79,7 +84,7 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
 
     if (studentFilterOptions?.name) {
       filtered = filtered.filter((student) =>
-        `${student.user.first_name} ${student.user.last_name}`
+        `${student.first_name} ${student.last_name}`
           .toUpperCase()
           .includes(studentFilterOptions.name.toUpperCase())
       );
@@ -93,11 +98,11 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
 
     if (studentFilterOptions?.sort === "asc") {
       filtered.sort((a, b) =>
-        `${a.user.first_name} ${a.user.last_name}`.localeCompare(`${b.user.first_name} ${b.user.last_name}`)
+        `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`)
       );
     } else if (studentFilterOptions?.sort === "desc") {
       filtered.sort((a, b) =>
-        `${b.user.first_name} ${b.user.last_name}`.localeCompare(`${a.user.first_name} ${a.user.last_name}`)
+        `${b.first_name} ${b.last_name}`.localeCompare(`${a.first_name} ${a.last_name}`)
       );
     }
 
@@ -153,7 +158,7 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
         String(course.course_section) === String(studentCourseFilterOptions.section)
       );
     }
-    
+
 
     if (studentCourseFilterOptions?.sort === "asc") {
       filteredCourses.sort((a, b) => a.course_code.localeCompare(b.course_code));
@@ -208,7 +213,7 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
   }, [selectedDashboardITem]);
 
 
-  
+
   return (
     <>
       {selectedDashboardITem === "View Students" || selectedDashboardITem === "View Student Courses" ? (
@@ -221,14 +226,14 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
             display: "flex",
             flexDirection: "column",
             gap: "17px",
-            position: "relative",  
+            position: "relative",
           }}
         >
-          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Students" showAdminPanel={showAdminPanel} />
+          <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
           <AdminFilter studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
             <p>Loading students...</p>
-          ) : studentCourses.length === 0  ? (
+          ) : studentCourses.length === 0 ? (
             <div className="StudentContainer" style={{ display: "flex", flexWrap: "wrap" }}>
               {filteredStudents.length > 0 ? (
                 filteredStudents.map((student) => (
@@ -237,6 +242,7 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
                     student={student}
                     setEditedStudent={setEditedStudent}
                     handleStudentDoubleClick={handleStudentDoubleClick}
+
                   />
                 ))
               ) : (
@@ -283,7 +289,7 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
             </button>
           )}
         </div>
-      ) : selectedDashboardITem === "View Courses" && !viewCourseStudents  || !selectedDashboardITem ? (
+      ) : selectedDashboardITem === "View Courses" || !selectedDashboardITem ? (
         <div
           style={{
             width: "48%",
@@ -295,54 +301,11 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
             gap: "17px",
           }}
         >
-          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" />
+          <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={courseTitle} />
           <AdminFilter filterTop={filterTop} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
-            <Course  setStudentFilters={setStudentFilterOptions} courses={courses} setCourses={setCourses} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
+            <Course setCourseTitle={setCourseTitle} setStudents={setStudents} setViewCourseStudents={setViewCourseStudents} setStudentFilters={setStudentFilterOptions} courses={courses} setCourses={setCourses} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
           </div>
-
-        </div>
-      ) : selectedDashboardITem === "View Courses" && viewCourseStudents ? (
-        <div
-          style={{
-            width: "48%",
-            padding: "57px",
-            paddingBottom: "0",
-            borderRadius: "66px 0 0 66px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "17px",
-          }}
-        >
-          <MainContentTopSI
-            title="Enrolled Students"
-            showAdminPanel={showAdminPanel}
-          />
-          <AdminFilter  filterTop={filterTop} title="StudentFilter" />
-
-          {loading ? (
-            <p>Loading enrolled students...</p>
-          ) : (
-            <div className="courseStudentContainer">
-              <div className="StudentContainer">
-                {students.length > 0 ? (
-                  students.map((student) => (
-                    <StudentCard
-                      key={student.student_id}
-                      student={student}
-
-                    />
-                  ))
-                ) : (
-                  <p>No enrolled students found.</p>
-                )}
-              </div>
-
-              <button className="viewAdminCourses" onClick={handleCancelViewCourseStudents}>
-                Cancel
-              </button>
-            </div>
-          )}
 
         </div>
       ) : selectedDashboardITem === "View Instructors" ? (
@@ -357,8 +320,8 @@ export default function AdminMainContent({ setSelectedText,courses, setCourses, 
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Instructors" />
-          <AdminFilter  onInstructorFilterChange={setInstructorFilterOptions} title="InstructorFilter" />
+          <AdminMainContentTop title="Instructors" />
+          <AdminFilter onInstructorFilterChange={setInstructorFilterOptions} title="InstructorFilter" />
           {loading ? (
             <p>Loading instructors...</p>
           ) : (
