@@ -53,11 +53,11 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
     try {
       const students = await getCourseStudents(courseId);
       console.log("Course Students", students)
+      setFilterTop("Course Students")
       setCourseStudents(students);
       setShowStudents(true);
       setCourseTitle(courseName);
       setStudents(students);
-      setFilterTop("Course Students")
     } catch (error) {
       console.error("Failed to fetch students:", error);
     }
@@ -239,7 +239,7 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
                 className={`course ${activeIndex === index ? "activeCourse" : ""}`}
                 key={index}
                 onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
-                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id,course.name)}
+                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id,course.name || course.course_name)}
               >
                 <div className="courseDetails">
                   <div className="courseBorder"></div>

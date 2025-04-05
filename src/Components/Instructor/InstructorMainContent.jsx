@@ -11,6 +11,8 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
   const [courses, setCourses] = useState([]);
 
+  const [courseTitle, setCourseTitle] = useState("Courses");
+  
   return (
     <>
       {selectedDashboardITem === "View Courses" ? (
@@ -25,11 +27,11 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
             gap: "17px",
           }}
         >
-          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Courses" onAdd={onAdd} />
+          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title={courseTitle} onAdd={onAdd} />
           <div>
             <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
           </div>
-          <Course courses={courses} setCourses={setCourses} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
+          <Course setCourseTitle={setCourseTitle} courses={courses} setCourses={setCourses} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
