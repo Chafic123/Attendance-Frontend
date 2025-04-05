@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../ApiService/LogoutService";
 
-export default function Dashboard({ DashboardItems, onItemClick }) {
+export default function Dashboard({ DashboardItems, onItemClick , isAdmin , onProcessCLicked }) {
   const navigate = useNavigate();
 
   const handleLogOutClick = async () => {
@@ -33,6 +33,16 @@ export default function Dashboard({ DashboardItems, onItemClick }) {
           <p>{item.text}</p>
         </div>
       ))}
+
+      {isAdmin === "true" ? (
+      <div
+      className="dashboard-item"
+      onClick={() => onProcessCLicked("Process Attendance")}
+    >
+      <p>Process Attendance</p>
+      </div>
+      ) : null}
+
       <div id="logout">
         <Icon className="logout-icon">logout</Icon>
         <p className="logout-text" onClick={handleLogOutClick}>

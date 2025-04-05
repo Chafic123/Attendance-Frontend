@@ -6,6 +6,8 @@ import "../CSS/AdminPage.css"
 import ProfileTop from "../Components/Generals/ProfileTop";
 export default function Admin() {
   const [selectedText, setSelectedText] = useState(null);
+  const [processText, setProcessText] = useState(null);
+
   const DashboardItems = [
     {
       imgSrc: "../public/Images/Student-icon.png",
@@ -31,11 +33,15 @@ export default function Admin() {
     setSelectedText(text);
   };
 
+  const handleProcessClick = (text) => {
+    setProcessText(text);
+  };
+
   return (
     <div className="AdminPage">
       <Logo />
-      <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
-      <AdminWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText}/>
+      <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} isAdmin={"true"} onProcessCLicked={handleProcessClick}/>
+      <AdminWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText} ProcessAttendance={processText}/>
     </div>
   );
 }
