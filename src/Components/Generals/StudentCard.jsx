@@ -2,15 +2,19 @@ import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@mui/material";
 import { useStudent } from "../../Contexts/getClickedStudentID";
-export default function StudentCard({ student, setEditedStudent, hideIcon, setActiveStudent,handleStudentDoubleClick }) {
+import { useCourse } from "../../Contexts/CourseContext";
+import { removeCourseStudent } from "../../ApiService/AdminStudentService";
+
+export default function StudentCard({ student, setEditedStudent, hideIcon, setActiveStudent, handleStudentDoubleClick }) {
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const { setStudentId } = useStudent();
+  const { courseId } = useCourse();
 
   const handleStudentClick = (id) => {
     setStudentId(id);
-    if(userRole!="admin"){
-    setActiveStudent(student);
-  }
+    if (userRole != "admin") {
+      setActiveStudent(student);
+    }
   };
 
   const dropdownRef = useRef(null);
@@ -21,6 +25,17 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
   const studentId = userRole === "admin"
     ? student.student_id || "N/A"
     : student.Uni_id || "N/A";
+
+
+  const handleDeleteStudent = async (studentId) => {
+    const result = await removeCourseStudent(courseId, studentId);
+    if (result.success) {
+      alert("Student removed from course successfully.");
+    } else {
+      alert(result.message || "Failed to remove student.");
+    }
+  };
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -46,7 +61,7 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
           src={student.image ? student.image : "../../Images/Profile Icon BG.png"} alt="Student"
           style={{ width: "4vw", height: "4vw", borderRadius: "50%" }}
         />
-        <div className="student-text">  
+        <div className="student-text">
           <p className="student-name">{`${firstName} ${lastName}`}</p>
           <p className="student-major">{student.major || "N/A"}</p>
           <p className="student-id">{studentId}</p>
@@ -113,6 +128,8 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);
+                  handleDeleteStudent(student.id);  
+
                 }}
               >
                 Delete

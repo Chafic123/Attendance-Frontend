@@ -6,7 +6,7 @@ import AdminEditStudent from "./AdminEditStudent";
 import AdminEditInstructor from "./AdminEditInstructor";
 import PropTypes from "prop-types";
 import "../../CSS/AdminPanel.css";
-
+import Calendar from "../Generals/CalenderForm";
 export default function AdminPanel(props) {
   const {
     title,
@@ -46,10 +46,13 @@ export default function AdminPanel(props) {
           />
         ) : title === "View Courses" ? (
           <AdminAddCourse  setCourses={props.setCourses} />
-        ) : title === "View Students" ? (
+          
+        ) : title === "View Students" || !title ? (
           <AdminAddStudent  setStudents={props.setStudents} />
         ) : title === "View Instructors" ? (
           <AdminAddInstructor setInstructors={props.setInstructors} />
+        ) : title === "View Student Courses" ? (
+          <Calendar />
         ) : null
       }
     </div>

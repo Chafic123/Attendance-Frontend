@@ -10,6 +10,12 @@ export default function Admin() {
 
   const DashboardItems = [
     {
+      imgSrc: "../public/Images/Course-icon.png",
+      altText: "Course Icon",
+      text: "View Courses",
+      id: "course-navigate",
+    },
+    {
       imgSrc: "../public/Images/Student-icon.png",
       altText: "Student Icon",
       text: "View Students",
@@ -21,12 +27,7 @@ export default function Admin() {
       text: "View Instructors",
       id: "instructor-navigate",
     },
-    {
-      imgSrc: "../public/Images/Course-icon.png",
-      altText: "Course Icon",
-      text: "View Courses",
-      id: "course-navigate",
-    },
+
   ];
 
   const handleItemClick = (text) => {
@@ -41,7 +42,7 @@ export default function Admin() {
     <div className="AdminPage">
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} isAdmin={"true"} onProcessCLicked={handleProcessClick}/>
-      <AdminWholeContent selectedDashboardITem={selectedText} selectedAddItem={selectedText} ProcessAttendance={processText}/>
+      <AdminWholeContent selectedDashboardITem={selectedText} setSelectedText={setSelectedText} selectedAddItem={selectedText} setProcessText={setProcessText} ProcessAttendance={processText}/>
     </div>
   );
 }

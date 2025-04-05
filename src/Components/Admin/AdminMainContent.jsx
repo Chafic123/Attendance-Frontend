@@ -11,7 +11,7 @@ import MainContentTopSI from "../Student/MainContentTopSI";
 import { getStudentCourses } from "../../ApiService/CourseService";
 import { useCourse } from "../../Contexts/CourseContext";
 
-export default function AdminMainContent({ courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
+export default function AdminMainContent({ setSelectedText,courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
@@ -49,6 +49,7 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
     try {
       const courses = await getStudentCourses(studentId);
       setStudentCourses(courses);
+      setSelectedText("View Student Courses")
       console.log("Student ID: ", studentId, "Courses: ", courses)
     } catch (error) {
       console.error("Failed to fetch student courses:", error);
@@ -59,31 +60,12 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
   const handleBackToStudents = () => {
     setStudentCourses([])
     setFilterTop("Courses");
+    setSelectedText("View Students")
     setActiveIndex(null);
 
   };
 
-  useEffect(() => {
-    setViewCourseStudents(false);
-
-    if (selectedDashboardITem === "View Students") {
-      setLoading(true);
-      getStudents()
-        .then((data) => {
-          setStudents(data);
-          setFilteredStudents(data);
-        })
-        .catch((err) => console.error("Failed to fetch students:", err))
-        .finally(() => setLoading(false));
-    } else if (selectedDashboardITem === "View Instructors") {
-      setLoading(true);
-      getInstructors()
-        .then(setInstructors)
-        .catch((err) => console.error("Failed to fetch instructors:", err))
-        .finally(() => setLoading(false));
-    }
-  }, [selectedDashboardITem]);
-
+ 
 
   useEffect(() => {
     let filtered = [...students];
@@ -203,9 +185,33 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
     }
   };
 
+
+  useEffect(() => {
+    setViewCourseStudents(false);
+
+    if (selectedDashboardITem === "View Students") {
+      setLoading(true);
+      getStudents()
+        .then((data) => {
+          setStudents(data);
+          setFilteredStudents(data);
+        })
+        .catch((err) => console.error("Failed to fetch students:", err))
+        .finally(() => setLoading(false));
+    } else if (selectedDashboardITem === "View Instructors") {
+      setLoading(true);
+      getInstructors()
+        .then(setInstructors)
+        .catch((err) => console.error("Failed to fetch instructors:", err))
+        .finally(() => setLoading(false));
+    }
+  }, [selectedDashboardITem]);
+
+
+  
   return (
     <>
-      {selectedDashboardITem === "View Students" ? (
+      {selectedDashboardITem === "View Students" || selectedDashboardITem === "View Student Courses" ? (
         <div
           style={{
             width: "48%",
@@ -220,10 +226,9 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
         >
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Students" showAdminPanel={showAdminPanel} />
           <AdminFilter studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
-
           {loading ? (
             <p>Loading students...</p>
-          ) : studentCourses.length === 0 ? (
+          ) : studentCourses.length === 0  ? (
             <div className="StudentContainer" style={{ display: "flex", flexWrap: "wrap" }}>
               {filteredStudents.length > 0 ? (
                 filteredStudents.map((student) => (
@@ -278,7 +283,7 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
             </button>
           )}
         </div>
-      ) : selectedDashboardITem === "View Courses" && !viewCourseStudents ? (
+      ) : selectedDashboardITem === "View Courses" && !viewCourseStudents  || !selectedDashboardITem ? (
         <div
           style={{
             width: "48%",
@@ -313,7 +318,7 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
             title="Enrolled Students"
             showAdminPanel={showAdminPanel}
           />
-          <AdminFilter filterTop={filterTop} title="StudentFilter" />
+          <AdminFilter  filterTop={filterTop} title="StudentFilter" />
 
           {loading ? (
             <p>Loading enrolled students...</p>
@@ -353,7 +358,7 @@ export default function AdminMainContent({ courses, setCourses, instructors, set
           }}
         >
           <MainContentTopSI title="Instructors" />
-          <AdminFilter onInstructorFilterChange={setInstructorFilterOptions} title="InstructorFilter" />
+          <AdminFilter  onInstructorFilterChange={setInstructorFilterOptions} title="InstructorFilter" />
           {loading ? (
             <p>Loading instructors...</p>
           ) : (

@@ -157,8 +157,11 @@ const AdminFilter = (props) => {
         </>
       ) : props.title === "StudentFilter" ? (
         <>
-          {props.studentCourses.length > 0 ? (
+ 
+          {props.studentCourses && props.studentCourses.length > 0 ? (
+            
             <>
+
               <input
                 type="text"
                 value={studentCoursesFilterCode}

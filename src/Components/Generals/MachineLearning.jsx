@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "../../CSS/MachineLearning.css";
 
-export default function MachineLearning (){
+export default function MachineLearning() {
   const [courseSessions, setCourseSessions] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('');
   const [selectedSection, setSelectedSection] = useState('');
@@ -44,7 +45,7 @@ export default function MachineLearning (){
     e.preventDefault();
     setError(null);
     setResult(null);
-    
+
     if (!selectedCourse || !selectedSection || !videoFile) {
       setError('Please select course, section, and upload a video');
       return;
@@ -60,8 +61,8 @@ export default function MachineLearning (){
       formData.append('video', videoFile);
 
       const selectedSession = courseSessions.find(
-        session => session.course_name === selectedCourse && 
-                  session.course_section === selectedSection
+        session => session.course_name === selectedCourse &&
+          session.course_section === selectedSection
       );
 
       if (selectedSession) {
@@ -94,113 +95,116 @@ export default function MachineLearning (){
   };
 
   return (
-    <div>
-      <h2>Process Attendance</h2>
-      
-      {error && (
-        <div>
-          {error}
-        </div>
-      )}
-      
-      {result && (
-        <div>
-          <h3>Attendance Results:</h3>
-          <p>Recognized: {result.recognized_count}/{result.total_students} students</p>
-          <p>Session ID: {result.session_id}</p>
-          {result.recognized_students && result.recognized_students.length > 0 && (
-            <>
-              <p>Recognized IDs:</p>
-              <ul>
-                {result.recognized_students.map((student, index) => (
-                  <li key={index}>{student}</li>
-                ))}
-              </ul>
-            </>
+    <div className="ml-container">
+      <div className="ml-card">
+        <div className="ml-card-body">
+          <h2 className="ml-title">
+            Process Attendance
+          </h2>
+
+          {error && (
+            <div className="ml-alert ml-alert-error">{error}</div>
           )}
-        </div>
-      )}
-  
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <label>
-              Course:
-            </label>
-            <select
-              value={selectedCourse}
-              onChange={(e) => {
-                setSelectedCourse(e.target.value);
-                setSelectedSection('');
-              }}
-              required
-            >
-              <option value="">Select a Course</option>
-              {getUniqueCourseNames().map((courseName, index) => (
-                <option key={index} value={courseName}>
-                  {courseName}
-                </option>
-              ))}
-            </select>
-          </div>
-  
-          <div className="flex-1">
-            <label>
-              Section:
-            </label>
-            <select
-              value={selectedSection}
-              onChange={(e) => setSelectedSection(e.target.value)}
-              required
-              disabled={!selectedCourse}
-            >
-              <option value="">{selectedCourse ? "Select a Section" : "Select a Course first"}</option>
-              {selectedCourse && getSectionsForCourse().map(({section, date}, index) => (
-                <option key={index} value={section}>
-                  {section} ({date})
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-  
-        <div>
-          <label>
-            Upload Video:
-          </label>
-          <input
-            type="file"
-            accept="video/*"
-            onChange={(e) => setVideoFile(e.target.files[0])}
-            required
-          />
-        </div>
-  
-        {isProcessing && (
-          <div>
-            <div>
-              <div
-                style={{ width: `${progress}%` }}
-              ></div>
+
+          {result && (
+            <div className="ml-alert ml-alert-success">
+              <h5>Attendance Results:</h5>
+              <p><strong>Recognized:</strong> {result.recognized_count}/{result.total_students} students</p>
+              <p><strong>Session ID:</strong> {result.session_id}</p>
+              {result.recognized_students?.length > 0 && (
+                <>
+                  <p><strong>Recognized IDs:</strong></p>
+                  <ul className="ml-student-list">
+                    {result.recognized_students.map((student, index) => (
+                      <li key={index}>{student}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </div>
-            <p>
-              {progress < 100 ? "Processing..." : "Finalizing..."}
-            </p>
-          </div>
-        )}
-  
-        <button
-          type="submit"
-          disabled={isProcessing}
-          className={`w-full py-2 px-4 rounded text-white font-medium ${
-            isProcessing
-              ? "bg-blue-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
-        >
-          {isProcessing ? "Processing..." : "Process Attendance"}
-        </button>
-      </form>
+          )}
+
+          <form onSubmit={handleSubmit} className="ml-form">
+            <div className="ml-form-group">
+              <label className="ml-label">Course:</label>
+              <select
+                className="ml-select"
+                value={selectedCourse}
+                onChange={(e) => {
+                  setSelectedCourse(e.target.value);
+                  setSelectedSection('');
+                }}
+                required
+              >
+                <option value="">Select a Course</option>
+                {getUniqueCourseNames().map((courseName, index) => (
+                  <option key={index} value={courseName}>
+                    {courseName}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="ml-form-group ml-section-group">
+              <label className="ml-label">Section:</label>
+              <select
+                className="ml-select"
+                value={selectedSection}
+                onChange={(e) => setSelectedSection(e.target.value)}
+                required
+                disabled={!selectedCourse}
+              >
+                <option value="">
+                  {selectedCourse ? "Select a Section" : "Select a Course first"}
+                </option>
+                {selectedCourse && getSectionsForCourse().map(({ section, date }, index) => (
+                  <option key={index} value={section}>
+                    {section} ({date})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="ml-form-group">
+              <label className="ml-label">Upload Video:</label>
+              <input
+                type="file"
+                className="ml-file-input"
+                accept="video/*"
+                onChange={(e) => setVideoFile(e.target.files[0])}
+                required
+              />
+            </div>
+
+            {isProcessing && (
+              <div className="ml-progress-container">
+                <div className="ml-progress">
+                  <div
+                    className="ml-progress-bar"
+                    style={{ width: `${progress}%` }}
+                  >
+                    {progress}%
+                  </div>
+                </div>
+                <p className="ml-progress-text">
+                  {progress < 100 ? "Processing..." : "Finalizing..."}
+                </p>
+              </div>
+            )}
+
+            <div className="ml-button-container">
+              <button
+                type="submit"
+                className="ml-button"
+                disabled={isProcessing}
+              >
+                {isProcessing ? "Processing..." : "Process Attendance"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
+  
 };

@@ -122,4 +122,40 @@ export const enrollStudents = async (studentIds, courseId) => {
   
   
 }
+
+
   
+
+export const removeCourseStudent = async (courseId, studentId) => {
+  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  console.log("Removing student:", studentId, "from course:", courseId);
+
+  try {
+    const response = await fetch(`${BASE_URL}/courses/${courseId}/students/${studentId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP error ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data: data,
+      message: data.message || 'Student removed successfully from the course.'
+    };
+
+  } catch (error) {
+    console.error('Error');
+    return {
+      success: false,
+      message: error.message || 'Failed to remove student from the course.'
+    };
+  }
+};
