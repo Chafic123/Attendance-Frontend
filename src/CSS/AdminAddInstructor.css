@@ -12,6 +12,7 @@
     margin-bottom: 15px;
 }
 
+
 .add-instructor-form {
     width: 90%;
     gap: 30px;
@@ -46,7 +47,20 @@
     color: #47494D;
     font-weight: 400;
 }
+.form-instructor-group #department_id{
+    
+    width: 75%;
+    padding: 10px 12px;
+    border: 1px solid #4A2B99;
+    background-color: rgb(245, 243, 253);
+    border-radius: 15px;
+    font-size: 14px;
+    outline: none;
+    color: #47494D;
+    font-weight: 400;
 
+
+}
 
 .form-instructor-row .form-instructor-group {
     width: 45%;

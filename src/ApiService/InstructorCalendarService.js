@@ -35,11 +35,12 @@ export const getInstructorStudentCourseCalendar = async (courseId, studentId) =>
       if (!token) {
         throw new Error('No authorization token found');
       }
-      console.log("Auth Token: ", token)
+
       console.log("Student ID: ", studentId)
-  
+      console.log("Course ID: ", courseId)
+
       const response = await axios.get(
-        `${BASE_URL}/instructor/students/${studentId}/courses/${courseId}`, 
+        `${BASE_URL}/instructor/students/${studentId}/courses/${courseId}/calender`, 
         {
           headers: {
             'Authorization': `Bearer ${token}`, 

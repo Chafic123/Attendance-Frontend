@@ -3,44 +3,50 @@ import { Icon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../ApiService/LogoutService";
-
-export default function Dashboard({ DashboardItems, onItemClick , isAdmin , onProcessCLicked }) {
+import { useEffect } from "react";
+export default function Dashboard({ DashboardItems, onItemClick, isAdmin, onProcessCLicked, selectedItem, setSelectedText }) {
   const navigate = useNavigate();
 
+
+
+  
+  
   const handleLogOutClick = async () => {
     try {
       const response = await logoutUser();
       console.log(response.message);
-  
+
       localStorage.removeItem("authToken");
       sessionStorage.removeItem("authToken");
-  
+
       navigate("/", { replace: true });
     } catch (error) {
       alert(error.message || "Logout failed.");
     }
   };
-  
+
   return (
     <div id="dashboard">
       {DashboardItems.map((item, index) => (
         <div
-          className="dashboard-item"
           key={index}
-          onClick={() => onItemClick(item.text)}
+          className={`dashboard-item ${selectedItem === item.text ? 'active' : ''}`}
+          onClick={(e) => onItemClick(item.text, e)}
         >
           <img src={item.imgSrc} alt={item.altText} />
           <p>{item.text}</p>
+          <div className="white-line"></div>
         </div>
       ))}
+  
 
       {isAdmin === "true" ? (
-      <div
-      className="dashboard-item"
-      onClick={() => onProcessCLicked("Process Attendance")}
-    >
-      <p>Process Attendance</p>
-      </div>
+        <div
+          className="dashboard-item"
+          onClick={() => onProcessCLicked("Process Attendance")}
+        >
+          <p>Process Attendance</p>
+        </div>
       ) : null}
 
       <div id="logout">

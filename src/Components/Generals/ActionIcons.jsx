@@ -37,30 +37,31 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
   };
 
   return (
-    <div className="iconsParent">
-      {showInput && (
-        <input
-          className="search-input visible"
-          type="text"
-          placeholder="Search by course name..."
-          value={filterName}
-          onChange={handleNameChange}
-        />
-      )}
+    null
+    // <div className="iconsParent">
+    //   {showInput && (
+    //     <input
+    //       className="search-input visible"
+    //       type="text"
+    //       placeholder="Search by course name..."
+    //       value={filterName}
+    //       onChange={handleNameChange}
+    //     />
+    //   )}
 
-      {DashboardSelected !== "Notifications" && DashboardSelected !== "Schedule" && (
-        <>
-          <img
-            className="search-icon"
-            src="../public/Images/Search-icon.png"
-            alt="Search Icon"
-            onClick={handleSearchClick}
-          />
+    //   {DashboardSelected !== "Notifications" && DashboardSelected !== "Schedule" && (
+    //     <>
+    //       <img
+    //         className="search-icon"
+    //         src="../public/Images/Search-icon.png"
+    //         alt="Search Icon"
+    //         onClick={handleSearchClick}
+    //       />
 
   
-        </>
-      )}
-    </div>
+    //     </>
+    //   )}
+    // </div>
   );
 }
 

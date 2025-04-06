@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getUserDetails } from "../ApiService/ProfileService"; // adjust to your file structure
+import { getUserDetails } from "../ApiService/ProfileService"; 
 
 const UserContext = createContext();
 

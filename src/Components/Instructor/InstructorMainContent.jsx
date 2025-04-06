@@ -15,7 +15,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
   
   return (
     <>
-      {selectedDashboardITem === "View Courses" ? (
+      {selectedDashboardITem === "View Courses" || !selectedDashboardITem ? (
         <div
           style={{
             width: "48%",
@@ -65,23 +65,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
           <InstructorNotificationCenter />
         </div>
       ) : (
-        <div
-          style={{
-            width: "48%",
-            padding: "57px",
-            paddingBottom: "0",
-            borderRadius: "66px 0 0 66px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "17px",
-          }}
-        >
-          <MainContentTopSI  onCourseFilterChange={setCourseFilterOptions} title="Courses" onAdd={onAdd} />
-          <div>
-            <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
-          </div>
-          <Course courses={courses} setCourses={setCourses} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
-        </div>
+        null
       )}
     </>
   );

@@ -5,6 +5,7 @@ export default function InstructorFilter({ onCourseFilterChange, onStudentFilter
   const [filterCode, setFilterCode] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [filterSection, setSection] = useState("");
+  const [courseName, setCourseName] = useState("")
 
   const [studentName, setStudentName] = useState("");
   const [studentId, setStudentId] = useState("");
@@ -24,20 +25,29 @@ export default function InstructorFilter({ onCourseFilterChange, onStudentFilter
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
-    onCourseFilterChange({ code: value, sort: sortOrder, name: "", section: filterSection });
-  };
+    onCourseFilterChange({ code: value, sort: sortOrder, name: courseName, section: filterSection });
+};
 
-  const handleSortChange = (event) => {
-    const value = event.target.value;
-    setSortOrder(value);
-    onCourseFilterChange({ code: filterCode, sort: value, name: "", section: filterSection });
-  };
+const handleCourseNameChange = (event) => {
+  const value = event.target.value;
+  setCourseName(value);
+  onCourseFilterChange({ code: filterCode, sort: sortOrder, name: value, section: filterSection });
+};
 
-  const handleSectionChange = (event) => {
-    const value = event.target.value;
-    setSection(value);
-    onCourseFilterChange({ code: filterCode, sort: sortOrder, name: "", section: value });
-  };
+
+const handleSortChange = (event) => {
+  const value = event.target.value;
+  setSortOrder(value);
+  onCourseFilterChange({ code: filterCode, sort: value, name: courseName, section: filterSection });
+};
+
+
+const handleSectionChange = (event) => {
+  const value = event.target.value;
+  setSection(value);
+  onCourseFilterChange({ code: filterCode, sort: sortOrder, name: courseName, section: value });
+};
+
 
   const handleCourseStudentNameChange = (event) => {
     const value = event.target.value;
@@ -73,6 +83,13 @@ export default function InstructorFilter({ onCourseFilterChange, onStudentFilter
           />
           <input
             type="text"
+            value={courseName}
+            onChange={handleCourseNameChange} 
+            placeholder="Name"
+            className="codeInput"
+          />
+          <input
+            type="text"
             value={filterSection}
             onChange={handleSectionChange}
             placeholder="Section"
@@ -88,7 +105,7 @@ export default function InstructorFilter({ onCourseFilterChange, onStudentFilter
 
       {filterTop === "Course Students" && (
         <>
-           <input
+          <input
             type="text"
             value={studentId}
             onChange={handleCourseStudentIdChange}

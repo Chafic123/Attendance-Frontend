@@ -31,3 +31,23 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
         throw error.response?.data || 'Something went wrong!';
     }
 };
+
+
+export const resetPassword = async (personal_email) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/password/reset`, { personal_email }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      });
+  
+      console.log("Reset Password Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Reset Password Error:", error.response?.data || error.message);
+      throw error.response?.data || 'Something went wrong!';
+    }
+  };
+
+  

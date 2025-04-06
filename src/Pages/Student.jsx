@@ -7,10 +7,30 @@ import "../CSS/SI.css";
 
 export default function Student({ refreshProfile, user, viewProfile, viewPanel, viewPanelIphone }) {
   const [selectedText, setSelectedText] = useState(null);
+
   useEffect(() => {
     refreshProfile();
-}, []);
-  const handleItemClick = (text) => {
+  }, []);
+
+
+  useEffect(() => {
+    const firstItem = document.querySelectorAll('.dashboard-item')[0];
+    
+    if (firstItem) {
+      firstItem.classList.add('active'); 
+      setSelectedText(firstItem.textContent); 
+    }
+  
+  }, []);
+  
+
+  const handleItemClick = (text, event) => {
+    document.querySelectorAll('.dashboard-item').forEach((el) => {
+      el.classList.remove('active');
+    });
+
+    event.currentTarget.classList.add('active');
+
     setSelectedText(text);
   };
 
@@ -22,14 +42,13 @@ export default function Student({ refreshProfile, user, viewProfile, viewPanel, 
 
 
 
-  /*To link Student Profile and Profile Top*/
 
 
   return (
     <div className="whole-container">
       <ProfileTop refreshProfile={refreshProfile} user={user} viewProfile={viewProfile} />
       <Logo />
-      <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
+      <Dashboard setSelectedText={setSelectedText} selectedAddItem={selectedText} DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <StudentWholeContent
         refreshProfile={refreshProfile}
         viewPanel={viewPanel}

@@ -1,23 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Dashboard from "../Components/Generals/Dashboard";
 import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import InstructorWholeContent from "../Components/Instructor/InstructorWholeContent";
 import "../CSS/SI.css"
 
-import { useEffect } from "react";
-export default function Instructor({refreshProfile,user,viewProfile,viewPanel}) {
+export default function Instructor({ refreshProfile, user, viewProfile, viewPanel }) {
+
   useEffect(() => {
     refreshProfile();
-}, []);
+  }, []);
+
   const handleAdd = () => {
     console.log("View Profile")
     const panel = document.querySelector('.panel-container');
     if (panel) {
-      panel.style.display = 'flex'; // Show the container (or use block depending on layout)
+      panel.style.display = 'flex';
       setTimeout(() => {
-        panel.classList.add('visible'); // Add the visible class for opacity/transform
-      }, 10); // Small delay to ensure the transition applies
+        panel.classList.add('visible');
+      }, 10);
     }
     console.log("Add clicked");
   };
@@ -43,22 +44,32 @@ export default function Instructor({refreshProfile,user,viewProfile,viewPanel}) 
     },
   ];
 
-  const handleItemClick = (text) => {
+  const handleItemClick = (text, event) => {
+    document.querySelectorAll('.dashboard-item').forEach((el) => {
+      el.classList.remove('active');
+    });
+  
+    event.currentTarget.classList.add('active');
+  
     setSelectedText(text);
   };
+  
+
 
   return (
     <div className="whole-container"
     >
       <ProfileTop viewProfile={viewProfile} refreshProfile={refreshProfile} user={user} onAdd={handleAdd} />
+      {console.log("Userrrr", user)}
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <InstructorWholeContent
-      viewPanel={viewPanel}
-      refreshProfile={refreshProfile} 
-      onAdd={handleAdd} 
-      selectedDashboardITem={selectedText} 
-      selectedAddItem={selectedText} />
+        viewPanel={viewPanel}
+        refreshProfile={refreshProfile}
+        onAdd={handleAdd}
+        selectedDashboardITem={selectedText}
+        selectedAddItem={selectedText} />
+
     </div>
   );
 }

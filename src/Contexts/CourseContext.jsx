@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Create a context with default value
 const CourseContext = createContext();
 
-// Create a provider component
 export const CourseProvider = ({ children }) => {
   const [courseId, setCourseId] = useState(null);
 
@@ -14,5 +12,4 @@ export const CourseProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the course context
 export const useCourse = () => useContext(CourseContext);

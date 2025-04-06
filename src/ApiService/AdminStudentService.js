@@ -23,8 +23,7 @@ export const editStudent = async (studentId, studentData) => {
         email: studentData.email,
         phone: generateRandomPhoneNumber(),
         major: studentData.major,
-        // department: studentData.department,
-        department: "Business",
+        department_id: studentData.department_id,
     },
       {
         headers: {
@@ -53,7 +52,6 @@ export const addStudent = async (studentData) => {
 
   const newStudent = {
     ...studentData,
-    department_id: "2", 
     phone_number: generateRandomPhoneNumber(),
   };
 

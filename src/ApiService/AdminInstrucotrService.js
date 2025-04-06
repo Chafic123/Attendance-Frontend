@@ -16,7 +16,6 @@ export const addInstructor = async (instructorData) => {
   const newInstructor = {
     ...instructorData,
     phone_number: generateRandomPhoneNumber(),
-    department_id: "2",
   };
 
   try {

@@ -12,9 +12,10 @@ import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 
-export default function Course({ setCourseTitle,setStudents , courses,   setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
-  const [filteredCourses, setFilteredCourses] = useState([]);
-
+export default function Course({ studentCourseFilters,setCourseTitle,setStudents , courses,   setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
+  const [allCourses, setAllCourses] = useState([]); // To store the original list of courses
+  const [filteredCourses, setFilteredCourses] = useState([]); // To store the filtered list
+  const [filteredStudentCourses, setFilteredStudentCourses] = useState([]);
 
   const [courseStudentID, setCourseStudentID] = useState("")
 
@@ -40,7 +41,7 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
 
 
 
-  const handleDoubleClick = async (courseId,courseName) => {
+  const handleDoubleClick = async (courseId,courseName,courseSection) => {
     setCourseStudentID(courseId);
     console.log("Double Clicked")
     setCourseId(courseId);
@@ -56,7 +57,7 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
       setFilterTop("Course Students")
       setCourseStudents(students);
       setShowStudents(true);
-      setCourseTitle(courseName);
+      setCourseTitle(`${courseName} - S${courseSection}`);
       setStudents(students);
     } catch (error) {
       console.error("Failed to fetch students:", error);
@@ -112,8 +113,8 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
       try {
         const courseData = await getCourses();
         setCourses(Array.isArray(courseData) ? courseData : []);
-        setFilteredCourses(Array.isArray(courseData) ? courseData : []);
-        console.log("Courses: ", courses)
+        setAllCourses(Array.isArray(courseData) ? courseData : []);
+        setFilteredCourses(Array.isArray(courseData) ? courseData : [])
       } catch (error) {
         console.error("Failed to fetch courses:", error);
       } finally {
@@ -128,7 +129,6 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
   useEffect(() => {
     let filtered = [...courses];
 
-    // Filter by course code
     if (courseFilters?.code) {
       filtered = filtered.filter(course =>
       (course.course_code?.toUpperCase().includes(courseFilters.code.toUpperCase()) ||
@@ -173,6 +173,49 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
   }, [courses, courseFilters]);
 
 
+  //test 
+  useEffect(() => {
+    let filtered = [...allCourses];
+  
+    if (studentCourseFilters?.code) {
+      filtered = filtered.filter(course =>
+        (course.course_code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase()) ||
+          course.Code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase()))
+      );
+    }
+  
+    if (studentCourseFilters?.name) {
+      filtered = filtered.filter(course =>
+        (String(course.name).toUpperCase().includes(studentCourseFilters.name.toUpperCase()) ||
+          String(course.course_name).toUpperCase().includes(studentCourseFilters.name.toUpperCase()))
+      );
+    }
+  
+    if (studentCourseFilters?.section) {
+      filtered = filtered.filter(course =>
+        String(course.Section) === String(studentCourseFilters.section) ||
+        String(course.course_section) === String(studentCourseFilters.section)
+      );
+    }
+  
+    if (studentCourseFilters?.sort === "asc") {
+      filtered.sort((a, b) => {
+        const aName = String(a.name || a.course_name).toLowerCase();
+        const bName = String(b.name || b.course_name).toLowerCase();
+        return aName.localeCompare(bName);
+      });
+    } else if (studentCourseFilters?.sort === "desc") {
+      filtered.sort((a, b) => {
+        const aName = String(a.name || a.course_name).toLowerCase();
+        const bName = String(b.name || b.course_name).toLowerCase();
+        return bName.localeCompare(aName);
+      });
+    }
+  
+    setFilteredCourses(filtered);
+  }, [studentCourseFilters]);
+
+  
   useEffect(() => {
     let filteredStudents = [...courseStudents];
     console.log("Original Students: ", courseStudents);
@@ -239,7 +282,7 @@ export default function Course({ setCourseTitle,setStudents , courses,   setCour
                 className={`course ${activeIndex === index ? "activeCourse" : ""}`}
                 key={index}
                 onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
-                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id,course.name || course.course_name)}
+                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id,course.name || course.course_name,course.course_section || course.Section)}
               >
                 <div className="courseDetails">
                   <div className="courseBorder"></div>

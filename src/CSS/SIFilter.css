@@ -12,6 +12,7 @@
     font-weight: bold;
     color: #000;
     font-size: 16.667px;
+    white-space: nowrap;
 }
 .codeInput{
     width: 18.5%;

@@ -50,8 +50,14 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
   }, []);
   return (
     <div
-      onClick={() => handleStudentClick(student.student_id)}
-      onDoubleClick={() => handleStudentDoubleClick(student.id, `${firstName} ${lastName}`)}
+      onClick={() => {
+        if (userRole === 'admin') {
+          handleStudentClick(student.id);
+        } else {
+          handleStudentClick(student.student_id); 
+        }
+      }}
+      onDoubleClick={() => handleStudentDoubleClick(student.id, `${firstName} ${lastName}`, studentId)}
       className={`student-card`}
       style={{ position: "relative" }}
       ref={dropdownRef}
@@ -128,7 +134,7 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);
-                  handleDeleteStudent(student.id);  
+                  handleDeleteStudent(student.id);
 
                 }}
               >

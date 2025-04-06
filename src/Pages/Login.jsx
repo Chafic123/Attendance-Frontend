@@ -2,14 +2,22 @@ import Logo from "../Components/Generals/Logo";
 import "../CSS/Login.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { loginUser } from "../ApiService/LoginService"; // from LoginService.js
-
+import { loginUser } from "../ApiService/LoginService";
+import { resetPassword } from "../ApiService/LoginService";
 export default function Login() {
+
   const [identifier, setidentifier] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+
+
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotError, setForgotError] = useState("");
+
+
 
   const handleLoginClick = async () => {
     if (!identifier || !password) {
@@ -27,6 +35,8 @@ export default function Login() {
             navigate("/admin");
           } else if (response.user.status === "Instructor") {
             navigate("/instructor");
+            window.location.reload();
+
           } else {
             navigate("/student");
           }
@@ -42,6 +52,47 @@ export default function Login() {
   return (
     <div className="login-container">
       <Logo />
+
+      {showForgotPassword && (
+        <div className="forgot-password-overlay">
+          <div className="forgot-password-modal">
+            <h2>Forgot Password</h2>
+            <input
+              type="email"
+              placeholder="Enter your personal email"
+              value={forgotEmail}
+              onChange={(e) => setForgotEmail(e.target.value)}
+              required
+            />
+            {forgotError && <p className="forgot-error">{forgotError}</p>}
+            <div className="forgot-buttons">
+              <button
+                onClick={async () => {
+                  if (!forgotEmail) {
+                    setForgotError("Email is required.");
+                    return;
+                  }
+
+                  try {
+                    await resetPassword(forgotEmail);
+                    alert("Password reset instructions sent to your email.");
+                    setShowForgotPassword(false);
+                    setForgotEmail("");
+                    setForgotError("");
+                  } catch (error) {
+                    setForgotError(error.message || "Failed to send reset link.");
+                  }
+                }}
+
+              >
+                Submit
+              </button>
+              <button onClick={() => setShowForgotPassword(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div id="body-container">
         <div id="body-login">
           <div id="image-cont">
@@ -61,8 +112,8 @@ export default function Login() {
                   id="identifier"
                   className="user-input"
                   placeholder="Enter your Email or ID"
-                  value={identifier} 
-                  onChange={(e) => setidentifier(e.target.value)} 
+                  value={identifier}
+                  onChange={(e) => setidentifier(e.target.value)}
                 />
               </div>
 
@@ -92,7 +143,9 @@ export default function Login() {
                     Remember me
                   </label>
                 </div>
-                <p id="forget-pass">Forgot Password?</p>
+                <p id="forget-pass" onClick={() => setShowForgotPassword(true)} style={{ cursor: "pointer", color: "#5A5AFF" }}>
+                  Forgot Password?
+                </p>
               </div>
               <button id="log-in-btn" onClick={handleLoginClick}>
                 Log In

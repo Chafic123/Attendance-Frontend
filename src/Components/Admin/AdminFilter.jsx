@@ -6,6 +6,7 @@ const AdminFilter = (props) => {
   const [filterCode, setFilterCode] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [filterSection, setSection] = useState("");
+  const [courseName,setCourseName] = useState("");
 
   const [studentName, setStudentName] = useState("");
   const [studentId, setStudentId] = useState("");
@@ -17,6 +18,7 @@ const AdminFilter = (props) => {
   const [instructorDepartment, setInstructorDepartment] = useState("");
 
   const [studentCoursesFilterCode, setStudentCoursesFilterCode] = useState("");
+  const [studentCoursesFilterName, setStudentCoursesFilterName] = useState("");
   const [studentCoursesSortOrder, setStudentCoursesSortOrder] = useState("");
   const [studentCoursesSection, setStudentCoursesSection] = useState("");
 
@@ -24,20 +26,28 @@ const AdminFilter = (props) => {
   const handleCodeChange = (event) => {
     const value = event.target.value;
     setFilterCode(value);
-    props.onCourseFilterChange({ code: value, sort: sortOrder, name: "", section: filterSection });
+    props.onCourseFilterChange({ code: value, sort: sortOrder, name: courseName, section: filterSection });
+  };
+
+  const handleCourseNameChange = (event) => {
+    const value = event.target.value;
+    setCourseName(value);
+    props.onCourseFilterChange({ code: filterCode,name:value , sort: sortOrder, name: value, section: filterSection });
   };
 
   const handleSortChange = (event) => {
     const value = event.target.value;
     setSortOrder(value);
-    props.onCourseFilterChange({ code: filterCode, sort: value, name: "", section: filterSection });
+    props.onCourseFilterChange({ code: filterCode, sort: value, name: courseName, section: filterSection });
   };
 
   const handleSectionChange = (event) => {
     const value = event.target.value;
     setSection(value);
-    props.onCourseFilterChange({ code: filterCode, sort: sortOrder, name: "", section: value });
+    props.onCourseFilterChange({ code: filterCode, sort: sortOrder, name: courseName, section: value });
   };
+
+
 
   // Handle changes for StudentFilter
   const handleStudentNameChange = (event) => {
@@ -87,20 +97,47 @@ const AdminFilter = (props) => {
   const handleStudentCoursesCodeChange = (event) => {
     const value = event.target.value;
     setStudentCoursesFilterCode(value);
-    props.onStudentCoursesFilterChange({ code: value, sort: studentCoursesSortOrder,section: studentCoursesSection });
+    props.onStudentCoursesFilterChange({ 
+      code: value, 
+      name: studentCoursesFilterName, 
+      sort: studentCoursesSortOrder, 
+      section: studentCoursesSection 
+    });
   };
-
+  
+  const handleStudentCoursesNameChange = (event) => {
+    const value = event.target.value;
+    setStudentCoursesFilterName(value); 
+    props.onStudentCoursesFilterChange({ 
+      code: studentCoursesFilterCode,  
+      name: value,  
+      sort: studentCoursesSortOrder, 
+      section: studentCoursesSection 
+    });
+  };
+  
   const handleStudentCoursesSortChange = (event) => {
     const value = event.target.value;
     setStudentCoursesSortOrder(value);
-    props.onStudentCoursesFilterChange({ code: studentCoursesFilterCode, sort: value, section: filterSection });
+    props.onStudentCoursesFilterChange({ 
+      code: studentCoursesFilterCode, 
+      name: studentCoursesFilterName,  
+      sort: value, 
+      section: studentCoursesSection 
+    });
   };
-
+  
   const handleStudentCoursesSectionChange = (event) => {
     const value = event.target.value;
     setStudentCoursesSection(value);
-    props.onStudentCoursesFilterChange({ code: studentCoursesFilterCode, sort: studentCoursesSortOrder, section: value });
+    props.onStudentCoursesFilterChange({ 
+      code: studentCoursesFilterCode, 
+      name: studentCoursesFilterName,  
+      sort: studentCoursesSortOrder, 
+      section: value 
+    });
   };
+  
 
   return (
     <div className='filter-container'>
@@ -113,11 +150,19 @@ const AdminFilter = (props) => {
               <input type="text" value={filterCode} onChange={handleCodeChange} placeholder="Code" />
               <input
                 type="text"
+                value={courseName}
+                onChange={handleCourseNameChange}
+                placeholder="Name"
+                className="codeInput"
+              />
+              <input
+                type="text"
                 value={filterSection}
                 onChange={handleSectionChange}
                 placeholder="Section"
                 className="codeInput"
               />
+
               <select value={sortOrder} onChange={handleSortChange} className="selectInput">
                 <option value="">Sort</option>
                 <option value="asc">A-Z</option>
@@ -166,14 +211,21 @@ const AdminFilter = (props) => {
                 type="text"
                 value={studentCoursesFilterCode}
                 onChange={handleStudentCoursesCodeChange}
-                placeholder="Course Filter Code"
+                placeholder="Code"
+                className="codeInput"
+              />
+               <input
+                type="text"
+                value={studentCoursesFilterName}
+                onChange={handleStudentCoursesNameChange}
+                placeholder="Name"
                 className="codeInput"
               />
               <input
                 type="text"
                 value={studentCoursesSection}
                 onChange={handleStudentCoursesSectionChange}
-                placeholder="Course Section"
+                placeholder="Section"
                 className="codeInput"
               />
               <select

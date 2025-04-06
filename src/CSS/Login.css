@@ -161,6 +161,78 @@ form {
     cursor: pointer;
 }
 
+
+
+
+.forgot-password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .forgot-password-modal {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .forgot-password-modal h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .forgot-password-modal input {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 0 auto 12px -15px;
+  }
+  
+  .forgot-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .forgot-buttons button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    background-color: rgba(84, 51, 129, 1);
+    color: white;
+    flex: 1;
+    transition: background 0.3s;
+  }
+  
+  .forgot-buttons button:hover {
+    background-color: #4848e5;
+  }
+  
+  .forgot-error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  
+
 @media (max-width : 1146px) {
     #form-div {
         width: 39%;

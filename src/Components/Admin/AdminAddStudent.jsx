@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { addStudent } from '../../ApiService/AdminStudentService';
 import { getStudents } from '../../ApiService/StudentService';
-const AdminAddStudent = ({setStudents}) => {
+
+const AdminAddStudent = ({ setStudents }) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
@@ -11,37 +12,49 @@ const AdminAddStudent = ({setStudents}) => {
         address: '',
         personal_email: '',
         major: '',
+        department_id: '',  // Added department_id to store the selected department
     });
 
-
     const handleChange = (e) => {
-        setStudentData({ ...studentData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setStudentData({ ...studentData, [name]: value });
     };
 
- 
-
+    const handleClear = () => {
+        setStudentData({
+            first_name: '',
+            last_name: '',
+            address: '',
+            personal_email: '',
+            major: '',
+            department_id: '',  // Resetting department_id as well
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await addStudent(studentData);
-            setSuccessMessage("Student Added Successfully!")
+            setSuccessMessage("Student Added Successfully!");
             getStudents()
-            .then((data) => {
-              setStudents(data);
-              setFilteredStudents(data); 
-            })
-                setStudentData({
+                .then((data) => {
+                    setStudents(data);
+                })
+                .catch((err) => {
+                    console.error("Failed to fetch students:", err);
+                });
+            setStudentData({
                 first_name: '',
                 last_name: '',
                 address: '',
                 personal_email: '',
                 major: '',
+                department_id: '',  // Resetting department_id after submission
             });
         } catch (error) {
             console.error(error.message);
-            setNoSuccessMessage(error.message)
+            setNoSuccessMessage(error.message);
         }
     };
 
@@ -65,6 +78,7 @@ const AdminAddStudent = ({setStudents}) => {
                     </div>
                 </div>
             )}
+            
             <form className="add-student-form" onSubmit={handleSubmit}>
                 <div className="form-student-group">
                     <label htmlFor="first_name">First Name:</label>
@@ -82,7 +96,7 @@ const AdminAddStudent = ({setStudents}) => {
                 </div>
 
                 <div className="form-student-group">
-                    <label htmlFor="email">Email:</label>
+                    <label htmlFor="personal_email">Email:</label>
                     <input type="email" id="personal_email" name="personal_email" value={studentData.personal_email} onChange={handleChange} required />
                 </div>
 
@@ -91,10 +105,25 @@ const AdminAddStudent = ({setStudents}) => {
                     <input type="text" id="major" name="major" value={studentData.major} onChange={handleChange} required />
                 </div>
 
-              
+                {/* Department drop-down */}
+                <div className="form-student-group">
+                    <label htmlFor="department_id">Department:</label>
+                    <select
+                        id="department_id"
+                        name="department_id"
+                        value={studentData.department_id}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select a Department</option>
+                        <option value="1">Science</option>
+                        <option value="2">Engineering</option>
+                        <option value="3">Business</option>
+                    </select>
+                </div>
 
                 <div className="form-student-actions">
-                    <button type="button" className="cancel-btn">Cancel</button>
+                    <button type="button" className="cancel-btn" onClick={handleClear}>Clear</button>
                     <button type="submit" className="save-btn">Save Changes</button>
                 </div>
             </form>

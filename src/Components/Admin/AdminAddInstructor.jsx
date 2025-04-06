@@ -3,27 +3,36 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { addInstructor } from "../../ApiService/AdminInstrucotrService";
 import { getInstructors } from "../../ApiService/InstructorService";
+
 const AdminAddInstructor = ({ onInstructorAdded, setInstructors }) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState(null);
 
     const [instructorData, setInstructorData] = useState({
         first_name: "",
         last_name: "",
         personal_email: "",
-        phone_number: "1234567890", 
-        department: "",
+        phone_number: "1234567890",
+        department_id: "", // Updated to store department_id instead of department name
     });
-
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setInstructorData({ ...instructorData, [name]: value });
     };
 
- 
+    const handleClear = () => {
+        setInstructorData({
+            first_name: "",
+            last_name: "",
+            personal_email: "",
+            phone_number: "1234567890",
+            department_id: "", // Clear department_id as well
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -31,26 +40,25 @@ const AdminAddInstructor = ({ onInstructorAdded, setInstructors }) => {
 
         try {
             const addedInstructor = await addInstructor(instructorData);
-            setSuccessMessage("Instructor added successfully!")
+            setSuccessMessage("Instructor added successfully!");
             getInstructors()
-            .then(setInstructors)
-            .catch((err) => console.error("Failed to fetch instructors:", err))
-           
-        
+                .then(setInstructors)
+                .catch((err) => console.error("Failed to fetch instructors:", err));
+
             setInstructorData({
                 first_name: "",
                 last_name: "",
                 personal_email: "",
-                phone_number: "", 
-                department: "",
+                phone_number: "",
+                department_id: "", // Reset department_id after submission
             });
-            
+
             if (onInstructorAdded) {
                 onInstructorAdded(addedInstructor);
             }
         } catch (err) {
-            setNoSuccessMessage("Failed to add instructor")
-            console.log(err.message)
+            setNoSuccessMessage("Failed to add instructor");
+            console.log(err.message);
         } finally {
             setIsSubmitting(false);
         }
@@ -115,22 +123,25 @@ const AdminAddInstructor = ({ onInstructorAdded, setInstructors }) => {
                     />
                 </div>
 
+                {/* Department drop-down */}
                 <div className="form-instructor-group">
-                    <label htmlFor="department">Department:</label>
-                    <input
-                        type="text"
-                        id="department"
-                        name="department"
-                        value={instructorData.department}
+                    <label htmlFor="department_id">Department:</label>
+                    <select
+                        id="department_id"
+                        name="department_id"
+                        value={instructorData.department_id}
                         onChange={handleInputChange}
                         required
-                    />
+                    >
+                        <option value="">Select a Department</option>
+                        <option value="1">Science</option>
+                        <option value="2">Engineering</option>
+                        <option value="3">Business</option>
+                    </select>
                 </div>
 
-             
-
                 <div className="form-instructor-actions">
-                    <button type="button" className="cancel-btn">Cancel</button>
+                    <button type="button" className="cancel-btn" onClick={handleClear}>Clear</button>
                     <button type="submit" className="save-btn" disabled={isSubmitting}>
                         {isSubmitting ? "Saving..." : "Save Changes"}
                     </button>
@@ -141,7 +152,7 @@ const AdminAddInstructor = ({ onInstructorAdded, setInstructors }) => {
 };
 
 AdminAddInstructor.propTypes = {
-    onInstructorAdded: PropTypes.func, 
+    onInstructorAdded: PropTypes.func,
 };
 
 export default AdminAddInstructor;

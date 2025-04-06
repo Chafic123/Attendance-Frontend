@@ -21,8 +21,6 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   const [courseTitle, setCourseTitle] = useState("Courses");
   const [studentTitle, setStudentTitle] = useState("Students");
 
-  const [isPopupVisible, setPopupVisible] = useState(false);
-
   const [filteredStudentCourses, setFilteredStudentCourses] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [studentCourses, setStudentCourses] = useState([])
@@ -34,7 +32,8 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "", sort: "" });
   const [instructorFilterOptions, setInstructorFilterOptions] = useState({ instructorName: "", department: "", sort: "" });
   const [filteredInstructors, setFilteredInstructors] = useState([]);
-  const [studentCourseFilterOptions, setStudentCourseFilterOptions] = useState({ code: "", sort: "", section: "" });
+  const [studentCourseFilterOptions, setStudentCourseFilterOptions] = useState({ code: "", name:"", sort: "", section: "" });
+
 
 
   // Testing
@@ -47,13 +46,13 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
  
 
 
-  const handleStudentDoubleClick = async (studentId, studentName) => {
+  const handleStudentDoubleClick = async (studentId, studentName,studentID) => {
     if (userRole != "admin") return;
     if (!studentId) return;
-    setStudentTitle(studentName);
     try {
       const courses = await getStudentCourses(studentId);
       setStudentCourses(courses);
+      setStudentTitle(`${studentName} - ${studentID}`);
       setSelectedText("View Student Courses")
       console.log("Student ID: ", studentId, "Courses: ", courses)
     } catch (error) {
@@ -84,7 +83,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
 
     if (studentFilterOptions?.name) {
       filtered = filtered.filter((student) =>
-        `${student.first_name} ${student.last_name}`
+        `${student.first_name || student.user.first_name} ${student.last_name || student.user.last_name}`
           .toUpperCase()
           .includes(studentFilterOptions.name.toUpperCase())
       );
@@ -98,11 +97,11 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
 
     if (studentFilterOptions?.sort === "asc") {
       filtered.sort((a, b) =>
-        `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`)
+        `${a.first_name || a.user.first_name} ${a.last_name || b.user.last_name}`.localeCompare(`${b.first_name || b.user.first_name} ${b.last_name || b.user.last_name}`)
       );
     } else if (studentFilterOptions?.sort === "desc") {
       filtered.sort((a, b) =>
-        `${b.first_name} ${b.last_name}`.localeCompare(`${a.first_name} ${a.last_name}`)
+        `${b.first_name || a.user.first_name} ${b.last_name || b.user.last_name}`.localeCompare(`${a.first_name || a.user.first_name} ${a.last_name || a.user.last_name}`)
       );
     }
 
@@ -149,6 +148,13 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
         course.course_code
           ?.toUpperCase()
           .includes(studentCourseFilterOptions.code.toUpperCase())
+      );
+    }
+    
+    if (studentCourseFilterOptions?.name) {
+      filteredCourses = filteredCourses.filter((course) =>
+        (String(course.name).toUpperCase().includes(studentCourseFilterOptions.name.toUpperCase()) ||
+          String(course.course_name).toUpperCase().includes(studentCourseFilterOptions.name.toUpperCase()))
       );
     }
 
@@ -229,7 +235,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
             position: "relative",
           }}
         >
-          <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
+            <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
           <AdminFilter studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
             <p>Loading students...</p>

@@ -3,10 +3,16 @@ import Dashboard from "../Components/Generals/Dashboard";
 import Logo from "../Components/Generals/Logo";
 import AdminWholeContent from "../Components/Admin/AdminWholeContent";
 import "../CSS/AdminPage.css"
+import { useEffect } from "react";
 import ProfileTop from "../Components/Generals/ProfileTop";
 export default function Admin() {
   const [selectedText, setSelectedText] = useState(null);
   const [processText, setProcessText] = useState(null);
+
+
+
+
+
 
   const DashboardItems = [
     {
@@ -30,9 +36,18 @@ export default function Admin() {
 
   ];
 
-  const handleItemClick = (text) => {
+  const handleItemClick = (text, event) => {
+    document.querySelectorAll('.dashboard-item').forEach((el) => {
+      el.classList.remove('active');
+    });
+  
+    event.currentTarget.classList.add('active');
+  
     setSelectedText(text);
   };
+
+
+
 
   const handleProcessClick = (text) => {
     setProcessText(text);

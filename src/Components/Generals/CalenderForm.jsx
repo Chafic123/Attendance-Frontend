@@ -10,17 +10,18 @@ import { courseCalendar } from "../../ApiService/InstructorCalendarService";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService"
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
+import { getAdminStudentCourseCalendar } from "../../ApiService/AdminCalendarService";
+
 export default function Calendar({ setRequestCorrectionState, setSelectedAttendance }) {
     const [calendarData, setCalendarData] = useState([]);
     const [instructorCalendarData, setInstructorCalendarData] = useState([]);
+    const [adminCalendarData, setAdminCalendarData] = useState([]);
+
     const { courseId } = useCourse();
     const [tooltip, setTooltip] = useState({ message: "", visible: false, x: 0, y: 0 });
 
     const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
-
     const { studentId } = useStudent();
-
-    console.log(studentId)
 
     useEffect(() => {
         const fetchCalendarData = async () => {
@@ -29,80 +30,120 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                     const userID = localStorage.getItem("userID") || sessionStorage.getItem("userID");
                     if (userID) {
                         const data = await getStudentCourseCalendar(courseId, userID);
-                        if (Array.isArray(data)) setCalendarData(data);
-                        else setCalendarData([]);
+                        setCalendarData(Array.isArray(data) ? data : []);
                     }
                 } else if (userRole === "instructor") {
                     if (!studentId) {
                         const data = await courseCalendar(courseId);
-                        if (data?.sessions) {
-                            setInstructorCalendarData(data.sessions);
-                            setCalendarData([]);
-                        } else {
-                            setInstructorCalendarData([]);
-                        }
-                    } else {
-
+                        setInstructorCalendarData(data?.sessions || []);
                         setCalendarData([]);
+                    } else {
                         const studentData = await getInstructorStudentCourseCalendar(courseId, studentId);
-                        if (Array.isArray(studentData) && studentData.length > 0) {
-                            setCalendarData(studentData);
-                        } else {
-                            setInstructorCalendarData([]); // Optionally reset instructor data here
-                        }
+                        setCalendarData(Array.isArray(studentData) ? studentData : []);
+                        setInstructorCalendarData([]);
+                    }
+                } else if (userRole === "admin") {
+                    if (studentId && courseId) {
+                        const data = await getAdminStudentCourseCalendar(courseId, studentId);
+                        setAdminCalendarData(Array.isArray(data) ? data : []);
+                        setCalendarData([]);
+                    } else {
+                        setAdminCalendarData([]);
                     }
                 }
             } catch (error) {
                 console.error("Error fetching calendar data:", error);
                 setCalendarData([]);
+                setInstructorCalendarData([]);
+                setAdminCalendarData([]);
             }
         };
     
         fetchCalendarData();
     }, [courseId, userRole, studentId]);
-    
-    const { dayStatusMap, instructorDayMap } = useMemo(() => {
+
+    const { dayStatusMap, instructorDayMap, adminDayMap } = useMemo(() => {
         const dayMap = calendarData.reduce((map, day) => {
             map[dayjs(day.date).format("YYYY-MM-DD")] = day.status;
             return map;
         }, {});
-
+        
         const instructorMap = instructorCalendarData.reduce((map, session) => {
             map[dayjs(session.date).format("YYYY-MM-DD")] =
                 session.date < dayjs().format("YYYY-MM-DD") ? "past" : "future";
             return map;
         }, {});
-
-        return { dayStatusMap: dayMap, instructorDayMap: instructorMap };
-    }, [calendarData, instructorCalendarData]);
+   
+        const adminMap = adminCalendarData.reduce((map, day) => {
+            map[dayjs(day.date).format("YYYY-MM-DD")] = day.status;
+            return map;
+        }, {});
+   
+        return { dayStatusMap: dayMap, instructorDayMap: instructorMap, adminDayMap: adminMap };
+    }, [calendarData, instructorCalendarData, adminCalendarData]);
 
     const getDayStyle = useCallback((date) => {
         const formattedDate = dayjs(date).format("YYYY-MM-DD");
         const status = dayStatusMap[formattedDate];
         const instructorStatus = instructorDayMap[formattedDate];
+        const adminStatus = adminDayMap[formattedDate];
 
+        if (adminStatus) {
+            if (adminStatus === "present") return {
+                background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
+                borderRadius: "50%",
+                color: "white"
+            };
+            if (adminStatus === "absent") return { 
+                background: "red", 
+                borderRadius: "50%", 
+                color: "white" 
+            };
+            if (adminStatus === "upcoming") return { 
+                background: "gray", 
+                borderRadius: "50%", 
+                color: "white" 
+            };
+        }
+
+        // Fall back to other statuses if no admin status
         if (status === "present") return {
             background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
             borderRadius: "50%",
             color: "white"
         };
-        if (status === "absent") return { background: "red", borderRadius: "50%", color: "white" };
-        if (status === "upcoming") return { background: "gray", borderRadius: "50%", color: "white" };
+        if (status === "absent") return { 
+            background: "red", 
+            borderRadius: "50%", 
+            color: "white" 
+        };
+        if (status === "upcoming") return { 
+            background: "gray", 
+            borderRadius: "50%", 
+            color: "white" 
+        };
         if (instructorStatus === "past") return {
             background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
             borderRadius: "50%",
             color: "white"
         };
-
-        if (instructorStatus === "future") return { background: "gray", borderRadius: "50%", color: "white" };
+        if (instructorStatus === "future") return { 
+            background: "gray", 
+            borderRadius: "50%", 
+            color: "white" 
+        };
 
         return {};
-    }, [dayStatusMap, instructorDayMap]);
+    }, [dayStatusMap, instructorDayMap, adminDayMap]);
 
     const hasStatus = useCallback((date) => {
         const formattedDate = dayjs(date).format("YYYY-MM-DD");
-        return Boolean(dayStatusMap[formattedDate] || instructorDayMap[formattedDate]);
-    }, [dayStatusMap, instructorDayMap]);
+        return Boolean(
+            dayStatusMap[formattedDate] || 
+            instructorDayMap[formattedDate] || 
+            adminDayMap[formattedDate]
+        );
+    }, [dayStatusMap, instructorDayMap, adminDayMap]);
 
     const handleMouseEnter = useCallback((date, event) => {
         if (!hasStatus(date)) return;
@@ -110,19 +151,26 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
         const formattedDate = dayjs(date).format("YYYY-MM-DD");
         const status = dayStatusMap[formattedDate];
         const instructorStatus = instructorDayMap[formattedDate];
+        const adminStatus = adminDayMap[formattedDate];
 
         let message = "";
-        if (userRole === "student") {
+        if (userRole === "admin") {
+            if (adminStatus === "present") message = "Present";
+            else if (adminStatus === "absent") message = "Absent";
+            else if (adminStatus === "upcoming") message = "Upcoming";
+        } else if (userRole === "student") {
             if (status === "present") message = "Present";
             else if (status === "absent") message = "Absent";
             else if (status === "upcoming") message = "Upcoming";
-        } else if (userRole === "instructor" && !studentId) {
-            if (instructorStatus === "past") message = "Already Passed";
-            else if (instructorStatus === "future") message = "Upcoming";
-        } else if (userRole === "instructor" && studentId) {
-            if (status === "present") message = "Present";
-            else if (status === "absent") message = "Absent";
-            else if (status === "upcoming") message = "Upcoming";
+        } else if (userRole === "instructor") {
+            if (!studentId) {
+                if (instructorStatus === "past") message = "Already Passed";
+                else if (instructorStatus === "future") message = "Upcoming";
+            } else {
+                if (status === "present") message = "Present";
+                else if (status === "absent") message = "Absent";
+                else if (status === "upcoming") message = "Upcoming";
+            }
         }
 
         setTooltip({
@@ -131,7 +179,7 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
             x: event.clientX,
             y: event.clientY - 40
         });
-    }, [dayStatusMap, instructorDayMap, userRole, hasStatus]);
+    }, [dayStatusMap, instructorDayMap, adminDayMap, userRole, studentId, hasStatus]);
 
     const handleMouseLeave = useCallback(() => {
         setTooltip(prev => ({ ...prev, visible: false }));
@@ -143,9 +191,16 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
         const dayStyle = getDayStyle(day);
 
         const handleDayClick = () => {
-            const selectedAttendance = calendarData.find(
-                item => dayjs(item.date).format("YYYY-MM-DD") === formattedDate
-            );
+            let selectedAttendance;
+            if (userRole === "admin") {
+                selectedAttendance = adminCalendarData.find(
+                    item => dayjs(item.date).format("YYYY-MM-DD") === formattedDate
+                );
+            } else {
+                selectedAttendance = calendarData.find(
+                    item => dayjs(item.date).format("YYYY-MM-DD") === formattedDate
+                );
+            }
 
             if (selectedAttendance) {
                 setSelectedAttendance(selectedAttendance);
@@ -166,7 +221,7 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                 onMouseLeave={hasStatus(day) ? handleMouseLeave : undefined}
             />
         );
-    }, [calendarData, getDayStyle, handleMouseEnter, handleMouseLeave, setRequestCorrectionState, setSelectedAttendance, hasStatus]);
+    }, [calendarData, adminCalendarData, getDayStyle, handleMouseEnter, handleMouseLeave, setRequestCorrectionState, setSelectedAttendance, hasStatus, userRole]);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
