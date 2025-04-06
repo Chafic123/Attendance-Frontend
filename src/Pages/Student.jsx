@@ -15,12 +15,10 @@ export default function Student({ refreshProfile, user, viewProfile, viewPanel, 
 
   useEffect(() => {
     const firstItem = document.querySelectorAll('.dashboard-item')[0];
-    
     if (firstItem) {
       firstItem.classList.add('active'); 
       setSelectedText(firstItem.textContent); 
     }
-  
   }, []);
   
 

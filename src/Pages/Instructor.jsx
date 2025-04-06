@@ -55,6 +55,16 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
   };
   
 
+  useEffect(() => {
+    const firstItem = document.querySelectorAll('.dashboard-item')[0];
+    
+    if (firstItem) {
+      firstItem.classList.add('active'); 
+      setSelectedText(firstItem.textContent); 
+    }
+
+  }, []);
+  
 
   return (
     <div className="whole-container"

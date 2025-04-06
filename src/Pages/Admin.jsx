@@ -10,10 +10,16 @@ export default function Admin() {
   const [processText, setProcessText] = useState(null);
 
 
+  useEffect(() => {
+    const firstItem = document.querySelectorAll('.dashboard-item')[0];
+    
+    if (firstItem) {
+      firstItem.classList.add('active'); 
+      setSelectedText(firstItem.textContent); 
+    }
 
-
-
-
+  }, []);
+  
   const DashboardItems = [
     {
       imgSrc: "../public/Images/Course-icon.png",
