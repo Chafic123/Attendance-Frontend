@@ -49,6 +49,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   const handleStudentDoubleClick = async (studentId, studentName,studentID) => {
     if (userRole != "admin") return;
     if (!studentId) return;
+    setCourseId("");
     try {
       const courses = await getStudentCourses(studentId);
       setStudentCourses(courses);
@@ -295,7 +296,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
             </button>
           )}
         </div>
-      ) : selectedDashboardITem === "View Courses" || !selectedDashboardITem ? (
+      ) : selectedDashboardITem === "View Courses" || selectedDashboardITem=="View Course Students" || !selectedDashboardITem ? (
         <div
           style={{
             width: "48%",
@@ -310,7 +311,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
           <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={courseTitle} />
           <AdminFilter filterTop={filterTop} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
-            <Course setCourseTitle={setCourseTitle} setStudents={setStudents} setViewCourseStudents={setViewCourseStudents} setStudentFilters={setStudentFilterOptions} courses={courses} setCourses={setCourses} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
+            <Course setSelectedText={setSelectedText} setCourseTitle={setCourseTitle} setStudents={setStudents} setViewCourseStudents={setViewCourseStudents} setStudentFilters={setStudentFilterOptions} courses={courses} setCourses={setCourses} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} courseFilters={courseFilterOptions} setEditedStudent={setEditedStudent} onCourseDoubleClick={handleCourseDoubleClick} setEditedCourse={setEditedCourse} onStudentFilterChange={setStudentFilterOptions} />
           </div>
 
         </div>

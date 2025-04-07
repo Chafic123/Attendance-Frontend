@@ -129,7 +129,7 @@ export const removeCourseStudent = async (courseId, studentId) => {
   console.log("Removing student:", studentId, "from course:", courseId);
 
   try {
-    const response = await fetch(`${BASE_URL}/courses/${courseId}/students/${studentId}`, {
+    const response = await fetch(`${BASE_URL}/admin/courses/${courseId}/students/${studentId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

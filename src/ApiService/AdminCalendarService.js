@@ -28,3 +28,30 @@ export const getAdminStudentCourseCalendar = async (courseId, studentId) => {
         throw error;
     }
 };
+
+export const getAdminCourseCalendar = async (courseId) => {
+    try {
+        const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        if (!token) {
+            throw new Error('No authorization token found');
+        }
+
+        console.log("Course ID: ", courseId);
+
+        const response = await axios.get(
+            `${BASE_URL}/admin/${courseId}/calender`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        console.log("Admin - Course Calendar Data: ", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching admin course calendar:", error);
+        throw error;
+    }
+};

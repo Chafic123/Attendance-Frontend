@@ -11,7 +11,7 @@ import { useStudent } from "../../Contexts/getClickedStudentID";
 import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService"
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
 import { getAdminStudentCourseCalendar } from "../../ApiService/AdminCalendarService";
-
+import { getAdminCourseCalendar } from "../../ApiService/AdminCalendarService";
 export default function Calendar({ setRequestCorrectionState, setSelectedAttendance }) {
     const [calendarData, setCalendarData] = useState([]);
     const [instructorCalendarData, setInstructorCalendarData] = useState([]);
@@ -45,6 +45,10 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                 } else if (userRole === "admin") {
                     if (studentId && courseId) {
                         const data = await getAdminStudentCourseCalendar(courseId, studentId);
+                        setAdminCalendarData(Array.isArray(data) ? data : []);
+                        setCalendarData([]);
+                    } else if(courseId && !studentId){
+                        const data = await getAdminCourseCalendar(courseId, studentId);
                         setAdminCalendarData(Array.isArray(data) ? data : []);
                         setCalendarData([]);
                     } else {

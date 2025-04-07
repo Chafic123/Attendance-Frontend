@@ -10,6 +10,10 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
   const { setStudentId } = useStudent();
   const { courseId } = useCourse();
 
+  const [successMessage, setSuccessMessage] = useState("");
+  const [noSuccessMessage, setNoSuccessMessage] = useState("");
+
+
   const handleStudentClick = (id) => {
     setStudentId(id);
     if (userRole != "admin") {
@@ -30,9 +34,9 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
   const handleDeleteStudent = async (studentId) => {
     const result = await removeCourseStudent(courseId, studentId);
     if (result.success) {
-      alert("Student removed from course successfully.");
+      setSuccessMessage("Student removed from course successfully.");
     } else {
-      alert(result.message || "Failed to remove student.");
+      setNoSuccessMessage(result.message || "Failed to remove student.");
     }
   };
 
@@ -67,19 +71,39 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
           src={student.image ? student.image : "../../Images/Profile Icon BG.png"} alt="Student"
           style={{ width: "4vw", height: "4vw", borderRadius: "50%" }}
         />
+        
+
+
         <div className="student-text">
           <p className="student-name">{`${firstName} ${lastName}`}</p>
           <p className="student-major">{student.major || "N/A"}</p>
           <p className="student-id">{studentId}</p>
         </div>
       </div>
-      {userRole?.toLowerCase() === "instructor" && student.attendance_percentage !== undefined && (
+      {(userRole?.toLowerCase() === "instructor" || userRole?.toLowerCase() === "admin") && (student.attendance_percentage !== undefined || student.absence_percentage !== undefined) && (
         <div className="studentPercentageContainer">
-          <p className="attendancePercentage">{`${student.attendance_percentage}`}</p>
+          <p className="attendancePercentage">{`${student.attendance_percentage || student.absence_percentage}`}</p>
           <span>Attendance</span>
           <span>Percentage</span>
         </div>
       )}
+              {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+
+            {noSuccessMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noSuccessMessage}</p>
+                        <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
       {userRole === "admin" && !hideIcon && (
         <>
           <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>

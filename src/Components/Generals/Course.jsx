@@ -12,11 +12,12 @@ import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 
-export default function Course({ studentCourseFilters,setCourseTitle,setStudents , courses,   setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
-  const [allCourses, setAllCourses] = useState([]); // To store the original list of courses
-  const [filteredCourses, setFilteredCourses] = useState([]); // To store the filtered list
+export default function Course({ setSelectedText,studentCourseFilters, setCourseTitle, setStudents, courses, setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
+  const [allCourses, setAllCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]); 
   const [filteredStudentCourses, setFilteredStudentCourses] = useState([]);
 
+  const [hideIcon, setHideIcon] = useState(false);
   const [courseStudentID, setCourseStudentID] = useState("")
 
   const { setStudentId } = useStudent();
@@ -41,9 +42,9 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
 
 
 
-  const handleDoubleClick = async (courseId,courseName,courseSection) => {
+  const handleDoubleClick = async (courseId, courseName, courseSection) => {
     setCourseStudentID(courseId);
-    console.log("Double Clicked")
+    console.log("Course Double Clicked")
     setCourseId(courseId);
     if (userRole !== "instructor" && userRole !== "admin") {
       return;
@@ -55,10 +56,12 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
       const students = await getCourseStudents(courseId);
       console.log("Course Students", students)
       setFilterTop("Course Students")
+      setHideIcon(true)
       setCourseStudents(students);
       setShowStudents(true);
       setCourseTitle(`${courseName} - S${courseSection}`);
       setStudents(students);
+      setSelectedText("View Course Students");
     } catch (error) {
       console.error("Failed to fetch students:", error);
     }
@@ -72,6 +75,7 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
   const handleBackToCourses = () => {
     setEditedStudent(null)
     setFilterTop("Courses");
+    setSelectedText("View Courses")
     setCourseTitle("Courses");
     setShowStudents(false);
     setActiveStudent(null);
@@ -125,7 +129,7 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
     fetchCourses();
   }, []);
 
- 
+
   useEffect(() => {
     let filtered = [...courses];
 
@@ -176,28 +180,28 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
   //test 
   useEffect(() => {
     let filtered = [...allCourses];
-  
+
     if (studentCourseFilters?.code) {
       filtered = filtered.filter(course =>
-        (course.course_code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase()) ||
-          course.Code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase()))
+      (course.course_code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase()) ||
+        course.Code?.toUpperCase().includes(studentCourseFilters.code.toUpperCase()))
       );
     }
-  
+
     if (studentCourseFilters?.name) {
       filtered = filtered.filter(course =>
-        (String(course.name).toUpperCase().includes(studentCourseFilters.name.toUpperCase()) ||
-          String(course.course_name).toUpperCase().includes(studentCourseFilters.name.toUpperCase()))
+      (String(course.name).toUpperCase().includes(studentCourseFilters.name.toUpperCase()) ||
+        String(course.course_name).toUpperCase().includes(studentCourseFilters.name.toUpperCase()))
       );
     }
-  
+
     if (studentCourseFilters?.section) {
       filtered = filtered.filter(course =>
         String(course.Section) === String(studentCourseFilters.section) ||
         String(course.course_section) === String(studentCourseFilters.section)
       );
     }
-  
+
     if (studentCourseFilters?.sort === "asc") {
       filtered.sort((a, b) => {
         const aName = String(a.name || a.course_name).toLowerCase();
@@ -211,11 +215,11 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
         return bName.localeCompare(aName);
       });
     }
-  
+
     setFilteredCourses(filtered);
   }, [studentCourseFilters]);
 
-  
+
   useEffect(() => {
     let filteredStudents = [...courseStudents];
     console.log("Original Students: ", courseStudents);
@@ -264,7 +268,6 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
   const handleCourseClick = (index, courseId) => {
     setCourseId(courseId);
     setActiveIndex(index);
-
   };
 
 
@@ -282,7 +285,7 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
                 className={`course ${activeIndex === index ? "activeCourse" : ""}`}
                 key={index}
                 onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
-                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id,course.name || course.course_name,course.course_section || course.Section)}
+                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id, course.name || course.course_name, course.course_section || course.Section)}
               >
                 <div className="courseDetails">
                   <div className="courseBorder"></div>
@@ -386,7 +389,7 @@ export default function Course({ studentCourseFilters,setCourseTitle,setStudents
                   student={student}
                   setEditedStudent={setEditedStudent}
                   setActiveStudent={setActiveStudent}
-
+                  hideIcon={hideIcon}
                 />
               </div>
             ))}

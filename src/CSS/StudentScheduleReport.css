@@ -31,17 +31,19 @@
 
 /* Table */
 .schedule-table-container {
-    width: 100%;
+    min-width: 100%;
     margin-top: 40px;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .schedule-table {
     width: 100%;
+    min-width: 100%;
     border-collapse: collapse;
-    box-sizing: border-box;
-    max-height: 200px;
-    overflow-y: auto; 
+    table-layout: auto; 
 }
+
 
 .schedule-th {
     padding: 10px;
