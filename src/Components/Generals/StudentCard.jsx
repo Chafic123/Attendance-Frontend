@@ -4,19 +4,22 @@ import { Icon } from "@mui/material";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 import { useCourse } from "../../Contexts/CourseContext";
 import { removeCourseStudent } from "../../ApiService/AdminStudentService";
-
-export default function StudentCard({ student, setEditedStudent, hideIcon, setActiveStudent, handleStudentDoubleClick }) {
+import { removeStudent } from "../../ApiService/AdminStudentService";
+export default function StudentCard({ setStudents, setOnDelete, student, setEditedStudent, hideIcon, setActiveStudent, handleStudentDoubleClick, activeCardId, setActiveCardId, }) {
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const { setStudentId } = useStudent();
   const { courseId } = useCourse();
 
+  const [isHovered, setIsHovered] = useState(false);
+
   const [successMessage, setSuccessMessage] = useState("");
   const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
-
   const handleStudentClick = (id) => {
+    console.log(id)
     setStudentId(id);
-    if (userRole != "admin") {
+    setActiveCardId(id);
+    if (userRole !== "admin") {
       setActiveStudent(student);
     }
   };
@@ -31,14 +34,33 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
     : student.Uni_id || "N/A";
 
 
-  const handleDeleteStudent = async (studentId) => {
-    const result = await removeCourseStudent(courseId, studentId);
-    if (result.success) {
-      setSuccessMessage("Student removed from course successfully.");
-    } else {
-      setNoSuccessMessage(result.message || "Failed to remove student.");
+  const handleDeleteStudent = async (studentId, courseId = null) => {
+    try {
+      let response;
+
+      if (courseId) {
+        response = await removeCourseStudent(courseId, studentId);
+      } else {
+        response = await removeStudent(studentId);
+      }
+
+      if (response.success) {
+        setSuccessMessage('Student Removed Successfully!');
+        setTimeout(() => {
+          setOnDelete(true);
+
+        }, 2000);
+      } else {
+        setNoSuccessMessage(response.message || 'An error occurred');
+      }
+    } catch (error) {
+      console.error('Error during deletion:', error);
+      setNoSuccessMessage('An error occurred while deleting the student.');
     }
   };
+
+
+
 
 
   useEffect(() => {
@@ -52,26 +74,32 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  
   return (
     <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
         if (userRole === 'admin') {
           handleStudentClick(student.id);
         } else {
-          handleStudentClick(student.student_id); 
+          handleStudentClick(student.student_id);
         }
       }}
       onDoubleClick={() => handleStudentDoubleClick(student.id, `${firstName} ${lastName}`, studentId)}
-      className={`student-card`}
-      style={{ position: "relative" }}
+      className={`student-card ${activeCardId === (userRole === "admin" ? student.id : student.student_id) ? "active" : ""
+        }`}
+      style={{ position: "relative", cursor: "pointer" }}
       ref={dropdownRef}
     >
+
       <div className="student-details">
         <img
           src={student.image ? student.image : "../../Images/Profile Icon BG.png"} alt="Student"
           style={{ width: "4vw", height: "4vw", borderRadius: "50%" }}
         />
-        
+
 
 
         <div className="student-text">
@@ -79,94 +107,154 @@ export default function StudentCard({ student, setEditedStudent, hideIcon, setAc
           <p className="student-major">{student.major || "N/A"}</p>
           <p className="student-id">{studentId}</p>
         </div>
+
       </div>
-      {(userRole?.toLowerCase() === "instructor" || userRole?.toLowerCase() === "admin") && (student.attendance_percentage !== undefined || student.absence_percentage !== undefined) && (
+      {(userRole?.toLowerCase() === "instructor" || userRole?.toLowerCase() === "admin") &&
+  (student.attendance_percentage !== undefined || student.absence_percentage !== undefined) && (
+    <div>
+      {userRole?.toLowerCase() === "instructor" ? (
         <div className="studentPercentageContainer">
           <p className="attendancePercentage">{`${student.attendance_percentage || student.absence_percentage}`}</p>
-          <span>Attendance</span>
-          <span>Percentage</span>
+          <span>Absence</span>
         </div>
-      )}
-              {successMessage && (
-                <div className="popup-container">
-                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
-                        <p>{successMessage}</p>
-                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
-                    </div>
-                </div>
-            )}
-
-            {noSuccessMessage && (
-                <div className="popup-container">
-                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
-                        <p>{noSuccessMessage}</p>
-                        <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
-                    </div>
-                </div>
-            )}
-      {userRole === "admin" && !hideIcon && (
+      ) : (
         <>
-          <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
-            more_vert
-          </Icon>
-
-          {showMenu && (
-            <div
-              style={{
-                position: "absolute",
-                top: "20px",
-                right: "0",
-                background: "#fff",
-                padding: "5px",
-                zIndex: 100,
-                minWidth: "120px",
-                border: "1px solid #ddd",
-                borderRadius: "5px",
-              }}
-            >
-              <button
-                style={{
-                  width: "100%",
-                  background: "#f0f0f0",
-                  border: "none",
-                  padding: "8px",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                  marginBottom: "5px",
-                  fontWeight: "500",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowMenu(false);
-                  setEditedStudent(student);
-                }}
-              >
-                Edit
-              </button>
-
-              <button
-                style={{
-                  width: "100%",
-                  background: "#ffe5e5",
-                  border: "none",
-                  padding: "8px",
-                  borderRadius: "5px",
-                  color: "#c62828",
-                  cursor: "pointer",
-                  fontWeight: "500",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowMenu(false);
-                  handleDeleteStudent(student.id);
-
-                }}
-              >
-                Delete
-              </button>
+          {!isHovered ? (
+            <div className="studentPercentageContainer">
+              <p className="attendancePercentage">{`${student.attendance_percentage || student.absence_percentage}`}</p>
+              <span>Absence</span>
             </div>
+          ) : (
+            <>
+              <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
+                more_vert
+              </Icon>
+              {showMenu && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "20px",
+                    right: "0",
+                    background: "#fff",
+                    padding: "5px",
+                    zIndex: 100,
+                    minWidth: "120px",
+                    border: "1px solid #ddd",
+                    borderRadius: "5px",
+                  }}
+                >
+
+                  <button
+                    style={{
+                      width: "100%",
+                      background: "#ffe5e5",
+                      border: "none",
+                      padding: "8px",
+                      borderRadius: "5px",
+                      color: "#c62828",
+                      cursor: "pointer",
+                      fontWeight: "500",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowMenu(false);
+                      handleDeleteStudent(student.id, courseId);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </>
+      )}
+    </div>
+  )}
+
+
+
+      {userRole === "admin" && !(
+        student.attendance_percentage !== undefined || student.absence_percentage !== undefined
+      ) && (
+          <>
+            <Icon onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
+              more_vert
+            </Icon>
+            {showMenu && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "0",
+                  background: "#fff",
+                  padding: "5px",
+                  zIndex: 100,
+                  minWidth: "120px",
+                  border: "1px solid #ddd",
+                  borderRadius: "5px",
+                }}
+              >
+                <button
+                  style={{
+                    width: "100%",
+                    background: "#f0f0f0",
+                    border: "none",
+                    padding: "8px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    marginBottom: "5px",
+                    fontWeight: "500",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMenu(false);
+                    setEditedStudent(student);
+                  }}
+                >
+                  Edit
+                </button>
+
+                <button
+                  style={{
+                    width: "100%",
+                    background: "#ffe5e5",
+                    border: "none",
+                    padding: "8px",
+                    borderRadius: "5px",
+                    color: "#c62828",
+                    cursor: "pointer",
+                    fontWeight: "500",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMenu(false);
+                    handleDeleteStudent(student.id, courseId);
+
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      {successMessage && (
+        <div className="popup-container">
+          <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "2px" }}>
+            <p style={{ color: "#543381" }}>{successMessage}</p>
+            <button style={{ width: "100px" }} onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+          </div>
+        </div>
+      )}
+
+      {noSuccessMessage && (
+        <div className="popup-container">
+          <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+            <p style={{ color: "red" }}>{noSuccessMessage}</p>
+            <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
+          </div>
+        </div>
       )}
     </div>
   );

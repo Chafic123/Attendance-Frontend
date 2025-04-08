@@ -18,6 +18,9 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
 
+  const [activeCardId, setActiveCardId] = useState(null);
+  const [activeInstructorCardId, setActiveInstructorCardId] = useState(null);
+
   const [courseTitle, setCourseTitle] = useState("Courses");
   const [studentTitle, setStudentTitle] = useState("Students");
 
@@ -26,27 +29,32 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   const [studentCourses, setStudentCourses] = useState([])
 
   const { setCourseId } = useCourse();
+
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "", sort: "" });
   const [instructorFilterOptions, setInstructorFilterOptions] = useState({ instructorName: "", department: "", sort: "" });
   const [filteredInstructors, setFilteredInstructors] = useState([]);
-  const [studentCourseFilterOptions, setStudentCourseFilterOptions] = useState({ code: "", name:"", sort: "", section: "" });
+  const [studentCourseFilterOptions, setStudentCourseFilterOptions] = useState({ code: "", name: "", sort: "", section: "" });
+
+  const [onDelete, setOnDelete] = useState(false)
+
+  useEffect(() => {
+    setActiveCardId(null)
+    setActiveInstructorCardId(null)
+  }, [selectedDashboardITem]);
+
+  useEffect(() => {
+    console.log(onDelete)
+  }, [onDelete]);
 
 
 
-  // Testing
-  // useEffect(() => {
-  //   console.log("viewCourseStudents: ", viewCourseStudents)
-  // }, [viewCourseStudents]);
 
 
 
- 
-
-
-  const handleStudentDoubleClick = async (studentId, studentName,studentID) => {
+  const handleStudentDoubleClick = async (studentId, studentName, studentID) => {
     if (userRole != "admin") return;
     if (!studentId) return;
     setCourseId("");
@@ -63,6 +71,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
 
 
   const handleBackToStudents = () => {
+    setActiveCardId(null)
     setStudentCourses([])
     setFilterTop("Courses");
     setStudentTitle("Students");
@@ -107,7 +116,10 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
     }
 
     setFilteredStudents(filtered);
-  }, [studentFilterOptions, students]);
+  }, [studentFilterOptions, students, onDelete]);
+
+
+
 
   useEffect(() => {
     let filtered = [...instructors];
@@ -137,7 +149,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
         `${b.first_name} ${b.last_name}`.localeCompare(`${a.first_name} ${a.last_name}`)
       );
     }
-
+    console.log(filtered)
     setFilteredInstructors(filtered);
   }, [instructorFilterOptions, instructors]);
 
@@ -151,11 +163,11 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
           .includes(studentCourseFilterOptions.code.toUpperCase())
       );
     }
-    
+
     if (studentCourseFilterOptions?.name) {
       filteredCourses = filteredCourses.filter((course) =>
-        (String(course.name).toUpperCase().includes(studentCourseFilterOptions.name.toUpperCase()) ||
-          String(course.course_name).toUpperCase().includes(studentCourseFilterOptions.name.toUpperCase()))
+      (String(course.name).toUpperCase().includes(studentCourseFilterOptions.name.toUpperCase()) ||
+        String(course.course_name).toUpperCase().includes(studentCourseFilterOptions.name.toUpperCase()))
       );
     }
 
@@ -182,10 +194,13 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
 
   };
 
+
+
   const handleCourseDoubleClick = async (courseId) => {
     setLoading(true);
     setSelectedCourseId(courseId);
     setViewCourseStudents(true);
+    setCourseId(courseId);
     console.log("Double Clicked")
     try {
       const enrolledStudents = await getCourseStudents(courseId);
@@ -196,6 +211,42 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      if (!onDelete) return;
+
+      try {
+        const studentsAfterDelete = await getStudents();
+        setStudents(studentsAfterDelete);
+        console.log("studentsAfterDelete", studentsAfterDelete)
+        if (onDelete) setOnDelete(false);
+      } catch (error) {
+        console.error("Error fetching students after delete:", error);
+      }
+    };
+
+    fetchStudents();
+  }, [onDelete]);
+
+
+
+  useEffect(() => {
+    const fetchInstructors = async () => {
+      if (!onDelete) return;
+
+      try {
+        const instructorsAfterDelete = await getInstructors();
+        setInstructors(instructorsAfterDelete);
+        console.log("instructorsAfterDelete", instructorsAfterDelete)
+        if (onDelete) setOnDelete(false);
+      } catch (error) {
+        console.error("Error fetching students after delete:", error);
+      }
+    };
+
+    fetchInstructors();
+  }, [onDelete]);
 
 
   useEffect(() => {
@@ -236,7 +287,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
             position: "relative",
           }}
         >
-            <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
+          <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
           <AdminFilter studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
             <p>Loading students...</p>
@@ -249,7 +300,9 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
                     student={student}
                     setEditedStudent={setEditedStudent}
                     handleStudentDoubleClick={handleStudentDoubleClick}
-
+                    activeCardId={activeCardId}
+                    setActiveCardId={setActiveCardId}
+                    setOnDelete={setOnDelete}
                   />
                 ))
               ) : (
@@ -277,8 +330,16 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
                               ? `${course.instructors[0]?.instructor_name || ''}`
                               : course.instructor_name}
                         </p>
+
                       </div>
                     </div>
+                    {userRole?.toLowerCase() === "admin" && course.absence_percentage !== undefined && (
+                      <div className="percentageContainer">
+                        <p className="coursePercentage">{`${course.absence_percentage}`}</p>
+                        <span>Absence</span>
+                        <span>Percentage</span>
+                      </div>
+                    )}
                   </div>
                 ))
               ) : (
@@ -296,7 +357,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
             </button>
           )}
         </div>
-      ) : selectedDashboardITem === "View Courses" || selectedDashboardITem=="View Course Students" || !selectedDashboardITem ? (
+      ) : selectedDashboardITem === "View Courses" || selectedDashboardITem == "View Course Students" || !selectedDashboardITem ? (
         <div
           style={{
             width: "48%",
@@ -333,12 +394,16 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
             <p>Loading instructors...</p>
           ) : (
             <div className="InstructorContainer">
+
               {filteredInstructors.length > 0 ? (
                 filteredInstructors.map((instructor) => (
                   <InstructorCard
                     key={instructor.id}
                     instructor={instructor}
                     setEditedInstructor={setEditedInstructor}
+                    activeInstructorCardId={activeInstructorCardId}
+                    setActiveInstructorCardId={setActiveInstructorCardId}
+                    setOnDelete={setOnDelete}
                   />
                 ))
               ) : (

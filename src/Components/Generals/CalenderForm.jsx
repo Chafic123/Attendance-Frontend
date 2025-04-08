@@ -8,11 +8,13 @@ import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { courseCalendar } from "../../ApiService/InstructorCalendarService";
 import { useStudent } from "../../Contexts/getClickedStudentID";
-import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService"
+import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarService";
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
-import { getAdminStudentCourseCalendar } from "../../ApiService/AdminCalendarService";
-import { getAdminCourseCalendar } from "../../ApiService/AdminCalendarService";
-export default function Calendar({ setRequestCorrectionState, setSelectedAttendance }) {
+import { getAdminStudentCourseCalendar, getAdminCourseCalendar } from "../../ApiService/AdminCalendarService";
+
+export default function Calendar({ selectedDashboardItem,setRequestCorrectionState, setSelectedAttendance }) {
+
+
     const [calendarData, setCalendarData] = useState([]);
     const [instructorCalendarData, setInstructorCalendarData] = useState([]);
     const [adminCalendarData, setAdminCalendarData] = useState([]);
@@ -23,6 +25,16 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
     const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
     const { studentId } = useStudent();
 
+
+    useEffect(() => {
+        if (userRole?.toLowerCase() === "instructor" && selectedDashboardItem !== undefined) {
+            setCalendarData([]);
+            setInstructorCalendarData([]);
+        }
+        console.log("selectedDashboardItem", selectedDashboardItem)
+
+    }, [selectedDashboardItem]);
+    
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
@@ -44,12 +56,14 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                     }
                 } else if (userRole === "admin") {
                     if (studentId && courseId) {
+                        // Admin viewing specific student (has statuses)
                         const data = await getAdminStudentCourseCalendar(courseId, studentId);
                         setAdminCalendarData(Array.isArray(data) ? data : []);
                         setCalendarData([]);
-                    } else if(courseId && !studentId){
-                        const data = await getAdminCourseCalendar(courseId, studentId);
-                        setAdminCalendarData(Array.isArray(data) ? data : []);
+                    } else if (courseId) {
+                        // Admin viewing course (past/future sessions)
+                        const data = await getAdminCourseCalendar(courseId);
+                        setAdminCalendarData(data?.sessions || []);
                         setCalendarData([]);
                     } else {
                         setAdminCalendarData([]);
@@ -67,22 +81,34 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
     }, [courseId, userRole, studentId]);
 
     const { dayStatusMap, instructorDayMap, adminDayMap } = useMemo(() => {
+        // Student calendar data (has status)
         const dayMap = calendarData.reduce((map, day) => {
             map[dayjs(day.date).format("YYYY-MM-DD")] = day.status;
             return map;
         }, {});
         
+        // Instructor calendar data (past/future)
         const instructorMap = instructorCalendarData.reduce((map, session) => {
             map[dayjs(session.date).format("YYYY-MM-DD")] =
-                session.date < dayjs().format("YYYY-MM-DD") ? "past" : "future";
+                dayjs(session.date).isBefore(dayjs(), 'day') ? "past" : "future";
             return map;
         }, {});
-   
-        const adminMap = adminCalendarData.reduce((map, day) => {
-            map[dayjs(day.date).format("YYYY-MM-DD")] = day.status;
+
+        // Admin calendar data (handles both cases)
+        const adminMap = adminCalendarData.reduce((map, item) => {
+            const dateStr = dayjs(item.date).format("YYYY-MM-DD");
+            
+            // Case 1: Admin viewing student (has status)
+            if (item.status) {
+                map[dateStr] = item.status;
+            } 
+            // Case 2: Admin viewing course (past/future)
+            else {
+                map[dateStr] = dayjs(item.date).isBefore(dayjs(), 'day') ? "past" : "future";
+            }
             return map;
         }, {});
-   
+
         return { dayStatusMap: dayMap, instructorDayMap: instructorMap, adminDayMap: adminMap };
     }, [calendarData, instructorCalendarData, adminCalendarData]);
 
@@ -92,25 +118,32 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
         const instructorStatus = instructorDayMap[formattedDate];
         const adminStatus = adminDayMap[formattedDate];
 
+        // Admin status takes precedence
         if (adminStatus) {
-            if (adminStatus === "present") return {
-                background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
-                borderRadius: "50%",
-                color: "white"
-            };
-            if (adminStatus === "absent") return { 
-                background: "red", 
-                borderRadius: "50%", 
-                color: "white" 
-            };
-            if (adminStatus === "upcoming") return { 
-                background: "gray", 
-                borderRadius: "50%", 
-                color: "white" 
-            };
+            if (adminStatus === "present" || adminStatus === "past") {
+                return {
+                    background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
+                    borderRadius: "50%",
+                    color: "white"
+                };
+            }
+            if (adminStatus === "absent") {
+                return { 
+                    background: "red", 
+                    borderRadius: "50%", 
+                    color: "white" 
+                };
+            }
+            if (adminStatus === "upcoming" || adminStatus === "future") {
+                return { 
+                    background: "gray", 
+                    borderRadius: "50%", 
+                    color: "white" 
+                };
+            }
         }
 
-        // Fall back to other statuses if no admin status
+        // Fall back to other statuses
         if (status === "present") return {
             background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
             borderRadius: "50%",
@@ -162,6 +195,8 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
             if (adminStatus === "present") message = "Present";
             else if (adminStatus === "absent") message = "Absent";
             else if (adminStatus === "upcoming") message = "Upcoming";
+            else if (adminStatus === "past") message = "Already Passed";
+            else if (adminStatus === "future") message = "Upcoming";
         } else if (userRole === "student") {
             if (status === "present") message = "Present";
             else if (status === "absent") message = "Absent";
@@ -197,9 +232,12 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
         const handleDayClick = () => {
             let selectedAttendance;
             if (userRole === "admin") {
-                selectedAttendance = adminCalendarData.find(
-                    item => dayjs(item.date).format("YYYY-MM-DD") === formattedDate
-                );
+                if (studentId) {
+                    // Only allow clicks when viewing a specific student
+                    selectedAttendance = adminCalendarData.find(
+                        item => dayjs(item.date).format("YYYY-MM-DD") === formattedDate
+                    );
+                }
             } else {
                 selectedAttendance = calendarData.find(
                     item => dayjs(item.date).format("YYYY-MM-DD") === formattedDate
@@ -225,7 +263,7 @@ export default function Calendar({ setRequestCorrectionState, setSelectedAttenda
                 onMouseLeave={hasStatus(day) ? handleMouseLeave : undefined}
             />
         );
-    }, [calendarData, adminCalendarData, getDayStyle, handleMouseEnter, handleMouseLeave, setRequestCorrectionState, setSelectedAttendance, hasStatus, userRole]);
+    }, [calendarData, adminCalendarData, getDayStyle, handleMouseEnter, handleMouseLeave, setRequestCorrectionState, setSelectedAttendance, hasStatus, userRole, studentId]);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>

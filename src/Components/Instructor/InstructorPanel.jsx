@@ -16,7 +16,6 @@ export default function InstructorPanel(prop) {
     }
     console.log("Profile hidden");
   };
-
   return (
     <div className="panel-container">
       {
@@ -24,7 +23,7 @@ export default function InstructorPanel(prop) {
           <div>
             <div className="panel-content">
               <div className="custom-calendar-wrapper">
-                <Calender />
+                <Calender selectedDashboardItem={prop.selectedDashboardItem} />
               </div>
               <InstructorNotifications setActiveStudent={prop.setActiveStudent} selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
             </div>
@@ -45,7 +44,7 @@ export default function InstructorPanel(prop) {
           <div>
             <div className="panel-content">
               <div className="custom-calendar-wrapper">
-                <Calender />
+                <Calender selectedDashboardItem={prop.selectedDashboardItem} />
               </div>
               <InstructorRequests />
             </div>
@@ -55,17 +54,18 @@ export default function InstructorPanel(prop) {
           </div>
 
         ) : (
-          <div>
-            <div className="panel-content">
-              <div className="custom-calendar-wrapper">
-                <Calender />
-              </div>
-              <InstructorNotifications selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
-            </div>
-            <div className="profile-holder">
-              <InstructorProfile refreshProfile={prop.refreshProfile} />
-            </div>
-          </div>
+          null
+          // <div>
+          //   <div className="panel-content">
+          //     <div className="custom-calendar-wrapper">
+          //       <Calender selectedDashboardITem={prop.selectedDashboardITem} />
+          //     </div>
+          //     <InstructorNotifications selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
+          //   </div>
+          //   <div className="profile-holder">
+          //     <InstructorProfile refreshProfile={prop.refreshProfile} />
+          //   </div>
+          // </div>
         )
       }
       <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hideProfile} alt="cancel icon" />

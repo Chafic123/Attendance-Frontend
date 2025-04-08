@@ -4,18 +4,24 @@ import MainContentTopSI from "../Student/MainContentTopSI";
 import PropTypes from "prop-types";
 import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InstructorSchedule from "./InstructorSchedule";
-export default function InstructorMainContent({ selectedDashboardITem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
+export default function InstructorMainContent({ setSelectedText,selectedDashboardItem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
   const [courses, setCourses] = useState([]);
-
   const [courseTitle, setCourseTitle] = useState("Courses");
+
+
+  
+  const [successMessage, setSuccessMessage] = useState("");
+  const [noSuccessMessage, setNoSuccessMessage] = useState("");
+
+
   
   return (
     <>
-      {selectedDashboardITem === "View Courses" || !selectedDashboardITem ? (
+      {selectedDashboardItem === "View Courses" || !selectedDashboardItem ? (
         <div
           style={{
             width: "48%",
@@ -31,9 +37,9 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
           <div>
             <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
           </div>
-          <Course setCourseTitle={setCourseTitle} courses={courses} setCourses={setCourses} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
+          <Course  setSelectedText={setSelectedText} setCourseTitle={setCourseTitle} courses={courses} setCourses={setCourses} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
         </div>
-      ) : selectedDashboardITem === "View Schedule" ? (
+      ) : selectedDashboardItem === "View Schedule" ? (
         <div
           style={{
             width: "100%",
@@ -49,7 +55,7 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
           <InstructorSchedule />
 
         </div>
-      ) : selectedDashboardITem === "View Notifications" ? (
+      ) : selectedDashboardItem === "View Notifications" ? (
         <div
           style={{
             width: "48%",
@@ -72,6 +78,6 @@ export default function InstructorMainContent({ selectedDashboardITem, onAdd, ha
 }
 
 InstructorMainContent.propTypes = {
-  selectedDashboardITem: PropTypes.string.isRequired,
+  selectedDashboardItem: PropTypes.string.isRequired,
   onAdd: PropTypes.func.isRequired,
 };

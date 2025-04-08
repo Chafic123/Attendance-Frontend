@@ -231,7 +231,17 @@ form {
     margin-bottom: 10px;
   }
 
-  
+  @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2){
+    /*ipad*/ 
+    #body-container {
+        height: 50vh;
+
+    }
+    .Logo {
+        top: 19px;
+        left: 18px;
+    }
+}
 
 @media (max-width : 1146px) {
     #form-div {

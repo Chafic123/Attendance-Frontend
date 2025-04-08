@@ -7,9 +7,14 @@ import "../CSS/SI.css"
 
 export default function Instructor({ refreshProfile, user, viewProfile, viewPanel }) {
 
+
+
   useEffect(() => {
     refreshProfile();
   }, []);
+
+
+  const [selectedText, setSelectedText] = useState(null);
 
   const handleAdd = () => {
     console.log("View Profile")
@@ -22,7 +27,7 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
     }
     console.log("Add clicked");
   };
-  const [selectedText, setSelectedText] = useState(null);
+
   const DashboardItems = [
     {
       imgSrc: "../public/Images/Course-icon.png",
@@ -45,26 +50,27 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
   ];
 
   const handleItemClick = (text, event) => {
+
     document.querySelectorAll('.dashboard-item').forEach((el) => {
       el.classList.remove('active');
     });
-  
+
     event.currentTarget.classList.add('active');
-  
     setSelectedText(text);
+
   };
-  
+
 
   useEffect(() => {
     const firstItem = document.querySelectorAll('.dashboard-item')[0];
-    
+
     if (firstItem) {
-      firstItem.classList.add('active'); 
-      setSelectedText(firstItem.textContent); 
+      firstItem.classList.add('active');
+      setSelectedText(firstItem.textContent);
     }
 
   }, []);
-  
+
 
   return (
     <div className="whole-container"
@@ -74,12 +80,12 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <InstructorWholeContent
+        setSelectedText={setSelectedText}
         viewPanel={viewPanel}
         refreshProfile={refreshProfile}
         onAdd={handleAdd}
-        selectedDashboardITem={selectedText}
+        selectedDashboardItem={selectedText}
         selectedAddItem={selectedText} />
-
     </div>
   );
 }

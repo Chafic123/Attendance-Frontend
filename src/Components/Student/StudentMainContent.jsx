@@ -43,7 +43,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
       ) : selectedDashboardITem === "View Schedule" ? (
         <div
           style={{
-            width: "48%",
+            width: "100%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",

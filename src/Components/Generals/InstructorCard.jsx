@@ -2,8 +2,9 @@ import "../../CSS/InstructorCard.css";
 import { Icon } from "@mui/material";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
-
-export default function InstructorCard({ instructor, setEditedInstructor }) {
+import { removeInstructor } from "../../ApiService/AdminInstrucotrService";
+import { useEffect } from "react";
+export default function InstructorCard({ setOnDelete, instructor, setEditedInstructor, activeInstructorCardId, setActiveInstructorCardId, }) {
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const dropdownRef = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
@@ -14,8 +15,60 @@ export default function InstructorCard({ instructor, setEditedInstructor }) {
   const department = instructor?.instructor?.department?.name || "N/A";
   const id = instructor?.instructor?.id || "N/A";
 
+
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [noSuccessMessage, setNoSuccessMessage] = useState("");
+
+  const handleDeleteInstructor = async (instructorId) => {
+    try {
+      await removeInstructor(instructorId);
+      setOnDelete(true);
+      setSuccessMessage("Instructor removed successfully");
+    } catch (error) {
+      setNoSuccessMessage(`Error: ${error.message}`);
+    }
+  };
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
   return (
-    <div style={{ position: "relative" }} className="Instructor-card">
+    <div
+      style={{ position: "relative" }}
+      className={`Instructor-card ${activeInstructorCardId === instructor.id ? "active" : ""}`}
+      onClick={() => setActiveInstructorCardId(instructor.id)}
+    >
+      {successMessage && (
+        <div className="popup-container">
+          <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
+            <p style={{ color: "#543381" }}>{successMessage}</p>
+            <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+          </div>
+        </div>
+      )}
+
+      {noSuccessMessage && (
+        <div className="popup-container">
+          <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+            <p style={{ color: "red" }}>{noSuccessMessage}</p>
+            <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
+          </div>
+        </div>
+      )}
       <div className="Instructor-details">
         <img
           src={instructor.instructor.image ? instructor.instructor.image : "../../Images/Profile Icon BG.png"}
@@ -37,6 +90,7 @@ export default function InstructorCard({ instructor, setEditedInstructor }) {
 
           {showMenu && (
             <div
+              ref={dropdownRef}
               style={{
                 position: "absolute",
                 top: "20px",
@@ -83,6 +137,7 @@ export default function InstructorCard({ instructor, setEditedInstructor }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);
+                  handleDeleteInstructor(instructor.instructor.id);
                 }}
               >
                 Delete

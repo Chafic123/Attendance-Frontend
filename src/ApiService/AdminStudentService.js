@@ -157,3 +157,38 @@ export const removeCourseStudent = async (courseId, studentId) => {
     };
   }
 };
+
+
+export const removeStudent = async (studentId) => {
+  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  console.log("Deleting student:", studentId);
+
+  try {
+    const response = await fetch(`${BASE_URL}/admin/students/${studentId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP error ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data: data,
+      message: data.message || 'Student deleted successfully',
+    };
+  } catch (error) {
+    console.error('Error deleting student:', error);
+    return {
+      success: false,
+      message: error.message || 'Failed to delete student.',
+    };
+  }
+};
+

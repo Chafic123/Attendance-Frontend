@@ -19,7 +19,13 @@
     padding: 0 10px;
     width: 43.4%;
 }
-
+.Instructor-card.active {
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+  }
+  .Instructor-card.active span,
+  .Instructor-card.active p{
+    color: white;
+  }
 .Instructor-details {
     display: flex;
     align-items: center;

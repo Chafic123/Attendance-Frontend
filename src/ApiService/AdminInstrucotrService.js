@@ -30,11 +30,10 @@ export const addInstructor = async (instructorData) => {
       }
     );
 
-    return response.data; // Return the successful response data
+    return response.data;
   } catch (error) {
     console.error("Error adding instructor:", error.response?.data || error.message);
 
-    // Extract error message from response if available
     const errorMessage =
       error.response?.data?.message ||
       error.response?.data?.error ||
@@ -63,11 +62,10 @@ export const editInstructor = async (instructorId, instructorData) => {
         }
       );
   
-      return response.data; // Return the successful response data
+      return response.data;
     } catch (error) {
       console.error("Error editing instructor:", error.response?.data || error.message);
   
-      // Extract error message from response if available
       const errorMessage =
         error.response?.data?.message ||
         error.response?.data?.error ||
@@ -76,4 +74,31 @@ export const editInstructor = async (instructorId, instructorData) => {
       throw new Error(errorMessage);
     }
   };
+
+
+
+  export const removeInstructor = async (instructorId) => {
+    const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
   
+    try {
+      const response = await axios.delete(
+        `${BASE_URL}/admin/instructors/${instructorId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data; 
+    } catch (error) {
+      console.error("Error deleting instructor:", error.response?.data || error.message);
+  
+      const errorMessage =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Failed to delete instructor. Please try again.";
+  
+      throw new Error(errorMessage);
+    }
+  };

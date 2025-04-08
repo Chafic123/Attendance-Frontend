@@ -12,15 +12,20 @@ import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 
-export default function Course({ setSelectedText,studentCourseFilters, setCourseTitle, setStudents, courses, setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
+export default function Course({ setSelectedText, studentCourseFilters, setCourseTitle, setStudents, courses, setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
   const [allCourses, setAllCourses] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState([]); 
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [filteredStudentCourses, setFilteredStudentCourses] = useState([]);
+
+  const [onDelete, setOnDelete] = useState(false)
+
+  const [activeCardId, setActiveCardId] = useState(null);
 
   const [hideIcon, setHideIcon] = useState(false);
   const [courseStudentID, setCourseStudentID] = useState("")
 
   const { setStudentId } = useStudent();
+
 
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -31,7 +36,11 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
   const [showMenuIndex, setShowMenuIndex] = useState(null);
 
   const { setCourseId } = useCourse();
+  const { courseId } = useCourse();
   const { user } = useUser();
+
+
+
 
   const [showStudents, setShowStudents] = useState(false);
 
@@ -44,6 +53,8 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
 
   const handleDoubleClick = async (courseId, courseName, courseSection) => {
     setCourseStudentID(courseId);
+    setCourseId(courseId);
+
     console.log("Course Double Clicked")
     setCourseId(courseId);
     if (userRole !== "instructor" && userRole !== "admin") {
@@ -66,6 +77,29 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
       console.error("Failed to fetch students:", error);
     }
   };
+  //here
+  useEffect(()=>{
+
+    const fetchStudents = async () => {
+      console.log("clickedCourseId",courseId)
+
+      if (!onDelete) return;
+      try {
+        const studentsAfterDelete = await getCourseStudents(courseId);
+        setCourseStudents(studentsAfterDelete);
+        console.log("studentsAfterDelete",studentsAfterDelete)
+        if(onDelete) setOnDelete(false);
+      } catch (error) {
+        console.error("Error fetching students after delete:", error);
+      }
+    };
+
+    fetchStudents();
+}, [onDelete])
+
+useEffect(()=>{
+  console.log("hi",onDelete)
+},[onDelete])
 
   const handleEditCourseClick = (course) => {
     setEditedCourse(course);
@@ -73,13 +107,15 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
   }
 
   const handleBackToCourses = () => {
+    setActiveCardId(null)
+    setStudentId(null)
+    setCourseId(null)
     setEditedStudent(null)
     setFilterTop("Courses");
     setSelectedText("View Courses")
     setCourseTitle("Courses");
     setShowStudents(false);
     setActiveStudent(null);
-    setStudentId(null)
     setCourseStudents([]);
     setActiveIndex(null);
 
@@ -177,7 +213,6 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
   }, [courses, courseFilters]);
 
 
-  //test 
   useEffect(() => {
     let filtered = [...allCourses];
 
@@ -285,7 +320,11 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
                 className={`course ${activeIndex === index ? "activeCourse" : ""}`}
                 key={index}
                 onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
-                onDoubleClick={() => handleDoubleClick(userRole === "admin" ? course.id : course.course_id, course.name || course.course_name, course.course_section || course.Section)}
+                onDoubleClick={() => handleDoubleClick(
+                  userRole === "admin" ? course.id : course.course_id,
+                  userRole === "admin" ? course.name : course.course_name,
+                  course.course_section || course.Section
+                )}
               >
                 <div className="courseDetails">
                   <div className="courseBorder"></div>
@@ -294,7 +333,7 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
                     <p className="courseName">{course.course_name || course.name}</p>
                     <p className="courseInstructor">
                       {userRole?.toLowerCase() === "instructor"
-                        ? `${user?.first_name} ${user?.last_name}`
+                        ? `${course.name}`
                         : userRole?.toLowerCase() === "admin"
                           ? `${course.instructors[0]?.user?.first_name || ''} ${course.instructors[0]?.user?.last_name || ''}`
                           : course.instructor_name}
@@ -390,6 +429,9 @@ export default function Course({ setSelectedText,studentCourseFilters, setCourse
                   setEditedStudent={setEditedStudent}
                   setActiveStudent={setActiveStudent}
                   hideIcon={hideIcon}
+                  activeCardId={activeCardId}
+                  setActiveCardId={setActiveCardId}
+                  setOnDelete={setOnDelete}
                 />
               </div>
             ))}

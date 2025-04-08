@@ -43,14 +43,12 @@ export default function StudentScheduleReport() {
                         <label htmlFor="">Year: </label>
                         <span>{student.year || "N/A"}</span>
                     </div>
+                    {console.log(courses)}
                     <div className="schedule-top-info">
                         <label htmlFor="">Semester: </label>
                         <span>{courses.length > 0 ? courses[0].term : "N/A"} {courses.length > 0 ? courses[0].year : "N/A"}</span>
                     </div>
-                    <div className="schedule-top-info">
-                        <label htmlFor="">Advisor: </label>
-                        <span>{student.advisor || "N/A"}</span>
-                    </div>
+
                 </div>
             </div>
 
