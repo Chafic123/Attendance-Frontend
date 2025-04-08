@@ -24,11 +24,13 @@ body {
     width: 45px;
     height: 45px;
 }
-.profileTopLoading{
+
+.profileTopLoading {
     position: absolute;
     top: 50px;
     right: 100px;
 }
+
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     .profileTop-container {
         top: 20px;
@@ -49,15 +51,20 @@ body {
         right: 95px;
         gap: 10px;
     }
-    .user-info{
+
+    .user-info {
         gap: 2px;
         margin-top: -7px;
     }
-    .user-info p{
-        font-size: 10px;  
+
+    .user-info p {
+        font-size: 8px;
     }
+
     .profile-icon {
-        width: 3vw;
-        height: 2vh;
+        width: 5vw;
+        height: 2.5vh;
     }
+
+
 }

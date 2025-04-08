@@ -15,6 +15,8 @@ export default function StudentProfile({ refreshProfile }) {
     const [videoFilename, setVideoFilename] = useState("");
     const [successMessage, setSuccessMessage] = useState(""); 
     const [noChangesMessage, setNoChangesMessage] = useState(""); 
+    const [imageUploaded, setImageUploaded] = useState(false);
+    const [videoUploaded, setVideoUploaded] = useState(false);
 
     useEffect(() => {
         const fetchStudentDetails = async () => {
@@ -39,6 +41,8 @@ export default function StudentProfile({ refreshProfile }) {
         if (file && file.type.startsWith('image/')) {
             setStudentImage(file);
             setImageFilename(file.name);
+            setImageUploaded(true);
+
         } else {
             console.error("Invalid image file selected");
         }
@@ -49,6 +53,8 @@ export default function StudentProfile({ refreshProfile }) {
         if (file && file.type.startsWith('video/')) {
             setStudentVideo(file);
             setVideoFilename(file.name);
+            setVideoUploaded(true);
+
         } else {
             console.error("Invalid video file selected");
         }
@@ -192,11 +198,13 @@ export default function StudentProfile({ refreshProfile }) {
                             className="img-input"
                             onChange={handleStudentImage}
                         />
-                        <label htmlFor="fileInput" className="imageLabel">Image</label>
+                        <label htmlFor="fileInput" 
+                            className={`imageLabel ${imageUploaded ? 'uploaded' : ''}`}
+                            >Image</label>
                         <label htmlFor="fileInput" className="upload-img-btn">
                             <img src="/Images/Upload_img.png" alt="Upload" />
                         </label>
-                        <span className="img-name">{imageFilename ? "Uploaded Successfully" : "Upload New"}</span> {/* Display filename or default text */}
+                        <span className="img-name">{imageFilename ? "Uploaded" : "Upload New"}</span> {/* Display filename or default text */}
                     </div>
                 </div>
 
@@ -208,11 +216,13 @@ export default function StudentProfile({ refreshProfile }) {
                             className="img-input"
                             onChange={handleStudentVideo}
                         />
-                        <label htmlFor="videoInput" className="imageLabel">Video</label>
+                        <label htmlFor="videoInput" 
+                            className={`imageLabel ${videoUploaded ? 'uploaded' : ''}`}
+                            >Video</label>
                         <label htmlFor="videoInput" className="upload-img-btn">
                             <img src="/Images/Upload_img.png" alt="Upload" />
                         </label>
-                        <span className="img-name">{videoFilename ? "Uploaded Successfully" : "Upload Video"}</span> {/* Display filename or default text */}
+                        <span className="img-name">{videoFilename ? "Uploaded" : "Upload Video"}</span> {/* Display filename or default text */}
                     </div>
                 </div>
 

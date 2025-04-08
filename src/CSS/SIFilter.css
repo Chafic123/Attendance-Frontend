@@ -37,28 +37,30 @@
     flex-grow: 1;  
 }
 @media only screen and (max-width: 431px) and (height: 932px) {
-    .studentFilterContainer{
-        width: 112%;
-    }
     .filterContainer {
         margin-left: -30px;
-        width: 150%;
+        width: 171%;
+        gap: 6px;
     }
-    .codeInput{
-        width: 75px;
-        height: 20px;
+    .filterTitle {
+       font-size: 12px !important;
+    }
+    .selectInput {
+        width: 20.5%;
+        height: 28px;
+
+
+    }
+    .codeInput {
+        width: 18.5%;
+        height: 22px;
         font-size: 10px;
-    }
-    .selectInput{
-        width: 100px;
-        height: 20px;
-        font-size: 10px;
-    }
-    .filterTitle{
-        font-size: 14px;
-        margin: 0;
-        padding: 0;
-        white-space: nowrap;
+
     }
 
+    .selectInput {
+        width: 10.5%;
+        height: 22px;
+        font-size: 10px;
+    }
 }

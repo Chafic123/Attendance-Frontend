@@ -59,3 +59,13 @@
     color: #4a2b99;
   }
   
+
+  @media only screen and (max-width: 431px) and (max-height: 932px) {
+    .request-correction-container {
+        top: 34px;
+    }
+    .request-correction-title {
+        font-size: 18.99px;
+        white-space: nowrap;
+    }
+}
