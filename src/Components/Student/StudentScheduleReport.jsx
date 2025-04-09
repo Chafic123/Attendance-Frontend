@@ -22,7 +22,7 @@ export default function StudentScheduleReport() {
     const { student, courses } = studentData;
 
     return (
-        <div>
+        <div className="schedule-report-container">
             <div className="schedule-top">
                 <div className="schedule-top-element">
                     <div className="schedule-top-info">

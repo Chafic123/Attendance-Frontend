@@ -1,14 +1,14 @@
 import "../../CSS/ProfileTop.css";
 import PropTypes from "prop-types";
 
-export default function ProfileTop({ viewProfile, user }) {
-    console.log("User: ", user)
+export default function ProfileTop({ selectedAddItem, viewProfile, user }) {
     if (!user) return <p className="profileTopLoading">Loading...</p>;
 
     const { user: userInfo, Instructor: instructorInfo } = user;
+    const isScheduleView = selectedAddItem === "View Schedule";
 
     return (
-        <div className="profileTop-container" onClick={viewProfile}>
+        <div className={`profileTop-container ${isScheduleView ? "profileTop-Schedule" : ""}`} onClick={viewProfile}>
             <div className="user-info">
                 <p className="user-name">{`${userInfo.first_name} ${userInfo.last_name}`}</p>
                 <p className="user-id">

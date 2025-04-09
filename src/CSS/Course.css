@@ -217,6 +217,8 @@
     }
 
     .CourseContainer {
+        max-height: 419px;
+        padding-right: 10px;
         width: 110%;
         gap: 10px;
     }
@@ -247,12 +249,20 @@
     .courseInstructor {
         font-size: 9px;
     }
+    .percentageContainer p {
+        font-size: 12px;
+    }
+    .percentageContainer span {
+        font-size: 9.96px;
+
+    }
 }
 
 /*Iphone 14 Pro Max*/
 @media only screen and (max-width: 431px) and (max-height: 932px) {
+
     .CourseContainer {
-        width: 80%;
+        width: 93%;
         margin-left: -30px;
         flex-direction: row;
         overflow-y: auto;
@@ -262,7 +272,6 @@
         border-bottom: 1px solid rgb(196, 192, 192);
         border-top: 1px solid rgb(196, 192, 192);
     }
-
     .courseBorder {
         height: 66px;
         width: 13px;

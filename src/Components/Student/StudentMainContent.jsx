@@ -9,18 +9,13 @@ import "../../CSS/StudentMainContent.css";
 import StudentScheduleReport from "./StudentScheduleReport";
 
 export default function StudentMainContent({ selectedDashboardITem, viewPanelIphone }) {
-  const [studentCourseFilters, setFilterOptions] = useState({ code: "", sort: "",name: "" });
+  const [studentCourseFilters, setFilterOptions] = useState({ code: "", sort: "", name: "" });
   const [courses, setCourses] = useState([]);
 
- 
+
   return (
     <>
-      <img
-        onClick={viewPanelIphone}
-        className="notification-schedule-icon"
-        src="../public/Images/Notification-Schedule-icon.png"
-        alt=""
-      />
+
 
       {selectedDashboardITem === "View Courses" ? (
         <div
@@ -34,10 +29,15 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
             gap: "17px",
           }}
         >
-          
-          <MainContentTopSI onCourseFilterChange={setFilterOptions} title="Courses"  />
+          <img
+            onClick={viewPanelIphone}
+            className="notification-schedule-icon"
+            src="../public/Images/Notification-Schedule-icon.png"
+            alt=""
+          />
+          <MainContentTopSI onCourseFilterChange={setFilterOptions} title="Courses" />
 
-                    <StudentFilter onCourseFilterChange={setFilterOptions} />
+          <StudentFilter onCourseFilterChange={setFilterOptions} />
           <Course courses={courses} setCourses={setCourses} studentCourseFilters={studentCourseFilters} />
         </div>
       ) : selectedDashboardITem === "View Schedule" ? (
@@ -52,8 +52,8 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
             gap: "17px",
           }}
         >
-          
-          <MainContentTopSI title="Schedule"  />
+
+          <MainContentTopSI title="Schedule" />
           <StudentScheduleReport />
         </div>
       ) : selectedDashboardITem === "View Notifications" ? (
@@ -68,7 +68,13 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
             gap: "17px",
           }}
         >
-          <MainContentTopSI title="Notifications"/>
+          <img
+            onClick={viewPanelIphone}
+            className="notification-schedule-icon"
+            src="../public/Images/Notification-Schedule-icon.png"
+            alt=""
+          />
+          <MainContentTopSI title="Notifications" />
           <StudentNotificationCenter />
         </div>
       ) : (
@@ -83,6 +89,7 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
             gap: "17px",
           }}
         >
+
           <MainContentTopSI onCourseFilterChange={setFilterOptions} title="Courses" />
           <StudentFilter onCourseFilterChange={setFilterOptions} />
           <Course courses={courses} setCourses={setCourses} studentCourseFilters={studentCourseFilters} />

@@ -44,7 +44,7 @@ export default function Student({ refreshProfile, user, viewProfile, viewPanel, 
 
   return (
     <div className="whole-container">
-      <ProfileTop refreshProfile={refreshProfile} user={user} viewProfile={viewProfile} />
+      <ProfileTop selectedAddItem={selectedText} refreshProfile={refreshProfile} user={user} viewProfile={viewProfile} />
       <Logo />
       <Dashboard setSelectedText={setSelectedText} selectedAddItem={selectedText} DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <StudentWholeContent

@@ -301,3 +301,23 @@
         background: none;
     }
 }
+
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+
+    .user-profile-form {
+        width: 108%;
+    }
+    .form-user-group input {
+        padding: 8px 16px;
+
+        font-size: 12px;
+
+    }
+  
+    .imageLabel{
+        margin-left: 10px;
+    }
+    .uploaded {
+        margin-left: 25px;
+    }
+}

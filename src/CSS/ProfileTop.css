@@ -39,8 +39,8 @@ body {
     }
 
     .profile-icon {
-        height: 2.4vh;
-        width: 2.4vw;
+        height: 3vh;
+        width: 3vh;
     }
 }
 
@@ -66,5 +66,8 @@ body {
         height: 2.5vh;
     }
 
-
+    .profileTop-Schedule {
+       right: 70px;
+      }
+      
 }

@@ -105,23 +105,31 @@
   .css-5wchs2-MuiDateCalendar-root {
     width: 253px !important;
   }
+
   .css-1pv2de5-MuiDayCalendar-weekContainer {
     margin: 0px 0;
 
+  }
+
+
+
+
+  .css-1n1xn3x-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
+    min-height: 154px !important;
+    overflow: auto;
+  }
+
+  .css-1nxbkmn-MuiPickersCalendarHeader-root {
+
+    margin-top: 71px !important;
+
+  }
 }
 
-
-
-
-.css-1n1xn3x-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
-  min-height: 154px !important;
-  overflow: auto;
-}
-.css-1nxbkmn-MuiPickersCalendarHeader-root {
-
-  margin-top: 71px !important;
-
-}
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+  .css-1nxbkmn-MuiPickersCalendarHeader-root {
+    margin-top: 30px;
+  }
 }
 
 @media only screen and (width: 1537px) and (height: 727px) {
