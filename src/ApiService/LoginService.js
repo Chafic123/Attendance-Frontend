@@ -14,13 +14,15 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
         });
         
         const { access_token, status: userRole } = response.data || {};
+        console.log("status: ", userRole)
         if (access_token && userRole) {
             console.log('Login Response:', response.data);
             const storage = rememberMe ? localStorage : sessionStorage;
 
             storage.setItem('authToken', access_token);
-            storage.setItem('userRole', userRole.toLowerCase());
-            
+            storage.setItem('userRole', userRole.toLowerCase()); 
+            console.log("Stored userRole:", storage.getItem('userRole'));
+
             return response.data;  
         }
 

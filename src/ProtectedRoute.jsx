@@ -4,14 +4,15 @@ export default function ProtectedRoute({ requiredRole }) {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
+  console.log("UserRole: ", userRole);
+  console.log("Token: ", token);
+
   if (!token) {
     return <Navigate to="/login" replace />;
   }
 
-  if (requiredRole && userRole !== requiredRole.toLowerCase()) {
-    return <Navigate to={`/${userRole}`} replace />;
+  if (userRole === requiredRole.toLowerCase()) {
+    return <Outlet />;
   }
-  
 
-  return <Outlet />;
 }

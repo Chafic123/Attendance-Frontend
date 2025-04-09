@@ -31,7 +31,9 @@ export default function Login() {
       if (response) {
         const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
         if (token) {
+          console.log("statusss: ",response.user.status)
           if (response.user.status === "Admin") {
+            console.log("Loggin in as admin")
             navigate("/admin");
           } else if (response.user.status === "Instructor") {
             navigate("/instructor");
@@ -42,6 +44,7 @@ export default function Login() {
           }
         } else {
           setErrorMessage("Authentication failed. Please log in again.");
+          
         }
       }
     } catch (error) {

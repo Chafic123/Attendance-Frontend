@@ -4,7 +4,7 @@ import BASE_URL from './BaseURL';
 export const getCourses = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
-
+  
   if (!token) {
     console.log("No authentication token found. Please log in again.");
     return [];

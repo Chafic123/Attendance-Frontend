@@ -6,9 +6,9 @@ import "../CSS/AdminPage.css"
 import { useEffect } from "react";
 import ProfileTop from "../Components/Generals/ProfileTop";
 export default function Admin() {
+
   const [selectedText, setSelectedText] = useState(null);
   const [processText, setProcessText] = useState(null);
-
 
   useEffect(() => {
     const firstItem = document.querySelectorAll('.dashboard-item')[0];

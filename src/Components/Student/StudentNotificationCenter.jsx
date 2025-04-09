@@ -4,7 +4,27 @@ import { getStudentNotifications, markStudentNotificationAsRead } from "../../Ap
 
 export default function StudentNotificationsCenter() {
   const [notifications, setNotifications] = useState([]);
+  const [filteredNotifications, setFilteredNotifications] = useState([]);
+  const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
+
+  // ✅ Apply filter based on read_status
+  const applyFilter = (type, data = notifications) => {
+    if (type === "read") {
+      setFilteredNotifications(data.filter((n) => n.read_status));
+    } else if (type === "unread") {
+      setFilteredNotifications(data.filter((n) => !n.read_status));
+    } else {
+      setFilteredNotifications(data);
+    }
+  };
+
+  // ✅ Handle filter change from dropdown
+  const handleFilterChange = (e) => {
+    const selected = e.target.value;
+    setFilter(selected);
+    applyFilter(selected);
+  };
 
   // ✅ Fetch notifications on component mount
   useEffect(() => {
@@ -12,25 +32,40 @@ export default function StudentNotificationsCenter() {
       const data = await getStudentNotifications();
       setNotifications(data);
       setLoading(false);
+      applyFilter(filter, data);
     };
 
     fetchNotifications();
   }, []);
 
-  // ✅ Function to mark a notification as read
+  // ✅ Mark notification as read and update UI
   const handleMarkAsRead = async (notificationId) => {
     const response = await markStudentNotificationAsRead(notificationId);
     if (response) {
-      setNotifications(notifications.filter((notification) => notification.id !== notificationId));
+      const updated = notifications.map((n) =>
+        n.id === notificationId ? { ...n, read_status: true } : n
+      );
+      setNotifications(updated);
+      applyFilter(filter, updated);
     }
   };
 
   if (loading) return <p>Loading notifications...</p>;
-  if (!notifications.length) return <p>No notifications available.</p>;
+  if (!filteredNotifications.length) return <p>No notifications available.</p>;
 
   return (
     <div id="main-notification-container">
-      {notifications.map((notification, index) => (
+      {/* 🔽 Filter Dropdown */}
+      <div style={{ marginBottom: "15px" }}>
+        <label htmlFor="filter">Filter: </label>
+        <select id="filter" value={filter} onChange={handleFilterChange}>
+          <option value="all">All Notifications</option>
+          <option value="read">Read Notifications</option>
+          <option value="unread">Unread Notifications</option>
+        </select>
+      </div>
+
+      {filteredNotifications.map((notification, index) => (
         <div key={index}>
           <div className="gray-line"></div>
           <div className="notificationCard">
@@ -53,10 +88,12 @@ export default function StudentNotificationsCenter() {
               </div>
             </div>
 
-            {/* "Mark As Read" Button */}
-            <button className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
-              Mark As Read
-            </button>
+            {/* Show only if unread */}
+            {!notification.read_status && (
+              <button className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
+                Mark As Read
+              </button>
+            )}
           </div>
         </div>
       ))}

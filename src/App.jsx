@@ -12,6 +12,7 @@ import { getUserDetails } from "./ApiService/ProfileService";
 import { useCallback } from "react";
 import { UserProvider } from "./Contexts/UserContext";
 import { StudentProvider } from "./Contexts/getClickedStudentID";
+import { has } from "lodash";
 function App() {
 
   const [user, setStudent] = useState(null);
@@ -110,7 +111,8 @@ function App() {
 
               {/* Protected Routes with Role-Based Access */}
               <Route element={<ProtectedRoute requiredRole="admin" />}>
-                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin" element={<Admin />
+              } />
               </Route>
 
               <Route element={<ProtectedRoute requiredRole="student" />}>
