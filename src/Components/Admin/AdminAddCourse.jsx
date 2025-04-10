@@ -42,12 +42,14 @@ const AdminAddCourse = ({ setCourses }) => {
                 courseData.instructor_email
             );
 
-            setSuccessMessage("Course Added Successfully!")
             const courseData2 = await getCourses();
             setCourses(Array.isArray(courseData2) ? courseData2 : []);
+            setSuccessMessage("Course Added Successfully!")
+
 
         } catch (error) {
-            setNoSuccessMessage(error.message)
+            setNoSuccessMessage(error.response.data.message)
+            console.log()
         }
     };
 

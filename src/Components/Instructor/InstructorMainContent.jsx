@@ -6,19 +6,19 @@ import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useEffect, useState } from "react";
 import InstructorSchedule from "./InstructorSchedule";
-export default function InstructorMainContent({ setSelectedText,selectedDashboardItem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
+export default function InstructorMainContent({ viewPanelIphone, setSelectedText, selectedDashboardItem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
   const [courses, setCourses] = useState([]);
   const [courseTitle, setCourseTitle] = useState("Courses");
 
 
-  
+
   const [successMessage, setSuccessMessage] = useState("");
   const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
 
-  
+
   return (
     <>
       {selectedDashboardItem === "View Courses" || !selectedDashboardItem ? (
@@ -33,16 +33,22 @@ export default function InstructorMainContent({ setSelectedText,selectedDashboar
             gap: "17px",
           }}
         >
+          <img
+            onClick={viewPanelIphone}
+            className="notification-schedule-icon"
+            src="../public/Images/Notification-Schedule-icon.png"
+            alt=""
+          />
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title={courseTitle} onAdd={onAdd} />
           <div>
             <InstructorFilter filterTop={filterTop} onCourseFilterChange={setCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} title="InstructorFilter" />
           </div>
-          <Course  setSelectedText={setSelectedText} setCourseTitle={setCourseTitle} courses={courses} setCourses={setCourses} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
+          <Course setSelectedText={setSelectedText} setCourseTitle={setCourseTitle} courses={courses} setCourses={setCourses} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} courseFilters={courseFilterOptions} studentFilters={studentFilterOptions} setFilterTop={setFilterTop} setEditedStudent={setEditedStudent} />
         </div>
       ) : selectedDashboardItem === "View Schedule" ? (
         <div
           style={{
-            width: "100%",
+            width: "87%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",
@@ -51,14 +57,14 @@ export default function InstructorMainContent({ setSelectedText,selectedDashboar
             gap: "17px",
           }}
         >
-          <MainContentTopSI  onCourseFilterChange={setCourseFilterOptions} title="Schedule" onAdd={onAdd} />
+          <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Schedule" onAdd={onAdd} />
           <InstructorSchedule />
 
         </div>
       ) : selectedDashboardItem === "View Notifications" ? (
         <div
           style={{
-            width: "48%",
+            width: "41%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",
@@ -67,6 +73,12 @@ export default function InstructorMainContent({ setSelectedText,selectedDashboar
             gap: "17px",
           }}
         >
+          <img
+            onClick={viewPanelIphone}
+            className="notification-schedule-icon"
+            src="../public/Images/Notification-Schedule-icon.png"
+            alt=""
+          />
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Correction Requests" onAdd={onAdd} />
           <InstructorNotificationCenter />
         </div>

@@ -3,7 +3,7 @@ import InstructorPanel from "./InstructorPanel";
 import PropTypes from 'prop-types';
 import "../../CSS/SIWholeContent.css";
 import { useState } from "react";
-export default function InstructorWholeContent({ setSelectedText,selectedDashboardItem, selectedAddItem, onAdd, refreshProfile, viewPanel }) {
+export default function InstructorWholeContent({ viewPanelIphone, setSelectedText, selectedDashboardItem, selectedAddItem, onAdd, refreshProfile, viewPanel }) {
   const [student, setActiveStudent] = useState(null);
   const [selectedCourseID, setSelectedCourseID] = useState("");
   const [filterTop, setFilterTop] = useState("Courses");
@@ -16,8 +16,8 @@ export default function InstructorWholeContent({ setSelectedText,selectedDashboa
 
   return (
     <div className="whole-content-container">
-      <InstructorMainContent setSelectedText={setSelectedText} setEditedStudent={setEditedStudent} setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardItem={selectedDashboardItem} />
-      {selectedDashboardItem === "View Schedule" ? null : <InstructorPanel selectedDashboardItem={selectedDashboardItem} setActiveStudent={setActiveStudent}  selectedCourseID={selectedCourseID} selectedStudent={student} viewPanel={viewPanel} refreshProfile={refreshProfile} title={selectedAddItem} />}
+      <InstructorMainContent viewPanelIphone={viewPanelIphone} setSelectedText={setSelectedText} setEditedStudent={setEditedStudent} setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardItem={selectedDashboardItem} />
+      {selectedDashboardItem === "View Schedule" ? null : <InstructorPanel selectedDashboardItem={selectedDashboardItem} setActiveStudent={setActiveStudent} selectedCourseID={selectedCourseID} selectedStudent={student} viewPanel={viewPanel} refreshProfile={refreshProfile} title={selectedAddItem} />}
     </div>
   );
 }

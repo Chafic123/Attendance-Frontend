@@ -68,7 +68,6 @@ export const getCourseStudents = async (courseId) => {
     return [];
   }
 };
-
 export const addCourse = async (Code, name, Room, credit, Section, day_of_week, start_time, end_time,
   instructor_first_name, instructor_last_name, instructor_email) => {
 
@@ -81,17 +80,17 @@ export const addCourse = async (Code, name, Room, credit, Section, day_of_week, 
 
   const formData = new FormData();
 
-  formData.append('Code', Code)
-  formData.append('name', name)
-  formData.append('Room', Room)
-  formData.append('credit', credit)
-  formData.append('Section', Section)
-  formData.append('day_of_week', day_of_week)
-  formData.append('start_time', start_time)
-  formData.append('end_time', end_time)
-  formData.append('instructor_first_name', instructor_first_name)
-  formData.append('instructor_last_name', instructor_last_name)
-  formData.append('instructor_email', instructor_email)
+  formData.append('Code', Code);
+  formData.append('name', name);
+  formData.append('Room', Room);
+  formData.append('credit', credit);
+  formData.append('Section', Section);
+  formData.append('day_of_week', day_of_week);
+  formData.append('start_time', start_time);
+  formData.append('end_time', end_time);
+  formData.append('instructor_first_name', instructor_first_name);
+  formData.append('instructor_last_name', instructor_last_name);
+  formData.append('instructor_email', instructor_email);
 
   try {
     const response = await axios.post(`${BASE_URL}/admin/Addcourse`, formData, {
@@ -107,10 +106,12 @@ export const addCourse = async (Code, name, Room, credit, Section, day_of_week, 
     return response.data;
 
   } catch (error) {
+    // Log the error and throw it to propagate it to the calling function
     console.error(`Error adding course:`, error.response?.data || error.message);
+    throw error;  // <-- This line is crucial to propagate the error
   }
-  
-}
+};
+
 
 
 export const getStudentCourses = async (studentId) => {

@@ -17,5 +17,24 @@
  
 }
 @media only screen and (max-width: 431px) and (height: 932px) {
-
+    .whole-content-container {
+        display: flex;
+        width: 82%;
+        height: 125%;
+        background-color: white;
+        margin-top: 157px;
+        border-radius: 66px;
+    }
 }
+@media only screen 
+  and (max-width: 413px) 
+  and (max-height: 916px) {
+    .whole-content-container {
+        display: flex;
+        width: 82%;
+        height: 123%;
+        margin-top: 172px;
+        background-color: white;
+        border-radius: 66px;
+    }
+  }

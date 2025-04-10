@@ -46,6 +46,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     padding-right: 10px;
     width: 98%;
+    cursor: pointer;
 }
 
 .courseDetails {
@@ -123,9 +124,11 @@
     letter-spacing: 0%;
 
 }
-.studentCourse:first-child{
+
+.studentCourse:first-child {
     margin-top: 0;
 }
+
 .studentCourse {
     display: flex;
     justify-content: space-between;
@@ -139,10 +142,11 @@
     margin-top: 15px;
 }
 
-.studentCourse.activeCourse .courseCode{
+.studentCourse.activeCourse .courseCode {
     color: #1496D3;
 }
-.studentCourse.activeCourse .courseBorder{
+
+.studentCourse.activeCourse .courseBorder {
     background: #1496D3;
 }
 
@@ -156,7 +160,7 @@
 
 
 
-.buttonContainer{
+.buttonContainer {
     display: flex;
     gap: 20px;
     justify-content: center;
@@ -177,6 +181,7 @@
     top: 20px;
     left: 40%;
 }
+
 .back-students-btn {
     padding: 10px 20px;
     background-color: #482B70;
@@ -191,6 +196,7 @@
     left: 30%;
     width: 200px;
 }
+
 .back-btn:hover {
     background-color: #3a2165;
 }
@@ -239,19 +245,21 @@
     }
 
     .courseCode {
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .courseName {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .courseInstructor {
-        font-size: 9px;
+        font-size: 11px;
     }
+
     .percentageContainer p {
         font-size: 12px;
     }
+
     .percentageContainer span {
         font-size: 9.96px;
 
@@ -267,20 +275,23 @@
         flex-direction: row;
         overflow-y: auto;
         overflow-x: hidden;
-        max-height: 250px;
+        max-height: 426px;
+        /* min-height: 426px; */
         padding: 10px 150px 10px 0px;
         border-bottom: 1px solid rgb(196, 192, 192);
         border-top: 1px solid rgb(196, 192, 192);
     }
+
     .courseBorder {
         height: 66px;
         width: 13px;
 
     }
+
     .course {
         height: 61px;
         flex: 0 0 200%;
-        max-width: 260px;
+        max-width: 280px;
         position: relative;
     }
 
@@ -309,14 +320,28 @@
     .percentageContainer {
         margin: 0;
     }
+
     .percentageContainer p {
         font-size: 10px;
     }
+
     .percentageContainer span {
         font-size: 7.96px;
 
     }
+
+    .back-btn {
+        padding: 5px 15px;
+        background-color: #482B70;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: relative;
+        top: 11px;
+        left: 72%;
+        white-space: nowrap;
+    }
 }
-
-
-

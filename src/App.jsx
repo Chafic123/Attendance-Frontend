@@ -127,6 +127,7 @@ function App() {
               <Route element={<ProtectedRoute requiredRole="instructor" />}>
                 <Route path="/instructor" element={<Instructor
                   viewPanel={viewPanel}
+                  viewPanelIphone = {viewPanelIphone}
                   refreshProfile={refreshProfile}
                   user={user}
                   viewProfile={viewProfile}

@@ -5,7 +5,7 @@ import Logo from "../Components/Generals/Logo";
 import InstructorWholeContent from "../Components/Instructor/InstructorWholeContent";
 import "../CSS/SI.css"
 
-export default function Instructor({ refreshProfile, user, viewProfile, viewPanel }) {
+export default function Instructor({ refreshProfile, user, viewProfile, viewPanel, viewPanelIphone }) {
 
 
 
@@ -80,6 +80,7 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <InstructorWholeContent
+        viewPanelIphone={viewPanelIphone}
         setSelectedText={setSelectedText}
         viewPanel={viewPanel}
         refreshProfile={refreshProfile}

@@ -165,53 +165,43 @@ useEffect(()=>{
     fetchCourses();
   }, []);
 
-
   useEffect(() => {
     let filtered = [...courses];
-
+  
+    // Filter by course code
     if (courseFilters?.code) {
       filtered = filtered.filter(course =>
-      (course.course_code?.toUpperCase().includes(courseFilters.code.toUpperCase()) ||
-        course.Code?.toUpperCase().includes(courseFilters.code.toUpperCase()))
+        (course.course_code?.toUpperCase().includes(courseFilters.code.toUpperCase()) ||
+          course.Code?.toUpperCase().includes(courseFilters.code.toUpperCase()))
       );
     }
-
-
+  
+    // Filter by course name
     if (courseFilters?.name) {
       filtered = filtered.filter(course =>
-      (String(course.name).toUpperCase().includes(courseFilters.name.toUpperCase()) ||
-        String(course.course_name).toUpperCase().includes(courseFilters.name.toUpperCase()))
+        (String(course.name).toUpperCase().includes(courseFilters.name.toUpperCase()) ||
+          String(course.course_name).toUpperCase().includes(courseFilters.name.toUpperCase()))
       );
     }
-
-
-
+  
     // Filter by course section
     if (courseFilters?.section) {
       filtered = filtered.filter(course =>
         String(course.Section) === String(courseFilters.section) ||
-        String(course.course_section) === String(courseFilters.section));
+        String(course.course_section) === String(courseFilters.section)
+      );
     }
-
-
+  
+    // Sorting logic based on 'asc' or 'desc'
     if (courseFilters?.sort === "asc") {
-      filtered.sort((a, b) => {
-        const aName = String(a.name || a.course_name).toLowerCase();
-        const bName = String(b.name || b.course_name).toLowerCase();
-        return aName.localeCompare(bName);
-      });
+      filtered.sort((a, b) => a.course_code.localeCompare(b.course_code));
     } else if (courseFilters?.sort === "desc") {
-      filtered.sort((a, b) => {
-        const aName = String(a.name || a.course_name).toLowerCase();
-        const bName = String(b.name || b.course_name).toLowerCase();
-        return bName.localeCompare(aName);
-      });
+      filtered.sort((a, b) => b.course_code.localeCompare(a.course_code));
     }
-
-
+  
     setFilteredCourses(filtered);
   }, [courses, courseFilters]);
-
+  
 
   useEffect(() => {
     let filtered = [...allCourses];

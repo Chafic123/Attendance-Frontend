@@ -3,18 +3,32 @@
     border-radius: 43px;
     min-height: 200px;
     max-height: 200px;
-    overflow-y: auto;
+    overflow-y: hidden;
     width: 300px;
     padding: 20px;
     margin-top: -40px;
-    
-    scrollbar-width: thin; 
+
+    scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;
 }
 
 
+.allRequests {
+    overflow-y: scroll;
+    max-height: 150px;
+}
 
- 
+.allRequests::-webkit-scrollbar {
+    display: none;
+}
+
+.allRequests {
+    scrollbar-width: none;
+}
+
+.allRequests {
+    -ms-overflow-style: none;
+}
 
 
 .request-title-container {
@@ -32,16 +46,19 @@
     align-items: center;
     gap: 5px;
 }
+
 .request-content-container {
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
-.request-title{
+
+.request-title {
     color: #543381;
     font-weight: bold;
 }
-.request-content{
+
+.request-content {
     color: red;
     opacity: 0.8;
     font-weight: bold;
@@ -49,7 +66,119 @@
 }
 
 .request-student-name,
-.request-course-name{
+.request-course-name {
     opacity: 0.8;
     font-size: 12px;
+}
+
+@media only screen and (max-width: 431px) and (max-height: 932px) {
+    #request-container {
+        min-height: 173px;
+        max-height: 98px;
+        width: 243px;
+        overflow: hidden;
+        position: relative;
+        bottom: -59px;
+    }
+    .requests-center-container {
+        max-height: 513px;
+        min-width: 202%;
+        padding-right: 11px;
+        margin-left: -30px;
+    }
+
+    .request-center-content {
+        font-size: 12px;
+    }
+
+    .request-student-name,
+    .request-course-name {
+        opacity: 0.8;
+        font-size: 9px;
+    }
+
+    .request-center-course-name,
+    .request-center-student-name {
+        color: gray;
+        font-size: 10px;
+    }
+
+    .request-content {
+        color: red;
+        opacity: 0.8;
+        font-weight: bold;
+        margin-top: -5px;
+        font-size: 12px;
+    }
+
+    .request-center-content-container {
+        margin-top: -17px;
+
+    }
+
+    .approveRequest {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .rejectRequest {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .request-title-small {
+        color: #543381;
+        font-weight: bold;
+        margin-left: -9px;
+        font-size: 14px;
+    }
+
+    .allRequests {
+        overflow-y: auto;
+        max-height: 150px;
+        /* You can adjust the height as needed */
+    }
+
+    .request-title {
+        color: #543381;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .title {
+        font-size: 19px;
+    }
+
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+
+    .request-title {
+
+        font-size: 17px;
+    }
+
+    .request-title-small {
+        color: #543381;
+        font-weight: bold;
+        margin-left: -9px;
+        font-size: 14px;
+    }
+
+    .request-title-container {
+        max-height: 495px;
+        overflow-y: auto;
+        padding-right: 15px;
+
+        gap: 19px;
+        margin-left: -64px;
+    }
+
+    .requests-center-container {
+        max-height: 500px;
+        overflow-y: auto;
+        padding-right: 15px;
+        width: 364px;
+    }
+
 }

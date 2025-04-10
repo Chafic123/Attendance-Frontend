@@ -81,7 +81,7 @@ export default function InstructorProfile({ refreshProfile }) {
             <h2 className="profile-title">My Profile</h2>
             <div className="user-info">
                 <p className="user-name">{`${instructor.user.first_name} ${instructor.user.last_name}`}</p>
-                <p className="user-id">{instructor.Instructor.user_id}</p>
+                <p className="user-id">Instructor</p>{/*{instructor.user.email}*/}
             </div>
 
             {successMessage && (

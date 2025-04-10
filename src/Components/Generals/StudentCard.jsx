@@ -114,7 +114,7 @@ export default function StudentCard({ setStudents, setOnDelete, student, setEdit
     <div>
       {userRole?.toLowerCase() === "instructor" ? (
         <div className="studentPercentageContainer">
-          <p className="attendancePercentage">{`${student.attendance_percentage }`}%</p>{/* || student.absence_percentage */}
+          <p className="attendancePercentage">{`${student.absence_percentage }`}%</p>{/* || student.absence_percentage */}
           <span>Absence</span>
         </div>
       ) : (

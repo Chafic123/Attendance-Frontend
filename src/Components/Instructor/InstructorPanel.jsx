@@ -9,12 +9,16 @@ import InstructorRequests from "./InstructorRequests";
 import InstructorNotifications from "./InstructorNotification";
 export default function InstructorPanel(prop) {
 
-  const hideProfile = () => {
-    const panel = document.querySelector('.panel-container.visible'); // Targeting both classes
-    if (panel) {
-      panel.classList.remove('visible');
+  const hidePanel = () => {
+    const profile = document.querySelector(".profile-holder");
+    const panelContainer = document.querySelector(".panel-container");
+    const panelContent = document.querySelector(".panel-content");
+
+    if (profile && panelContainer && panelContent) {
+      profile.style.display = "none"; 
+      panelContainer.style.zIndex = "-1000"; 
+      console.log("Panel hidden");
     }
-    console.log("Profile hidden");
   };
   return (
     <div className="panel-container">
@@ -68,7 +72,7 @@ export default function InstructorPanel(prop) {
           // </div>
         )
       }
-      <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hideProfile} alt="cancel icon" />
+      <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hidePanel} alt="cancel icon" />
       <img
         src="../public/Images/go-back-icon.png"
         className="go-back-icon"

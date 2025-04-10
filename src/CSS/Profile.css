@@ -238,13 +238,13 @@
 @media only screen and (max-width: 431px) and (max-height: 932px) {
     .user-profile {
         max-width: 90%;
-        padding-top: 12px;
+        padding-top: 103px;
     }
     .user-info p {
         font-size: 10px;
     }
     .user-profile-form {
-        width: 94%;
+        width: 104%;
         gap: 15px;
         display: flex;
         flex-direction: column;
@@ -299,6 +299,9 @@
     .popup-container {
         background-color: none;
         background: none;
+    }
+    .form-user-actions {
+        margin-left: 15px;
     }
 }
 

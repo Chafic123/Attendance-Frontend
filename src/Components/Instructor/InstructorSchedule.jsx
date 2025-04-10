@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../../CSS/StudentScheduleReport.css"; // Reuse same styles
+import "../../CSS/InstrcutortScheduleReport.css"; // Reuse same styles
 import { getInstructorSchedule } from "../../ApiService/InstructorScheduleReport";
 export default function InstructorSchedule() {
     const [instructorData, setInstructorData] = useState(null);
@@ -23,26 +23,24 @@ export default function InstructorSchedule() {
     const { instructor, courses } = instructorData;
 
     return (
-        <div>
+        <div className="schedule-report-container">
             <div className="schedule-top">
                 <div className="schedule-top-element">
-                    <div className="schedule-top-info">
-                        <label>Instructor ID:</label>
-                        <span>{instructor.instructor_id}</span>
-                    </div>
+
                     <div className="schedule-top-info">
                         <label>Name:</label>
                         <span>{instructor.first_name} {instructor.last_name}</span>
                     </div>
                     <div className="schedule-top-info">
-                        <label>Department:</label>
-                        <span>{instructor.department}</span>
-                    </div>
-                </div>
-                <div className="schedule-top-element">
-                    <div className="schedule-top-info">
                         <label>Email:</label>
                         <span>{instructor.email}</span>
+                    </div>
+      
+                </div>
+                <div className="schedule-top-element">
+                <div className="schedule-top-info">
+                        <label>Department:</label>
+                        <span>{instructor.department}</span>
                     </div>
                     <div className="schedule-top-info">
                         <label>Phone:</label>
