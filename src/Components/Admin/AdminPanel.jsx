@@ -19,8 +19,21 @@ export default function AdminPanel(props) {
     setEditedInstructor,
   } = props;
 
+  const hidePanel = () => {
+    const adminPanel = document.querySelector(".AdminPanelParent");
+    if (adminPanel) {
+      adminPanel.style.display = "none";
+    }
+    
+    document.querySelectorAll('.add-course-card, .add-student-card').forEach(card => {
+      card.style.display = 'none';
+    });
+  };
+
   return (
     <div className="AdminPanelParent" style={{ display: isAdminPanel ? "block" : "none" }}>
+          <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hidePanel} alt="cancel icon" />
+
       {
         editedStudent ? (
           <AdminEditStudent
@@ -48,7 +61,9 @@ export default function AdminPanel(props) {
           <AdminAddCourse setCourses={props.setCourses} />
 
         ) : title === "View Students" ? (
-          <AdminAddStudent setStudents={props.setStudents} />
+          <div>
+            <AdminAddStudent setStudents={props.setStudents} />
+          </div>
         ) : title === "View Instructors" ? (
           <AdminAddInstructor setInstructors={props.setInstructors} />
         ) : title === "View Student Courses" || title === "View Course Students" ? (

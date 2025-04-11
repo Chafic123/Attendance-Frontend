@@ -161,7 +161,7 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse,setCours
                     <label htmlFor="Section">Email:</label>
                     <input
                         type="text"
-                        name="section"
+                        name="email"
                         value={courseData.email}
                         onChange={handleChange}
                         required
@@ -183,6 +183,7 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse,setCours
                         <label htmlFor="Room">Room:</label>
                         <input
                             type="text"
+                            className="courseRoom"
                             name="room"
                             value={courseData.room}
                             onChange={handleChange}
@@ -194,6 +195,7 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse,setCours
                         <label htmlFor="credit">Credits:</label>
                         <input
                             type="number"
+                            className="courseCredits"
                             name="credits"
                             min={1}
                             value={courseData.credits}

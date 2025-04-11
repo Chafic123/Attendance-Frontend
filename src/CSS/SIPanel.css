@@ -35,18 +35,12 @@
     .panel-container {
 
         transform: translateX(-50%) translateY(-20px);
-        /* Start slightly offscreen */
         transition:
             transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
-            /* Smooth bounce-like effect for position */
             opacity 0.5s ease-in-out,
-            /* Fade in/out smoothly */
             border-radius 0.5s ease-in-out,
-            /* Smooth border-radius animation */
             width 0.5s ease-in-out,
-            /* Smooth width resizing */
             height 0.5s ease-in-out;
-        /* Smooth height resizing */
         position: absolute;
         border-radius: 66px;
         top: 30px;

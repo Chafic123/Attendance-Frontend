@@ -84,3 +84,34 @@
   
 
  
+  @media only screen and (max-width: 431px) and (max-height: 932px) {
+
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 272px;
+    height: 56vh;
+    overflow-y: auto;
+    display: flex;
+    margin-bottom: 284px;
+    flex-direction: column;
+}
+.popup-overlay .filter-container {
+  width: 100%;
+  margin-left: 0px;
+}
+.popup-overlay h2 {
+  padding: 0px 0 0 20px;
+  margin-left: -20px;
+}
+.popup-overlay .filter-container .selectInput {
+  width: 21.5%;
+  height: 22px;
+  font-size: 10px;
+}
+.close-btn, .confirm-enroll-btn {
+  padding: 3px 21px;
+}
+
+}

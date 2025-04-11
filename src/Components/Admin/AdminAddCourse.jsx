@@ -92,9 +92,9 @@ const AdminAddCourse = ({ setCourses }) => {
                 <div className="form-course-group">
                     <label>Time:</label>
                     <div className="course-time-inputs">
-                        <input type="time" name="start_time" value={courseData.start_time} onChange={handleChange} required />
+                        <input className="courseTime" type="time" name="start_time" value={courseData.start_time} onChange={handleChange} required />
                         <span className="course-arrow">→</span>
-                        <input type="time" name="end_time" value={courseData.end_time} onChange={handleChange} required />
+                        <input className="courseTime" type="time" name="end_time" value={courseData.end_time} onChange={handleChange} required />
                     </div>
                 </div>
 
@@ -142,13 +142,14 @@ const AdminAddCourse = ({ setCourses }) => {
                 <div className="form-course-row">
                     <div className="form-course-group">
                         <label htmlFor="Room">Room:</label>
-                        <input type="text" id="Room" name="Room" value={courseData.Room} onChange={handleChange} required />
+                        <input className="courseRoom" type="text" id="Room" name="Room" value={courseData.Room} onChange={handleChange} required />
                     </div>
 
                     <div className="form-course-group">
                         <label htmlFor="credit">Credits:</label>
                         <input
                             type="number"
+                            className="courseCredits"
                             id="credit"
                             name="credit"
                             min={1}

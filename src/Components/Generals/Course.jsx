@@ -78,28 +78,28 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
     }
   };
   //here
-  useEffect(()=>{
+  useEffect(() => {
 
     const fetchStudents = async () => {
-      console.log("clickedCourseId",courseId)
+      console.log("clickedCourseId", courseId)
 
       if (!onDelete) return;
       try {
         const studentsAfterDelete = await getCourseStudents(courseId);
         setCourseStudents(studentsAfterDelete);
-        console.log("studentsAfterDelete",studentsAfterDelete)
-        if(onDelete) setOnDelete(false);
+        console.log("studentsAfterDelete", studentsAfterDelete)
+        if (onDelete) setOnDelete(false);
       } catch (error) {
         console.error("Error fetching students after delete:", error);
       }
     };
 
     fetchStudents();
-}, [onDelete])
+  }, [onDelete])
 
-useEffect(()=>{
-  console.log("hi",onDelete)
-},[onDelete])
+  useEffect(() => {
+    console.log("hi", onDelete)
+  }, [onDelete])
 
   const handleEditCourseClick = (course) => {
     setEditedCourse(course);
@@ -167,23 +167,23 @@ useEffect(()=>{
 
   useEffect(() => {
     let filtered = [...courses];
-  
+
     // Filter by course code
     if (courseFilters?.code) {
       filtered = filtered.filter(course =>
-        (course.course_code?.toUpperCase().includes(courseFilters.code.toUpperCase()) ||
-          course.Code?.toUpperCase().includes(courseFilters.code.toUpperCase()))
+      (course.course_code?.toUpperCase().includes(courseFilters.code.toUpperCase()) ||
+        course.Code?.toUpperCase().includes(courseFilters.code.toUpperCase()))
       );
     }
-  
+
     // Filter by course name
     if (courseFilters?.name) {
       filtered = filtered.filter(course =>
-        (String(course.name).toUpperCase().includes(courseFilters.name.toUpperCase()) ||
-          String(course.course_name).toUpperCase().includes(courseFilters.name.toUpperCase()))
+      (String(course.name).toUpperCase().includes(courseFilters.name.toUpperCase()) ||
+        String(course.course_name).toUpperCase().includes(courseFilters.name.toUpperCase()))
       );
     }
-  
+
     // Filter by course section
     if (courseFilters?.section) {
       filtered = filtered.filter(course =>
@@ -191,17 +191,26 @@ useEffect(()=>{
         String(course.course_section) === String(courseFilters.section)
       );
     }
-  
+
     // Sorting logic based on 'asc' or 'desc'
     if (courseFilters?.sort === "asc") {
-      filtered.sort((a, b) => a.course_code.localeCompare(b.course_code));
+      filtered.sort((a, b) => {
+        const aKey = (a.name || a.course_name || "").toLowerCase();
+        const bKey = (b.name || b.course_name || "").toLowerCase();
+        return aKey.localeCompare(bKey);
+      });
     } else if (courseFilters?.sort === "desc") {
-      filtered.sort((a, b) => b.course_code.localeCompare(a.course_code));
+      filtered.sort((a, b) => {
+        const aKey = (a.name || a.course_name || "").toLowerCase();
+        const bKey = (b.name || b.course_name || "").toLowerCase();
+        return bKey.localeCompare(aKey);
+      });
     }
-  
+
+
     setFilteredCourses(filtered);
   }, [courses, courseFilters]);
-  
+
 
   useEffect(() => {
     let filtered = [...allCourses];
@@ -377,7 +386,22 @@ useEffect(()=>{
                             e.stopPropagation();
                             handleEditCourseClick(course);
                             setShowMenuIndex(null);
-                          }}                        >
+
+                            const isMobile = window.matchMedia(
+                              '(max-width: 431px) and (max-height: 932px), ' +
+                              '(max-width: 413px) and (max-height: 916px)'
+                            ).matches;
+
+                            if (isMobile) {
+                              const adminPanel = document.querySelector(".AdminPanelParent");
+                              if (adminPanel) {
+                                console.log("Showing Panel")
+                                adminPanel.style.display = "block";
+                                adminPanel.style.zIndex = "1000";
+                              }
+                            }
+                          }}
+                          >
                           Edit
                         </button>
 

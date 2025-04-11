@@ -206,10 +206,25 @@ export default function StudentCard({ setStudents, setOnDelete, student, setEdit
                     marginBottom: "5px",
                     fontWeight: "500",
                   }}
+                  jsx
+                  Copy
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowMenu(false);
                     setEditedStudent(student);
+                    
+                    const isMobile = window.matchMedia(
+                      '(max-width: 431px) and (max-height: 932px), ' +
+                      '(max-width: 413px) and (max-height: 916px)'
+                    ).matches;
+                    
+                    if (isMobile) {
+                      const adminPanel = document.querySelector(".AdminPanelParent");
+                      if (adminPanel) {
+                        adminPanel.style.display = "block";
+                        adminPanel.style.zIndex = "1000";
+                      }
+                    }
                   }}
                 >
                   Edit

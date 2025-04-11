@@ -32,7 +32,7 @@ const AdminFilter = (props) => {
   const handleCourseNameChange = (event) => {
     const value = event.target.value;
     setCourseName(value);
-    props.onCourseFilterChange({ code: filterCode,name:value , sort: sortOrder, name: value, section: filterSection });
+    props.onCourseFilterChange({ code: filterCode, sort: sortOrder, name: value, section: filterSection });
   };
 
   const handleSortChange = (event) => {
@@ -175,14 +175,14 @@ const AdminFilter = (props) => {
                 type="text"
                 value={studentId}
                 onChange={handleStudentIdChange}
-                placeholder="Student ID"
+                placeholder="ID"
                 className="codeInput"
               />
               <input
                 type="text"
                 value={studentName}
                 onChange={handleStudentNameChange}
-                placeholder="Student Name"
+                placeholder="Name"
                 className="codeInput"
               />
               <input
@@ -245,14 +245,14 @@ const AdminFilter = (props) => {
                 type="text"
                 value={studentId}
                 onChange={handleStudentIdChange}
-                placeholder="Student ID"
+                placeholder="ID"
                 className="codeInput"
               />
               <input
                 type="text"
                 value={studentName}
                 onChange={handleStudentNameChange}
-                placeholder="Student Name"
+                placeholder="Name"
                 className="codeInput"
               />
               <input
@@ -276,14 +276,14 @@ const AdminFilter = (props) => {
             type="text"
             value={instructorName}
             onChange={handleInstructorNameChange}
-            placeholder="Instructor Name"
+            placeholder="Name"
             className="codeInput"
           />
           <input
             type="text"
             value={instructorDepartment}
             onChange={handleInstructorDepartmentChange}
-            placeholder="Instructor Department"
+            placeholder="Department"
             className="codeInput"
           />
           <select

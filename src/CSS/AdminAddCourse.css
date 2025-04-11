@@ -159,32 +159,34 @@
 }
 
 
-@media (max-width: 1024px) and (height: 1366px) {
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
     .add-course-card {
-        margin: 1rem auto;
 
+        margin-top: 15px;
     }
-
     .add-course-form {
-        gap: 9px;
+        width: 102% !important;
+
     }
 
     .form-course-group {
-        gap: 33px;
+        gap: 25px;
     }
 
     .form-course-group label {
-        font-size: 14px;
-        width: 37px;
-    }
 
-    .form-course-group input,
-    .form-course-group select {
-        width: 73%;
-        padding: 9px 0px;
-        font-size: 12px;
+        width: 39px;
+
     }
+    .courseRoom,.courseCredits{
+        width: 25px !important;
+    }
+    .form-course-group input, .form-course-group select {
+        width: 70%;
+        font-size: 11px !important;
+    }
+    
 
     .form-course-row {
         width: 100%;
@@ -207,101 +209,84 @@
         margin-left: 7px;
         gap: 48px;
     }
+    .course-time-inputs {
+        width: 78%;
+    }
+    .instructor-info-container {
+        margin-left: -6px;
+    }
+    #Section{
+        margin-left: -7px;
+    }
+    .course-time-inputs input {
+        width: 30%;
+        font-size: 10px !important;
+    }
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+      }
+      
+      input[type="time"] {
+        -moz-appearance: textfield; /* Firefox */
+        appearance: none;
+      }
+
 }
-
-@media (max-width: 430px) {
-
-    .add-course-form {
-        gap: 15px;
-    }
-
+@media only screen and (max-width: 431px) and (max-height: 932px) {
     .add-course-card {
-        padding-top: 50px !important;
-        padding-left: 4px !important;
+        margin-top: 14px !important;
     }
-
-    .card-course-title {
-        font-size: 18px !important;
-    }
-
-    .form-course-group {
-        align-items: center;
-        gap: 11px;
-    }
-
-    #form-group-date {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 9px;
+    .add-course-form {
+        width: 101% !important;
     }
 
     .form-course-group label {
-        font-size: 9px !important;
-        width: 33px !important;
+        width: 39px !important;
     }
-
-    .course-date-inputs {
-        align-items: flex-start;
-        gap: 1px;
-        font-size: 5px;
-        padding: 0;
-        margin-left: -2px;
-        width: 131%;
-    }
-
-    .form-course-group select {
-        width: 82%;
-        padding: 6px 2px;
-        font-size: 8px;
-    }
-
-    .form-course-group input {
-        width: 85%;
-        font-size: 6px;
-        padding: 8px 4px;
-    }
-
-    #form-group-time {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 9px;
-    }
-
-    .course-time-inputs {
-        align-items: flex-start;
-        gap: 1px;
-        font-size: 5px;
-        padding: 0;
-        margin-left: -2px;
-        width: 104%;
-    }
-
-    .form-course-row {
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 11px;
-    }
-
-    .form-course-row .form-course-group {
-        width: 99%;
-        gap: 13px;
-    }
-
-    .form-course-row .form-course-group:last-child {
-        gap: 11px;
-    }
-
-    .form-course-actions {
-        width: 123%;
+    .form-course-group {
         gap: 15px;
-        margin-left: -3px;
-        margin-top: 3px;
     }
+    .course-time-inputs {
 
-    .cancel-btn,
-    .save-btn {
-        font-size: 8px;
+        width: 64% !important;
+    }
+    .form-course-group input, .form-course-group select {
+        font-size: 10px;
+    }
+    .course-time-inputs input {
+        width: 26% !important;
+    }
+    .courseRoom, .courseCredits{
+        width: 25px !important;
+    }
+    /* .form-course-row {
+        width: 74% !important;
+    } */
+    .form-course-row .form-course-group {
+        gap: 21px !important;
+    }
+    .form-course-row {
+        width: 95% !important;
+    }
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+      }
+      
+      input[type="time"] {
+        -moz-appearance: textfield; /* Firefox */
+        appearance: none;
+      }
+      .course-time-inputs input {
+        width: 29% !important;
+    }
+    .form-course-group input, .form-course-group select {
+
+        font-size: 10px !important;
+
+    }
+    .form-course-actions {
+        margin-left: 21px !important;
     }
 }

@@ -6,6 +6,7 @@
 .StudentContainer {
     max-height: 450px;
     overflow-y: auto;
+    min-height: 64px;
 }
 
 .student-card {
@@ -125,15 +126,19 @@
 
 
 
-@media (max-width: 1024px) and (height: 1366px) {
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+
 
     .StudentContainer {
         gap: 10px;
+        width: 113%;
     }
 
     .student-card {
-        width: 41.5%;
+        min-width: 91%;
         height: 73px;
+        margin-left: 2px;
+        margin: 0;
     }
 
     .student-details {
@@ -160,13 +165,15 @@
 @media only screen and (max-width: 431px) and (max-height: 932px) {
 
     .StudentContainer {
-        width: 161%;
-        margin-left: -23px;
-        max-height: 250px;
-        gap: 8px;
+        width: 172%;
+        margin-left: -32px;
+        max-height: 446px;
+        gap: 2px;
         overflow-x: hidden;
         overflow-y: auto;
+        padding-top: 2px;
     }
+    
 
 
     .student-card {
@@ -197,5 +204,14 @@
 
     .css-1n5qiej-MuiIcon-root {
         font-size: .7rem !important;
+    }
+}
+
+@media only screen 
+  and (max-width: 413px) 
+  and (max-height: 916px) {
+  
+    .StudentContainer {
+        width: 182%;
     }
 }

@@ -9,3 +9,10 @@
     margin: 0 -95px -15px -30px;
     }
 }
+@media only screen 
+  and (max-width: 413px) 
+  and (max-height: 916px) {
+    .top-content-container {
+        margin: 0px -90px -10px 0;
+    }
+  }

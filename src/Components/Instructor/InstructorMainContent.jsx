@@ -64,7 +64,7 @@ export default function InstructorMainContent({ viewPanelIphone, setSelectedText
       ) : selectedDashboardItem === "View Notifications" ? (
         <div
           style={{
-            width: "41%",
+            width: "48%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",

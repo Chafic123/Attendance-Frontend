@@ -167,6 +167,7 @@
         margin: 1rem auto;
 
     }
+    
 
     .add-student-form {
         gap: 9px;
@@ -178,7 +179,7 @@
 
     .form-student-group label {
         font-size: 14px;
-        width: 37px;
+        width: 44px;
     }
 
     .form-student-group input,
@@ -211,99 +212,22 @@
     }
 }
 
-@media (max-width: 430px) {
 
-    .add-student-form {
-        gap: 15px;
-    }
-
+@media only screen and (max-width: 431px) and (max-height: 932px) {
     .add-student-card {
-        padding-top: 50px !important;
-        padding-left: 4px !important;
-    }
 
-    .card-student-title {
-        font-size: 18px !important;
+        margin-top: 29px;
     }
-
-    .form-student-group {
-        align-items: center;
-        gap: 11px;
+    .add-student-form {
+        width: 104% !important;
     }
-
-    #form-group-date {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 9px;
-    }
-
     .form-student-group label {
-        font-size: 9px !important;
-        width: 33px !important;
+        width: 46px !important;
     }
-
-    .student-date-inputs {
-        align-items: flex-start;
-        gap: 1px;
-        font-size: 5px;
-        padding: 0;
-        margin-left: -2px;
-        width: 131%;
+    .form-student-group {
+        gap: 51px !important;
     }
-
-    .form-student-group select {
-        width: 82%;
-        padding: 6px 2px;
-        font-size: 8px;
-    }
-
-    .form-student-group input {
-        width: 85%;
-        font-size: 6px;
-        padding: 8px 4px;
-    }
-
-    #form-group-time {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 9px;
-    }
-
-    .student-time-inputs {
-        align-items: flex-start;
-        gap: 1px;
-        font-size: 5px;
-        padding: 0;
-        margin-left: -2px;
-        width: 104%;
-    }
-
-    .form-student-row {
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 11px;
-    }
-
-    .form-student-row .form-student-group {
-        width: 99%;
-        gap: 13px;
-    }
-
-    .form-student-row .form-student-group:last-child {
-        gap: 11px;
-    }
-
     .form-student-actions {
-        width: 123%;
-        gap: 15px;
-        margin-left: -3px;
-        margin-top: 3px;
-    }
-
-    .cancel-btn,
-    .save-btn {
-        font-size: 8px;
+        margin-left: 12px !important;
     }
 }

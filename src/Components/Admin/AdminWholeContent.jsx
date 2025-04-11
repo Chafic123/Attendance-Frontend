@@ -28,9 +28,9 @@ export default function AdminWholeContent(props) {
   }
 
   return (
-    <div className="whole-content-container">
+    <div className="admin-whole-content-container">
       {props.ProcessAttendance === "Process Attendance" ? (
-        <div style={{
+        <div  className="ml-bg" style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -43,12 +43,11 @@ export default function AdminWholeContent(props) {
           zIndex: 1000,
 
         }}>
-          <div style={{
+          <div className="ml-mobile-control" style={{
             backgroundColor: 'white',
             borderRadius: '8px',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
             position: 'relative',
-            overflowY: 'auto',
 
           }}>
             <MachineLearning  />

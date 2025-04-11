@@ -118,6 +118,20 @@ export default function InstructorCard({ setOnDelete, instructor, setEditedInstr
                   e.stopPropagation();
                   setShowMenu(false);
                   setEditedInstructor(instructor);
+                  
+                  // Check if mobile device (iPhone/S20 Ultra)
+                  const isMobile = window.matchMedia(
+                    '(max-width: 431px) and (max-height: 932px), ' +
+                    '(max-width: 413px) and (max-height: 916px)'
+                  ).matches;
+                  
+                  if (isMobile) {
+                    const adminPanel = document.querySelector(".AdminPanelParent");
+                    if (adminPanel) {
+                      adminPanel.style.display = "block";
+                      adminPanel.style.zIndex = "1000";
+                    }
+                  }
                 }}
               >
                 Edit

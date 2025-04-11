@@ -288,7 +288,7 @@
 
     }
 
-    .course {
+    .course, .studentCourse {
         height: 61px;
         flex: 0 0 200%;
         max-width: 280px;
@@ -330,7 +330,7 @@
 
     }
 
-    .back-btn {
+    .back-btn, .enroll-btn {
         padding: 5px 15px;
         background-color: #482B70;
         color: white;
@@ -344,4 +344,21 @@
         left: 72%;
         white-space: nowrap;
     }
+
+
+    .back-students-btn {
+        font-size: 12px;
+        padding: 5px 15px;
+        left: 34%;
+        width: 122px;
+    }
+
+
+}
+@media only screen 
+  and (max-width: 413px) 
+  and (max-height: 916px) {
+    .CourseContainer {
+        max-height: 393px;
+    }  
 }
