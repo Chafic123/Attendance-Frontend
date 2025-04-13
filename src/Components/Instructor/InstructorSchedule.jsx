@@ -70,8 +70,8 @@ export default function InstructorSchedule() {
                                 <td>{course.room_name}</td>
                                 <td>{course.day_of_week.join(", ")}</td>
                                 <td>{course.time_start} - {course.time_end}</td>
-                                <td>{course.term}</td>
-                                <td>{course.year}</td>
+                                <td>Spring</td>
+                                <td>2025</td> {/*Static Currently*/}
                             </tr>
                         ))}
                     </tbody>

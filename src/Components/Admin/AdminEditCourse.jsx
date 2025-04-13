@@ -53,7 +53,6 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse, setCour
             setSuccessMessage("Course Updated Successfully")
             const courseData2 = await getCourses();
             setCourses(Array.isArray(courseData2) ? courseData2 : []);
-            setEditedCourse(null);
 
         } catch (error) {
             alert("Failed to update course.");
@@ -67,7 +66,11 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse, setCour
                 <div className="popup-container">
                     <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
                         <p>{successMessage}</p>
-                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                        <button onClick={() => {
+                            setSuccessMessage("")
+                            setEditedCourse(null);
+
+                        }} className="popup-close-btn">Close</button>
                     </div>
                 </div>
             )}
