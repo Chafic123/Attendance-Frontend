@@ -54,30 +54,33 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
   return title === "View Schedule" ? null : (
     <div className="panel-container">
       <div className="panel-content">
-          <Calender setSelectedAttendance={setSelectedAttendance} setRequestCorrectionState={setRequestCorrectionState} />
-          <StudentRequestCorrection selectedAttendance={selectedAttendance} requestCorrectionState={requestCorrectionState} />
-
+        <Calender
+          selectedDashboardItem={title}
+          setSelectedAttendance={setSelectedAttendance}
+          setRequestCorrectionState={setRequestCorrectionState}
+        />
+  
+        {title === "View Courses" && (
+          <StudentRequestCorrection
+            selectedAttendance={selectedAttendance}
+            requestCorrectionState={requestCorrectionState}
+          />
+        )}
       </div>
+  
       <div className="profile-holder">
-        <StudentProfile refreshProfile={refreshProfile} />
+        <StudentProfile viewPanel={viewPanel} refreshProfile={refreshProfile} />
       </div>
-
-      <img
-        src="../public/Images/go-back-icon.png"
-        className="go-back-icon"
-        onClick={viewPanel}
-        alt="Go back"
-      />
-
+  
       <img
         src="../public/Images/X-Icon.png"
         className="x-icon"
         onClick={hidePanel}
         alt="Close panel"
       />
-
-      </div>
+    </div>
   );
+  
 }
 
 StudentPanel.propTypes = {

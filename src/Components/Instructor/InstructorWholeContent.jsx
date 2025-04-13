@@ -16,7 +16,7 @@ export default function InstructorWholeContent({ viewPanelIphone, setSelectedTex
 
   return (
     <div className="whole-content-container">
-      <InstructorMainContent viewPanelIphone={viewPanelIphone} setSelectedText={setSelectedText} setEditedStudent={setEditedStudent} setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardItem={selectedDashboardItem} />
+      <InstructorMainContent selectedText = {selectedAddItem} viewPanelIphone={viewPanelIphone} setSelectedText={setSelectedText} setEditedStudent={setEditedStudent} setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardItem={selectedDashboardItem} viewPanel={viewPanel} />
       {selectedDashboardItem === "View Schedule" ? null : <InstructorPanel selectedDashboardItem={selectedDashboardItem} setActiveStudent={setActiveStudent} selectedCourseID={selectedCourseID} selectedStudent={student} viewPanel={viewPanel} refreshProfile={refreshProfile} title={selectedAddItem} />}
     </div>
   );

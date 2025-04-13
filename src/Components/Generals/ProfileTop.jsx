@@ -12,8 +12,9 @@ export default function ProfileTop({ selectedAddItem, viewProfile, user }) {
             <div className="user-info">
                 <p className="user-name">{`${userInfo.first_name} ${userInfo.last_name}`}</p>
                 <p className="user-id">
-                    Instructor
-                </p>
+                {user.student ? user.student.student_id : instructorInfo ? "Instructor" : "N/A"}      
+                
+                          </p>
             </div>
 
             <img

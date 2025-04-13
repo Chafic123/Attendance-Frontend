@@ -48,7 +48,7 @@ export default function InstructorCard({ setOnDelete, instructor, setEditedInstr
 
   return (
     <div
-      style={{ position: "relative" }}
+      style={{ position: "relative", cursor:"pointer" }}
       className={`Instructor-card ${activeInstructorCardId === instructor.id ? "active" : ""}`}
       onClick={() => setActiveInstructorCardId(instructor.id)}
     >

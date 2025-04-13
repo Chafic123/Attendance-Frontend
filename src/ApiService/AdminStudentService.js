@@ -13,6 +13,7 @@ const generateRandomPhoneNumber = () => {
 export const editStudent = async (studentId, studentData) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
     console.log("Student Data: ",studentData)
+
   try {
     const response = await axios.put(
       `${BASE_URL}/admin/students/${studentId}`,
@@ -23,7 +24,7 @@ export const editStudent = async (studentId, studentData) => {
         email: studentData.email,
         phone: generateRandomPhoneNumber(),
         major: studentData.major,
-        department_id: studentData.department_id,
+        department: studentData.department,
     },
       {
         headers: {
@@ -192,3 +193,74 @@ export const removeStudent = async (studentId) => {
   }
 };
 
+
+
+export const deleteStudentCourse = async (courseId, studentId) => {
+  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  console.log(`Deleting course ${courseId} for student ${studentId}`);
+
+  try {
+    const response = await fetch(`${BASE_URL}/admin/courses/${courseId}/students/${studentId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP error ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data: data,
+      message: data.message || 'Course removed from student successfully',
+    };
+  } catch (error) {
+    console.error('Error removing course from student:', error);
+    return {
+      success: false,
+      message: error.message || 'Failed to remove course from student.',
+    };
+  }
+};
+
+
+
+
+export const getNonEnrolledStudents = async (courseId) => {
+  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+
+  try {
+    const response = await fetch(`${BASE_URL}/admin/courses/${courseId}/Not-Enrolled-students`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP error ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log("Not Enrolled Students Data: ",data)
+
+    return {
+      success: true,
+      data: data,
+      message: 'Fetched non-enrolled students successfully',
+    };
+  } catch (error) {
+    console.error('Error fetching non-enrolled students:', error);
+    return {
+      success: false,
+      message: error.message || 'Failed to fetch non-enrolled students.',
+    };
+  }
+};

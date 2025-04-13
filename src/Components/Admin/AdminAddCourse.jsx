@@ -46,7 +46,19 @@ const AdminAddCourse = ({ setCourses }) => {
             setCourses(Array.isArray(courseData2) ? courseData2 : []);
             setSuccessMessage("Course Added Successfully!")
 
-
+            setCourseData({
+                Code: "",
+                name: "",
+                Room: "",
+                credit: "",
+                Section: "",
+                day_of_week: "",
+                start_time: "",
+                end_time: "",
+                instructor_first_name: "",
+                instructor_last_name: "",
+                instructor_email: "",
+            });
         } catch (error) {
             setNoSuccessMessage(error.response.data.message)
             console.log()
@@ -86,8 +98,18 @@ const AdminAddCourse = ({ setCourses }) => {
 
                 <div className="form-course-group">
                     <label>Days:</label>
-                    <input type="text" name="day_of_week" value={courseData.day_of_week} onChange={handleChange} required />
+                    <select name="day_of_week" value={courseData.day_of_week} onChange={handleChange} required>
+                        <option value="">-- Select Days --</option>
+                        <option value="M">Monday</option>
+                        <option value="T">Tuesday</option>
+                        <option value="W">Wednesday</option>
+                        <option value="R">Thursday</option>
+                        <option value="F">Friday</option>
+                        <option value="MW">Monday - Wednesday</option>
+                        <option value="TR">Tuesday - Thursday</option>
+                    </select>
                 </div>
+
 
                 <div className="form-course-group">
                     <label>Time:</label>

@@ -32,14 +32,14 @@
 /* Table */
 .schedule-table-container {
     min-width: 100%;
-    margin-top: 40px;
+    margin-top: 26px;
     max-height: 400px;
     overflow-y: auto;
 }
 
 .schedule-table {
-    width: 100%;
-    min-width: 100%;
+    width: 94%;
+    min-width: 94%;
     border-collapse: collapse;
     table-layout: auto;
 }

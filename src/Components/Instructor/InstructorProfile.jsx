@@ -4,34 +4,34 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getUserDetails } from "../../ApiService/ProfileService";
 import { UpdateInstructorProfile } from "../../ApiService/UpdateInstructorProfile";
-export default function InstructorProfile({ refreshProfile }) {
+export default function InstructorProfile({ viewPanel, refreshProfile }) {
     const [instructor, setInstructor] = useState(null);
     const [instructorImage, setInstructorImage] = useState("");  // For handling image uploads
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [idNumber, setIdNumber] = useState("");
     const [imageFilename, setImageFilename] = useState("");
-    const [successMessage, setSuccessMessage] = useState(""); 
-    const [noChangesMessage, setNoChangesMessage] = useState(""); 
+    const [successMessage, setSuccessMessage] = useState("");
+    const [noChangesMessage, setNoChangesMessage] = useState("");
 
     const fetchInstructorDetails = async () => {
         try {
-          const data = await getUserDetails();
-          if (data) {
-            setInstructor(data);
-            setInstructorImage(data.Instructor.image || "default.png");
-            setFirstName(data.user.first_name || "");
-            setLastName(data.user.last_name || "");
-            setIdNumber(data.Instructor.user_id);
-          }
+            const data = await getUserDetails();
+            if (data) {
+                setInstructor(data);
+                setInstructorImage(data.Instructor.image || "default.png");
+                setFirstName(data.user.first_name || "");
+                setLastName(data.user.last_name || "");
+                setIdNumber(data.Instructor.user_id);
+            }
         } catch (error) {
-          console.error("Error fetching instructor details:", error);
+            console.error("Error fetching instructor details:", error);
         }
-      };
-      useEffect(() => {
+    };
+    useEffect(() => {
         fetchInstructorDetails();
-      }, []);
-            
+    }, []);
+
 
     const handleInstructorImage = (event) => {
         const file = event.target.files[0];
@@ -42,6 +42,7 @@ export default function InstructorProfile({ refreshProfile }) {
             console.error("Invalid image file selected");
         }
     };
+    const [isSaving, setIsSaving] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -61,6 +62,8 @@ export default function InstructorProfile({ refreshProfile }) {
         }
 
         try {
+            setIsSaving(true); // Start saving
+
             const updatedData = await UpdateInstructorProfile(
                 firstName,
                 lastName,
@@ -68,10 +71,14 @@ export default function InstructorProfile({ refreshProfile }) {
             );
             setSuccessMessage("Profile updated successfully!");
             await fetchInstructorDetails();
-            refreshProfile(); 
+            refreshProfile();
+            setInstructorImage("");
+            setImageFilename("");
         } catch (error) {
             console.log("Error: ", error)
-        };
+        } finally {
+            setIsSaving(false); // Done saving
+        }
     }
 
     if (!instructor) return <p>Loading...</p>;
@@ -111,6 +118,7 @@ export default function InstructorProfile({ refreshProfile }) {
                         name="First-Name"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
+                        disabled
                     />
                 </div>
 
@@ -122,6 +130,7 @@ export default function InstructorProfile({ refreshProfile }) {
                         name="Last-Name"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
+                        disabled
                     />
                 </div>
 
@@ -157,7 +166,7 @@ export default function InstructorProfile({ refreshProfile }) {
                         />
                         <label
                             htmlFor="fileInput"
-                            className={`imageLabel upload-img-btn ${imageFilename ? 'uploaded-label' : 'not-uploaded-label'}`}
+                            className={`instructorImageLabel upload-img-btn ${imageFilename ? 'uploaded-label' : 'not-uploaded-label'}`}
                         >
                             Image
                         </label>
@@ -165,13 +174,15 @@ export default function InstructorProfile({ refreshProfile }) {
                         <label htmlFor="fileInput" className="upload-img-btn">
                             <img src="/Images/Upload_img.png" alt="Upload" />
                         </label>
-                        <span className="img-name">{imageFilename ? "Uploaded✔️" : "Upload New"}</span>
+                        <span className="img-name">{imageFilename ? "Uploaded" : "Upload New"}</span>
                     </div>
                 </div>
 
                 <div className="form-user-actions">
-                    <button type="button" className="cancel-btn">Cancel</button>
-                    <button type="submit" className="save-btn">Save Changes</button>
+                    <button onClick={viewPanel} type="button" className="cancel-btn">Cancel</button>
+                    <button type="submit" className="save-btn" disabled={isSaving}>
+                        {isSaving ? "Saving..." : "Save Changes"}
+                    </button>
                 </div>
             </form>
         </div>

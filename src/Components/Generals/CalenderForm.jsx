@@ -12,19 +12,25 @@ import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarServic
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
 import { getAdminStudentCourseCalendar, getAdminCourseCalendar } from "../../ApiService/AdminCalendarService";
 
-export default function Calendar({ selectedDashboardItem,setRequestCorrectionState, setSelectedAttendance }) {
+export default function Calendar({ selectedDashboardItem, setRequestCorrectionState, setSelectedAttendance }) {
 
 
     const [calendarData, setCalendarData] = useState([]);
     const [instructorCalendarData, setInstructorCalendarData] = useState([]);
     const [adminCalendarData, setAdminCalendarData] = useState([]);
 
+    const { setCourseId } = useCourse();
     const { courseId } = useCourse();
     const [tooltip, setTooltip] = useState({ message: "", visible: false, x: 0, y: 0 });
 
     const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
     const { studentId } = useStudent();
 
+    if (userRole === "student") {
+        useEffect(() => {
+            setCourseId(null)
+        }, [selectedDashboardItem])
+    }
 
     useEffect(() => {
         if (userRole?.toLowerCase() === "instructor" && selectedDashboardItem !== undefined) {
@@ -34,7 +40,7 @@ export default function Calendar({ selectedDashboardItem,setRequestCorrectionSta
         console.log("selectedDashboardItem", selectedDashboardItem)
 
     }, [selectedDashboardItem]);
-    
+
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
@@ -76,7 +82,7 @@ export default function Calendar({ selectedDashboardItem,setRequestCorrectionSta
                 setAdminCalendarData([]);
             }
         };
-    
+
         fetchCalendarData();
     }, [courseId, userRole, studentId]);
 
@@ -86,7 +92,7 @@ export default function Calendar({ selectedDashboardItem,setRequestCorrectionSta
             map[dayjs(day.date).format("YYYY-MM-DD")] = day.status;
             return map;
         }, {});
-        
+
         // Instructor calendar data (past/future)
         const instructorMap = instructorCalendarData.reduce((map, session) => {
             map[dayjs(session.date).format("YYYY-MM-DD")] =
@@ -97,11 +103,11 @@ export default function Calendar({ selectedDashboardItem,setRequestCorrectionSta
         // Admin calendar data (handles both cases)
         const adminMap = adminCalendarData.reduce((map, item) => {
             const dateStr = dayjs(item.date).format("YYYY-MM-DD");
-            
+
             // Case 1: Admin viewing student (has status)
             if (item.status) {
                 map[dateStr] = item.status;
-            } 
+            }
             // Case 2: Admin viewing course (past/future)
             else {
                 map[dateStr] = dayjs(item.date).isBefore(dayjs(), 'day') ? "past" : "future";
@@ -128,17 +134,17 @@ export default function Calendar({ selectedDashboardItem,setRequestCorrectionSta
                 };
             }
             if (adminStatus === "absent") {
-                return { 
-                    background: "red", 
-                    borderRadius: "50%", 
-                    color: "white" 
+                return {
+                    background: "red",
+                    borderRadius: "50%",
+                    color: "white"
                 };
             }
             if (adminStatus === "upcoming" || adminStatus === "future") {
-                return { 
-                    background: "gray", 
-                    borderRadius: "50%", 
-                    color: "white" 
+                return {
+                    background: "gray",
+                    borderRadius: "50%",
+                    color: "white"
                 };
             }
         }
@@ -149,25 +155,25 @@ export default function Calendar({ selectedDashboardItem,setRequestCorrectionSta
             borderRadius: "50%",
             color: "white"
         };
-        if (status === "absent") return { 
-            background: "red", 
-            borderRadius: "50%", 
-            color: "white" 
+        if (status === "absent") return {
+            background: "red",
+            borderRadius: "50%",
+            color: "white"
         };
-        if (status === "upcoming") return { 
-            background: "gray", 
-            borderRadius: "50%", 
-            color: "white" 
+        if (status === "upcoming") return {
+            background: "gray",
+            borderRadius: "50%",
+            color: "white"
         };
         if (instructorStatus === "past") return {
             background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
             borderRadius: "50%",
             color: "white"
         };
-        if (instructorStatus === "future") return { 
-            background: "gray", 
-            borderRadius: "50%", 
-            color: "white" 
+        if (instructorStatus === "future") return {
+            background: "gray",
+            borderRadius: "50%",
+            color: "white"
         };
 
         return {};
@@ -176,8 +182,8 @@ export default function Calendar({ selectedDashboardItem,setRequestCorrectionSta
     const hasStatus = useCallback((date) => {
         const formattedDate = dayjs(date).format("YYYY-MM-DD");
         return Boolean(
-            dayStatusMap[formattedDate] || 
-            instructorDayMap[formattedDate] || 
+            dayStatusMap[formattedDate] ||
+            instructorDayMap[formattedDate] ||
             adminDayMap[formattedDate]
         );
     }, [dayStatusMap, instructorDayMap, adminDayMap]);

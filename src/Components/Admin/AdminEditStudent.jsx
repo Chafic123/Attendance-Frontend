@@ -56,11 +56,11 @@ export default function AdminEditStudent({ editedStudent, onCancel, onStudentUpd
                 }
             );
             getStudents()
-            .then((data) => {
-                setStudents(data);
-            })
+                .then((data) => {
+                    setStudents(data);
+                })
             setSuccessMessage("Student Updated Successfully!");
-            
+
             if (onStudentUpdated) {
                 onStudentUpdated(updatedStudent);
             }
@@ -137,17 +137,29 @@ export default function AdminEditStudent({ editedStudent, onCancel, onStudentUpd
                         required
                     />
                 </div>
-
                 <div className="form-student-group">
                     <label htmlFor="major">Major:</label>
-                    <input
-                        type="text"
+                    <select
                         name="major"
                         value={studentData.major}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="">-- Select Major --</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Computer & Communication Engineering">Computer & Communication Engineering</option>
+                        <option value="Biomedical Engineering">Biomedical Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Architecture">Architecture</option>
+                        <option value="Business Administration">Business Administration</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Accounting and Finance">Accounting and Finance</option>
+                        <option value="Graphic Design">Graphic Design</option>
+                        <option value="Interior Design">Interior Design</option>
+                    </select>
                 </div>
+
 
                 <div className="form-student-group">
                     <label htmlFor="department">Department:</label>

@@ -6,12 +6,23 @@ import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useEffect, useState } from "react";
 import InstructorSchedule from "./InstructorSchedule";
-export default function InstructorMainContent({ viewPanelIphone, setSelectedText, selectedDashboardItem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
+export default function InstructorMainContent({ viewPanel,viewPanelIphone, selectedText, setSelectedText, selectedDashboardItem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
   const [courses, setCourses] = useState([]);
   const [courseTitle, setCourseTitle] = useState("Courses");
 
+  useEffect(() => {
+    if(selectedText ==="View Courses"){
+      setCourseTitle("Courses"); 
+      setFilterTop("Courses")
+
+    }
+    viewPanel();
+    if(selectedText !== "View Student Courses"){
+      null
+    }
+}, [selectedText]);
 
 
   const [successMessage, setSuccessMessage] = useState("");

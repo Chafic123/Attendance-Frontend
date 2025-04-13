@@ -78,7 +78,7 @@ const AdminAddStudent = ({ setStudents }) => {
                     </div>
                 </div>
             )}
-            
+
             <form className="add-student-form" onSubmit={handleSubmit}>
                 <div className="form-student-group">
                     <label htmlFor="first_name">First Name:</label>
@@ -102,8 +102,33 @@ const AdminAddStudent = ({ setStudents }) => {
 
                 <div className="form-student-group">
                     <label htmlFor="major">Major:</label>
-                    <input type="text" id="major" name="major" value={studentData.major} onChange={handleChange} required />
+                    <select
+                        id="major"
+                        name="major"
+                        value={studentData.major}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">-- Select Major --</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Computer and Communication Engineering">Computer and Communication Engineering</option>
+                        <option value="Biomedical Engineering">Biomedical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Business Administration">Business Administration</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Accounting and Finance">Accounting and Finance</option>
+                        <option value="Architecture">Architecture</option>
+                        <option value="Graphic Design">Graphic Design</option>
+                        <option value="Interior Design">Interior Design</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Medical Laboratory Sciences">Medical Laboratory Sciences</option>
+                        <option value="Law">Law</option>
+                        <option value="Education">Education</option>
+                    </select>
                 </div>
+
 
                 {/* Department drop-down */}
                 <div className="form-student-group">

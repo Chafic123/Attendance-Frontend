@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import "../../CSS/AdminFilter.css";
 
@@ -139,6 +139,37 @@ const AdminFilter = (props) => {
   };
   
 
+
+  useEffect(() => {
+    // Reset Course Filter
+    console.log("textSelected",props.selectedText)
+    setFilterCode("");
+    setSortOrder("");
+    setSection("");
+    setCourseName("");
+    props.onCourseFilterChange?.({ code: "", sort: "", name: "", section: "" });
+  
+    // Reset Student Filter
+    setStudentId("");
+    setStudentName("");
+    setMajor("");
+    setStudentSort("");
+    props.onStudentFilterChange?.({ studentID: "", name: "", major: "", sort: "" });
+  
+    // Reset Instructor Filter
+    setInstructorName("");
+    setInstructorSortOrder("");
+    setInstructorDepartment("");
+    props.onInstructorFilterChange?.({ instructorName: "", department: "", sort: "" });
+  
+    // Reset Student Course Filter
+    setStudentCoursesFilterCode("");
+    setStudentCoursesFilterName("");
+    setStudentCoursesSortOrder("");
+    setStudentCoursesSection("");
+    props.onStudentCoursesFilterChange?.({ code: "", name: "", sort: "", section: "" });
+  }, [props.selectedText]);
+  
   return (
     <div className='filter-container'>
       <p>Filter by:</p>

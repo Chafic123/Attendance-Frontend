@@ -3,14 +3,14 @@ import "../../CSS/AdminEditCourse.css";
 import { updateCourse } from "../../ApiService/EditCourseService";
 import { getCourses } from "../../ApiService/CourseService";
 
-export default function AdminEditCourse({ editedCourse, setEditedCourse,setCourses }) {
-    const [successMessage, setSuccessMessage] = useState(""); 
+export default function AdminEditCourse({ editedCourse, setEditedCourse, setCourses }) {
+    const [successMessage, setSuccessMessage] = useState("");
     const [noChangesMessage, setNoChangesMessage] = useState("");
 
     const [courseData, setCourseData] = useState({
         Code: "",
         name: "",
-        email:"",
+        email: "",
         day_of_week: "",
         start_time: "",
         end_time: "",
@@ -38,7 +38,7 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse,setCours
             });
         }
     }, [editedCourse]);
-    
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,6 +53,8 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse,setCours
             setSuccessMessage("Course Updated Successfully")
             const courseData2 = await getCourses();
             setCourses(Array.isArray(courseData2) ? courseData2 : []);
+            setEditedCourse(null);
+
         } catch (error) {
             alert("Failed to update course.");
             setNoChangesMessage("An Error Has Occurred!");
@@ -61,9 +63,9 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse,setCours
 
     return (
         <div className="add-course-card">
-             {successMessage && (
+            {successMessage && (
                 <div className="popup-container">
-                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381"}}>
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
                         <p>{successMessage}</p>
                         <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
                     </div>
@@ -104,14 +106,24 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse,setCours
 
                 <div className="form-course-group">
                     <label htmlFor="day_of_week">Days:</label>
-                    <input
-                        type="text"
+                    <select
                         name="day_of_week"
                         value={courseData.day_of_week}
                         onChange={handleChange}
                         required
-                    />
+                        className="dayOfWeak"
+                    >
+                        <option value="">-- Select Days --</option>
+                        <option value="M">Monday</option>
+                        <option value="T">Tuesday</option>
+                        <option value="W">Wednesday</option>
+                        <option value="R">Thursday</option>
+                        <option value="F">Friday</option>
+                        <option value="MW">Monday - Wednesday</option>
+                        <option value="TR">Tuesday - Thursday</option>
+                    </select>
                 </div>
+
 
                 <div className="form-course-group">
                     <label>Time:</label>

@@ -171,6 +171,12 @@
     margin-left: 3px;
   }
   
+  .imageLabel {
+    margin-left: 0px;
+}
+.instructorImageLabel{
+    margin-left: -6px;
+}
 
   
 

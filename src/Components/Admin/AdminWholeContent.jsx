@@ -18,6 +18,12 @@ export default function AdminWholeContent(props) {
   const handleClose = () => {
     props.setProcessText("")  
   };  
+  useEffect(()=>{
+    setEditedStudent(null);
+    setEditedInstructor(null);
+    setEditedCourse(null);
+    
+  },[props.selectedDashboardITem])
 
   useEffect(() => {
     console.log("editedInstructor: ", editedInstructor)
@@ -69,7 +75,7 @@ export default function AdminWholeContent(props) {
           </div>
         </div>
       ) : null }
-      <AdminMainContent setSelectedText={props.setSelectedText} courses={courses} setCourses={setCourses} instructors={instructors} setInstructors={setInstructors} students={students} setStudents={setStudents} filterTop={filterTop} setFilterTop={setFilterTop} setEditedInstructor={setEditedInstructor} setEditedStudent={setEditedStudent} setEditedCourse={setEditedCourse} selectedDashboardITem={props.selectedDashboardITem} showAdminPanel={showAdminPanel} />
+      <AdminMainContent selectedText={props.selectedDashboardITem} setSelectedText={props.setSelectedText} courses={courses} setCourses={setCourses} instructors={instructors} setInstructors={setInstructors} students={students} setStudents={setStudents} filterTop={filterTop} setFilterTop={setFilterTop} setEditedInstructor={setEditedInstructor} setEditedStudent={setEditedStudent} setEditedCourse={setEditedCourse} selectedDashboardITem={props.selectedDashboardITem} showAdminPanel={showAdminPanel} />
 
       <AdminPanel setCourses={setCourses} setInstructors={setInstructors} setStudents={setStudents} setEditedStudent={setEditedStudent} editedStudent={editedStudent} setEditedInstructor={setEditedInstructor} editedInstructor={editedInstructor} editedCourse={editedCourse} setEditedCourse={setEditedCourse} title={props.selectedAddItem} isAdminPanel={isAdminPanel} />
 

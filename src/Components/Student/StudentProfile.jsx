@@ -5,18 +5,21 @@ import PropTypes from "prop-types";
 import { getUserDetails } from "../../ApiService/ProfileService";
 import { updateStudentProfile } from "../../ApiService/UpdateStudentProfile"; // Import the API call
 
-export default function StudentProfile({ refreshProfile }) {
+export default function StudentProfile({ viewPanel, refreshProfile }) {
     const [student, setStudent] = useState(null);
     const [studentImage, setStudentImage] = useState("");
     const [studentVideo, setStudentVideo] = useState(null); // State for video file
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [imageFilename, setImageFilename] = useState(""); 
+    const [imageFilename, setImageFilename] = useState("");
     const [videoFilename, setVideoFilename] = useState("");
-    const [successMessage, setSuccessMessage] = useState(""); 
-    const [noChangesMessage, setNoChangesMessage] = useState(""); 
+    const [successMessage, setSuccessMessage] = useState("");
+    const [noChangesMessage, setNoChangesMessage] = useState("");
     const [imageUploaded, setImageUploaded] = useState(false);
     const [videoUploaded, setVideoUploaded] = useState(false);
+
+    const [isSaving, setIsSaving] = useState(false);
+
 
     useEffect(() => {
         const fetchStudentDetails = async () => {
@@ -80,6 +83,8 @@ export default function StudentProfile({ refreshProfile }) {
         }
 
         try {
+            setIsSaving(true);
+
             const updatedData = await updateStudentProfile(
                 firstName,
                 lastName,
@@ -89,8 +94,18 @@ export default function StudentProfile({ refreshProfile }) {
             setSuccessMessage("Profile updated successfully!"); // Show success message
             console.log("Profile Updated Successfully:", updatedData);
             refreshProfile();
+
+            setStudentImage("");
+            setStudentVideo(null);
+            setImageFilename("");
+            setVideoFilename("");
+            setImageUploaded(false);
+            setVideoUploaded(false);
+
         } catch (error) {
             console.error("Failed to update profile:", error);
+        } finally {
+            setIsSaving(false);
         }
     };
 
@@ -103,7 +118,7 @@ export default function StudentProfile({ refreshProfile }) {
                 } else if (window.matchMedia("(max-width: 431px) and (height: 932px)").matches) {
                     button.textContent = "Save";
                 } else {
-                    button.textContent = "Save Changes"; 
+                    button.textContent = "Save Changes";
                 }
             }
         };
@@ -154,7 +169,8 @@ export default function StudentProfile({ refreshProfile }) {
                         id="First-Name"
                         name="First-Name"
                         value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)} 
+                        onChange={(e) => setFirstName(e.target.value)}
+                        disabled
                     />
                 </div>
 
@@ -165,7 +181,8 @@ export default function StudentProfile({ refreshProfile }) {
                         id="Last-Name"
                         name="Last-Name"
                         value={lastName}
-                        onChange={(e) => setLastName(e.target.value)} 
+                        onChange={(e) => setLastName(e.target.value)}
+                        disabled
                     />
                 </div>
 
@@ -198,9 +215,9 @@ export default function StudentProfile({ refreshProfile }) {
                             className="img-input"
                             onChange={handleStudentImage}
                         />
-                        <label htmlFor="fileInput" 
+                        <label htmlFor="fileInput"
                             className={`imageLabel ${imageUploaded ? 'uploaded' : ''}`}
-                            >Image</label>
+                        >Image</label>
                         <label htmlFor="fileInput" className="upload-img-btn">
                             <img src="/Images/Upload_img.png" alt="Upload" />
                         </label>
@@ -216,9 +233,9 @@ export default function StudentProfile({ refreshProfile }) {
                             className="img-input"
                             onChange={handleStudentVideo}
                         />
-                        <label htmlFor="videoInput" 
+                        <label htmlFor="videoInput"
                             className={`imageLabel ${videoUploaded ? 'uploaded' : ''}`}
-                            >Video</label>
+                        >Video</label>
                         <label htmlFor="videoInput" className="upload-img-btn">
                             <img src="/Images/Upload_img.png" alt="Upload" />
                         </label>
@@ -227,8 +244,10 @@ export default function StudentProfile({ refreshProfile }) {
                 </div>
 
                 <div className="form-user-actions">
-                    <button type="button" className="cancel-btn">Cancel</button>
-                    <button type="submit" className="save-btn">Save Changes</button>
+                    <button onClick={viewPanel} type="button" className="cancel-btn">Cancel</button>
+                    <button type="submit" className="save-btn" disabled={isSaving}>
+                        {isSaving ? "Saving..." : "Save Changes"}
+                    </button>
                 </div>
             </form>
         </div>

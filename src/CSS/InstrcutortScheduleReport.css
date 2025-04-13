@@ -33,15 +33,21 @@
 .schedule-table-container {
     min-width: 105%;
     margin-top: 40px;
-    max-height: 400px;
+    max-height: 380px;
     overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  
+}
+.schedule-table-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 .schedule-table {
-    width: 100%;
-    min-width: 100%;
+    width: 94%;
+    min-width: 94%;
     border-collapse: collapse;
     table-layout: auto; 
+    position: relative;
 }
 
 
@@ -84,7 +90,7 @@ tbody tr:nth-child(even) {
 
 .credits {
     position: relative;
-    left: 1000px;
+    left: 1030px;
     top: 10px;
 }
 

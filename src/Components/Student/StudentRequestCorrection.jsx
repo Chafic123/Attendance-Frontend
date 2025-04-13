@@ -21,8 +21,10 @@ export default function StudentRequestCorrection({ requestCorrectionState, selec
             setSuccessMessage(response.message);
             setMessage(""); // Clear after success
         } catch (error) {
-            setSuccessMessage("Failed to send request.");
-        }
+            const errorMsg =
+            error?.response?.data?.error || "Failed to submit request. Please try again.";
+        setNoChangesMessage(errorMsg);
+            }
         setLoading(false);
     };
     

@@ -331,11 +331,16 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
                     <p className="courseCode">{course.course_code || course.Code}</p>
                     <p className="courseName">{course.course_name || course.name}</p>
                     <p className="courseInstructor">
-                      {userRole?.toLowerCase() === "instructor"
-                        ? `${course.name}`
-                        : userRole?.toLowerCase() === "admin"
-                          ? `${course.instructors[0]?.user?.first_name || ''} ${course.instructors[0]?.user?.last_name || ''}`
-                          : course.instructor_name}
+                      <p className="courseInstructor">
+                        {userRole?.toLowerCase() === "instructor"
+                          ? `${course.name}`
+                          : userRole?.toLowerCase() === "admin"
+                            ? `${course.instructors?.[0]?.user?.first_name || ''} ${course.instructors?.[0]?.user?.last_name || ''}`
+                            : typeof course.instructor_name === "object"
+                              ? `${course.instructor_name?.first_name || ''} ${course.instructor_name?.last_name || 'No Instructor Found'}` 
+                              : course.instructor_name || "No Instructor Found"}
+                      </p>
+
                     </p>
                   </div>
                 </div>
@@ -401,7 +406,7 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
                               }
                             }
                           }}
-                          >
+                        >
                           Edit
                         </button>
 
@@ -437,6 +442,7 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
 
             {filteredCourseStudents.map((student, index) => (
               <div>
+
                 <StudentCard
                   key={student.student_id}
                   student={student}

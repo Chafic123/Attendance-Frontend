@@ -1,7 +1,7 @@
 import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrections";
 import { useEffect, useState } from "react";
 import "../../CSS/InstrcutorRequestsCenter.css";
-import { approveRequest } from "../../ApiService/InstructorRequestCorrections";
+import { updateRequestStatus } from "../../ApiService/InstructorRequestCorrections";
 export default function StudentNotificationCenter() {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,18 +26,19 @@ export default function StudentNotificationCenter() {
 
 
 
-    const handleApproveRequest = async (requestId) => {
+    const handleRequestStatus = async (requestId, status) => {
         try {
-            const result = await approveRequest(requestId);
+            const result = await updateRequestStatus(requestId, status);
             if (result) {
                 setRequests((prevRequests) =>
                     prevRequests.filter((request) => request.id !== requestId)
                 );
             }
         } catch (error) {
-            console.error("Error approving request:", error);
+            console.error(`Error updating request status to ${status}:`, error);
         }
     };
+
 
     return (
         <div className="requests-center-container">
@@ -77,8 +78,13 @@ export default function StudentNotificationCenter() {
                                         </div>
                                         <div
                                             className="requests-btn-container">
-                                            <button onClick={() => handleApproveRequest(request.id)} className="approveRequest">Approve</button>
-                                            <button className="rejectRequest">Reject</button>
+                                            <button onClick={() => handleRequestStatus(request.id, "approved")} className="approveRequest">
+                                                Approve
+                                            </button>
+                                            <button onClick={() => handleRequestStatus(request.id, "rejected")} className="rejectRequest">
+                                                Reject
+                                            </button>
+
                                         </div>
                                     </div>
                                 </div>

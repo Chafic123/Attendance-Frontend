@@ -5,6 +5,8 @@ import { getStudents } from "../../ApiService/StudentService";
 import { enrollStudents } from "../../ApiService/AdminStudentService";
 import AdminFilter from "./AdminFilter";
 import { getCourseStudents } from "../../ApiService/CourseService";
+import { useCourse } from "../../Contexts/CourseContext";
+import { getNonEnrolledStudents } from "../../ApiService/AdminStudentService";
 export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onStudentFilterChange, courseStudentID, setCourseStudents }) {
     const [students, setStudents] = useState([]);
     const [filteredStudents, setFilteredStudents] = useState([]);
@@ -12,17 +14,31 @@ export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onSt
     const [loading, setLoading] = useState(true); 
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
+
+    const { courseId } = useCourse();
+    
     console.log("Course Student Id: ", courseStudentID)
     useEffect(() => {
         const fetchStudents = async () => {
-            const studentData = await getStudents();
-            setStudents(studentData);
-            setLoading(false);
-
+          console.log("Fetching Students of Course ID:", courseId);
+      
+          const studentData = await getNonEnrolledStudents(courseId);
+          console.log("studentData", studentData);
+      
+          if (studentData.success) {
+            setStudents(studentData.data || []);
+          } else {
+            console.error("Failed to fetch students:", studentData.message);
+            setStudents([]);
+          }
+      
+          setLoading(false);
         };
-
+      
         fetchStudents();
-    }, []);
+      }, [courseId]);
+      
+      
 
     useEffect(() => {
         let updatedStudents = [...students];
@@ -69,11 +85,13 @@ export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onSt
         try {
             const response = await enrollStudents(selectedStudents, courseStudentID);
             console.log("Enrollment successful:", response);
-            setSuccessMessage("Students Enrolled Successfully!")
+            setSuccessMessage("Students Enrolled Successfully!");
             const students = await getCourseStudents(courseStudentID);
-            setCourseStudents(students);
 
-            onClose();
+            setCourseStudents(students);
+            setTimeout(() => {
+                onClose();
+            }, 2000);
         } catch (error) {
             console.error("Error enrolling students:", error);
         }

@@ -32,7 +32,7 @@ export default function InstructorPanel(prop) {
               <InstructorNotifications setActiveStudent={prop.setActiveStudent} selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
             </div>
             <div className="profile-holder">
-              <InstructorProfile refreshProfile={prop.refreshProfile} />
+              <InstructorProfile viewPanel={prop.viewPanel} refreshProfile={prop.refreshProfile} />
             </div>
           </div>
         ) : prop.title === "View Schedule" ? (
@@ -41,7 +41,7 @@ export default function InstructorPanel(prop) {
               <InstructorSchedule />
             </div>
             <div className="profile-holder">
-              <InstructorProfile refreshProfile={prop.refreshProfile} />
+              <InstructorProfile viewPanel={prop.viewPanel} refreshProfile={prop.refreshProfile} />
             </div>
           </div>
         ) : prop.title === "View Notifications" ? (
@@ -53,7 +53,7 @@ export default function InstructorPanel(prop) {
               <InstructorRequests />
             </div>
             <div className="profile-holder">
-              <InstructorProfile refreshProfile={prop.refreshProfile} />
+              <InstructorProfile  viewPanel={prop.viewPanel} refreshProfile={prop.refreshProfile} />
             </div>
           </div>
 
@@ -73,12 +73,7 @@ export default function InstructorPanel(prop) {
         )
       }
       <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hidePanel} alt="cancel icon" />
-      <img
-        src="../public/Images/go-back-icon.png"
-        className="go-back-icon"
-        onClick={prop.viewPanel}
-        alt="Go back"
-      />
+
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AdminFilter from "./AdminFilter";
 import Course from "../Generals/Course";
 import StudentCard from "../Generals/StudentCard";
@@ -10,13 +10,19 @@ import { getCourseStudents } from "../../ApiService/CourseService";
 import AdminMainContentTop from "../Admin/AdminMainContentTop";
 import { getStudentCourses } from "../../ApiService/CourseService";
 import { useCourse } from "../../Contexts/CourseContext";
-import AdminEnrollStudentsPopup from "./AdminEnrollStudentsPopup";
-
-export default function AdminMainContent({ setSelectedText, courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
+import { Icon } from "@mui/material";
+import { useStudent } from "../../Contexts/getClickedStudentID";
+import { deleteStudentCourse } from "../../ApiService/AdminStudentService";
+export default function AdminMainContent({ selectedText, setSelectedText, courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
+
+  const { setStudentId } = useStudent();
+  const { studentId } = useStudent();
+
+  const [openMenuId, setOpenMenuId] = useState(null);
 
   const [activeCardId, setActiveCardId] = useState(null);
   const [activeInstructorCardId, setActiveInstructorCardId] = useState(null);
@@ -28,9 +34,13 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   const [activeIndex, setActiveIndex] = useState(null);
   const [studentCourses, setStudentCourses] = useState([])
 
+  const [hoveredCourseId, setHoveredCourseId] = useState(null);
+
   const { setCourseId } = useCourse();
 
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+
+  const [showMenu, setShowMenu] = useState(false);
 
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "", sort: "" });
@@ -38,7 +48,42 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [studentCourseFilterOptions, setStudentCourseFilterOptions] = useState({ code: "", name: "", sort: "", section: "" });
 
+  useEffect(() => {
+      if(selectedText ==="View Courses"){
+        setCourseTitle("Courses"); 
+        setFilterTop("Courses")
+
+      }
+      if(selectedText !== "View Student Courses"){
+        setStudentTitle("Students");
+        setStudentCourses([]);
+      }
+  }, [selectedText]);
+
   const [onDelete, setOnDelete] = useState(false)
+
+  const [onStudentCourseDelete, setStudentCourseDelete] = useState(false);
+  const dropdownRefs = useRef({});
+
+
+  useEffect(() => {
+    console.log(onStudentCourseDelete)
+  }, [onStudentCourseDelete])
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const currentRef = dropdownRefs.current[openMenuId];
+      if (currentRef && !currentRef.contains(event.target)) {
+        setOpenMenuId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openMenuId]);
+
 
   useEffect(() => {
     setActiveCardId(null)
@@ -58,6 +103,8 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
     if (userRole != "admin") return;
     if (!studentId) return;
     setCourseId("");
+    setStudentId(studentId)
+
     try {
       const courses = await getStudentCourses(studentId);
       setStudentCourses(courses);
@@ -74,7 +121,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
     setActiveCardId(null)
     setStudentCourses([])
     setFilterTop("Courses");
-    setStudentTitle("Students");
+    setStudentTitle("View Students");
     setSelectedText("View Students")
     setActiveIndex(null);
 
@@ -230,6 +277,23 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
   }, [onDelete]);
 
 
+  useEffect(() => {
+    const fetchStudentCourses = async () => {
+      if (userRole !== "admin" || !studentId) return;
+
+      try {
+        const coursesAfterDelete = await getStudentCourses(studentId);
+        setStudentCourses(coursesAfterDelete);
+        console.log("Courses after deletion:", coursesAfterDelete)
+      } catch (error) {
+        console.error("Failed to fetch student courses:", error);
+      }
+    };
+
+    fetchStudentCourses();
+  }, [onStudentCourseDelete]);
+
+
 
   useEffect(() => {
     const fetchInstructors = async () => {
@@ -288,7 +352,7 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
           }}
         >
           <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
-          <AdminFilter studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
+          <AdminFilter selectedText={selectedText} studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
             <p>Loading students...</p>
           ) : studentCourses.length === 0 ? (
@@ -314,6 +378,10 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
               {filteredStudentCourses.length > 0 ? (
                 filteredStudentCourses.map((course, index) => (
                   <div
+                    onMouseEnter={() => setHoveredCourseId(course.id)}
+                    onMouseLeave={() => setHoveredCourseId(null)}
+                    ref={(el) => (dropdownRefs.current[course.id] = el)}
+                    isHovered={hoveredCourseId === course.id}
                     className={`studentCourse ${activeIndex === index ? "activeCourse" : ""}`}
                     key={index}
                     onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
@@ -330,14 +398,73 @@ export default function AdminMainContent({ setSelectedText, courses, setCourses,
                               ? `${course.instructors[0]?.instructor_name || ''}`
                               : course.instructor_name}
                         </p>
-
                       </div>
                     </div>
                     {userRole?.toLowerCase() === "admin" && course.absence_percentage !== undefined && (
-                      <div className="percentageContainer">
-                        <p className="coursePercentage">{`${course.absence_percentage}`}</p>
-                        <span>Absence</span>
-                        <span>Percentage</span>
+                      <div className="percentageContainer" style={{ position: "relative" }}>
+                        {hoveredCourseId === course.id && course.absence_percentage !== "Dropped" ? (
+                          <Icon
+                            onClick={() => setOpenMenuId(prevId => prevId === course.id ? null : course.id)}
+                            style={{ cursor: "pointer", width: "1 rem" }}
+                          >
+                            more_vert
+                          </Icon>
+                        ) : (
+                          <>
+                            {course.absence_percentage === "Dropped" ? (
+                              <p className="coursePercentage" style={{ color: "red", fontWeight: "bold" }}>
+                                Dropped
+                              </p>
+                            ) : (
+                              <>
+                                <p className="coursePercentage">{`${course.absence_percentage}`}</p>
+                                <span>Absence</span>
+                                <span>Percentage</span>
+                              </>
+                            )}
+                          </>
+
+                        )}
+                        {openMenuId === course.id && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: "5px",
+                              right: "0px",
+                              background: "#fff",
+                              padding: "5px",
+                              zIndex: 100,
+                              minWidth: "120px",
+                              border: "1px solid #ddd",
+                              borderRadius: "5px",
+                            }}
+                          >
+                            <button
+                              style={{
+                                width: "100%",
+                                background: "#ffe5e5",
+                                border: "none",
+                                padding: "8px",
+                                borderRadius: "5px",
+                                color: "#c62828",
+                                cursor: "pointer",
+                                fontWeight: "500",
+                              }}
+                              onClick={async (e) => {
+                                e.stopPropagation();
+                                const result = await deleteStudentCourse(course.id, studentId);
+                                setStudentCourseDelete(true);
+                                if (result.success) {
+                                  console.log(result.message);
+                                } else {
+                                  console.error(result.message);
+                                }
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

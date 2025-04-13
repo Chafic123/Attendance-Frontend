@@ -41,7 +41,7 @@ export default function StudentScheduleReport() {
                 <div className="schedule-top-element">
                     <div className="schedule-top-info">
                         <label htmlFor="">Year: </label>
-                        <span>{student.year || "N/A"}</span>
+                        <span>{courses[0].year || "N/A"}</span>
                     </div>
                     {console.log(courses)}
                     <div className="schedule-top-info">
@@ -53,19 +53,19 @@ export default function StudentScheduleReport() {
             </div>
 
             <div className="schedule-table-container">
-            <table className="schedule-table">
-                <thead>
-                    <tr>
-                        <th className="schedule-th">Course Code</th>
-                        <th className="schedule-th">Course Name</th>
-                        <th className="schedule-th">Room</th>
-                        <th className="schedule-th">Day</th>
-                        <th className="schedule-th">Time</th>
-                        <th className="schedule-th">Instructor</th>
-                        <th className="schedule-th">Credits</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <table className="schedule-table">
+                    <thead>
+                        <tr>
+                            <th className="schedule-th">Course Code</th>
+                            <th className="schedule-th">Course Name</th>
+                            <th className="schedule-th">Room</th>
+                            <th className="schedule-th">Day</th>
+                            <th className="schedule-th">Time</th>
+                            <th className="schedule-th">Instructor</th>
+                            <th className="schedule-th">Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {courses.map((course, index) => (
                             <tr key={index}>
                                 <td>{course.course_code}</td>
@@ -78,9 +78,11 @@ export default function StudentScheduleReport() {
                             </tr>
                         ))}
                     </tbody>
-            </table>
+                </table>
             </div>
-            <span className="credits">Credits:    12</span>
+            <span className="credits">
+                Credits: {courses.reduce((total, course) => total + course.credits, 0)}
+            </span>
         </div>
     )
 }

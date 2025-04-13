@@ -50,6 +50,9 @@
     color: #47494D;
     font-weight: 400;
 }
+.form-course-group select{
+    width: 76%;
+}
 
 /* .course-date-inputs, */
 .course-time-inputs {

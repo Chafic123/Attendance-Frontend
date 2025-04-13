@@ -27,30 +27,28 @@ export const getInstructorRequests = async () => {
   };
 
 
-
-  export const approveRequest = async (requestId) => {
+  export const updateRequestStatus = async (requestId, status) => {
     try {
-      const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
   
-      const response = await fetch(`${BASE_URL}/instructor/requests/${requestId}/update-status`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status: "approved" }),
-      });
+        const response = await fetch(`${BASE_URL}/instructor/requests/${requestId}/update-status`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({ status }),
+        });
   
-      if (!response.ok) {
-        throw new Error("Failed to approve request");
-      }
+        if (!response.ok) {
+            throw new Error("Failed to update request status");
+        }
   
-      const data = await response.json();
-      console.log("Approval response: ", data);
-      return data;
+        const data = await response.json();
+        console.log(`${status} response: `, data);
+        return data;
     } catch (error) {
-      console.error("Error approving request:", error);
-      throw error;
+        console.error(`Error updating request status to ${status}:`, error);
+        throw error;
     }
-  };
-  
+};
