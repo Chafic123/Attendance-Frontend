@@ -26,11 +26,7 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
     const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
     const { studentId } = useStudent();
 
-    if (userRole === "student") {
-        useEffect(() => {
-            setCourseId(null)
-        }, [selectedDashboardItem])
-    }
+
 
     useEffect(() => {
         if (userRole?.toLowerCase() === "instructor" && selectedDashboardItem !== undefined) {
@@ -42,13 +38,24 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
     }, [selectedDashboardItem]);
 
     useEffect(() => {
+        if (userRole === "student") {
+            setCalendarData([]); 
+            setCourseId(null)
+            console.log("Course Id null")
+        }
+    }, [selectedDashboardItem])
+
+
+    useEffect(() => {
         const fetchCalendarData = async () => {
             try {
                 if (userRole === "student") {
                     const userID = localStorage.getItem("userID") || sessionStorage.getItem("userID");
-                    if (userID) {
+                    if (userID && courseId) {
                         const data = await getStudentCourseCalendar(courseId, userID);
                         setCalendarData(Array.isArray(data) ? data : []);
+                    } else{
+                        setCalendarData([]);
                     }
                 } else if (userRole === "instructor") {
                     if (!studentId) {
@@ -270,6 +277,9 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
             />
         );
     }, [calendarData, adminCalendarData, getDayStyle, handleMouseEnter, handleMouseLeave, setRequestCorrectionState, setSelectedAttendance, hasStatus, userRole, studentId]);
+
+
+
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>

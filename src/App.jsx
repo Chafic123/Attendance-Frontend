@@ -13,6 +13,7 @@ import { useCallback } from "react";
 import { UserProvider } from "./Contexts/UserContext";
 import { StudentProvider } from "./Contexts/getClickedStudentID";
 import { has } from "lodash";
+import PageNotFound from "./Components/Generals/PageNotFound";
 function App() {
 
   const [user, setStudent] = useState(null);
@@ -134,6 +135,8 @@ function App() {
                 />}
                 />
               </Route>
+              <Route path="*" element={<PageNotFound />} />
+
             </Routes>
           </Router>
         </CourseProvider>

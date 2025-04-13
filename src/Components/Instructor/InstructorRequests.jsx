@@ -10,7 +10,10 @@ export default function InstructorRequests() {
     const fetchRequests = async () => {
       try {
         const data = await getInstructorRequests();
-        setRequests(data.requests || []);
+        const pendingRequests = (data.requests || []).filter(
+          (request) => request.status === "pending"
+      );
+        setRequests(pendingRequests|| []);
       } catch (error) {
         console.error("Error fetching instructor requests:", error);
       } finally {

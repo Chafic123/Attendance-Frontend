@@ -5,6 +5,7 @@
     gap: 15px;
     overflow-y: auto;
     max-height: 447px;
+    padding-bottom: 10px;
     min-height: 50%;
     /* Hide scrollbar arrows */
     scrollbar-width: thin;

@@ -120,7 +120,7 @@ const AdminAddCourse = ({ setCourses }) => {
                     </div>
                 </div>
 
-                <div className="form-course-group">
+                {/* <div className="form-course-group">
                     <label htmlFor="instructor">Instructor:</label>
                     <div className="instructor-info-container">
                         <input
@@ -142,7 +142,7 @@ const AdminAddCourse = ({ setCourses }) => {
                             required
                         />
                     </div>
-                </div>
+                </div> */}
 
                 <div className="form-course-group">
                     <label htmlFor="instructor_email">Email:</label>
