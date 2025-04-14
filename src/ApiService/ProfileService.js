@@ -6,7 +6,6 @@ export const getUserDetails = async () => {
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
 
   if (!token) {
-    console.error("No authentication token found.");
     return null;
   }
 
@@ -19,7 +18,6 @@ export const getUserDetails = async () => {
       withCredentials: true, 
     });
 
-    console.log("User: ", response.data);
 
     // ✅ Save the student_id to localStorage
     const studentId = response.data?.student?.id;

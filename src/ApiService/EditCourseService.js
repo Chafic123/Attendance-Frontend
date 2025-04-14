@@ -30,7 +30,6 @@ export const updateCourse = async (courseId, courseData) => {
       },
     });
 
-    console.log("Course updated successfully:", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to update course:", error);

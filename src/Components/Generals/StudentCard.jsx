@@ -16,7 +16,6 @@ export default function StudentCard({ setStudents, setOnDelete, student, setEdit
   const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
   const handleStudentClick = (id) => {
-    console.log(id)
     setStudentId(id);
     setActiveCardId(id);
     if (userRole !== "admin") {

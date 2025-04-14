@@ -34,9 +34,9 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
       window.removeEventListener("resize", checkScreenSize);
     };
   }, []);
-  useEffect  (()=>{
-    console.log(requestCorrectionState)
-  },requestCorrectionState)
+  // useEffect  (()=>{
+  //   console.log(requestCorrectionState)
+  // },requestCorrectionState)
 
   // hide the panel when closing
   const hidePanel = () => {
@@ -47,7 +47,6 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
     if (profile && panelContainer && panelContent) {
       profile.style.display = "none"; 
       panelContainer.style.zIndex = "-1000"; 
-      console.log("Panel hidden");
     }
   };
 
@@ -84,7 +83,6 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
 }
 
 StudentPanel.propTypes = {
-  title: PropTypes.string.isRequired,
   viewPanel: PropTypes.func.isRequired,
   refreshProfile: PropTypes.func.isRequired,
 };

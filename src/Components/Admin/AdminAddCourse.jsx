@@ -23,9 +23,11 @@ const AdminAddCourse = ({ setCourses }) => {
     const handleChange = (e) => {
         setCourseData({ ...courseData, [e.target.name]: e.target.value });
     };
+    const [isAddingCourse, setIsAddingCourse] = useState(false);
 
     const handleAddCourse = async (e) => {
         e.preventDefault();
+        setIsAddingCourse(true);
         try {
 
             const result = await addCourse(
@@ -62,6 +64,8 @@ const AdminAddCourse = ({ setCourses }) => {
         } catch (error) {
             setNoSuccessMessage(error.response.data.message)
             console.log()
+        } finally {
+            setIsAddingCourse(false);
         }
     };
 
@@ -204,7 +208,9 @@ const AdminAddCourse = ({ setCourses }) => {
                     >
                         Clear
                     </button>
-                    <button type="submit" className="save-btn">Save Changes</button>
+                    <button type="submit" className="save-btn" disabled={isAddingCourse}>
+                        {isAddingCourse ? "Adding Course..." : "Add Course"}
+                    </button>
                 </div>
             </form>
         </div>

@@ -46,6 +46,10 @@
     position: relative;
     left: 240px;
     top: 40px;
+    cursor: pointer;
+}
+.sendNotification-btn:hover{
+    scale: 1.05;
 }
 .purple-line{
     border-bottom: 2px solid #584B9F; 

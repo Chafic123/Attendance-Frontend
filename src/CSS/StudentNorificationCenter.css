@@ -179,15 +179,10 @@
     border-color: #6c63ff;
   }
 
-  .read-notification .notificationCard-title {
-    color: rgb(94, 249, 94);
-    opacity: 1;
-    font-weight: bold;
+
+  .mark-as-readCard{
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%) !important;
   }
-  .read-notification .notificationCard-content{
-    color: rgb(94, 249, 94);
-  }
-  
 
 
   

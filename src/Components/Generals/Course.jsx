@@ -11,7 +11,7 @@ import StudentCard from "./StudentCard";
 import { Icon } from "@mui/material";
 import AdminEnrollStudentsPopup from "../Admin/AdminEnrollStudentsPopup";
 import { useStudent } from "../../Contexts/getClickedStudentID";
-
+import { downloadCourseAttendanceReport } from "../../ApiService/CourseService";
 export default function Course({ setSelectedText, studentCourseFilters, setCourseTitle, setStudents, courses, setCourses, courseFilters, studentFilters, setStudentFilters, setSelectedCourseID, setActiveStudent, setFilterTop, setEditedCourse, setEditedStudent, onStudentFilterChange }) {
   const [allCourses, setAllCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -25,6 +25,7 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
   const [courseStudentID, setCourseStudentID] = useState("")
 
   const { setStudentId } = useStudent();
+  const { studentId } = useStudent();
 
 
   const [activeIndex, setActiveIndex] = useState(null);
@@ -42,6 +43,7 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
 
 
 
+
   const [showStudents, setShowStudents] = useState(false);
 
   const [courseStudents, setCourseStudents] = useState([]);
@@ -55,8 +57,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
     setCourseStudentID(courseId);
     setCourseId(courseId);
 
-    console.log("Course Double Clicked")
-    setCourseId(courseId);
     if (userRole !== "instructor" && userRole !== "admin") {
       return;
     }
@@ -65,7 +65,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
     }
     try {
       const students = await getCourseStudents(courseId);
-      console.log("Course Students", students)
       setFilterTop("Course Students")
       setHideIcon(true)
       setCourseStudents(students);
@@ -81,13 +80,11 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
   useEffect(() => {
 
     const fetchStudents = async () => {
-      console.log("clickedCourseId", courseId)
 
       if (!onDelete) return;
       try {
         const studentsAfterDelete = await getCourseStudents(courseId);
         setCourseStudents(studentsAfterDelete);
-        console.log("studentsAfterDelete", studentsAfterDelete)
         if (onDelete) setOnDelete(false);
       } catch (error) {
         console.error("Error fetching students after delete:", error);
@@ -97,14 +94,17 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
     fetchStudents();
   }, [onDelete])
 
-  useEffect(() => {
-    console.log("hi", onDelete)
-  }, [onDelete])
+  // useEffect(() => {
+  //   console.log("hi", onDelete)
+  // }, [onDelete])
 
   const handleEditCourseClick = (course) => {
     setEditedCourse(course);
-    console.log("Edited Course: ", course)
   }
+  const handleGenerateCourseStudentReport = async () => {
+    if (!courseId) return;
+    await downloadCourseAttendanceReport(courseId);
+  };
 
   const handleBackToCourses = () => {
     setActiveCardId(null)
@@ -256,7 +256,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
 
   useEffect(() => {
     let filteredStudents = [...courseStudents];
-    console.log("Original Students: ", courseStudents);
 
     if (studentFilters?.name) {
       filteredStudents = filteredStudents.filter(student =>
@@ -265,7 +264,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
     }
 
     if (studentFilters?.studentID) {
-      console.log("Filtering by ID:", studentFilters.studentID);
       filteredStudents = filteredStudents.filter(student =>
         String(student.Uni_id).includes(studentFilters.studentID) ||
         String(student.student_id).includes(studentFilters.studentID)
@@ -273,7 +271,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
     }
 
     if (studentFilters?.major) {
-      console.log("Filtering by major:", studentFilters.major);
       filteredStudents = filteredStudents.filter(student =>
         student.major.toUpperCase().includes(studentFilters.major.toUpperCase())
       );
@@ -294,7 +291,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
       });
     }
 
-    console.log("Filtered Students: ", filteredStudents);
 
     setFilteredCourseStudents(filteredStudents);
   }, [studentFilters, courseStudents]);
@@ -331,15 +327,15 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
                     <p className="courseCode">{course.course_code || course.Code}</p>
                     <p className="courseName">{course.course_name || course.name}</p>
                     <p className="courseInstructor">
-                      <p className="courseInstructor">
+                      <span className="courseInstructor"> {/*It was <p>*/}
                         {userRole?.toLowerCase() === "instructor"
                           ? `${course.name}`
                           : userRole?.toLowerCase() === "admin"
                             ? `${course.instructors?.[0]?.user?.first_name || ''} ${course.instructors?.[0]?.user?.last_name || ''}`
                             : typeof course.instructor_name === "object"
-                              ? `${course.instructor_name?.first_name || ''} ${course.instructor_name?.last_name || 'No Instructor Found'}` 
+                              ? `${course.instructor_name?.first_name || ''} ${course.instructor_name?.last_name || 'No Instructor Found'}`
                               : course.instructor_name || "No Instructor Found"}
-                      </p>
+                      </span>
 
                     </p>
                   </div>
@@ -369,8 +365,8 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
                     {showMenuIndex === index && (
                       <div style={{
                         position: "absolute",
-                        top: "25px",
-                        right: "0",
+                        top: "-10px",
+                        right: "15px",
                         background: "#fff",
                         padding: "5px",
                         zIndex: 100,
@@ -400,7 +396,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
                             if (isMobile) {
                               const adminPanel = document.querySelector(".AdminPanelParent");
                               if (adminPanel) {
-                                console.log("Showing Panel")
                                 adminPanel.style.display = "block";
                                 adminPanel.style.zIndex = "1000";
                               }
@@ -461,11 +456,23 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
           </div>
         )}
       </div>
+      {userRole === "admin" && (
+        <button
+          className={`generate-report-btn ${!courseId ? "disabled" : ""}`}
+          onClick={handleGenerateCourseStudentReport}
+          disabled={!courseId}
+        >
+          Generate Report
+        </button>
+      )}
+
+
       {showStudents && (
         <div className="buttonContainer">
           <button className="back-btn" onClick={handleBackToCourses}>
             Back to Courses
           </button>
+
           {userRole === "admin" && (
             <button className="enroll-btn" onClick={handleEnrollStudents}>
               Enroll Students
@@ -474,8 +481,13 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
           {isPopupVisible && <AdminEnrollStudentsPopup setCourseStudents={setCourseStudents} studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
 
         </div>
-      )}
 
+      )}
+      {/* {userRole === "instructor" && (
+        <button className="back-btn" onClick={handleGenerateCourseStudentReport}>
+          Generate Report
+        </button>
+      )} */}
     </div>
 
   );

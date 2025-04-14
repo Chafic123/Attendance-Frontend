@@ -18,9 +18,7 @@ export const getStudentNotifications = async () => {
       },
     });
 
-    console.log("Student Notifications Response:", response.data);
 
-    // ✅ Return all notifications, no filter here
     return Array.isArray(response.data) ? response.data : [];
 
   } catch (error) {
@@ -41,7 +39,6 @@ export const markStudentNotificationAsRead = async (notificationId) => {
 
   try {
     const endpoint = `${BASE_URL}/student/notifications/${notificationId}/read`;
-    console.log(`Attempting to PUT: ${endpoint}`);
 
     const response = await axios.put(endpoint, {}, {
       headers: {
@@ -50,7 +47,6 @@ export const markStudentNotificationAsRead = async (notificationId) => {
       },
     });
 
-    console.log(" Notification marked as read:", response.data);
     return response.data;
 
   } catch (error) {
@@ -88,7 +84,6 @@ export const sendInstructorNotification = async (studentId, courseId, message) =
         },
       }
     );
-    console.log("Notification sent successfully:", response.data);
     return response.data;
   } catch (error) {
     console.error("❌ Error sending notification:", error.response?.data || error.message);

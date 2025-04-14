@@ -7,27 +7,28 @@ export default function InstructorNotifications({ selectedStudent, selectedCours
     const [status, setStatus] = useState("");
     const [shouldResetStudent, setShouldResetStudent] = useState(false);
 
+    const [successMessage, setSuccessMessage] = useState("");
+    const [noChangesMessage, setNoChangesMessage] = useState("");
+
+    const [isSending, setIsSending] = useState(false);
+
     const displayStudent = shouldResetStudent ? null : selectedStudent;
-    
-    const clearStatusAfterDelay = () => {
-        setTimeout(() => {
-            setStatus("");
-        }, 3000);
-    };
+
+
     const handleSendNotification = async () => {
         if (!selectedStudent) {
-            setStatus("❌ No student selected.");
-            clearStatusAfterDelay();
+            setNoChangesMessage("No student selected.");
             return;
         }
 
         if (!message.trim()) {
-            setStatus("❌ Message is required.");
-            clearStatusAfterDelay();
+            setNoChangesMessage("Message is required.");
             return;
         }
 
         try {
+            setIsSending(true);
+
             const response = await sendInstructorNotification(
                 selectedStudent.student_id,
                 selectedCourseID,
@@ -35,23 +36,39 @@ export default function InstructorNotifications({ selectedStudent, selectedCours
             );
 
             if (response) {
-                setStatus("✅ Notification sent successfully!");
-                clearStatusAfterDelay();
+                setSuccessMessage("Notification sent successfully!");
                 setMessage("");
-            } else {
-                setStatus("❌ Failed to send notification.");
-                clearStatusAfterDelay();
+            } else if (noChangesMessage !== "") {
+                setNoChangesMessage("Failed to send notification.");
             }
         } catch (error) {
-            setStatus("❌ Error sending notification.");
-            clearStatusAfterDelay();
+            setNoChangesMessage("Error sending notification.");
             console.log(error);
+        } finally {
+            setIsSending(false);
         }
     };
 
 
     return (
         <div id="notification-container">
+            {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message">
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+
+            {noChangesMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noChangesMessage}</p>
+                        <button onClick={() => setNoChangesMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
             <h2 className="title">Send Notification:</h2>
             <span>
                 To: {displayStudent ? `${displayStudent.first_name} ${displayStudent.last_name}` : "No student selected"}
@@ -64,8 +81,8 @@ export default function InstructorNotifications({ selectedStudent, selectedCours
                 placeholder="Write a message"
             />
             <div className="purple-line"></div>
-            <button className="sendNotification-btn" onClick={handleSendNotification}>
-                Send
+            <button className="sendNotification-btn" onClick={handleSendNotification} disabled={isSending}>
+                {isSending ? "Sending..." : "Send"}
             </button>
             {status && <p className="status-message">{status}</p>}
         </div>

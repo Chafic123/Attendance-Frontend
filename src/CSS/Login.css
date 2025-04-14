@@ -230,6 +230,9 @@ form {
     font-size: 14px;
     margin-bottom: 10px;
 }
+#log-in-btn:hover{
+    scale: 1.02;
+}
 
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
@@ -335,6 +338,7 @@ form {
         font-size: 14.6px;
         margin: auto;
     }
+
     .forgot-password-modal h2 {
         font-size: 18px;
         margin-bottom: 17px;

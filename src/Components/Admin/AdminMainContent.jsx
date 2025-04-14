@@ -66,9 +66,6 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
   const dropdownRefs = useRef({});
 
 
-  useEffect(() => {
-    console.log(onStudentCourseDelete)
-  }, [onStudentCourseDelete])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -90,9 +87,9 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
     setActiveInstructorCardId(null)
   }, [selectedDashboardITem]);
 
-  useEffect(() => {
-    console.log(onDelete)
-  }, [onDelete]);
+  // useEffect(() => {
+  //   console.log(onDelete)
+  // }, [onDelete]);
 
 
 
@@ -110,7 +107,6 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
       setStudentCourses(courses);
       setStudentTitle(`${studentName} - ${studentID}`);
       setSelectedText("View Student Courses")
-      console.log("Student ID: ", studentId, "Courses: ", courses)
     } catch (error) {
       console.error("Failed to fetch student courses:", error);
     }
@@ -196,7 +192,6 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
         `${b.first_name} ${b.last_name}`.localeCompare(`${a.first_name} ${a.last_name}`)
       );
     }
-    console.log(filtered)
     setFilteredInstructors(filtered);
   }, [instructorFilterOptions, instructors]);
 
@@ -248,7 +243,6 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
     setSelectedCourseId(courseId);
     setViewCourseStudents(true);
     setCourseId(courseId);
-    console.log("Double Clicked")
     try {
       const enrolledStudents = await getCourseStudents(courseId);
       setStudents(enrolledStudents);
@@ -266,7 +260,6 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
       try {
         const studentsAfterDelete = await getStudents();
         setStudents(studentsAfterDelete);
-        console.log("studentsAfterDelete", studentsAfterDelete)
         if (onDelete) setOnDelete(false);
       } catch (error) {
         console.error("Error fetching students after delete:", error);
@@ -284,7 +277,6 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
       try {
         const coursesAfterDelete = await getStudentCourses(studentId);
         setStudentCourses(coursesAfterDelete);
-        console.log("Courses after deletion:", coursesAfterDelete)
       } catch (error) {
         console.error("Failed to fetch student courses:", error);
       }
@@ -302,7 +294,6 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
       try {
         const instructorsAfterDelete = await getInstructors();
         setInstructors(instructorsAfterDelete);
-        console.log("instructorsAfterDelete", instructorsAfterDelete)
         if (onDelete) setOnDelete(false);
       } catch (error) {
         console.error("Error fetching students after delete:", error);
@@ -454,11 +445,11 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
                                 e.stopPropagation();
                                 const result = await deleteStudentCourse(course.id, studentId);
                                 setStudentCourseDelete(true);
-                                if (result.success) {
-                                  console.log(result.message);
-                                } else {
-                                  console.error(result.message);
-                                }
+                                // if (result.success) {
+                                //   console.log(result.message);
+                                // } else {
+                                //   console.error(result.message);
+                                // }
                               }}
                             >
                               Delete
@@ -546,8 +537,3 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
     </>
   );
 }
-
-AdminMainContent.propTypes = {
-  selectedDashboardITem: PropTypes.string.isRequired,
-  showAdminPanel: PropTypes.bool.isRequired,
-};

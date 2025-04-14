@@ -2,7 +2,7 @@ import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrect
 import { useEffect, useState } from "react";
 import "../../CSS/InstrcutorRequestsCenter.css";
 import { updateRequestStatus } from "../../ApiService/InstructorRequestCorrections";
-export default function StudentNotificationCenter() {
+export default function InstructorNotificationCenter({ setIsRequestStatusChanged }) {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -29,6 +29,7 @@ export default function StudentNotificationCenter() {
     const handleRequestStatus = async (requestId, status) => {
         try {
             const result = await updateRequestStatus(requestId, status);
+            setIsRequestStatusChanged(true)
             if (result) {
                 setRequests((prevRequests) =>
                     prevRequests.filter((request) => request.id !== requestId)
@@ -46,8 +47,17 @@ export default function StudentNotificationCenter() {
             {loading ? (
                 <p>Loading Requests...</p>
             ) : !requests.length ? (
-                <p>No Requests available.</p>
-            ) : (
+                <div style={{ textAlign: "center", marginTop: "100px" }}>
+                    <img
+                          src="../public/Images/NoNotification-icon.png"
+                          alt="No Requests"
+                        style={{ width: "100px", height: "100px", opacity: 0.6, marginTop:"70px" }}
+                    />
+                    <p style={{ marginTop: "0px", fontSize: "24px", color: "#777" }}>
+                        No Requests Available
+                    </p>
+                </div>
+                ) : (
                 <>
                     {requests.map((request, index) => (
                         <div key={index}>

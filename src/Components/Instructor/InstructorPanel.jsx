@@ -17,7 +17,6 @@ export default function InstructorPanel(prop) {
     if (profile && panelContainer && panelContent) {
       profile.style.display = "none"; 
       panelContainer.style.zIndex = "-1000"; 
-      console.log("Panel hidden");
     }
   };
   return (
@@ -29,7 +28,7 @@ export default function InstructorPanel(prop) {
               <div className="custom-calendar-wrapper">
                 <Calender selectedDashboardItem={prop.selectedDashboardItem} />
               </div>
-              <InstructorNotifications setActiveStudent={prop.setActiveStudent} selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
+              <InstructorNotifications  setActiveStudent={prop.setActiveStudent} selectedCourseID={prop.selectedCourseID} selectedStudent={prop.selectedStudent} />
             </div>
             <div className="profile-holder">
               <InstructorProfile viewPanel={prop.viewPanel} refreshProfile={prop.refreshProfile} />
@@ -50,7 +49,7 @@ export default function InstructorPanel(prop) {
               <div className="custom-calendar-wrapper">
                 <Calender selectedDashboardItem={prop.selectedDashboardItem} />
               </div>
-              <InstructorRequests />
+              <InstructorRequests setIsRequestStatusChanged={prop.setIsRequestStatusChanged} isRequestStatusChanged={prop.isRequestStatusChanged} />
             </div>
             <div className="profile-holder">
               <InstructorProfile  viewPanel={prop.viewPanel} refreshProfile={prop.refreshProfile} />

@@ -66,7 +66,7 @@ export default function StudentRequestCorrection({ requestCorrectionState, selec
                     {responseMsg && <p className="response-msg">{responseMsg}</p>}
                 </>
             ) : (
-                <p className="request-correction-placeholder">📅 Please select a date</p>
+                <p className="request-correction-placeholder">Please select a date</p>
             )}
         </div>
     );

@@ -10,7 +10,9 @@ export const UserProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const data = await getUserDetails(); 
-        setUser(data.user); 
+        if (data && data.user) {
+          setUser(data.user); 
+        }
       } catch (error) {
         console.error("Error fetching user:", error);
       }

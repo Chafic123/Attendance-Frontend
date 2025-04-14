@@ -14,6 +14,4 @@ export default function AdminMainContentTop({ title, onSearch,onCourseFilterChan
 
 AdminMainContentTop.propTypes = {
   title: PropTypes.string.isRequired,
-  onSearch: PropTypes.func.isRequired,
-  onFilterChange: PropTypes.func.isRequired, 
 };

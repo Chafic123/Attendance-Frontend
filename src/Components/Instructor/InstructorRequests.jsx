@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrections";
 import "../../CSS/InstructorRequests.css";
 
-export default function InstructorRequests() {
+export default function InstructorRequests({ isRequestStatusChanged, setIsRequestStatusChanged }) {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,8 +12,11 @@ export default function InstructorRequests() {
         const data = await getInstructorRequests();
         const pendingRequests = (data.requests || []).filter(
           (request) => request.status === "pending"
-      );
-        setRequests(pendingRequests|| []);
+        );
+        if (isRequestStatusChanged) {
+          setIsRequestStatusChanged(false);
+        }
+        setRequests(pendingRequests || []);
       } catch (error) {
         console.error("Error fetching instructor requests:", error);
       } finally {
@@ -22,7 +25,7 @@ export default function InstructorRequests() {
     };
 
     fetchRequests();
-  }, []);
+  }, [isRequestStatusChanged]);
 
   return (
     <div>
@@ -30,7 +33,7 @@ export default function InstructorRequests() {
       <div id="request-container">
         <h2 className="title">Requests</h2>
 
-        <div  className="allRequests">
+        <div className="allRequests">
           {loading ? (
             <p>Loading Requests...</p>
           ) : !requests.length ? (
@@ -83,7 +86,7 @@ export default function InstructorRequests() {
         `}
           </style>
         </div>
-        </div>
       </div>
-      );
+    </div>
+  );
 }

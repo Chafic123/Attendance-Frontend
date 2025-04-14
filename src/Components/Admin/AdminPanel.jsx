@@ -75,7 +75,6 @@ export default function AdminPanel(props) {
 }
 
 AdminPanel.propTypes = {
-  title: PropTypes.string.isRequired,
   isAdminPanel: PropTypes.bool.isRequired,
   editedCourse: PropTypes.object,
   setEditedCourse: PropTypes.func,

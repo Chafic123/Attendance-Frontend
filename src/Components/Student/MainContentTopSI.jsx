@@ -14,6 +14,4 @@ export default function MainContentTopSI({ title, onSearch,onCourseFilterChange 
 
 MainContentTopSI.propTypes = {
   title: PropTypes.string.isRequired,
-  onSearch: PropTypes.func.isRequired,
-  onFilterChange: PropTypes.func.isRequired, 
 };

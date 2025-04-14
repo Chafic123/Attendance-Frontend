@@ -60,7 +60,6 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
   // };
 
   const handleAddCourse = () => {
-    console.log("Add Panel opened");
   
     const adminPanel = document.querySelector(".AdminPanelParent");
     const addCourseCard = document.querySelector(".add-course-card");
@@ -101,8 +100,6 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
 }
 
 ActionIcons.propTypes = {
-  onSearch: PropTypes.func.isRequired,
   user: PropTypes.string.isRequired,
   DashboardSelected: PropTypes.string.isRequired,
-  showAdminPanel: PropTypes.func.isRequired,
 };

@@ -19,7 +19,6 @@ export const getStudentSchedule = async () => {
       withCredentials: true, 
     });
 
-    console.log('Student Schedule API Response:', data);
     return data;
 
   } catch (error) {

@@ -7,7 +7,6 @@ export default function InstructorSchedule() {
     useEffect(() => {
         const fetchSchedule = async () => {
             const data = await getInstructorSchedule();
-            console.log("Instructor Schedule Report: ",data)
             if (data) {
                 setInstructorData(data);
             }

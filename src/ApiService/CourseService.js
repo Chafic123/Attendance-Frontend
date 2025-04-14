@@ -26,7 +26,6 @@ export const getCourses = async () => {
       },
       withCredentials: true,
     });
-    console.log(data)
     if (Array.isArray(data)) {
       return data; // Student API case (returns an array)
     } else if (data?.data && Array.isArray(data.data)) {
@@ -60,7 +59,6 @@ export const getCourseStudents = async (courseId) => {
       withCredentials: true,
     });
 
-    console.log(`Students for course ${courseId}:`, data);
     return Array.isArray(data) ? data : [];
 
   } catch (error) {
@@ -102,13 +100,11 @@ export const addCourse = async (Code, name, Room, credit, Section, day_of_week, 
       withCredentials: true,
     });
 
-    console.log(response.data);
     return response.data;
 
   } catch (error) {
-    // Log the error and throw it to propagate it to the calling function
     console.error(`Error adding course:`, error.response?.data || error.message);
-    throw error;  // <-- This line is crucial to propagate the error
+    throw error; 
   }
 };
 
@@ -139,5 +135,41 @@ export const getStudentCourses = async (studentId) => {
   } catch (error) {
     console.error("Error fetching student courses:", error.response?.status, error.response?.data || error.message);
     return [];
+  }
+};
+
+
+
+export const downloadCourseAttendanceReport = async (courseId) => {
+  const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+  if (!token) {
+    console.error("No authentication token found.");
+    return;
+  }
+
+  const endpoint = `${BASE_URL}/admin/courses/${courseId}/attendance-report`;
+
+  try {
+    const response = await axios.get(endpoint, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/octet-stream",
+      },
+      responseType: "blob", // Important for file download
+    });
+
+    // Trigger file download
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+
+    // Optional: dynamic file name
+    link.setAttribute("download", `Attendance_Schedule_Course_${courseId}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error("Error downloading attendance report:", error.response?.data || error.message);
   }
 };

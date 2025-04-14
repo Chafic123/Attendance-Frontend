@@ -63,6 +63,21 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
         }
     };
 
+
+    const handleCancel = () => {
+        setFirstName(student.user.first_name);
+        setLastName(student.user.last_name);
+        setStudentImage("");
+        setStudentVideo(null);
+        setImageFilename("");
+        setVideoFilename("");
+        setImageUploaded(false);
+        setVideoUploaded(false);
+        setNoChangesMessage("");
+        setSuccessMessage("");
+      };
+
+      
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -92,7 +107,6 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
                 studentVideo instanceof File ? studentVideo : null
             );
             setSuccessMessage("Profile updated successfully!"); // Show success message
-            console.log("Profile Updated Successfully:", updatedData);
             refreshProfile();
 
             setStudentImage("");
@@ -108,7 +122,11 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
             setIsSaving(false);
         }
     };
-
+    const handleCancelAll = () => {
+        handleCancel();
+        viewPanel(); 
+      };
+      
     useEffect(() => {
         const changeButtonText = () => {
             const button = document.querySelector('.save-btn');
@@ -206,45 +224,52 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
                         disabled
                     />
                 </div>
+                {/*Upload Container*/}
+                <div className="uploadContainer">
 
-                <div className="form-user-row">
-                    <div className="form-user-group">
-                        <input
-                            type="file"
-                            id="fileInput"
-                            className="img-input"
-                            onChange={handleStudentImage}
-                        />
-                        <label htmlFor="fileInput"
-                            className={`imageLabel ${imageUploaded ? 'uploaded' : ''}`}
-                        >Image</label>
-                        <label htmlFor="fileInput" className="upload-img-btn">
-                            <img src="/Images/Upload_img.png" alt="Upload" />
-                        </label>
-                        <span className="img-name">{imageFilename ? "Uploaded" : "Upload New"}</span> {/* Display filename or default text */}
+                    <div className="">
+                        <div className="form-user-group">
+                            <input
+                                type="file"
+                                id="fileInput"
+                                className="img-input"
+                                onChange={handleStudentImage}
+                            />
+                            <label htmlFor="fileInput"
+                                className={`imageLabel ${imageUploaded ? 'uploaded' : ''}`}
+                            >Image</label>
+                            <label htmlFor="fileInput" className="upload-img-btn">
+                                <img src="/Images/Upload_img.png" alt="Upload" />
+                            </label>
+                            <label htmlFor="fileInput">
+                            <span style={{ cursor: "pointer" }} className="img-name">{imageFilename ? "Uploaded" : "Upload"}</span> {/* Display filename or default text */}
+
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="">
+                        <div className="form-user-group">
+                            <input
+                                type="file"
+                                id="videoInput"
+                                className="img-input"
+                                onChange={handleStudentVideo}
+                            />
+                            <label htmlFor="videoInput"
+                                className={`imageLabel ${videoUploaded ? 'uploaded' : ''}`}
+                            >Video</label>
+                            <label htmlFor="videoInput" className="upload-img-btn">
+                                <img src="/Images/Upload_img.png" alt="Upload" />
+                            </label>
+                            <span style={{ cursor: "pointer" }} className="img-name">{videoFilename ? "Uploaded" : "Upload"}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div className="form-user-row">
-                    <div className="form-user-group">
-                        <input
-                            type="file"
-                            id="videoInput"
-                            className="img-input"
-                            onChange={handleStudentVideo}
-                        />
-                        <label htmlFor="videoInput"
-                            className={`imageLabel ${videoUploaded ? 'uploaded' : ''}`}
-                        >Video</label>
-                        <label htmlFor="videoInput" className="upload-img-btn">
-                            <img src="/Images/Upload_img.png" alt="Upload" />
-                        </label>
-                        <span className="img-name">{videoFilename ? "Uploaded" : "Upload Video"}</span> {/* Display filename or default text */}
-                    </div>
-                </div>
 
                 <div className="form-user-actions">
-                    <button onClick={viewPanel} type="button" className="cancel-btn">Cancel</button>
+                    <button onClick={handleCancelAll} type="button" className="cancel-btn">Cancel</button>
                     <button type="submit" className="save-btn" disabled={isSaving}>
                         {isSaving ? "Saving..." : "Save Changes"}
                     </button>

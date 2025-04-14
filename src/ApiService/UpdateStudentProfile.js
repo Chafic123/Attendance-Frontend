@@ -16,7 +16,6 @@ export const updateStudentProfile = async (firstName, lastName, imageFile, video
     if (videoFile) {
       formData.append('video', videoFile);
     }
-    console.log("Image File:",imageFile)
     for (let pair of formData.entries()) {
       console.log(pair[0] + ": " + pair[1]);
     }
@@ -29,7 +28,6 @@ export const updateStudentProfile = async (firstName, lastName, imageFile, video
       },
     });
 
-    console.log("Profile Updated Successfully:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error updating profile:", error);

@@ -18,7 +18,6 @@ export const getInstructorRequests = async () => {
       }
   
       const data = await response.json();
-      console.log("Data: ",data)
       return data; 
     } catch (error) {
       console.error("Error fetching instructor requests:", error);
@@ -45,7 +44,6 @@ export const getInstructorRequests = async () => {
         }
   
         const data = await response.json();
-        console.log(`${status} response: `, data);
         return data;
     } catch (error) {
         console.error(`Error updating request status to ${status}:`, error);

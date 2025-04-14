@@ -9,8 +9,6 @@ export const getStudentCourseCalendar = async (courseId, studentId) => {
     if (!token) {
       throw new Error('No authorization token found');
     }
-    console.log("Auth Token: ", token)
-    console.log("Student ID: ", studentId)
 
     const response = await axios.get(
       `${BASE_URL}/student/courses/${courseId}/${studentId}/calendar`, 
@@ -21,7 +19,6 @@ export const getStudentCourseCalendar = async (courseId, studentId) => {
         },
       }
     );
-    console.log("Calendar Data: ",response.data)
     return response.data; 
   } catch (error) {
     console.error("Error fetching course calendar:", error);

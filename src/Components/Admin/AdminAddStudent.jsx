@@ -6,6 +6,25 @@ const AdminAddStudent = ({ setStudents }) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
 
+    const majorToDepartmentMap = {
+        "Computer Science": "1",
+        "Computer and Communication Engineering": "2",
+        "Biomedical Engineering": "2",
+        "Civil Engineering": "2",
+        "Mechanical Engineering": "2",
+        "Electrical Engineering": "2",
+        "Business Administration": "3",
+        "Marketing": "3",
+        "Accounting and Finance": "3",
+        "Architecture": "2",
+        "Graphic Design": "2",
+        "Interior Design": "2",
+        "Nursing": "1",
+        "Medical Laboratory Sciences": "1",
+        "Law": "1",
+        "Education": "1",
+    };
+
     const [studentData, setStudentData] = useState({
         first_name: '',
         last_name: '',
@@ -17,7 +36,20 @@ const AdminAddStudent = ({ setStudents }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setStudentData({ ...studentData, [name]: value });
+
+        if (name === "major") {
+            const departmentId = majorToDepartmentMap[value] || "";
+            setStudentData({
+                ...studentData,
+                major: value,
+                department_id: departmentId
+            });
+        } else {
+            setStudentData({
+                ...studentData,
+                [name]: value
+            });
+        }
     };
 
     const handleClear = () => {
@@ -31,8 +63,12 @@ const AdminAddStudent = ({ setStudents }) => {
         });
     };
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         try {
             await addStudent(studentData);
@@ -55,6 +91,8 @@ const AdminAddStudent = ({ setStudents }) => {
         } catch (error) {
             console.error(error.message);
             setNoSuccessMessage(error.message);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -138,9 +176,9 @@ const AdminAddStudent = ({ setStudents }) => {
                         name="department_id"
                         value={studentData.department_id}
                         onChange={handleChange}
-                        required
+                        disabled
                     >
-                        <option value="">Select a Department</option>
+                        <option value="">-- Select Major --</option>
                         <option value="1">Science</option>
                         <option value="2">Engineering</option>
                         <option value="3">Business</option>
@@ -149,7 +187,9 @@ const AdminAddStudent = ({ setStudents }) => {
 
                 <div className="form-student-actions">
                     <button type="button" className="cancel-btn" onClick={handleClear}>Clear</button>
-                    <button type="submit" className="save-btn">Save Changes</button>
+                    <button type="submit" className="save-btn" disabled={isSubmitting}>
+                        {isSubmitting ? "Adding Student..." : "Add Student"}
+                    </button>
                 </div>
             </form>
         </div>

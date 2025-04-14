@@ -19,7 +19,6 @@ export const courseCalendar = async (courseId) => {
       }
     );
 
-    console.log("Instructor Calendar Data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching instructor course calendar:", error);
@@ -36,8 +35,6 @@ export const getInstructorStudentCourseCalendar = async (courseId, studentId) =>
         throw new Error('No authorization token found');
       }
 
-      console.log("Student ID: ", studentId)
-      console.log("Course ID: ", courseId)
 
       const response = await axios.get(
         `${BASE_URL}/instructor/students/${studentId}/courses/${courseId}/calender`, 
@@ -48,7 +45,6 @@ export const getInstructorStudentCourseCalendar = async (courseId, studentId) =>
           },
         }
       );
-      console.log("Calendar Dataa: ",response.data)
       return response.data; 
     } catch (error) {
       console.error("Error fetching course calendar:", error);

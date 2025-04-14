@@ -13,8 +13,6 @@ export default function StudentWholeContent({ setSelectedText, selectedDashboard
 }
 
 StudentWholeContent.propTypes = {
-  selectedDashboardITem: PropTypes.string.isRequired,
-  viewProfile: PropTypes.func.isRequired,
   viewPanel: PropTypes.func.isRequired,
   viewPanelIphone: PropTypes.func.isRequired,
   refreshProfile: PropTypes.func.isRequired,

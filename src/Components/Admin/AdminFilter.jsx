@@ -141,8 +141,6 @@ const AdminFilter = (props) => {
 
 
   useEffect(() => {
-    // Reset Course Filter
-    console.log("textSelected",props.selectedText)
     setFilterCode("");
     setSortOrder("");
     setSection("");
@@ -339,10 +337,7 @@ AdminFilter.propTypes = {
   filterTop: PropTypes.string,
   studentCourses: PropTypes.array, // Add this to check the length
   studentCourseFilterOptions: PropTypes.object, // Add this prop to pass the student course filter options
-  setStudentCourseFilterOptions: PropTypes.func.isRequired, // Add this function to update the filter options
-  onCourseFilterChange: PropTypes.func.isRequired,
-  onStudentFilterChange: PropTypes.func.isRequired,
-  onInstructorFilterChange: PropTypes.func.isRequired,
+
 };
 
 export default AdminFilter;

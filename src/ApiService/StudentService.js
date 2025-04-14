@@ -24,7 +24,6 @@ export const getStudents = async () => {
       withCredentials: true,
     });
 
-    console.log('Fetched Students:', data);
 
     return Array.isArray(data?.data) ? data.data : [];
 

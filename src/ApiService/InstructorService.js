@@ -27,7 +27,6 @@ export const getInstructors = async () => {
       withCredentials: true,
     });
 
-    console.log('Fetched Instructors:', data);
 
     return Array.isArray(data?.data) ? data.data : [];
 

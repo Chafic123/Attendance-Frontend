@@ -32,14 +32,13 @@ ProfileTop.propTypes = {
         user: PropTypes.shape({
             first_name: PropTypes.string.isRequired,
             last_name: PropTypes.string.isRequired,
-        }).isRequired,
+        }),
         Instructor: PropTypes.shape({
-            user_id: PropTypes.string,
             image: PropTypes.string,
         }),
         student: PropTypes.shape({
             student_id: PropTypes.string,
             image: PropTypes.string,
         }),
-    }).isRequired,
+    }), 
 };

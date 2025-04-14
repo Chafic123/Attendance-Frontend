@@ -15,9 +15,7 @@ export const UpdateInstructorProfile = async (firstName, lastName, imageFile, vi
 
 
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
+
 
     const response = await axios.post(`${BASE_URL}/instructor/profile`, formData, {
       headers: {
@@ -27,7 +25,6 @@ export const UpdateInstructorProfile = async (firstName, lastName, imageFile, vi
       },
     });
 
-    console.log("Profile Updated Successfully:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error updating profile:", error);

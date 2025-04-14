@@ -19,7 +19,6 @@ export const getInstructorSchedule = async () => {
       withCredentials: true,
     });
 
-    console.log('Instructor Schedule API Response:', data);
     return data;
 
   } catch (error) {

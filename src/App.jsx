@@ -22,7 +22,6 @@ function App() {
       const data = await getUserDetails();
       if (data) {
         setStudent(data);
-        console.log("User: ", user)
       }
     } catch (error) {
       console.error("Error refreshing user profile:", error);
@@ -56,7 +55,6 @@ function App() {
 
 
   const viewPanel = useCallback(() => {
-    console.log("View Panel")
 
     document.querySelector(".profile-holder")?.style.setProperty("display", "none");
     document.querySelector(".panel-content")?.style.setProperty("display", "flex");
@@ -64,7 +62,6 @@ function App() {
   }, []);
 
   const viewProfile = useCallback(() => {
-    console.log("View Profile")
     const profile = document.querySelector(".profile-holder");
     const panelContent = document.querySelector(".panel-content");
     const goBackIcon = document.querySelector(".go-back-icon");

@@ -143,7 +143,7 @@ const AdminAddInstructor = ({ onInstructorAdded, setInstructors }) => {
                 <div className="form-instructor-actions">
                     <button type="button" className="cancel-btn" onClick={handleClear}>Clear</button>
                     <button type="submit" className="save-btn" disabled={isSubmitting}>
-                        {isSubmitting ? "Saving..." : "Save Changes"}
+                        {isSubmitting ? "Adding Instructor..." : "Add Instructor"}
                     </button>
                 </div>
             </form>

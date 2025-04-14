@@ -17,6 +17,7 @@ export default function Login() {
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotError, setForgotError] = useState("");
 
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
 
   const handleLoginClick = async () => {
@@ -24,6 +25,7 @@ export default function Login() {
       setErrorMessage("Please fill in both ID and password.");
       return;
     }
+    setIsLoggingIn(true);
 
     try {
       const response = await loginUser(identifier, password, rememberMe);
@@ -31,9 +33,7 @@ export default function Login() {
       if (response) {
         const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
         if (token) {
-          console.log("statusss: ",response.user.status)
           if (response.user.status === "Admin") {
-            console.log("Loggin in as admin")
             navigate("/admin");
           } else if (response.user.status === "Instructor") {
             navigate("/instructor");
@@ -44,11 +44,13 @@ export default function Login() {
           }
         } else {
           setErrorMessage("Authentication failed. Please log in again.");
-          
+
         }
       }
     } catch (error) {
       setErrorMessage(error.message || "Invalid credentials. Please try again.");
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -150,9 +152,10 @@ export default function Login() {
                   Forgot Password?
                 </p>
               </div>
-              <button id="log-in-btn" onClick={handleLoginClick}>
-                Log In
+              <button id="log-in-btn" onClick={handleLoginClick} disabled={isLoggingIn}>
+                {isLoggingIn ? "Logging in..." : "Log In"}
               </button>
+
             </form>
           </div>
         </div>

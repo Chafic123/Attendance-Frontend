@@ -27,7 +27,6 @@ export default function StudentNotificationsCenter() {
   useEffect(() => {
     const fetchNotifications = async () => {
       const data = await getStudentNotifications();
-      console.log("Fetched notifications:", data); // 👈 Add this
 
       setNotifications(data);
       setLoading(false);
@@ -50,8 +49,7 @@ export default function StudentNotificationsCenter() {
 
   return (
     <div>
-       {/* 🔽 Filter Dropdown Always Visible */}
-       <div className="notification-filter-container">
+      <div className="notification-filter-container">
         <label htmlFor="filter">Filter: </label>
         <select id="filter" value={filter} onChange={handleFilterChange}>
           <option value="all">All Notifications</option>
@@ -75,18 +73,51 @@ export default function StudentNotificationsCenter() {
               <div className={`notificationCard ${notification.read_status ? "read-notification" : ""}`}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
                   <div className="notificationCard-title-container">
-                    <img className="purple-circle" src="../public/Images/Purple-circle.png" alt="Notification Icon" />
-                    <p className="notificationCard-title">
+                    <img
+                      className="purple-circle"
+                      src="../public/Images/Purple-circle.png"
+                      alt="Notification Icon"
+                      style={{
+                        filter:
+                          notification.type === "Warning"
+                            ? "invert(20%) sepia(76%) saturate(5725%) hue-rotate(355deg) brightness(100%) contrast(123%)"
+                            : "none",
+                      }}
+                    />
+
+                    <p
+                      className="notificationCard-title"
+                      style={{
+                        color:
+                          notification.type === "Regular"
+                            ? "rgba(84, 51, 129, 1)"
+                            : notification.type === "Warning"
+                              ? "red"
+                              : "inherit",
+                      }}
+                    >
                       {notification.type
                         ? notification.type.charAt(0).toUpperCase() + notification.type.slice(1)
                         : "Notification"}
                     </p>
+
                   </div>
 
                   <div className="temp">
                     <div className="notificationCard-content-container">
-                      <p className="notificationCard-content">{notification.message}</p>
-                      <p className="notificationCard-course-name">
+                      <p
+                        className="notificationCard-content"
+                        style={{
+                          color:
+                            notification.type === "Regular"
+                              ? "rgba(84, 51, 129, 1)"
+                              : notification.type === "Warning"
+                                ? "red"
+                                : "inherit",
+                        }}
+                      >
+                        {notification.message}
+                      </p>                      <p className="notificationCard-course-name">
                         {notification.course ? notification.course.name : "Unknown Course"}
                       </p>
                       <p className="instructorCard-name">
@@ -97,7 +128,7 @@ export default function StudentNotificationsCenter() {
                 </div>
 
                 {!notification.read_status && (
-                  <button className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
+                  <button  className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
                     Mark As Read
                   </button>
                 )}

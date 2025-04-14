@@ -43,7 +43,6 @@ export default function StudentScheduleReport() {
                         <label htmlFor="">Year: </label>
                         <span>2025</span>
                     </div>
-                    {console.log(courses)}
                     <div className="schedule-top-info">
                         <label htmlFor="">Semester: </label>
                         <span>Spring</span>

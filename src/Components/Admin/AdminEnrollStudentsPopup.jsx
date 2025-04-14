@@ -17,13 +17,10 @@ export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onSt
 
     const { courseId } = useCourse();
     
-    console.log("Course Student Id: ", courseStudentID)
     useEffect(() => {
         const fetchStudents = async () => {
-          console.log("Fetching Students of Course ID:", courseId);
       
           const studentData = await getNonEnrolledStudents(courseId);
-          console.log("studentData", studentData);
       
           if (studentData.success) {
             setStudents(studentData.data || []);
@@ -42,7 +39,6 @@ export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onSt
 
     useEffect(() => {
         let updatedStudents = [...students];
-        console.log("Updated Students: ", updatedStudents)
         if (studentFilters?.name) {
             updatedStudents = updatedStudents.filter(student =>
                 (student.user.first_name + " " + student.user.last_name).toUpperCase().includes(studentFilters.name.toUpperCase())
@@ -84,7 +80,6 @@ export default function AdminEnrollStudentsPopup({ onClose, studentFilters, onSt
     const handleEnroll = async () => {
         try {
             const response = await enrollStudents(selectedStudents, courseStudentID);
-            console.log("Enrollment successful:", response);
             setSuccessMessage("Students Enrolled Successfully!");
             const students = await getCourseStudents(courseStudentID);
 

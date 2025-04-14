@@ -76,7 +76,6 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
     <div className="whole-container"
     >
       <ProfileTop viewProfile={viewProfile} refreshProfile={refreshProfile} user={user} onAdd={handleAdd} />
-      {console.log("Userrrr", user)}
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <InstructorWholeContent

@@ -6,7 +6,7 @@ import InstructorNotificationCenter from "./InstructorNotificationCenter";
 import { useUser } from "../../Contexts/UserContext";
 import { useEffect, useState } from "react";
 import InstructorSchedule from "./InstructorSchedule";
-export default function InstructorMainContent({ viewPanel,viewPanelIphone, selectedText, setSelectedText, selectedDashboardItem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
+export default function InstructorMainContent({ setIsRequestStatusChanged,viewPanel,viewPanelIphone, selectedText, setSelectedText, selectedDashboardItem, onAdd, handleStudentSelect, setSelectedCourseID, setActiveStudent, setFilterTop, filterTop, setEditedStudent }) {
   const [courseFilterOptions, setCourseFilterOptions] = useState({ code: "", sort: "", name: "", section: "" });
   const [studentFilterOptions, setStudentFilterOptions] = useState({ studentID: "", name: "", major: "" });
   const [courses, setCourses] = useState([]);
@@ -91,7 +91,7 @@ export default function InstructorMainContent({ viewPanel,viewPanelIphone, selec
             alt=""
           />
           <MainContentTopSI onCourseFilterChange={setCourseFilterOptions} title="Correction Requests" onAdd={onAdd} />
-          <InstructorNotificationCenter />
+          <InstructorNotificationCenter setIsRequestStatusChanged={setIsRequestStatusChanged} />
         </div>
       ) : (
         null
@@ -101,6 +101,5 @@ export default function InstructorMainContent({ viewPanel,viewPanelIphone, selec
 }
 
 InstructorMainContent.propTypes = {
-  selectedDashboardItem: PropTypes.string.isRequired,
   onAdd: PropTypes.func.isRequired,
 };

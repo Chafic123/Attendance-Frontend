@@ -25,9 +25,9 @@ export default function AdminWholeContent(props) {
     
   },[props.selectedDashboardITem])
 
-  useEffect(() => {
-    console.log("editedInstructor: ", editedInstructor)
-  }, [editedInstructor]);
+  // useEffect(() => {
+  //   console.log("editedInstructor: ", editedInstructor)
+  // }, [editedInstructor]);
 
   const showAdminPanel = (state) => {
     setAdminPanel(state)

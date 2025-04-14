@@ -49,7 +49,6 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse, setCour
 
         try {
             const response = await updateCourse(editedCourse.id, courseData);
-            console.log("Updated course:", response);
             setSuccessMessage("Course Updated Successfully")
             const courseData2 = await getCourses();
             setCourses(Array.isArray(courseData2) ? courseData2 : []);

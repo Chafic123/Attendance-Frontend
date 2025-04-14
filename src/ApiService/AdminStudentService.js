@@ -12,7 +12,6 @@ const generateRandomPhoneNumber = () => {
 
 export const editStudent = async (studentId, studentData) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-    console.log("Student Data: ",studentData)
 
   try {
     const response = await axios.put(
@@ -85,7 +84,6 @@ export const addStudent = async (studentData) => {
 
 export const enrollStudents = async (studentIds, courseId) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-  console.log("data", studentIds, courseId)
   try {
     const response = await fetch(`${BASE_URL}/admin/enrollStudents`, {
       method: "POST",
@@ -127,7 +125,6 @@ export const enrollStudents = async (studentIds, courseId) => {
 
 export const removeCourseStudent = async (courseId, studentId) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-  console.log("Removing student:", studentId, "from course:", courseId);
 
   try {
     const response = await fetch(`${BASE_URL}/admin/courses/${courseId}/students/${studentId}`, {
@@ -162,7 +159,6 @@ export const removeCourseStudent = async (courseId, studentId) => {
 
 export const removeStudent = async (studentId) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-  console.log("Deleting student:", studentId);
 
   try {
     const response = await fetch(`${BASE_URL}/admin/students/${studentId}`, {
@@ -197,7 +193,6 @@ export const removeStudent = async (studentId) => {
 
 export const deleteStudentCourse = async (courseId, studentId) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-  console.log(`Deleting course ${courseId} for student ${studentId}`);
 
   try {
     const response = await fetch(`${BASE_URL}/admin/courses/${courseId}/students/${studentId}`, {
@@ -249,7 +244,6 @@ export const getNonEnrolledStudents = async (courseId) => {
     }
 
     const data = await response.json();
-    console.log("Not Enrolled Students Data: ",data)
 
     return {
       success: true,

@@ -100,6 +100,5 @@ export default function StudentMainContent({ selectedDashboardITem, viewPanelIph
 }
 
 StudentMainContent.propTypes = {
-  selectedDashboardITem: PropTypes.string.isRequired,
   viewPanelIphone: PropTypes.func.isRequired,
 };

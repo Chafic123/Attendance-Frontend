@@ -5,7 +5,6 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
     try {
         const payload = { identifier, password, remember_me: rememberMe };
 
-        console.log('Login Payload:', payload);
         const response = await axios.post(`${BASE_URL}/auth/login`, payload, {
             headers: {
                 'Content-Type': 'application/json',
@@ -14,14 +13,11 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
         });
         
         const { access_token, status: userRole } = response.data || {};
-        console.log("status: ", userRole)
         if (access_token && userRole) {
-            console.log('Login Response:', response.data);
             const storage = rememberMe ? localStorage : sessionStorage;
 
             storage.setItem('authToken', access_token);
             storage.setItem('userRole', userRole.toLowerCase()); 
-            console.log("Stored userRole:", storage.getItem('userRole'));
 
             return response.data;  
         }
@@ -44,7 +40,6 @@ export const resetPassword = async (personal_email) => {
         }
       });
   
-      console.log("Reset Password Response:", response.data);
       return response.data;
     } catch (error) {
       console.error("Reset Password Error:", error.response?.data || error.message);

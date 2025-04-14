@@ -33,23 +33,22 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
             setCalendarData([]);
             setInstructorCalendarData([]);
         }
-        console.log("selectedDashboardItem", selectedDashboardItem)
 
     }, [selectedDashboardItem]);
 
-    useEffect(() => {
-        if (userRole === "student") {
-            setCalendarData([]); 
-            setCourseId(null)
-            console.log("Course Id null")
-        }
-    }, [selectedDashboardItem])
+    // useEffect(() => {
+    //     if (userRole === "student") {
+    //         setCalendarData([]); 
+    //         setCourseId(null)
+    //         console.log("Selected Dashboard Item ", selectedDashboardItem)
+    //     }
+    // }, [selectedDashboardItem])
 
 
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
-                if (userRole === "student") {
+                if (userRole === "student" && selectedDashboardItem!=="View Notifications") {
                     const userID = localStorage.getItem("userID") || sessionStorage.getItem("userID");
                     if (userID && courseId) {
                         const data = await getStudentCourseCalendar(courseId, userID);
@@ -58,11 +57,11 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
                         setCalendarData([]);
                     }
                 } else if (userRole === "instructor") {
-                    if (!studentId) {
+                    if (!studentId && courseId) { //new
                         const data = await courseCalendar(courseId);
                         setInstructorCalendarData(data?.sessions || []);
                         setCalendarData([]);
-                    } else {
+                    } else if(courseId) {
                         const studentData = await getInstructorStudentCourseCalendar(courseId, studentId);
                         setCalendarData(Array.isArray(studentData) ? studentData : []);
                         setInstructorCalendarData([]);
@@ -311,7 +310,3 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
     );
 }
 
-Calendar.propTypes = {
-    setRequestCorrectionState: PropTypes.func.isRequired,
-    setSelectedAttendance: PropTypes.func.isRequired,
-};

@@ -17,7 +17,6 @@ export default function MachineLearning() {
       try {
         const response = await axios.get('http://localhost:8000/api/auth/course-sessions');
         setCourseSessions(response.data.course_sessions);
-        console.log(response)
       } catch (err) {
         setError('Failed to load course sessions');
         console.error('Error fetching course sessions:', err);
