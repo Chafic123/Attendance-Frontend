@@ -2,6 +2,7 @@ import { getInstructorRequests } from "../../ApiService/InstructorRequestCorrect
 import { useEffect, useState } from "react";
 import "../../CSS/InstrcutorRequestsCenter.css";
 import { updateRequestStatus } from "../../ApiService/InstructorRequestCorrections";
+import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function InstructorNotificationCenter({ setIsRequestStatusChanged }) {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -42,10 +43,13 @@ export default function InstructorNotificationCenter({ setIsRequestStatusChanged
 
 
     return (
-        <div className="requests-center-container">
+        <div className="requests-center-container"  style={loading ? { 
+            position: 'relative', 
+            minHeight: '500px'    
+          } : {}}>
 
             {loading ? (
-                <p>Loading Requests...</p>
+                <LoadingSpinner/>
             ) : !requests.length ? (
                 <div style={{ textAlign: "center", marginTop: "100px" }}>
                     <img

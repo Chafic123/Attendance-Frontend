@@ -7,6 +7,7 @@ import AdminEditInstructor from "./AdminEditInstructor";
 import PropTypes from "prop-types";
 import "../../CSS/AdminPanel.css";
 import Calendar from "../Generals/CalenderForm";
+import { useState } from "react";
 export default function AdminPanel(props) {
   const {
     title,
@@ -24,15 +25,15 @@ export default function AdminPanel(props) {
     if (adminPanel) {
       adminPanel.style.display = "none";
     }
-    
+
     document.querySelectorAll('.add-course-card, .add-student-card').forEach(card => {
       card.style.display = 'none';
     });
   };
-
+  const [calendarTitle, setCalendarTitle] = useState("");
   return (
     <div className="AdminPanelParent" style={{ display: isAdminPanel ? "block" : "none" }}>
-          <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hidePanel} alt="cancel icon" />
+      <img src="../public/Images/X-Icon.png" className="x-icon" onClick={hidePanel} alt="cancel icon" />
 
       {
         editedStudent ? (
@@ -67,7 +68,11 @@ export default function AdminPanel(props) {
         ) : title === "View Instructors" ? (
           <AdminAddInstructor setInstructors={props.setInstructors} />
         ) : title === "View Student Courses" || title === "View Course Students" ? (
-          <Calendar />
+          <div >
+            <h1 className="calendarTitle">{calendarTitle}</h1>
+            <Calendar setCalendarTitle={setCalendarTitle} />
+
+          </div>
         ) : null
       }
     </div>

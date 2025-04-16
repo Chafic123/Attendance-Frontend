@@ -142,13 +142,15 @@ export const getStudentCourses = async (studentId) => {
 
 export const downloadCourseAttendanceReport = async (courseId) => {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+  const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
+  if(userRole.toLowerCase()==="student") return;
 
   if (!token) {
     console.error("No authentication token found.");
     return;
   }
 
-  const endpoint = `${BASE_URL}/admin/courses/${courseId}/attendance-report`;
+  const endpoint = `${BASE_URL}/${userRole}/courses/${courseId}/attendance-report`;
 
   try {
     const response = await axios.get(endpoint, {
@@ -173,3 +175,4 @@ export const downloadCourseAttendanceReport = async (courseId) => {
     console.error("Error downloading attendance report:", error.response?.data || error.message);
   }
 };
+

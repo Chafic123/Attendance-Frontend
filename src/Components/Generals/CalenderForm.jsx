@@ -12,7 +12,7 @@ import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarServic
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
 import { getAdminStudentCourseCalendar, getAdminCourseCalendar } from "../../ApiService/AdminCalendarService";
 
-export default function Calendar({ selectedDashboardItem, setRequestCorrectionState, setSelectedAttendance }) {
+export default function Calendar({ setCalendarTitle,selectedDashboardItem, setRequestCorrectionState, setSelectedAttendance }) {
 
 
     const [calendarData, setCalendarData] = useState([]);
@@ -27,7 +27,7 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
     const { studentId } = useStudent();
 
 
-
+    
     useEffect(() => {
         if (userRole?.toLowerCase() === "instructor" && selectedDashboardItem !== undefined) {
             setCalendarData([]);
@@ -57,7 +57,7 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
                         setCalendarData([]);
                     }
                 } else if (userRole === "instructor") {
-                    if (!studentId && courseId) { //new
+                    if (!studentId && courseId) { 
                         const data = await courseCalendar(courseId);
                         setInstructorCalendarData(data?.sessions || []);
                         setCalendarData([]);
@@ -65,14 +65,19 @@ export default function Calendar({ selectedDashboardItem, setRequestCorrectionSt
                         const studentData = await getInstructorStudentCourseCalendar(courseId, studentId);
                         setCalendarData(Array.isArray(studentData) ? studentData : []);
                         setInstructorCalendarData([]);
+                    } else{
+                        setInstructorCalendarData([]);
+                        setCalendarData([]);
+
                     }
                 } else if (userRole === "admin") {
                     if (studentId && courseId) {
-                        // Admin viewing specific student (has statuses)
+                        setCalendarTitle("Student Calendar")
                         const data = await getAdminStudentCourseCalendar(courseId, studentId);
                         setAdminCalendarData(Array.isArray(data) ? data : []);
                         setCalendarData([]);
                     } else if (courseId) {
+                        setCalendarTitle("Course Calendar")
                         // Admin viewing course (past/future sessions)
                         const data = await getAdminCourseCalendar(courseId);
                         setAdminCalendarData(data?.sessions || []);

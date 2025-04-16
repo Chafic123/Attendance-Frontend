@@ -26,3 +26,44 @@ export const getInstructorSchedule = async () => {
     return null;
   }
 };
+
+
+export const downloadInstructorScheduleReport = async () => {
+  const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+  const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+
+  if (userRole.toLowerCase() !== "instructor") {
+    console.warn("Only instructors can download their schedule report.");
+    return;
+  }
+
+  if (!token) {
+    console.error("No authentication token found.");
+    return;
+  }
+
+  const endpoint = `${BASE_URL}/instructor/download-schedule-report`;
+
+  try {
+    const response = await axios.get(endpoint, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/octet-stream",
+      },
+      responseType: "blob",
+    });
+
+    // Trigger file download
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+
+    // Optional: name the file
+    link.setAttribute("download", `Instructor_Schedule_Report.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error("Error downloading instructor schedule report:", error.response?.data || error.message);
+  }
+};

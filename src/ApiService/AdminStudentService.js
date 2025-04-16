@@ -258,3 +258,47 @@ export const getNonEnrolledStudents = async (courseId) => {
     };
   }
 };
+
+
+export const downloadStudentAttendanceReport = async (studentId, courseId) => {
+  const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+  const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+
+  if (userRole.toLowerCase() !== "instructor") {
+    console.warn("Only instructors can download student attendance reports.");
+    return;
+  }
+
+  if (!token) {
+    console.error("No authentication token found.");
+    return;
+  }
+
+  if (!studentId || !courseId) {
+    console.error("Student ID and Course ID are required.");
+    return;
+  }
+
+  const endpoint = `${BASE_URL}/instructor/students/${studentId}/courses/${courseId}/attendance-report`;
+
+  try {
+    const response = await axios.get(endpoint, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/octet-stream",
+      },
+      responseType: "blob",
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `Student_Attendance_Report_${studentId}_${courseId}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error("Error downloading student attendance report:", error.response?.data || error.message);
+    throw error; 
+  }
+};

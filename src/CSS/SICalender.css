@@ -43,6 +43,7 @@
 .css-1nxbkmn-MuiPickersCalendarHeader-root {
   padding-left: 33px !important;
   padding-right: 18px !important;
+  border-radius: 20px;
 }
 
 .css-1n1xn3x-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition::-webkit-scrollbar {
@@ -61,7 +62,12 @@
   margin-top: -80px !important;
 
 }
-
+.calendarTitle{
+  position: relative;
+  right: -120px;
+  top: 150px;
+  color: #604099;
+}
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
   .custom-calendar-wrapper {
     width: 83%;

@@ -86,7 +86,6 @@ export default function StudentCard({ setStudents, setOnDelete, student, setEdit
           handleStudentClick(student.student_id);
         }
       }}
-      onDoubleClick={() => handleStudentDoubleClick(student.id, `${firstName} ${lastName}`, studentId)}
       className={`student-card ${activeCardId === (userRole === "admin" ? student.id : student.student_id) ? "active" : ""
         }`}
       style={{ position: "relative", cursor: "pointer" }}
@@ -184,22 +183,40 @@ export default function StudentCard({ setStudents, setOnDelete, student, setEdit
               <div
                 style={{
                   position: "absolute",
-                  top: "20px",
+                  top: "3px",
                   right: "0",
                   background: "#fff",
                   padding: "5px",
                   zIndex: 100,
-                  minWidth: "120px",
                   border: "1px solid #ddd",
                   borderRadius: "5px",
+                  width:"100px",
                 }}
               >
+                   <button
+                  style={{
+                    width: "100%",
+                    background: "#1496D3",
+                    color: "white",
+                    border: "none",
+                    padding: "2px 0px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    marginBottom: "5px",
+                    fontWeight: "500",
+                    
+                  }}
+                  onClick={() => handleStudentDoubleClick(student.id, `${firstName} ${lastName}`, studentId)}
+                >
+                  View courses
+                </button>
+                
                 <button
                   style={{
                     width: "100%",
                     background: "#f0f0f0",
                     border: "none",
-                    padding: "8px",
+                    padding: "2px 8px",
                     borderRadius: "5px",
                     cursor: "pointer",
                     marginBottom: "5px",
@@ -234,7 +251,7 @@ export default function StudentCard({ setStudents, setOnDelete, student, setEdit
                     width: "100%",
                     background: "#ffe5e5",
                     border: "none",
-                    padding: "8px",
+                    padding: "2px 8px",
                     borderRadius: "5px",
                     color: "#c62828",
                     cursor: "pointer",

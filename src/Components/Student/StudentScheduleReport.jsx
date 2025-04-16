@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { getStudentSchedule } from "../../ApiService/StudentScheduleReportService";
 import "../../CSS/StudentScheduleReport.css";
-
+import { downloadStudentScheduleReport } from "../../ApiService/StudentScheduleReportService";
 export default function StudentScheduleReport() {
     const [studentData, setStudentData] = useState(null);
-
+    
     useEffect(() => {
         const fetchSchedule = async () => {
             const data = await getStudentSchedule();
@@ -16,10 +16,19 @@ export default function StudentScheduleReport() {
         fetchSchedule();
     }, []);
 
+    const handleGenerateStudentReport = async () => {
+        try {
+            await downloadStudentScheduleReport(); 
+        } catch (error) {
+            console.error("Failed to generate student schedule report:", error.message);
+        }
+    };
+
     if (!studentData) {
         return <div>Loading...</div>;
     }
     const { student, courses } = studentData;
+    const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
     return (
         <div className="schedule-report-container">
@@ -79,9 +88,30 @@ export default function StudentScheduleReport() {
                     </tbody>
                 </table>
             </div>
+
             <span className="credits">
                 Credits: {courses.reduce((total, course) => total + course.credits, 0)}
             </span>
+            {userRole === "student" && (
+                <button
+                    onClick={handleGenerateStudentReport}
+                    style={{
+                        position: "absolute",
+                        bottom: "50px",
+                        right: "100px",
+                        padding: "7px 10px",
+                        borderRadius: "10px",
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        border: "none",
+                        color: "white",
+                        backgroundColor: "#482B70",
+                    }}
+                >
+                    Generate Report
+                </button>
+
+            )}
         </div>
     )
 }

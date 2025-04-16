@@ -147,7 +147,7 @@ export default function AdminEditStudent({ editedStudent, onCancel, onStudentUpd
                     >
                         <option value="">-- Select Major --</option>
                         <option value="Computer Science">Computer Science</option>
-                        <option value="Computer & Communication Engineering">Computer & Communication Engineering</option>
+                        <option value="CCE">Computer & Communication Engineering</option>
                         <option value="Biomedical Engineering">Biomedical Engineering</option>
                         <option value="Mechanical Engineering">Mechanical Engineering</option>
                         <option value="Civil Engineering">Civil Engineering</option>

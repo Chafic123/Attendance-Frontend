@@ -117,7 +117,7 @@
 
 /* For Selected Students in Enrollment Page */
 .student-card-wrapper.active .student-card {
-    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%)
 }
 
 .student-card-wrapper.active p {

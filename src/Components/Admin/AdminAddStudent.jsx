@@ -149,7 +149,7 @@ const AdminAddStudent = ({ setStudents }) => {
                     >
                         <option value="">-- Select Major --</option>
                         <option value="Computer Science">Computer Science</option>
-                        <option value="Computer and Communication Engineering">Computer and Communication Engineering</option>
+                        <option value="CCE">Computer and Communication Engineering</option>
                         <option value="Biomedical Engineering">Biomedical Engineering</option>
                         <option value="Civil Engineering">Civil Engineering</option>
                         <option value="Mechanical Engineering">Mechanical Engineering</option>

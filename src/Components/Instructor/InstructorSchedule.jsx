@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
-import "../../CSS/InstrcutortScheduleReport.css"; // Reuse same styles
+import "../../CSS/InstrcutortScheduleReport.css"; 
 import { getInstructorSchedule } from "../../ApiService/InstructorScheduleReport";
+import { downloadInstructorScheduleReport } from "../../ApiService/InstructorScheduleReport";
+import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function InstructorSchedule() {
     const [instructorData, setInstructorData] = useState(null);
+    const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+    const [loading, setLoading] = useState(true);
 
+    const handleGenerateInstructorReport = async () => {
+        try {
+            await downloadInstructorScheduleReport();
+        } catch (error) {
+            console.error("Failed to generate instructor schedule report:", error.message);
+        }
+    };
     useEffect(() => {
         const fetchSchedule = async () => {
             const data = await getInstructorSchedule();
             if (data) {
                 setInstructorData(data);
+                setLoading(false);
             }
         };
 
@@ -16,13 +28,25 @@ export default function InstructorSchedule() {
     }, []);
 
     if (!instructorData) {
-        return <div>Loading...</div>;
+        // Show spinner while waiting for initial data
+        return (
+            <div className="schedule-report-container" style={{ 
+                position: 'relative',
+                minHeight: '400px'
+            }}>
+                <LoadingSpinner />
+            </div>
+        );
     }
 
     const { instructor, courses } = instructorData;
 
     return (
-        <div className="schedule-report-container">
+        <div className="schedule-report-container"  style={loading ? { 
+            position: 'relative',  // Required for absolute positioning of spinner
+            minHeight: '300px'    // Ensures minimum space for spinner
+          } : {}}>
+            
             <div className="schedule-top">
                 <div className="schedule-top-element">
 
@@ -76,6 +100,26 @@ export default function InstructorSchedule() {
                     </tbody>
                 </table>
             </div>
+            {userRole === "instructor" && (
+                <button
+                    onClick={handleGenerateInstructorReport}
+                    style={{
+                        position: "absolute",
+                        bottom: "50px",
+                        right: "100px",
+                        padding: "7px 10px",
+                        borderRadius: "10px",
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        border: "none",
+                        color: "white",
+                        backgroundColor: "#482B70",
+                    }}
+                >
+                    Generate Report
+                </button>
+
+            )}
         </div>
     );
 }
