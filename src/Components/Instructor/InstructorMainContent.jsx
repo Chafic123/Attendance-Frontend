@@ -72,7 +72,7 @@ export default function InstructorMainContent({ setIsRequestStatusChanged,viewPa
           <InstructorSchedule />
 
         </div>
-      ) : selectedDashboardItem === "View Notifications" ? (
+      ) : selectedDashboardItem === "View Requests" ? (
         <div
           style={{
             width: "48%",

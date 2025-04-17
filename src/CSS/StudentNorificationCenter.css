@@ -1,27 +1,21 @@
-/* Main Container */
 .notifications-container {
     min-height: 100vh;
-    padding: 16px;
     max-height: 400px;
-    overflow: scroll;
+    width: 614px;
   }
   
   .notifications-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-height: 497px;
-    overflow: scroll;
+    max-height: 512px;
+    overflow: auto;
+    overflow-x: hidden;
+    padding: 2px;
+    padding-right: 8px;
 }
-  
-  /* Filter Section */
   .notifications-filter {
     background-color: white;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
   
   .notifications-filter-label {
@@ -41,14 +35,10 @@
   .notification-card {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
     padding: 16px;
     position: relative;
     transition: all 0.3s ease;
-  }
-  
-  .notification-card.read {
-    opacity: 0.75;
   }
   
   .notification-unread-indicator {
@@ -61,11 +51,11 @@
   }
   
   .notification-unread-indicator.warning {
-    background-color: #f59e0b;
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
   }
   
   .notification-unread-indicator.regular {
-    background-color: #3b82f6;
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
   }
   
   .notification-content-wrapper {
@@ -91,24 +81,16 @@
     border-radius: 50%;
   }
   
-  .notification-icon.warning {
-    background-color: #f59e0b;
-  }
-  
-  .notification-icon.regular {
-    background-color: #3b82f6;
-  }
-  
   .notification-title {
     font-weight: 500;
   }
   
   .notification-title.warning {
-    color: #b45309;
+    color: rgb(248, 75, 75);
   }
   
   .notification-title.regular {
-    color: #1d4ed8;
+    color: #543381;
   }
   
   .notification-message {
@@ -162,7 +144,8 @@
     font-size: 12px;
     color: #6b7280;
     white-space: nowrap;
-  }
+    display: flex;
+    }
   
   .mark-as-read-btn {
     border-radius: 6px;
@@ -178,13 +161,13 @@
   }
   
   .mark-as-read-btn.warning {
-    background-color: #fef3c7;
-    color: #92400e;
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color: white;
   }
   
   .mark-as-read-btn.regular {
-    background-color: #dbeafe;
-    color: #1e40af;
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color: white;
   }
   
   .mark-as-read-btn:hover {
@@ -209,8 +192,7 @@
   .btn-icon.regular {
     background-color: #1e40af;
   }
-  
-  /* Empty State */
+
   .notifications-empty {
     background-color: white;
     border-radius: 12px;

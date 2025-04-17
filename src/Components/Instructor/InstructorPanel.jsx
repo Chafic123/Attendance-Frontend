@@ -43,7 +43,7 @@ export default function InstructorPanel(prop) {
               <InstructorProfile viewPanel={prop.viewPanel} refreshProfile={prop.refreshProfile} />
             </div>
           </div>
-        ) : prop.title === "View Notifications" ? (
+        ) : prop.title === "View Requests" ? (
           <div>
             <div className="panel-content">
               <div className="custom-calendar-wrapper">

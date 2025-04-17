@@ -49,7 +49,6 @@ export default function StudentNotificationsCenter() {
   return (
     <div className="notifications-container">
       <div className="notifications-wrapper">
-        {/* Filter Section */}
         <div className="notifications-filter">
           <label htmlFor="filter" className="notifications-filter-label">Filter: </label>
           <select
@@ -64,21 +63,26 @@ export default function StudentNotificationsCenter() {
           </select>
         </div>
 
-        {/* Notifications Container */}
         <div id="main-notification-container" className="notifications-wrapper">
           {loading ? (
             <LoadingSpinner />
           ) : filteredNotifications.length === 0 ? (
-            <div className="notifications-empty">
-              <p className="notifications-empty-text">No notifications available.</p>
-            </div>
+            <div className="no-notification-container">
+                    <img
+                          src="../public/Images/NoNotification-icon.png"
+                          alt="No Requests"
+                        style={{ width: "100px", height: "100px", opacity: 0.6, marginTop:"70px" }}
+                    />
+                    <p style={{ marginTop: "0px", fontSize: "24px", color: "#777" }}>
+                        No Notifications Available
+                    </p>
+                </div>
           ) : (
             filteredNotifications.map((notification, index) => (
               <div
                 key={index}
                 className={`notification-card ${notification.read_status ? "read" : ""}`}
               >
-                {/* Unread indicator */}
                 {!notification.read_status && (
                   <div className={`notification-unread-indicator ${notification.type === "Warning" ? "warning" : "regular"
                     }`}></div>
@@ -86,17 +90,25 @@ export default function StudentNotificationsCenter() {
 
                 <div className="notification-content-wrapper">
                   <div className="notification-main-content">
-                    <div className="notification-header">
-                      <div className={`notification-icon ${notification.type === "Warning" ? "warning" : "regular"
-                        }`}></div>
-
-                      <span className={`notification-title ${notification.type === "Warning" ? "warning" : "regular"
-                        }`}>
-                        {notification.type
-                          ? notification.type.charAt(0).toUpperCase() + notification.type.slice(1)
-                          : "Notification"}
-                      </span>
-                    </div>
+                  <div className="notification-header">
+                    {notification.type === "Warning" ? (
+                      <svg className="notification-icon warning" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 9V11M12 15H12.01M5.07183 19H18.9282C20.4678 19 21.4301 17.3333 20.6603 16L13.7321 4C12.9623 2.66667 11.0378 2.66667 10.268 4L3.33978 16C2.56998 17.3333 3.53223 19 5.07183 19Z" stroke="#F22327" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    ) : (
+                      <svg className="notification-icon regular" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 8V12" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 16H12.01" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    )}
+                    
+                    <span className={`notification-title ${notification.type === "Warning" ? "warning" : "regular"}`}>
+                      {notification.type
+                        ? notification.type.charAt(0).toUpperCase() + notification.type.slice(1)
+                        : "Notification"}
+                    </span>
+                  </div>
 
                     <p className="notification-message">
                       {notification.message}
@@ -119,10 +131,6 @@ export default function StudentNotificationsCenter() {
                   </div>
 
                   <div className="notification-actions">
-                    <span className="notification-time">
-                      <div className="meta-icon time"></div>
-                      {notification.createdAt || "Today"}
-                    </span>
 
                     {!notification.read_status && (
                       <button
@@ -130,8 +138,6 @@ export default function StudentNotificationsCenter() {
                         className={`mark-as-read-btn ${notification.type === "Warning" ? "warning" : "regular"
                           }`}
                       >
-                        <div className={`btn-icon ${notification.type === "Warning" ? "warning" : "regular"
-                          }`}></div>
                         Mark as Read
                       </button>
                     )}
