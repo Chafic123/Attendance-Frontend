@@ -380,19 +380,7 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
 
                       {userRole.toLowerCase() === "instructor" && (
                         <button
-                          style={{
-                            width: "100%",
-                            background: !courseId
-                              ? "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)"
-                              : "#1496D3",
-                            color: "white",
-                            border: "none",
-                            padding: "8px",
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                            marginBottom: "0px",
-                            fontWeight: "500",
-                          }}
+                          className="view-students-btn"
                           onClick={() => {
                             handleDoubleClick(
                               course.course_id,

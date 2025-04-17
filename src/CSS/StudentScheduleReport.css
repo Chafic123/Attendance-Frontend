@@ -105,6 +105,19 @@ tbody tr:nth-child(even) {
     border-radius: 15px;
     padding: 5px 8px;
 }
+.generate-student-report-btn {
+    position: absolute;
+    bottom: 50px;
+    right: 100px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 12px;
+    border: none;
+    color: white;
+    background-color: #482B70;
+    cursor: pointer;
+}
 
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     .schedule-top {
@@ -112,7 +125,6 @@ tbody tr:nth-child(even) {
     }
 
     .schedule-table-container {
-        width: 90%;
         min-width: 89%;
         overflow-x: auto;
     }
@@ -194,7 +206,11 @@ tbody tr:nth-child(even) {
         top: 10px;
         display: none;
     }
-
+    .generate-student-report-btn {
+        right: 133px;
+        padding: 7px 9px;
+        font-size: 11px;
+    }
 }
 
 @media only screen and (max-width: 413px) and (max-height: 916px) {

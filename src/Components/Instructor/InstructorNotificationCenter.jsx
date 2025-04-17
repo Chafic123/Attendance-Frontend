@@ -41,17 +41,27 @@ export default function InstructorNotificationCenter({ setIsRequestStatusChanged
         }
     };
 
+    const isSmallScreen = window.innerWidth <= 431 && window.innerHeight <= 932;
 
     return (
-        <div className="requests-center-container"  style={loading ? { 
-            position: 'relative', 
-            minHeight: '500px'    
-          } : {}}>
+
+        <div
+          className="requests-center-container"
+          style={
+            loading
+              ? {
+                  position: "relative",
+                  minHeight: "500px",
+                  ...(isSmallScreen && { marginLeft: "-52px" }),
+                }
+              : {}
+          }
+        >
 
             {loading ? (
                 <LoadingSpinner/>
             ) : !requests.length ? (
-                <div style={{ textAlign: "center", marginTop: "100px" }}>
+                <div className="no-notification-container">
                     <img
                           src="../public/Images/NoNotification-icon.png"
                           alt="No Requests"

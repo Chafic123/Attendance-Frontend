@@ -88,112 +88,112 @@ export default function InstructorProfile({ viewPanel, refreshProfile }) {
             position: 'relative',
             minHeight: '500px'
         } : {}}>
- {!instructor ? (
+            {!instructor ? (
                 <LoadingSpinner />
             ) : (
                 <>
-            <h2 className="profile-title">My Profile</h2>
-            <div className="user-info">
-                <p className="user-name">{`${instructor.user.first_name} ${instructor.user.last_name}`}</p>
-                <p className="user-id">Instructor</p>{/*{instructor.user.email}*/}
-            </div>
-
-            {successMessage && (
-                <div className="popup-container">
-                    <div className="popup-message">
-                        <p>{successMessage}</p>
-                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    <h2 className="profile-title">My Profile</h2>
+                    <div className="user-info">
+                        <p className="user-name">{`${instructor.user.first_name} ${instructor.user.last_name}`}</p>
+                        <p className="user-id">Instructor</p>{/*{instructor.user.email}*/}
                     </div>
-                </div>
+
+                    {successMessage && (
+                        <div className="popup-container">
+                            <div className="popup-message">
+                                <p>{successMessage}</p>
+                                <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {noChangesMessage && (
+                        <div className="popup-container">
+                            <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                                <p>{noChangesMessage}</p>
+                                <button onClick={() => setNoChangesMessage("")} className="popup-close-btn">Close</button>
+                            </div>
+                        </div>
+                    )}
+
+                    <form className="user-profile-form" onSubmit={handleSubmit}>
+                        <div className="form-user-group">
+                            <label htmlFor="First-Name">First Name:</label>
+                            <input
+                                type="text"
+                                id="First-Name"
+                                name="First-Name"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-user-group">
+                            <label htmlFor="Last-Name">Last Name:</label>
+                            <input
+                                type="text"
+                                id="Last-Name"
+                                name="Last-Name"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-user-group">
+                            <label htmlFor="idNumber">ID Number:</label>
+                            <input
+                                type="text"
+                                id="idNumber"
+                                name="idNumber"
+                                value={instructor.Instructor.user_id}
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-user-group">
+                            <label htmlFor="Email">Email:</label>
+                            <input
+                                type="text"
+                                id="Email"
+                                name="Email"
+                                value={instructor.user.email}
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-user-row">
+                            <div className="form-user-group">
+                                <input
+                                    type="file"
+                                    id="fileInput"
+                                    className="img-input"
+                                    onChange={handleInstructorImage}
+                                />
+                                <label
+                                    htmlFor="fileInput"
+                                    className={`instructorImageLabel upload-img-btn ${imageFilename ? 'uploaded-label' : 'not-uploaded-label'}`}
+                                >
+                                    Image
+                                </label>
+
+                                <label htmlFor="fileInput" className="upload-img-btn">
+                                    <img src="/Images/Upload_img.png" alt="Upload" />
+                                </label>
+                                <span className="img-name">{imageFilename ? "Uploaded" : "Upload New"}</span>
+                            </div>
+                        </div>
+
+                        <div className="form-user-actions">
+                            <button onClick={viewPanel} type="button" className="cancel-btn">Cancel</button>
+                            <button type="submit" className="save-btn" disabled={isSaving}>
+                                {isSaving ? "Saving..." : "Save Changes"}
+                            </button>
+                        </div>
+                    </form>
+                </>
             )}
-
-            {noChangesMessage && (
-                <div className="popup-container">
-                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
-                        <p>{noChangesMessage}</p>
-                        <button onClick={() => setNoChangesMessage("")} className="popup-close-btn">Close</button>
-                    </div>
-                </div>
-            )}
-
-            <form className="user-profile-form" onSubmit={handleSubmit}>
-                <div className="form-user-group">
-                    <label htmlFor="First-Name">First Name:</label>
-                    <input
-                        type="text"
-                        id="First-Name"
-                        name="First-Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        disabled
-                    />
-                </div>
-
-                <div className="form-user-group">
-                    <label htmlFor="Last-Name">Last Name:</label>
-                    <input
-                        type="text"
-                        id="Last-Name"
-                        name="Last-Name"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        disabled
-                    />
-                </div>
-
-                <div className="form-user-group">
-                    <label htmlFor="idNumber">ID Number:</label>
-                    <input
-                        type="text"
-                        id="idNumber"
-                        name="idNumber"
-                        value={instructor.Instructor.user_id}
-                        disabled
-                    />
-                </div>
-
-                <div className="form-user-group">
-                    <label htmlFor="Email">Email:</label>
-                    <input
-                        type="text"
-                        id="Email"
-                        name="Email"
-                        value={instructor.user.email}
-                        disabled
-                    />
-                </div>
-
-                <div className="form-user-row">
-                    <div className="form-user-group">
-                        <input
-                            type="file"
-                            id="fileInput"
-                            className="img-input"
-                            onChange={handleInstructorImage}
-                        />
-                        <label
-                            htmlFor="fileInput"
-                            className={`instructorImageLabel upload-img-btn ${imageFilename ? 'uploaded-label' : 'not-uploaded-label'}`}
-                        >
-                            Image
-                        </label>
-
-                        <label htmlFor="fileInput" className="upload-img-btn">
-                            <img src="/Images/Upload_img.png" alt="Upload" />
-                        </label>
-                        <span className="img-name">{imageFilename ? "Uploaded" : "Upload New"}</span>
-                    </div>
-                </div>
-
-                <div className="form-user-actions">
-                    <button onClick={viewPanel} type="button" className="cancel-btn">Cancel</button>
-                    <button type="submit" className="save-btn" disabled={isSaving}>
-                        {isSaving ? "Saving..." : "Save Changes"}
-                    </button>
-                </div>
-            </form>
-            </>
-        )}
         </div>
     );
 }

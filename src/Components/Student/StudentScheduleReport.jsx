@@ -34,12 +34,9 @@ export default function StudentScheduleReport() {
 
     if (!studentData) {
         return (
-            <div className="schedule-report-container" style={{
-                position: 'relative',
-                minHeight: '400px'
-            }}>
-                <LoadingSpinner />
-            </div>
+            <div className="loading-container">
+            <LoadingSpinner />
+        </div>
         );
     }
     const { student, courses } = studentData;
@@ -113,19 +110,7 @@ export default function StudentScheduleReport() {
             {userRole === "student" && (
                 <button
                     onClick={handleGenerateStudentReport}
-                    style={{
-                        position: "absolute",
-                        bottom: "50px",
-                        right: "100px",
-                        padding: "7px 10px",
-                        borderRadius: "10px",
-                        fontWeight: 400,
-                        fontSize: "12px",
-                        border: "none",
-                        color: "white",
-                        backgroundColor: "#482B70",
-                        cursor:"pointer",
-                    }}
+                    className="generate-student-report-btn"
                     disabled={isGenerating}
                 >
                     {isGenerating ? "Generating..." : "Generate Report"}

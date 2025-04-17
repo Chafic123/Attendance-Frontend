@@ -196,9 +196,7 @@
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
 
-    .imageLabel {
-        margin-left: 25px;
-    }
+
 
     .user-profile {
         max-width: 90%;
@@ -302,9 +300,7 @@
         margin-left: 14px;
     }
 
-    .imageLabel {
-        margin: 0 5px 0 15px;
-    }
+
     .uploaded {
         margin-left: 3px;
     }
@@ -322,6 +318,10 @@
     .form-user-actions {
         margin-left: 15px;
     }
+    .uploadContainer label {
+        width: 49px;
+        white-space: nowrap;
+    }
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
@@ -336,10 +336,9 @@
 
     }
   
-    .imageLabel{
-        margin-left: 10px;
-    }
-    .uploaded {
-        margin-left: 25px;
+
+    .uploadContainer label {
+        width: 52px;
+        white-space: nowrap;
     }
 }

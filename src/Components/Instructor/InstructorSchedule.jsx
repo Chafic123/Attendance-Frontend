@@ -28,12 +28,8 @@ export default function InstructorSchedule() {
     }, []);
 
     if (!instructorData) {
-        // Show spinner while waiting for initial data
         return (
-            <div className="schedule-report-container" style={{ 
-                position: 'relative',
-                minHeight: '400px'
-            }}>
+            <div className="loading-container">
                 <LoadingSpinner />
             </div>
         );
@@ -103,18 +99,8 @@ export default function InstructorSchedule() {
             {userRole === "instructor" && (
                 <button
                     onClick={handleGenerateInstructorReport}
-                    style={{
-                        position: "absolute",
-                        bottom: "50px",
-                        right: "100px",
-                        padding: "7px 10px",
-                        borderRadius: "10px",
-                        fontWeight: 400,
-                        fontSize: "12px",
-                        border: "none",
-                        color: "white",
-                        backgroundColor: "#482B70",
-                    }}
+                    className="generate-instructor-report-btn"
+                
                 >
                     Generate Report
                 </button>

@@ -13,6 +13,7 @@ import { useCourse } from "../../Contexts/CourseContext";
 import { Icon } from "@mui/material";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 import { deleteStudentCourse } from "../../ApiService/AdminStudentService";
+import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function AdminMainContent({ selectedText, setSelectedText, courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -345,7 +346,7 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
           <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
           <AdminFilter selectedText={selectedText} studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
-            <p>Loading students...</p>
+            <LoadingSpinner/>
           ) : studentCourses.length === 0 ? (
             <div className="StudentContainer" style={{ display: "flex", flexWrap: "wrap" }}>
               {filteredStudents.length > 0 ? (
@@ -496,22 +497,23 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
         </div>
       ) : selectedDashboardITem === "View Instructors" ? (
         <div
-          style={{
-            width: "48%",
-            padding: "57px",
-            paddingBottom: "0",
-            borderRadius: "66px 0 0 66px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "17px",
-          }}
+        style={{
+          width: "48%",
+          padding: "57px",
+          paddingBottom: "0",
+          borderRadius: "66px 0 0 66px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "17px",
+          ...( loading && { position: 'relative', minHeight: '500px' } )
+        }}
         >
           <AdminMainContentTop title="Instructors" />
           <AdminFilter onInstructorFilterChange={setInstructorFilterOptions} title="InstructorFilter" />
           {loading ? (
-            <p>Loading instructors...</p>
+            <LoadingSpinner/>
           ) : (
-            <div className="InstructorContainer">
+            <div className="InstructorContainer" >
 
               {filteredInstructors.length > 0 ? (
                 filteredInstructors.map((instructor) => (
