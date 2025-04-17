@@ -6,6 +6,7 @@ import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function StudentScheduleReport() {
     const [studentData, setStudentData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isGenerating, setIsGenerating] = useState(false);
 
     useEffect(() => {
         const fetchSchedule = async () => {
@@ -21,15 +22,19 @@ export default function StudentScheduleReport() {
 
     const handleGenerateStudentReport = async () => {
         try {
-            await downloadStudentScheduleReport(); 
+            setIsGenerating(true);
+            await downloadStudentScheduleReport();
         } catch (error) {
             console.error("Failed to generate student schedule report:", error.message);
+        } finally {
+            setIsGenerating(false);
+
         }
     };
 
     if (!studentData) {
         return (
-            <div className="schedule-report-container" style={{ 
+            <div className="schedule-report-container" style={{
                 position: 'relative',
                 minHeight: '400px'
             }}>
@@ -41,10 +46,10 @@ export default function StudentScheduleReport() {
     const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
     return (
-        <div className="schedule-report-container" style={loading ? { 
+        <div className="schedule-report-container" style={loading ? {
             position: 'relative',  // Required for absolute positioning of spinner
             minHeight: '300px'    // Ensures minimum space for spinner
-          } : {}}>
+        } : {}}>
             <div className="schedule-top">
                 <div className="schedule-top-element">
                     <div className="schedule-top-info">
@@ -119,9 +124,11 @@ export default function StudentScheduleReport() {
                         border: "none",
                         color: "white",
                         backgroundColor: "#482B70",
+                        cursor:"pointer",
                     }}
+                    disabled={isGenerating}
                 >
-                    Generate Report
+                    {isGenerating ? "Generating..." : "Generate Report"}
                 </button>
 
             )}

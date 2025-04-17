@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getUserDetails } from "../../ApiService/ProfileService";
 import { UpdateInstructorProfile } from "../../ApiService/UpdateInstructorProfile";
+import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function InstructorProfile({ viewPanel, refreshProfile }) {
     const [instructor, setInstructor] = useState(null);
     const [instructorImage, setInstructorImage] = useState("");  // For handling image uploads
@@ -81,10 +82,16 @@ export default function InstructorProfile({ viewPanel, refreshProfile }) {
         }
     }
 
-    if (!instructor) return <p>Loading...</p>;
 
     return (
-        <div className="user-profile">
+        <div className="user-profile" style={!instructor ? {
+            position: 'relative',
+            minHeight: '500px'
+        } : {}}>
+ {!instructor ? (
+                <LoadingSpinner />
+            ) : (
+                <>
             <h2 className="profile-title">My Profile</h2>
             <div className="user-info">
                 <p className="user-name">{`${instructor.user.first_name} ${instructor.user.last_name}`}</p>
@@ -185,6 +192,8 @@ export default function InstructorProfile({ viewPanel, refreshProfile }) {
                     </button>
                 </div>
             </form>
+            </>
+        )}
         </div>
     );
 }

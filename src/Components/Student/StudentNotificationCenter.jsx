@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../CSS/StudentNorificationCenter.css";
 import { getStudentNotifications, markStudentNotificationAsRead } from "../../ApiService/NotificationService";
-
+import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function StudentNotificationsCenter() {
   const [notifications, setNotifications] = useState([]);
   const [filteredNotifications, setFilteredNotifications] = useState([]);
@@ -57,13 +57,15 @@ export default function StudentNotificationsCenter() {
           <option value="unread">Unread Notifications</option>
         </select>
       </div>
-      <div id="main-notification-container">
+      <div id="main-notification-container" style={loading ? { 
+            position: 'relative', 
+            minHeight: '500px'    
+          } : {}}>
 
 
 
-        {/* 🔄 Loading */}
         {loading ? (
-          <p>Loading notifications...</p>
+          <LoadingSpinner />
         ) : filteredNotifications.length === 0 ? (
           <p>No notifications available.</p>
         ) : (
@@ -128,7 +130,7 @@ export default function StudentNotificationsCenter() {
                 </div>
 
                 {!notification.read_status && (
-                  <button  className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
+                  <button className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
                     Mark As Read
                   </button>
                 )}

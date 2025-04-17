@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getUserDetails } from "../../ApiService/ProfileService";
 import { updateStudentProfile } from "../../ApiService/UpdateStudentProfile"; // Import the API call
-
+import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function StudentProfile({ viewPanel, refreshProfile }) {
     const [student, setStudent] = useState(null);
     const [studentImage, setStudentImage] = useState("");
@@ -75,9 +75,9 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
         setVideoUploaded(false);
         setNoChangesMessage("");
         setSuccessMessage("");
-      };
+    };
 
-      
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -124,9 +124,9 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
     };
     const handleCancelAll = () => {
         handleCancel();
-        viewPanel(); 
-      };
-      
+        viewPanel();
+    };
+
     useEffect(() => {
         const changeButtonText = () => {
             const button = document.querySelector('.save-btn');
@@ -149,10 +149,16 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
         };
     }, []);
 
-    if (!student) return <p>Loading...</p>;
 
     return (
-        <div className="user-profile">
+        <div className="user-profile" style={!student ? {
+            position: 'relative',
+            minHeight: '500px'
+        } : {}}>
+            {!student ? (
+                <LoadingSpinner />
+            ) : (
+                <>
             <h2 className="profile-title">My Profile</h2>
             <div className="user-info">
                 <p className="user-name" id="user-name">
@@ -224,7 +230,6 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
                         disabled
                     />
                 </div>
-                {/*Upload Container*/}
                 <div className="uploadContainer">
 
                     <div className="">
@@ -242,7 +247,7 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
                                 <img src="/Images/Upload_img.png" alt="Upload" />
                             </label>
                             <label htmlFor="fileInput">
-                            <span style={{ cursor: "pointer" }} className="img-name">{imageFilename ? "Uploaded" : "Upload"}</span> {/* Display filename or default text */}
+                                <span style={{ cursor: "pointer" }} className="img-name">{imageFilename ? "Uploaded" : "Upload"}</span> {/* Display filename or default text */}
 
                             </label>
                         </div>
@@ -275,7 +280,10 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
                     </button>
                 </div>
             </form>
+            </>
+            )}
         </div>
+
     );
 }
 
