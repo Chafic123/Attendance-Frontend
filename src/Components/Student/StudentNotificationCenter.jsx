@@ -46,96 +46,102 @@ export default function StudentNotificationsCenter() {
       applyFilter(filter, updated);
     }
   };
-
   return (
-    <div>
-      <div className="notification-filter-container">
-        <label htmlFor="filter">Filter: </label>
-        <select id="filter" value={filter} onChange={handleFilterChange}>
-          <option value="all">All Notifications</option>
-          <option value="read">Read Notifications</option>
-          <option value="unread">Unread Notifications</option>
-        </select>
-      </div>
-      <div id="main-notification-container" style={loading ? { 
-            position: 'relative', 
-            minHeight: '500px'    
-          } : {}}>
+    <div className="notifications-container">
+      <div className="notifications-wrapper">
+        {/* Filter Section */}
+        <div className="notifications-filter">
+          <label htmlFor="filter" className="notifications-filter-label">Filter: </label>
+          <select
+            id="filter"
+            value={filter}
+            onChange={handleFilterChange}
+            className="notifications-filter-select"
+          >
+            <option value="all">All Notifications</option>
+            <option value="read">Read Notifications</option>
+            <option value="unread">Unread Notifications</option>
+          </select>
+        </div>
 
+        {/* Notifications Container */}
+        <div id="main-notification-container" className="notifications-wrapper">
+          {loading ? (
+            <LoadingSpinner />
+          ) : filteredNotifications.length === 0 ? (
+            <div className="notifications-empty">
+              <p className="notifications-empty-text">No notifications available.</p>
+            </div>
+          ) : (
+            filteredNotifications.map((notification, index) => (
+              <div
+                key={index}
+                className={`notification-card ${notification.read_status ? "read" : ""}`}
+              >
+                {/* Unread indicator */}
+                {!notification.read_status && (
+                  <div className={`notification-unread-indicator ${notification.type === "Warning" ? "warning" : "regular"
+                    }`}></div>
+                )}
 
+                <div className="notification-content-wrapper">
+                  <div className="notification-main-content">
+                    <div className="notification-header">
+                      <div className={`notification-icon ${notification.type === "Warning" ? "warning" : "regular"
+                        }`}></div>
 
-        {loading ? (
-          <LoadingSpinner />
-        ) : filteredNotifications.length === 0 ? (
-          <div className="no-notification-container">
-              <img
-                    src="../public/Images/NoNotification-icon.png"
-                    alt="No Requests"
-                  style={{ width: "100px", height: "100px", opacity: 0.6, marginTop:"70px" }}
-              />
-              <p style={{ marginTop: "0px", fontSize: "24px", color: "#777" }}>
-                  No Requests Available
-              </p>
-          </div>
-        ) : (
-          filteredNotifications.map((notification, index) => (
-            <div key={index}>
-            <div className="gray-line"></div>
-              <div className={`notificationCard ${notification.read_status ? "read-notification" : ""}`}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                  <div className="notificationCard-title-container">
-                    <p
-                      className="notificationCard-title"
-                      style={{
-                        color:
-                          notification.type === "Regular"
-                            ? "rgba(84, 51, 129, 1)"
-                            : notification.type === "Warning"
-                              ? "red"
-                              : "inherit",
-                      }}
-                    >
-                      {notification.type
-                        ? notification.type.charAt(0).toUpperCase() + notification.type.slice(1)
-                        : "Notification"}
+                      <span className={`notification-title ${notification.type === "Warning" ? "warning" : "regular"
+                        }`}>
+                        {notification.type
+                          ? notification.type.charAt(0).toUpperCase() + notification.type.slice(1)
+                          : "Notification"}
+                      </span>
+                    </div>
+
+                    <p className="notification-message">
+                      {notification.message}
                     </p>
 
-                  </div>
-
-                  <div className="temp">
-                    <div className="notificationCard-content-container">
-                      <p
-                        className="notificationCard-content"
-                        style={{
-                          color:
-                            notification.type === "Regular"
-                              ? "rgba(84, 51, 129, 1)"
-                              : notification.type === "Warning"
-                                ? "red"
-                                : "inherit",
-                        }}
-                      >
-                        {notification.message}
-                      </p>                      
-                      <p className="notificationCard-course-name">
-                        {notification.course ? notification.course.name : "Unknown Course"}
-                      </p>
-                      <p className="instructorCard-name">
-                        Instructor: {notification.instructor_name || "Unknown Instructor"}
-                      </p>
+                    <div className="notification-meta">
+                      {notification.course?.name && (
+                        <span className="notification-meta-item">
+                          <div className="meta-icon book"></div>
+                          {notification.course.name}
+                        </span>
+                      )}
+                      {notification.instructor_name && (
+                        <span className="notification-meta-item">
+                          <div className="meta-icon user"></div>
+                          {notification.instructor_name}
+                        </span>
+                      )}
                     </div>
                   </div>
-                </div>
 
-                {!notification.read_status && (
-                  <button className="mark-as-readCard" onClick={() => handleMarkAsRead(notification.id)}>
-                    Mark As Read
-                  </button>
-                )}
+                  <div className="notification-actions">
+                    <span className="notification-time">
+                      <div className="meta-icon time"></div>
+                      {notification.createdAt || "Today"}
+                    </span>
+
+                    {!notification.read_status && (
+                      <button
+                        onClick={() => handleMarkAsRead(notification.id)}
+                        className={`mark-as-read-btn ${notification.type === "Warning" ? "warning" : "regular"
+                          }`}
+                      >
+                        <div className={`btn-icon ${notification.type === "Warning" ? "warning" : "regular"
+                          }`}></div>
+                        Mark as Read
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          ))
-        )}
-      </div></div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
