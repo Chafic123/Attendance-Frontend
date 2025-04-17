@@ -165,15 +165,39 @@ export default function MachineLearning() {
             </div>
 
             <div className="ml-form-group">
-              <label className="ml-label">Upload Video:</label>
-              <input
-                type="file"
-                className="ml-file-input"
-                accept="video/*"
-                onChange={(e) => setVideoFile(e.target.files[0])}
-                required
-              />
-            </div>
+  <div className="ml-file-input-container">
+    <label className={`ml-file-input-label ${videoFile ? 'active' : ''}`}>
+      <div className="ml-file-input-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="#604099"/>
+          <path d="M14 2V8H20" fill="#4A5DA9"/>
+          <path d="M10 11V17" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M7 14H13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </div>
+      <div className="ml-file-input-text">
+        {videoFile ? (
+          <>
+            File Uploaded
+            <br />
+            Size: {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
+          </>
+        ) : (
+          <>
+            Drag & drop your video or <span>browse</span>
+          </>
+        )}
+      </div>
+      <input
+        type="file"
+        className="ml-file-input"
+        accept="video/*"
+        onChange={(e) => setVideoFile(e.target.files[0])}
+        required
+      />
+    </label>
+  </div>
+</div>
 
             {isProcessing && (
               <div className="ml-progress-container">

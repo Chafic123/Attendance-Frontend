@@ -7,33 +7,25 @@
     max-height: 447px;
     padding-bottom: 10px;
     min-height: 50%;
-    /* Hide scrollbar arrows */
     scrollbar-width: thin;
-    /* Firefox */
     -ms-overflow-style: none;
-    /* Internet Explorer 10+ */
 }
 
 .CourseContainer::-webkit-scrollbar {
     width: 8px;
-    /* Set scrollbar width */
 }
 
 .CourseContainer::-webkit-scrollbar-thumb {
     background-color: #888;
-    /* Change scrollbar color */
     border-radius: 10px;
-    /* Rounded edges */
 }
 
 .CourseContainer::-webkit-scrollbar-thumb:hover {
     background-color: #555;
-    /* Darker color on hover */
 }
 
 .CourseContainer::-webkit-scrollbar-button {
     display: none;
-    /* Hide scrollbar arrows */
 }
 
 
@@ -177,7 +169,7 @@
     position: absolute;
     left: 42%;
     transform: translate(-50%, 50%);
-    bottom: 70px;
+    bottom: 64px;
 }
 
 .back-btn {
@@ -233,7 +225,7 @@
     background-color: #482B70;
     position: absolute;
     right: 620px;
-    bottom: 50px;
+    bottom: 42px;
     cursor: pointer;
 }
 .generate-report-btn.disabled {

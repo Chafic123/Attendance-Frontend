@@ -70,7 +70,9 @@ export default function InstructorNotifications({ selectedStudent, selectedCours
                 </div>
             )}
             <h2 className="title">Send Notification:</h2>
-            <span>
+            <span style={{
+                color: "#868789",
+            }}>
                 To: {displayStudent ? `${displayStudent.first_name} ${displayStudent.last_name}` : "No student selected"}
             </span>
             <input

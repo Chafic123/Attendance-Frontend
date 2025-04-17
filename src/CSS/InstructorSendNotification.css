@@ -12,8 +12,11 @@
     margin-top: -20px;
     max-height: 200px;
     overflow-y: auto; 
-    
 
+}
+
+.title {
+    margin-bottom: 2px;
 }
 
 .sendNotification-input{
@@ -26,26 +29,23 @@
     border: none;
     outline: none;
     height: 30px;
-    margin-top: 10px;
+    margin-top: 18px;
 
 }
 .sendNotification-btn{
     width: 73px;
     height: 23px;
-    top: 593px;
-    left: 1355px;
     border-radius: 10px;
     font-family: Roboto;
     font-weight: 400;
     font-size: 12px;
     line-height: 100%;
-    letter-spacing: 0%;
     background-color: #482B70;
     border: none;
     color: white;
     position: relative;
     left: 240px;
-    top: 40px;
+    top: 33px;
     cursor: pointer;
 }
 .sendNotification-btn:hover{

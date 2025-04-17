@@ -152,7 +152,7 @@ const AdminAddCourse = ({ setCourses }) => {
                 <div className="form-course-row">
                     <div className="form-course-group">
                         <label htmlFor="Room">Section:</label>
-                        <input className="courseSection" type="text" id="Section" name="Section" value={courseData.Section} onChange={handleChange} required />
+                        <input className="courseSection" type="number" id="Section" name="Section" value={courseData.Section} onChange={handleChange} required />
                     </div>
                     <div className="form-course-group">
                         <label htmlFor="Room">Room:</label>

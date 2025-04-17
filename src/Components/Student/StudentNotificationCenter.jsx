@@ -67,26 +67,23 @@ export default function StudentNotificationsCenter() {
         {loading ? (
           <LoadingSpinner />
         ) : filteredNotifications.length === 0 ? (
-          <p>No notifications available.</p>
+          <div className="no-notification-container">
+              <img
+                    src="../public/Images/NoNotification-icon.png"
+                    alt="No Requests"
+                  style={{ width: "100px", height: "100px", opacity: 0.6, marginTop:"70px" }}
+              />
+              <p style={{ marginTop: "0px", fontSize: "24px", color: "#777" }}>
+                  No Requests Available
+              </p>
+          </div>
         ) : (
           filteredNotifications.map((notification, index) => (
             <div key={index}>
-              <div className="gray-line"></div>
+            <div className="gray-line"></div>
               <div className={`notificationCard ${notification.read_status ? "read-notification" : ""}`}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
                   <div className="notificationCard-title-container">
-                    <img
-                      className="purple-circle"
-                      src="../public/Images/Purple-circle.png"
-                      alt="Notification Icon"
-                      style={{
-                        filter:
-                          notification.type === "Warning"
-                            ? "invert(20%) sepia(76%) saturate(5725%) hue-rotate(355deg) brightness(100%) contrast(123%)"
-                            : "none",
-                      }}
-                    />
-
                     <p
                       className="notificationCard-title"
                       style={{
@@ -119,7 +116,8 @@ export default function StudentNotificationsCenter() {
                         }}
                       >
                         {notification.message}
-                      </p>                      <p className="notificationCard-course-name">
+                      </p>                      
+                      <p className="notificationCard-course-name">
                         {notification.course ? notification.course.name : "Unknown Course"}
                       </p>
                       <p className="instructorCard-name">
@@ -138,7 +136,6 @@ export default function StudentNotificationsCenter() {
             </div>
           ))
         )}
-        <div className="gray-line"></div>
       </div></div>
   );
 }

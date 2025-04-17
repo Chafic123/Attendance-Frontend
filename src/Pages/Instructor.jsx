@@ -44,7 +44,7 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
     {
       imgSrc: "../public/Images/Notification-icon.png",
       altText: "Notification Icon",
-      text: "View Notifications",
+      text: "View Requests",
       id: "Notification-navigate",
     },
   ];
