@@ -332,7 +332,6 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
   };
 
 
-  if (!filteredCourses.length) return <p>No courses found.</p>;
 
   return (
     <div>

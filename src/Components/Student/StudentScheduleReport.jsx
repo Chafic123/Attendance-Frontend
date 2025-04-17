@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { getStudentSchedule } from "../../ApiService/StudentScheduleReportService";
 import "../../CSS/StudentScheduleReport.css";
 import { downloadStudentScheduleReport } from "../../ApiService/StudentScheduleReportService";
+import LoadingSpinner from "../Generals/LoadingSpinner";
 export default function StudentScheduleReport() {
     const [studentData, setStudentData] = useState(null);
-    
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const fetchSchedule = async () => {
             const data = await getStudentSchedule();
             if (data) {
                 setStudentData(data);
+                setLoading(false);
             }
         };
 
@@ -25,13 +28,23 @@ export default function StudentScheduleReport() {
     };
 
     if (!studentData) {
-        return <div>Loading...</div>;
+        return (
+            <div className="schedule-report-container" style={{ 
+                position: 'relative',
+                minHeight: '400px'
+            }}>
+                <LoadingSpinner />
+            </div>
+        );
     }
     const { student, courses } = studentData;
     const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
     return (
-        <div className="schedule-report-container">
+        <div className="schedule-report-container" style={loading ? { 
+            position: 'relative',  // Required for absolute positioning of spinner
+            minHeight: '300px'    // Ensures minimum space for spinner
+          } : {}}>
             <div className="schedule-top">
                 <div className="schedule-top-element">
                     <div className="schedule-top-info">
