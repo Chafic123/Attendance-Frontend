@@ -2,6 +2,7 @@ import "../../CSS/AdminAddCourse.css";
 import { useState } from "react";
 import { addCourse } from "../../ApiService/CourseService";
 import { getCourses } from "../../ApiService/CourseService";
+import { getInstructors } from "../../ApiService/InstructorService";
 const AdminAddCourse = ({ setCourses }) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
@@ -124,7 +125,7 @@ const AdminAddCourse = ({ setCourses }) => {
                     </div>
                 </div>
 
-                {/* <div className="form-course-group">
+                <div className="form-course-group">
                     <label htmlFor="instructor">Instructor:</label>
                     <div className="instructor-info-container">
                         <input
@@ -146,7 +147,7 @@ const AdminAddCourse = ({ setCourses }) => {
                             required
                         />
                     </div>
-                </div> */}
+                </div>
 
                 <div className="form-course-group">
                     <label htmlFor="instructor_email">Email:</label>
