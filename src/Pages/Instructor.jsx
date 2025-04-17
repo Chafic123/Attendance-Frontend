@@ -3,18 +3,30 @@ import Dashboard from "../Components/Generals/Dashboard";
 import ProfileTop from "../Components/Generals/ProfileTop";
 import Logo from "../Components/Generals/Logo";
 import InstructorWholeContent from "../Components/Instructor/InstructorWholeContent";
+import { getInstructorRequests } from "./../ApiService/InstructorRequestCorrections";
 import "../CSS/SI.css"
 
 export default function Instructor({ refreshProfile, user, viewProfile, viewPanel, viewPanelIphone }) {
 
 
 
+  const [selectedText, setSelectedText] = useState(null);
+  const [requestCount, setRequestCount] = useState(0);
+
   useEffect(() => {
     refreshProfile();
+    fetchRequestCount();
   }, []);
 
-
-  const [selectedText, setSelectedText] = useState(null);
+  const fetchRequestCount = async () => {
+    try {
+      const requestCount = await getInstructorRequests();
+      console.log(requestCount);
+      setRequestCount(requestCount.requests.length);
+    } catch (error) {
+      console.error("Error fetching request count:", error);
+    }
+  };
 
   const handleAdd = () => {
     console.log("View Profile")
@@ -46,6 +58,7 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
       altText: "Notification Icon",
       text: "View Requests",
       id: "Notification-navigate",
+      badgeCount: requestCount,
     },
   ];
 
@@ -73,8 +86,7 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
 
 
   return (
-    <div className="whole-container"
-    >
+    <div className="whole-container">
       <ProfileTop viewProfile={viewProfile} refreshProfile={refreshProfile} user={user} onAdd={handleAdd} />
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
@@ -85,7 +97,8 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
         refreshProfile={refreshProfile}
         onAdd={handleAdd}
         selectedDashboardItem={selectedText}
-        selectedAddItem={selectedText} />
+        selectedAddItem={selectedText}
+      />
     </div>
   );
 }

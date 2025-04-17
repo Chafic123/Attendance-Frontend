@@ -4,6 +4,7 @@
     height: 95%;
     background-color: white;
     border-radius: 66px;
+    margin-right: -7px;
 }
 
 @media only screen and (width: 1024px) and (height: 1366px) {

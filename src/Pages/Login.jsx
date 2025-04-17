@@ -3,6 +3,7 @@ import "../CSS/Login.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { loginUser } from "../ApiService/LoginService";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { resetPassword } from "../ApiService/LoginService";
 export default function Login() {
 
@@ -18,6 +19,8 @@ export default function Login() {
   const [forgotError, setForgotError] = useState("");
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
 
 
   const handleLoginClick = async () => {
@@ -122,19 +125,34 @@ export default function Login() {
                 />
               </div>
 
-              <div className="form-inputs">
+              <div className="form-inputs" style={{ position: "relative" }}>
                 <label htmlFor="password" className="input-label">
                   Password
                 </label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   className="user-input"
                   placeholder="*********"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  style={{ paddingRight: "40px" }}
                 />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "17px",
+                    top: "67%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#666",
+                  }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
               </div>
+
               {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <div id="post-input">
                 <div id="remember-cont">

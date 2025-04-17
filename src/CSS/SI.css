@@ -1,14 +1,12 @@
-/* General styling */
 .whole-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px;
     align-items: center;
     height: 100vh;
     width: 100%;
 }
 
-
-/* For iPad Pro Portrait */
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     .whole-container {
         height: 53vh;
@@ -16,7 +14,6 @@
     }
 }
 
-/* For iPhone 14 Pro Max (or similar screen size) */
 @media only screen and (max-width: 431px) and (max-height: 932px) {
 
     html,

@@ -58,16 +58,25 @@
     font-weight: bold;
 }
 
+.title {
+    color: #543381;
+}
+
 .request-content {
-    color: red;
+    color: #2a2136;
     opacity: 0.8;
     font-weight: bold;
     margin-top: -5px;
 }
 
+.request-title-small {
+    color: #543381;
+    font-weight: bold;
+}
+
 .request-student-name,
 .request-course-name {
-    opacity: 0.8;
+    opacity: 0.5;
     font-size: 12px;
 }
 

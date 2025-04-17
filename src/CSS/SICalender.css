@@ -1,29 +1,23 @@
-/* Wrapper for the calendar */
 .custom-calendar-wrapper {
   width: 100%;
   height: 30%;
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: -3%;
+  margin-top: 6%;
   margin-bottom: 11%;
 }
 
-/* Weekday Row (Mon, Tue, etc.) */
 .MuiDayCalendar-weekDayLabel {
   font-size: 12px !important;
 
 }
 
-
-
-/* Individual Day Tile */
 .MuiPickersDay-root {
   font-size: 11px !important;
 
 }
 
-/* Highlight selected day with your custom purple */
 .MuiPickersDay-root.Mui-selected {
   border: 2px solid black !important;
   scale: 0.9;
@@ -35,7 +29,6 @@
 
 }
 
-/*Calender Height -Mark-*/
 .css-1n1xn3x-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
   min-height: 200px !important;
 }
@@ -62,12 +55,68 @@
   margin-top: -80px !important;
 
 }
+
+
+
+/* new style */
+.css-5wchs2-MuiDateCalendar-root {
+  overflow: hidden;
+  width: 323px;
+  border-radius: 24px;
+  box-shadow: 3px 3px 12px 0px gray;
+  max-height: 291px !important;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 336px;
+}
+
+.css-1nxbkmn-MuiPickersCalendarHeader-root {
+  padding-left: 33px !important;
+  padding-right: 18px !important;
+  border-radius: 23px 13px 0 0;
+}
+
+.css-1nxbkmn-MuiPickersCalendarHeader-root {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: -1px !important;
+  margin-bottom: 4px;
+  padding-left: 24px;
+  padding-right: 12px;
+  max-height: 40px;
+  min-height: 40px;
+}
+
+/* end */
+
+
 .calendarTitle{
   position: relative;
-  right: -120px;
-  top: 150px;
+  right: -129px;
+  top: 140px;
   color: #604099;
+  font-size: 30px;
 }
+
 @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
   .custom-calendar-wrapper {
     width: 83%;

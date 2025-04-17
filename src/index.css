@@ -11,27 +11,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.dashboard-item.active {
-    font-weight: bold;
-}
-
-.dashboard-item .white-line {
-    display: none;
-    width: 98%;
-    border: 1px solid white;
-
-}
-
-.dashboard-item {
-    position: relative;
-}
-
-.dashboard-item.active .white-line {
-    display: flex;
-    position: absolute;
-    top: 30px;
-}
-
 @media only screen and (max-width: 431px) and (max-height: 933px) {
     body {
         height: 74vh;

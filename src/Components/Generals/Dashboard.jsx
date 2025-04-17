@@ -4,12 +4,8 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../ApiService/LogoutService";
 import { useEffect } from "react";
-export default function Dashboard({ DashboardItems, onItemClick, isAdmin, onProcessCLicked, selectedItem, setSelectedText }) {
+export default function Dashboard({ DashboardItems, onItemClick, isStudent, isAdmin, onProcessCLicked, selectedItem, setSelectedText }) {
   const navigate = useNavigate();
-
-
-
-
 
   const handleLogOutClick = async () => {
     try {
@@ -27,15 +23,20 @@ export default function Dashboard({ DashboardItems, onItemClick, isAdmin, onProc
   return (
     <div id="dashboard">
       {DashboardItems.map((item, index) => (
-        <div
-          key={index}
-          className={`dashboard-item ${selectedItem === item.text ? 'active' : ''}`}
-          onClick={(e) => onItemClick(item.text, e)}
-        >
-          <img src={item.imgSrc} alt={item.altText} />
-          <p>{item.text}</p>
-          <div className="white-line"></div>
-        </div>
+        <div 
+        key={index} 
+        className="dashboard-item" 
+        onClick={(e) => onItemClick(item.text, e)}
+        id={item.id}
+      >
+        <img src={item.imgSrc} alt={item.altText} />
+        {item.badgeCount > 0 && (
+          <span className={`notification-badge ${isStudent === "true" ? "studentNot" : ""}`}>
+            {item.badgeCount > 9 ? '9+' : item.badgeCount}
+          </span>
+        )}
+        <span>{item.text}</span>
+      </div>
       ))}
 
 

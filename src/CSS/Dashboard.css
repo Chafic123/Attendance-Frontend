@@ -5,16 +5,62 @@
     justify-content: center;
     gap: 44px;
     margin-bottom: 40px;
+    min-width: 219px;
+    max-width: 219px;
 }
 
 .dashboard-item {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     gap: 15px;
     color: white;
     font-size: 20px;
     cursor: pointer;
+}
+
+.dashboard-item::before {
+    position: absolute;
+    content: '';
+    background-color: transparent;
+    width: 10px;
+    border-radius: 0px 10px 10px 0px;
+    height: 45px;
+    left: -23px;
+    top: -12px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dashboard-item.active::before {
+    background-color: #ffffff;
+}
+
+
+.dashboard-item.active .white-line {
+    display: flex;
+    position: absolute;
+    top: 30px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: 139px;
+    background-color: #ffffffa8;
+    color: rgba(84, 51, 129, 1);
+    border-radius: 50%;
+    width: 17px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.studentNot{
+    right: 172px;
 }
 
 .dashboard-item img {
@@ -112,9 +158,6 @@
     }
 }
 
-
-
-  /* Target iPad Pro (11-inch and 12.9-inch) */
   @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     #dashboard {
         margin-bottom: 204px;

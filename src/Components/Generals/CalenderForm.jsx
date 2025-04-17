@@ -287,7 +287,7 @@ export default function Calendar({ setCalendarTitle,selectedDashboardItem, setRe
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", marginTop: userRole === "student" ? "40px" : "0" }}>
                 <DateCalendar slots={{ day: CustomDay }} />
 
                 {tooltip.visible && (
