@@ -3,7 +3,7 @@
     margin: 0 auto;
     padding: 24px;
     color: #4A2B99;
-    margin-top: 59px;
+    margin-top: 80px;
 }
 
 .card-course-title {
@@ -15,7 +15,7 @@
 
 .add-course-form {
     width: 90%;
-    gap: 13px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
     margin-top: 25px;
@@ -100,15 +100,16 @@
 }
 
 .form-course-row {
-    width: 91%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 0px;
+    gap: 14px;
 }
 
 .form-course-row .form-course-group {
     width: 40%;
-    gap: 40px;
+    gap: 14px;
+    text-align: center;
 }
 
 .instructor-email {

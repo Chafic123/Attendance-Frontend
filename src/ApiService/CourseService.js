@@ -4,7 +4,7 @@ import BASE_URL from './BaseURL';
 export const getCourses = async () => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
-  
+
   if (!token) {
     console.log("No authentication token found. Please log in again.");
     return [];
@@ -66,9 +66,18 @@ export const getCourseStudents = async (courseId) => {
     return [];
   }
 };
-export const addCourse = async (Code, name, Room, credit, Section, day_of_week, start_time, end_time,
-  instructor_first_name, instructor_last_name, instructor_email) => {
 
+export const addCourse = async (
+  Code,
+  name,
+  Room,
+  credit,
+  Section,
+  day_of_week,
+  start_time,
+  end_time,
+  instructor_id
+) => {
   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
 
   if (!token) {
@@ -86,9 +95,7 @@ export const addCourse = async (Code, name, Room, credit, Section, day_of_week, 
   formData.append('day_of_week', day_of_week);
   formData.append('start_time', start_time);
   formData.append('end_time', end_time);
-  formData.append('instructor_first_name', instructor_first_name);
-  formData.append('instructor_last_name', instructor_last_name);
-  formData.append('instructor_email', instructor_email);
+  formData.append('instructor_id', instructor_id);  // Changed to use instructor_id
 
   try {
     const response = await axios.post(`${BASE_URL}/admin/Addcourse`, formData, {
@@ -104,7 +111,7 @@ export const addCourse = async (Code, name, Room, credit, Section, day_of_week, 
 
   } catch (error) {
     console.error(`Error adding course:`, error.response?.data || error.message);
-    throw error; 
+    throw error;
   }
 };
 
@@ -130,7 +137,6 @@ export const getStudentCourses = async (studentId) => {
       withCredentials: true,
     });
 
-    console.log("Student Courses Data:", data);
     return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching student courses:", error.response?.status, error.response?.data || error.message);
@@ -143,7 +149,7 @@ export const getStudentCourses = async (studentId) => {
 export const downloadCourseAttendanceReport = async (courseId) => {
   const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
   const userRole = localStorage.getItem('userRole') || sessionStorage.getItem('userRole');
-  if(userRole.toLowerCase()==="student") return;
+  if (userRole.toLowerCase() === "student") return;
 
   if (!token) {
     console.error("No authentication token found.");

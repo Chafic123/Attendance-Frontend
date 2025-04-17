@@ -1,11 +1,12 @@
 import "../../CSS/AdminAddCourse.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addCourse } from "../../ApiService/CourseService";
 import { getCourses } from "../../ApiService/CourseService";
 import { getInstructors } from "../../ApiService/InstructorService";
 const AdminAddCourse = ({ setCourses }) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [noSuccessMessage, setNoSuccessMessage] = useState("");
+    const [instructors, setInstructors] = useState([]);
 
     const [courseData, setCourseData] = useState({
         Code: "",
@@ -16,10 +17,20 @@ const AdminAddCourse = ({ setCourses }) => {
         day_of_week: "",
         start_time: "",
         end_time: "",
-        instructor_first_name: "",
-        instructor_last_name: "",
-        instructor_email: "",
+        instructor_id: "",
     });
+
+    useEffect(() => {
+        const fetchInstructors = async () => {
+            try {
+                const instructorsData = await getInstructors();
+                setInstructors(instructorsData);
+            } catch (error) {
+                console.error("Error fetching instructors:", error);
+            }
+        };
+        fetchInstructors();
+    }, []);
 
     const handleChange = (e) => {
         setCourseData({ ...courseData, [e.target.name]: e.target.value });
@@ -40,9 +51,7 @@ const AdminAddCourse = ({ setCourses }) => {
                 courseData.day_of_week,
                 courseData.start_time,
                 courseData.end_time,
-                courseData.instructor_first_name,
-                courseData.instructor_last_name,
-                courseData.instructor_email
+                courseData.instructor_id
             );
 
             const courseData2 = await getCourses();
@@ -58,18 +67,14 @@ const AdminAddCourse = ({ setCourses }) => {
                 day_of_week: "",
                 start_time: "",
                 end_time: "",
-                instructor_first_name: "",
-                instructor_last_name: "",
-                instructor_email: "",
+                instructor_id: "",
             });
         } catch (error) {
             setNoSuccessMessage(error.response.data.message)
-            console.log()
         } finally {
             setIsAddingCourse(false);
         }
     };
-
     return (
         <div className="add-course-card">
             <h2 className="card-course-title">Add Course</h2>
@@ -115,7 +120,6 @@ const AdminAddCourse = ({ setCourses }) => {
                     </select>
                 </div>
 
-
                 <div className="form-course-group">
                     <label>Time:</label>
                     <div className="course-time-inputs">
@@ -126,47 +130,30 @@ const AdminAddCourse = ({ setCourses }) => {
                 </div>
 
                 <div className="form-course-group">
-                    <label htmlFor="instructor">Instructor:</label>
-                    <div className="instructor-info-container">
-                        <input
-                            className="instructor-first-name"
-                            type="text"
-                            placeholder="First Name"
-                            name="instructor_first_name"
-                            value={courseData.instructor_first_name}
-                            onChange={handleChange}
-                            required
-                        />
-                        <input
-                            className="instructor-last-name"
-                            type="text"
-                            placeholder="Last Name"
-                            name="instructor_last_name"
-                            value={courseData.instructor_last_name}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div className="form-course-group">
-                    <label htmlFor="instructor_email">Email:</label>
-                    <input
-                        type="email"
-                        name="instructor_email"
-                        id="instructor_email"
-                        value={courseData.instructor_email}
+                    <label htmlFor="instructor_id">Instructor:</label>
+                    <select
+                        name="instructor_id"
+                        id="instructor_id"
+                        value={courseData.instructor_id}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="">-- Select Instructor --</option>
+                        {instructors.map(instructor => (
+                            <option key={instructor.instructor.id} value={instructor.instructor.id}>
+                                {instructor.first_name} {instructor.last_name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
-                <div className="form-course-group">
-                    <label htmlFor="Section">Section:</label>
-                    <input type="text" name="Section" id="Section" value={courseData.Section} onChange={handleChange} required />
-                </div>
+
 
                 <div className="form-course-row">
+                    <div className="form-course-group">
+                        <label htmlFor="Room">Section:</label>
+                        <input className="courseSection" type="text" id="Section" name="Section" value={courseData.Section} onChange={handleChange} required />
+                    </div>
                     <div className="form-course-group">
                         <label htmlFor="Room">Room:</label>
                         <input className="courseRoom" type="text" id="Room" name="Room" value={courseData.Room} onChange={handleChange} required />
@@ -201,9 +188,7 @@ const AdminAddCourse = ({ setCourses }) => {
                                 day_of_week: "",
                                 start_time: "",
                                 end_time: "",
-                                instructor_first_name: "",
-                                instructor_last_name: "",
-                                instructor_email: "",
+                                instructor_id: "",
                             })
                         }
                     >
