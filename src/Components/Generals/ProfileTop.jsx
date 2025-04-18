@@ -8,13 +8,15 @@ export default function ProfileTop({ selectedAddItem, viewProfile, user }) {
     const isScheduleView = selectedAddItem === "View Schedule";
 
     return (
-        <div className={`profileTop-container ${isScheduleView ? "profileTop-Schedule" : ""}`} onClick={viewProfile}>
+        <div
+            className={`profileTop-container ${(selectedAddItem === "View Schedule" || selectedAddItem === "View Notifications") ? "profileTop-Schedule" : ""}`}
+            onClick={viewProfile}>
             <div className="user-info">
                 <p className="user-name">{`${userInfo.first_name} ${userInfo.last_name}`}</p>
                 <p className="user-id">
-                {user.student ? user.student.student_id : instructorInfo ? "Instructor" : "N/A"}      
-                
-                          </p>
+                    {user.student ? user.student.student_id : instructorInfo ? "Instructor" : "N/A"}
+
+                </p>
             </div>
 
             <img
@@ -40,5 +42,5 @@ ProfileTop.propTypes = {
             student_id: PropTypes.string,
             image: PropTypes.string,
         }),
-    }), 
+    }),
 };

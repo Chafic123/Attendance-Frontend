@@ -7,6 +7,8 @@ import { useEffect } from "react";
 export default function Dashboard({ DashboardItems, onItemClick, isStudent, isAdmin, onProcessCLicked, selectedItem, setSelectedText }) {
   const navigate = useNavigate();
 
+  const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+
   const handleLogOutClick = async () => {
     try {
       const response = await logoutUser();
@@ -23,20 +25,20 @@ export default function Dashboard({ DashboardItems, onItemClick, isStudent, isAd
   return (
     <div id="dashboard">
       {DashboardItems.map((item, index) => (
-        <div 
-        key={index} 
-        className="dashboard-item" 
-        onClick={(e) => onItemClick(item.text, e)}
-        id={item.id}
-      >
-        <img src={item.imgSrc} alt={item.altText} />
-        {item.badgeCount > 0 && (
-          <span className={`notification-badge ${isStudent === "true" ? "studentNot" : ""}`}>
-            {item.badgeCount > 9 ? '9+' : item.badgeCount}
-          </span>
-        )}
-        <span>{item.text}</span>
-      </div>
+        <div
+          key={index}
+          className="dashboard-item"
+          onClick={(e) => onItemClick(item.text, e)}
+          id={item.id}
+        >
+          <img src={item.imgSrc} alt={item.altText} />
+          {item.badgeCount > 0 && (
+            <span className={`notification-badge ${isStudent === "true" ? "studentNot" : ""} ${userRole === "instructor" ? "instructor-notification-badge" : ""}`}>
+              {item.badgeCount > 9 ? '9+' : item.badgeCount}
+            </span>
+          )}
+          <p>{item.text}</p>
+        </div>
       ))}
 
 

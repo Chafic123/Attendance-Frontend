@@ -216,6 +216,9 @@
 
 
     }
+    .notifications-container {
+      width: 405px;
+    }
     .notificationCard button{
         font-size: 8.16px;
         white-space: nowrap;
@@ -237,6 +240,7 @@
 }
 
 @media only screen and (max-width: 431px) and (max-height: 932px) {
+
     .no-notification-container {
         margin-top: 80px;
         margin-left: -45px;
@@ -285,6 +289,11 @@
         position: relative;
         
     }
+    .notifications-container {
+      width: 290px;
+      margin-left: -31px;
+  }
+
     .notificationCard button{
         font-size: 8.16px;
         white-space: nowrap;
@@ -329,6 +338,10 @@
     .mark-as-read{
         right: 10px;
     }
+    .mark-as-read-btn {
+      padding: 4px 8px;
+      font-size: 10px;
+  }
     .notificationCard button {
         position: absolute;
         right: -29%;
@@ -362,8 +375,18 @@
 
     }
     #main-notification-container {
-        overflow-x: none;
-        width: 121%;
-    }
+      overflow-x: none;
+      width: 118%;
+  }
+    .notification-card {
+      padding-left: 29px;
+  }
+  .notification-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    font-size: 12px;
+    color: #6b7280;
+}
 }
 

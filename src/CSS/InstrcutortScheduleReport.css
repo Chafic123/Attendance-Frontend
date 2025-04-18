@@ -30,7 +30,7 @@
 }
 
 /* Table */
-.schedule-table-container {
+.instructor-schedule-table-container {
     min-width: 105%;
     margin-top: 40px;
     max-height: 380px;
@@ -38,7 +38,7 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none;  
 }
-.schedule-table-container::-webkit-scrollbar {
+.instructor-schedule-table-container::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
 }
 
@@ -130,8 +130,8 @@ tbody tr:nth-child(even) {
     .schedule-top {
         gap: 100px; 
     }
-    .schedule-table-container {
-        width: 92%;
+    .instructor-schedule-table-container {
+        width: 105%;
         min-width: 87%;
         overflow-x: auto;
     }
@@ -141,7 +141,7 @@ tbody tr:nth-child(even) {
     }
 
     .credits {
-        left: 615px;
+        left: 664px;
     }
     tbody td {
         padding: 14px 0px 13px 9px;
@@ -163,7 +163,7 @@ tbody tr:nth-child(even) {
         gap: 7px;
     }
     .schedule-top-info label {
-        min-width: 38px;
+        min-width: 55px;
         font-size: 10px;
     }
     .schedule-top-element:last-child .schedule-top-info:last-child label {
@@ -172,7 +172,7 @@ tbody tr:nth-child(even) {
       }
       
     .schedule-top-info span {
-        font-size: 9px;
+        font-size: 10px;
     }
     .schedule-report-container{
         margin-left: -30px;
@@ -189,7 +189,7 @@ tbody tr:nth-child(even) {
     .schedule-top {
         gap: 19px;
     }
-    .schedule-table-container {
+    .instructor-schedule-table-container {
         min-width: 80%;
         margin-top: 40px;
         max-height: 412px;

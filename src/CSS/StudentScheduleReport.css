@@ -134,7 +134,7 @@ tbody tr:nth-child(even) {
     }
 
     .credits {
-        left: 615px;
+        left: 664px;
     }
 
     tbody td {
@@ -210,6 +210,11 @@ tbody tr:nth-child(even) {
         right: 133px;
         padding: 7px 9px;
         font-size: 11px;
+    }
+    .notification-meta {
+        flex-direction: row;
+        gap: 8px;
+
     }
 }
 

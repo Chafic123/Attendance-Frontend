@@ -72,6 +72,21 @@
         max-height: 220px;
         margin-top: -40px;
     }
+    #notification-container {
+        width: 78%;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        align-items: start;
+        justify-content: start;
+        margin: 5% 0 0 1%;
+        padding: 30px 30px;
+        border-radius: 43px;
+        margin-top: -20px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
     .sendNotification-btn {
         left: 163px;
     }

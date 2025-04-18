@@ -161,19 +161,19 @@
 .img-name{
     font-size: 12px;
 }
-/* Default label styling */
+
 .upload-img-btn {
-    margin-left:-5px;
+    margin-left:0px;
   }
   
-  /* Uploaded state */
   .uploaded-label {
-    margin-left: 3px;
+    margin-left: 4px;
   }
   
   .imageLabel {
     margin-left: 0px;
 }
+
 .instructorImageLabel{
     margin-left: -6px;
 }
@@ -193,11 +193,18 @@
     white-space: nowrap;
     margin: 0 22px 0 -27px;
 }
+.uploaded-label{
+    margin-left: 15px;
+}
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
 
 
-
-
+    .instructorImageLabel{
+        margin-left: 12px;
+    }
+    .uploaded-label{
+        margin-left: 25px;
+    }
     .user-profile {
         max-width: 90%;
         margin: 0 auto;
@@ -325,7 +332,9 @@
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
-
+    .form-user-actions {
+        margin-left: 10px;
+    }
     .user-profile-form {
         width: 108%;
     }

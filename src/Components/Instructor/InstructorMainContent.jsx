@@ -12,6 +12,21 @@ export default function InstructorMainContent({ setIsRequestStatusChanged,viewPa
   const [courses, setCourses] = useState([]);
   const [courseTitle, setCourseTitle] = useState("Courses");
 
+  const [isIpadPro, setIsIpadPro] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      '(min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2)'
+    );
+
+    setIsIpadPro(mediaQuery.matches);
+
+    const handler = (e) => setIsIpadPro(e.matches);
+    mediaQuery.addListener(handler);
+
+    return () => mediaQuery.removeListener(handler);
+  }, []);
+
   useEffect(() => {
     if(selectedText ==="View Courses"){
       setCourseTitle("Courses"); 
@@ -75,7 +90,7 @@ export default function InstructorMainContent({ setIsRequestStatusChanged,viewPa
       ) : selectedDashboardItem === "View Requests" ? (
         <div
           style={{
-            width: "48%",
+            width: isIpadPro ? "41%" : "48%",
             padding: "57px",
             paddingBottom: "0",
             borderRadius: "66px 0 0 66px",

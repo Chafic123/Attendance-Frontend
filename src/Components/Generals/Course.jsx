@@ -506,7 +506,7 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
 
 
               {filteredCourseStudents.map((student, index) => (
-                <div>
+                <div className="course-student-container">
 
                   <StudentCard
                     key={student.student_id}

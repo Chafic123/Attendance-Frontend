@@ -189,5 +189,11 @@
         padding-right: 15px;
         width: 364px;
     }
+        #request-container {
+            min-height: 170px;
+            max-height: 170px;
+            width: 300px;
+            margin-top: -15px;
+    }
 
 }

@@ -190,7 +190,7 @@ export default function InstructorFilter({ onCourseFilterChange, onStudentFilter
             type="text"
             value={studentName}
             onChange={handleCourseStudentNameChange}
-            placeholder="Student Name"
+            placeholder="Name"
             className="codeInput"
           />
           <input

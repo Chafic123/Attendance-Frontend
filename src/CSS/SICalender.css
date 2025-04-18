@@ -182,6 +182,12 @@
   .css-5wchs2-MuiDateCalendar-root {
     max-height: 400px;
 }
+.css-1nxbkmn-MuiPickersCalendarHeader-root {
+  margin-top: 0px !important;
+}
+.css-5wchs2-MuiDateCalendar-root {
+  height: 258px !important;
+}
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {

@@ -68,7 +68,7 @@ export default function InstructorSchedule() {
                 </div>
             </div>
 
-            <div className="schedule-table-container">
+            <div className="instructor-schedule-table-container">
                 <table className="schedule-table">
                     <thead>
                         <tr>

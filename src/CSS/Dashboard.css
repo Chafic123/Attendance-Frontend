@@ -43,7 +43,8 @@
     top: 30px;
 }
 
-.notification-badge {
+.notification-badge,
+.instructor-notification-badge {
     position: absolute;
     top: -5px;
     right: 139px;
@@ -132,6 +133,7 @@
     #dashboard {
         position: relative;
         margin-bottom: -62px;
+        margin-right: -202px;
     }
 
     .dashboard-item p {
@@ -156,6 +158,11 @@
         font-size: 17px;
         display: none;
     }
+    .dashboard-item::before {
+        width: 8px;
+        height: 32px;
+        top: -7px;
+    }
 }
 
   @media only screen and (width: 1024px) and (height: 1366px) and (-webkit-device-pixel-ratio: 2) {
@@ -168,4 +175,12 @@
 }
   
  
-      
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
+    .notification-badge {
+        right: 139px;
+    }
+    .instructor-notification-badge{
+        right: 113px;
+
+    }
+}

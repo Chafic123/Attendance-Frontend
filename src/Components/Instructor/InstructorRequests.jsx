@@ -16,6 +16,7 @@ export default function InstructorRequests({ isRequestStatusChanged, setIsReques
         if (isRequestStatusChanged) {
           setIsRequestStatusChanged(false);
         }
+        console.log(pendingRequests)
         setRequests(pendingRequests || []);
       } catch (error) {
         console.error("Error fetching instructor requests:", error);

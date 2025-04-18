@@ -12,6 +12,7 @@
         height: 47%;
         margin-top: -705px;
         width: 78%;
+        margin-left: -42px;
     }
  
 }
@@ -23,6 +24,7 @@
         background-color: white;
         margin-top: 157px;
         border-radius: 66px;
+        margin-right: -2px;
     }
 }
 @media only screen 

@@ -21,7 +21,6 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
   const fetchRequestCount = async () => {
     try {
       const requestCount = await getInstructorRequests();
-      console.log(requestCount);
       setRequestCount(requestCount.requests.length);
     } catch (error) {
       console.error("Error fetching request count:", error);

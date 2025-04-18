@@ -181,7 +181,7 @@ export default function InstructorProfile({ viewPanel, refreshProfile }) {
                                 <label htmlFor="fileInput" className="upload-img-btn">
                                     <img src="/Images/Upload_img.png" alt="Upload" />
                                 </label>
-                                <span className="img-name">{imageFilename ? "Uploaded" : "Upload New"}</span>
+                                <span   className="img-name">{imageFilename ? "Uploaded" : "Upload"}</span>
                             </div>
                         </div>
 
