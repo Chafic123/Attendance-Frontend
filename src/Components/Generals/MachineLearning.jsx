@@ -11,6 +11,7 @@ export default function MachineLearning() {
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [showResultPopup, setShowResultPopup] = useState(false);
 
   useEffect(() => {
     const fetchCourseSessions = async () => {
@@ -38,6 +39,12 @@ export default function MachineLearning() {
         date: session.date,
         sessionId: session.session_id
       }));
+  };
+
+  const resetForm = () => {
+    setSelectedCourse('');
+    setSelectedSection('');
+    setVideoFile(null);
   };
 
   const handleSubmit = async (e) => {
@@ -85,6 +92,8 @@ export default function MachineLearning() {
       );
 
       setResult(response.data);
+      setShowResultPopup(true);
+      resetForm();
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to process video');
       console.error('Error processing attendance:', err);
@@ -95,6 +104,36 @@ export default function MachineLearning() {
 
   return (
     <div className="ml-container">
+      {/* Result Popup */}
+      {showResultPopup && result && (
+        <div className="ml-popup-overlay">
+          <div className="ml-popup">
+            <div className="ml-popup-header">
+              <h3>Attendance Processing Complete</h3>
+              <button 
+                className="ml-popup-close"
+                onClick={() => setShowResultPopup(false)}
+              >
+                &times;
+              </button>
+            </div>
+            <div className="ml-popup-content">
+              <p><strong>Course:</strong> {result.course_name}</p>
+              <p><strong>Section:</strong> {result.section}</p>
+              <p><strong>Present Students:</strong> {result.recognized_count}/{result.total_students}</p>
+            </div>
+            <div className="ml-popup-footer">
+              <button 
+                className="ml-button"
+                onClick={() => setShowResultPopup(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="ml-card">
         <div className="ml-card-body">
           <h2 className="ml-title">
@@ -103,24 +142,6 @@ export default function MachineLearning() {
 
           {error && (
             <div className="ml-alert ml-alert-error">{error}</div>
-          )}
-
-          {result && (
-            <div className="ml-alert ml-alert-success">
-              <h5>Attendance Results:</h5>
-              <p><strong>Recognized:</strong> {result.recognized_count}/{result.total_students} students</p>
-              <p><strong>Session ID:</strong> {result.session_id}</p>
-              {result.recognized_students?.length > 0 && (
-                <>
-                  <p><strong>Recognized IDs:</strong></p>
-                  <ul className="ml-student-list">
-                    {result.recognized_students.map((student, index) => (
-                      <li key={index}>{student}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </div>
           )}
 
           <form onSubmit={handleSubmit} className="ml-form">
@@ -165,39 +186,39 @@ export default function MachineLearning() {
             </div>
 
             <div className="ml-form-group">
-  <div className="ml-file-input-container">
-    <label className={`ml-file-input-label ${videoFile ? 'active' : ''}`}>
-      <div className="ml-file-input-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="#604099"/>
-          <path d="M14 2V8H20" fill="#4A5DA9"/>
-          <path d="M10 11V17" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-          <path d="M7 14H13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
-      </div>
-      <div className="ml-file-input-text">
-        {videoFile ? (
-          <>
-            File Uploaded
-            <br />
-            Size: {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
-          </>
-        ) : (
-          <>
-            Drag & drop your video or <span>browse</span>
-          </>
-        )}
-      </div>
-      <input
-        type="file"
-        className="ml-file-input"
-        accept="video/*"
-        onChange={(e) => setVideoFile(e.target.files[0])}
-        required
-      />
-    </label>
-  </div>
-</div>
+              <div className="ml-file-input-container">
+                <label className={`ml-file-input-label ${videoFile ? 'active' : ''}`}>
+                  <div className="ml-file-input-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="#604099"/>
+                      <path d="M14 2V8H20" fill="#4A5DA9"/>
+                      <path d="M10 11V17" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                      <path d="M7 14H13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                  </div>
+                  <div className="ml-file-input-text">
+                    {videoFile ? (
+                      <>
+                        File Uploaded
+                        <br />
+                        Size: {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
+                      </>
+                    ) : (
+                      <>
+                        Drag & drop your video or <span>browse</span>
+                      </>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    className="ml-file-input"
+                    accept="video/*"
+                    onChange={(e) => setVideoFile(e.target.files[0])}
+                    required
+                  />
+                </label>
+              </div>
+            </div>
 
             {isProcessing && (
               <div className="ml-progress-container">
@@ -229,5 +250,4 @@ export default function MachineLearning() {
       </div>
     </div>
   );
-  
 };
