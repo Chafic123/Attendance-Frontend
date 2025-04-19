@@ -142,4 +142,13 @@ font-weight: 600;
     .Instructor-email{
         font-size: 8px;
     }
+    .instr-icon-container{
+        top: 0 !important;
+
+    }
+    .instr-icon-container .iconEdit-btn,
+    .instr-icon-container .iconDelete-btn
+    {
+        padding: 4px !important;
+    }
 }

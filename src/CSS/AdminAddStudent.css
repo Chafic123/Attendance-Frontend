@@ -143,23 +143,19 @@
 
 /* Ipad Pro */
 
-@media (max-width: 1024px) and (height: 1366px) {
-    .form-student-group label {
-        width: 43px !important;
-    }
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     .form-student-group {
         gap: 52px !important;
     }
     .add-student-form {
-        width: 102% !important;
+        width: 106% !important;
     }
     .form-student-group input, .form-student-group select {
         font-size: 13px;
     }
     .form-student-group label {
-
-        font-size: 14px !important;
-
+        font-size: 15px !important;
+        width: 45px !important;
     }
 
     .form-student-group input {
@@ -178,12 +174,16 @@
         width: 100% !important;
         margin-left: 0 !important;
         gap: 19px !important;
+        
     }
 
     .cancel-btn,
     .save-btn {
 
         font-size: 11px !important;
+    }
+    .add-student-form {
+        width: 109%;
     }
 }
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../../CSS/StudentNorificationCenter.css";
 import { getStudentNotifications, markStudentNotificationAsRead } from "../../ApiService/NotificationService";
 import LoadingSpinner from "../Generals/LoadingSpinner";
-export default function StudentNotificationsCenter() {
+export default function StudentNotificationsCenter({isNotificationStatusChanged, setIsNotificationStatusChanged}) {
   const [notifications, setNotifications] = useState([]);
   const [filteredNotifications, setFilteredNotifications] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -42,8 +42,12 @@ export default function StudentNotificationsCenter() {
       const updated = notifications.map((n) =>
         n.id === notificationId ? { ...n, read_status: true } : n
       );
+      setIsNotificationStatusChanged(true);
       setNotifications(updated);
       applyFilter(filter, updated);
+    }
+    if(isNotificationStatusChanged===true){
+      setIsNotificationStatusChanged(false)
     }
   };
   return (

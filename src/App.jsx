@@ -31,7 +31,6 @@ function App() {
   }, []);
 
 
-  /*Profile Click and Go Back Section*/
   const [isIphone14ProMax, setIsIphone14ProMax] = useState(false);
 
   useEffect(() => {
@@ -108,7 +107,7 @@ function App() {
 
               {/* Protected Routes with Role-Based Access */}
               <Route element={<ProtectedRoute requiredRole="admin" />}>
-                <Route path="/admin" element={<Admin />
+                <Route path="/admin" element={<Admin viewPanelIphone={viewPanelIphone} />
               } />
               </Route>
 

@@ -4,8 +4,7 @@ import Logo from "../Components/Generals/Logo";
 import AdminWholeContent from "../Components/Admin/AdminWholeContent";
 import "../CSS/AdminPage.css"
 import { useEffect } from "react";
-import ProfileTop from "../Components/Generals/ProfileTop";
-export default function Admin() {
+export default function Admin(props) {
 
   const [selectedText, setSelectedText] = useState(null);
   const [processText, setProcessText] = useState(null);
@@ -63,7 +62,7 @@ export default function Admin() {
     <div className="AdminPage">
       <Logo />
       <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} isAdmin={"true"} onProcessCLicked={handleProcessClick}/>
-      <AdminWholeContent selectedDashboardITem={selectedText} setSelectedText={setSelectedText} selectedAddItem={selectedText} setProcessText={setProcessText} ProcessAttendance={processText}/>
+      <AdminWholeContent viewPanelIphone={props.viewPanelIphone} selectedDashboardITem={selectedText} setSelectedText={setSelectedText} selectedAddItem={selectedText} setProcessText={setProcessText} ProcessAttendance={processText}/>
     </div>
   );
 }

@@ -15,4 +15,8 @@
         width: 70%;
         
     }
+    .admin-whole-content-container {
+        margin-left: -10px;
+        margin-right: 10px;
+    }
 }

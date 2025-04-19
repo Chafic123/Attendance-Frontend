@@ -165,7 +165,7 @@
 
     .add-course-card {
 
-        margin-top: 15px;
+        margin-top: 44px !important;
     }
     .add-course-form {
         width: 102% !important;
@@ -181,29 +181,22 @@
         width: 39px;
 
     }
-    .courseRoom,.courseCredits{
-        width: 25px !important;
-    }
+
+
     .form-course-group input, .form-course-group select {
         width: 70%;
         font-size: 11px !important;
     }
     
 
-    .form-course-row {
-        width: 100%;
-        justify-content: center;
-        gap: 26px;
-    }
+
 
     .form-course-row .form-course-group {
         width: 50%;
         gap: 14px;
     }
 
-    .form-course-row .form-course-group:last-child {
-        gap: 23px;
-    }
+
 
     .form-course-actions {
         width: 100%;
@@ -217,9 +210,7 @@
     .instructor-info-container {
         margin-left: -6px;
     }
-    #Section{
-        margin-left: -7px;
-    }
+
     .course-time-inputs input {
         width: 30%;
         font-size: 10px !important;
@@ -233,6 +224,13 @@
         -moz-appearance: textfield; /* Firefox */
         appearance: none;
       }
+      .form-course-row {
+        width: 97% !important;
+        flex-wrap: wrap;
+    }
+    .courseRoom,.courseCredits, .courseSection{
+        width: 25px !important;
+    }
 
 }
 @media only screen and (max-width: 431px) and (max-height: 932px) {
@@ -259,9 +257,10 @@
     .course-time-inputs input {
         width: 26% !important;
     }
-    .courseRoom, .courseCredits{
+    .courseRoom, .courseCredits, .courseSection{
         width: 25px !important;
     }
+
     /* .form-course-row {
         width: 74% !important;
     } */
@@ -290,5 +289,9 @@
     }
     .form-course-actions {
         margin-left: 21px !important;
+    }
+    .form-course-row {
+        width: 95% !important;
+        flex-wrap: wrap;
     }
 }

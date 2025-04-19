@@ -267,6 +267,12 @@
     .user-info p {
         font-size: 10px;
     }
+    .instructorImageLabel {
+        margin-left: -20px;
+    }
+    .uploaded-label{
+        margin-left: -10px;
+    }
     .user-profile-form {
         width: 104%;
         gap: 15px;

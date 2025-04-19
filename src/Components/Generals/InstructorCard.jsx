@@ -102,6 +102,8 @@ export default function InstructorCard({ setOnDelete, instructor, setEditedInstr
                 border: "1px solid #ddd",
                 borderRadius: "5px",
               }}
+              className="instr-icon-container"
+
             >
               <button
                 style={{
@@ -114,6 +116,7 @@ export default function InstructorCard({ setOnDelete, instructor, setEditedInstr
                   marginBottom: "5px",
                   fontWeight: "500",
                 }}
+                className="iconEdit-btn"
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);
@@ -148,6 +151,7 @@ export default function InstructorCard({ setOnDelete, instructor, setEditedInstr
                   cursor: "pointer",
                   fontWeight: "500",
                 }}
+                className="iconDelete-btn"
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowMenu(false);

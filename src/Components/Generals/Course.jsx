@@ -339,245 +339,257 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
         position: 'relative',
         minHeight: '400px'
       } : {}} > {/* Added Loading */}
-          {loading ? (
-            <LoadingSpinner />
-          ) : !showStudents ? (
-            <>
-              {filteredCourses.map((course, index) => (
-                <div
-                  className={`course ${activeIndex === index ? "activeCourse" : ""}`}
-                  key={index}
-                  onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
-                >
-                  <div className="courseDetails">
-                    <div className="courseBorder"></div>
-                    <div className="courseText">
-                      <p className="courseCode">{course.course_code || course.Code}</p>
-                      <p className="courseName">{course.course_name || course.name}</p>
-                      <p className="courseInstructor">
-                        <span className="courseInstructor"> {/*It was <p>*/}
-                          {userRole?.toLowerCase() === "instructor"
-                            ? `${course.name}`
-                            : userRole?.toLowerCase() === "admin"
-                              ? `${course.instructors?.[0]?.user?.first_name || ''} ${course.instructors?.[0]?.user?.last_name || ''}`
-                              : typeof course.instructor_name === "object"
-                                ? `${course.instructor_name?.first_name || ''} ${course.instructor_name?.last_name || 'No Instructor Found'}`
-                                : course.instructor_name || "No Instructor Found"}
-                        </span>
-                      </p>
-                    </div>
+        {loading ? (
+          <LoadingSpinner />
+        ) : !showStudents ? (
+          <>
+            {filteredCourses.map((course, index) => (
+              <div
+                className={`course ${activeIndex === index ? "activeCourse" : ""}`}
+                key={index}
+                onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
+              >
+                <div className="courseDetails">
+                  <div className="courseBorder"></div>
+                  <div className="courseText">
+                    <p className="courseCode">{course.course_code || course.Code}</p>
+                    <p className="courseName">{course.course_name || course.name}</p>
+                    <p className="courseInstructor">
+                      <span className="courseInstructor"> {/*It was <p>*/}
+                        {userRole?.toLowerCase() === "instructor"
+                          ? `${course.name}`
+                          : userRole?.toLowerCase() === "admin"
+                            ? `${course.instructors?.[0]?.user?.first_name || ''} ${course.instructors?.[0]?.user?.last_name || ''}`
+                            : typeof course.instructor_name === "object"
+                              ? `${course.instructor_name?.first_name || ''} ${course.instructor_name?.last_name || 'No Instructor Found'}`
+                              : course.instructor_name || "No Instructor Found"}
+                      </span>
+                    </p>
                   </div>
+                </div>
 
-                  {userRole?.toLowerCase() === "student" && course.absence_percentage !== undefined && (
-                    <div className="percentageContainer">
-                      <p className="coursePercentage">{`${course.absence_percentage}`}</p>
-                      <span>Absence</span>
-                      <span>Percentage</span>
-                    </div>
-                  )}
-                  {(userRole?.toLowerCase() === "admin" || userRole?.toLowerCase() === "instructor") && (
-                    <div style={{ position: "relative" }} ref={dropdownRef}>
+                {userRole?.toLowerCase() === "student" && course.absence_percentage !== undefined && (
+                  <div className="percentageContainer">
+                    <p className="coursePercentage">{`${course.absence_percentage}`}</p>
+                    <span>Absence</span>
+                    <span>Percentage</span>
+                  </div>
+                )}
+                {(userRole?.toLowerCase() === "admin" || userRole?.toLowerCase() === "instructor") && (
+                  <div style={{ position: "relative" }} ref={dropdownRef}>
 
-                      {userRole.toLowerCase() === "instructor" && (
-                        <button
-                          className="view-students-btn"
-                          onClick={() => {
-                            handleDoubleClick(
-                              course.course_id,
-                              course.course_name,
-                              course.course_section || course.Section
-                            );
+                    {userRole.toLowerCase() === "instructor" && (
+                      <button
+                        className="view-students-btn"
+                        onClick={() => {
+                          handleDoubleClick(
+                            course.course_id,
+                            course.course_name,
+                            course.course_section || course.Section
+                          );
+                        }}
+                      >
+                        View Students
+                      </button>
+                    )}
+
+                    {/* ADMIN: Icon with dropdown options */}
+                    {userRole.toLowerCase() === "admin" && (
+                      <>
+                        <Icon
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowMenuIndex(showMenuIndex === index ? null : index);
+                            setActiveIndex(index);
                           }}
+                          style={{ cursor: "pointer" }}
                         >
-                          View Students
-                        </button>
-                      )}
+                          more_vert
+                        </Icon>
 
-                      {/* ADMIN: Icon with dropdown options */}
-                      {userRole.toLowerCase() === "admin" && (
-                        <>
-                          <Icon
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setShowMenuIndex(showMenuIndex === index ? null : index);
-                              setActiveIndex(index);
+                        {showMenuIndex === index && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: "-28px",
+                              right: "0px",
+                              background: "#fff",
+                              padding: "5px",
+                              zIndex: 100,
+                              minWidth: "120px",
                             }}
-                            style={{ cursor: "pointer" }}
                           >
-                            more_vert
-                          </Icon>
-
-                          {showMenuIndex === index && (
-                            <div
+                            {/* View Students */}
+                            <button
                               style={{
-                                position: "absolute",
-                                top: "-28px",
-                                right: "0px",
-                                background: "#fff",
-                                padding: "5px",
-                                zIndex: 100,
-                                minWidth: "120px",
+                                width: "100%",
+                                background: "#1496D3",
+                                color: "white",
+                                border: "none",
+                                padding: "3px 8px",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                marginBottom: "5px",
+                                fontWeight: "500",
+                              }}
+                              onClick={() => {
+                                handleDoubleClick(course.id, course.name, course.course_section || course.Section);
                               }}
                             >
-                              {/* View Students */}
-                              <button
-                                style={{
-                                  width: "100%",
-                                  background: "#1496D3",
-                                  color: "white",
-                                  border: "none",
-                                  padding: "3px 8px",
-                                  borderRadius: "5px",
-                                  cursor: "pointer",
-                                  marginBottom: "5px",
-                                  fontWeight: "500",
-                                }}
-                                onClick={() => {
-                                  handleDoubleClick(course.id, course.name, course.course_section || course.Section);
-                                }}
-                              >
-                                View Students
-                              </button>
+                              View Students
+                            </button>
 
-                              {/* Edit */}
-                              <button
-                                style={{
-                                  width: "100%",
-                                  background: "#f0f0f0",
-                                  border: "none",
-                                  padding: "3px 8px",
-                                  borderRadius: "5px",
-                                  cursor: "pointer",
-                                  marginBottom: "5px",
-                                  fontWeight: "500",
-                                }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleEditCourseClick(course);
-                                  setShowMenuIndex(null);
+                            {/* Edit */}
+                            <button
+                              style={{
+                                width: "100%",
+                                background: "#f0f0f0",
+                                border: "none",
+                                padding: "3px 8px",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                marginBottom: "5px",
+                                fontWeight: "500",
+                              }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEditCourseClick(course);
+                                setShowMenuIndex(null);
 
-                                  const isMobile = window.matchMedia(
-                                    '(max-width: 431px) and (max-height: 932px), ' +
-                                    '(max-width: 413px) and (max-height: 916px)'
-                                  ).matches;
+                                const isMobile = window.matchMedia(
+                                  '(max-width: 431px) and (max-height: 932px), ' +
+                                  '(max-width: 413px) and (max-height: 916px)'
+                                ).matches;
 
-                                  if (isMobile) {
-                                    const adminPanel = document.querySelector(".AdminPanelParent");
-                                    if (adminPanel) {
-                                      adminPanel.style.display = "block";
-                                      adminPanel.style.zIndex = "1000";
-                                    }
+                                if (isMobile) {
+                                  const adminPanel = document.querySelector(".AdminPanelParent");
+                                  if (adminPanel) {
+                                    adminPanel.style.display = "block";
+                                    adminPanel.style.zIndex = "1000";
                                   }
-                                }}
-                              >
-                                Edit
-                              </button>
+                                }
+                              }}
+                            >
+                              Edit
+                            </button>
 
-                              {/* Delete */}
-                              <button
-                                style={{
-                                  width: "100%",
-                                  background: "#ffe5e5",
-                                  border: "none",
-                                  padding: "3px 8px",
-                                  borderRadius: "5px",
-                                  color: "#c62828",
-                                  cursor: "pointer",
-                                  fontWeight: "500",
-                                }}
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  )}
-
-
-
-                </div>
-              ))}
-            </>
-          ) : showStudents ? (
-            <div style={{ width: "100%", display: "flex", flexWrap: "wrap", flexDirection: "row" }} className="studentsContainer"
-            >
-
-
-              {filteredCourseStudents.map((student, index) => (
-                <div className="course-student-container">
-
-                  <StudentCard
-                    key={student.student_id}
-                    student={student}
-                    setEditedStudent={setEditedStudent}
-                    setActiveStudent={setActiveStudent}
-                    hideIcon={hideIcon}
-                    activeCardId={activeCardId}
-                    setActiveCardId={setActiveCardId}
-                    setOnDelete={setOnDelete}
-                  />
-                </div>
-              ))}
-              {userRole === "instructor" && (
-                <button
-                  onClick={handleGenerateStudentReport}
-                  className={`generate-studentCourse-report-btn ${!studentId ? 'disabled' : ''}`}
-                  disabled={!studentId || isGenerating}
-                >
-                  {isGenerating ? "Generating..." : "Generate Report"}
-                </button>
-              )}
+                            {/* Delete */}
+                            <button
+                              style={{
+                                width: "100%",
+                                background: "#ffe5e5",
+                                border: "none",
+                                padding: "3px 8px",
+                                borderRadius: "5px",
+                                color: "#c62828",
+                                cursor: "pointer",
+                                fontWeight: "500",
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                )}
 
 
 
-            </div>
-          ):null}
-        </div>
-        {(userRole === "admin" || userRole === "instructor") && !showStudents && (
-          <button
-            className={`generate-report-btn ${!courseId || isGenerating ? "disabled" : ""}`}
-            onClick={handleGenerateCourseStudentReport}
-            disabled={!courseId || isGenerating}
+              </div>
+            ))}
+          </>
+        ) : showStudents ? (
+          <div style={{ width: "100%", display: "flex", flexWrap: "wrap", flexDirection: "row" }} className="studentsContainer"
           >
-            {isGenerating ? "Generating..." : "Generate Report"}
-          </button>
-
-        )}
 
 
-        {showStudents && (
-          <div className="buttonContainer">
-            <button className="back-btn" onClick={handleBackToCourses}>
+            {filteredCourseStudents.map((student, index) => (
+              <div className="course-student-container">
+
+                <StudentCard
+                  key={student.student_id}
+                  student={student}
+                  setEditedStudent={setEditedStudent}
+                  setActiveStudent={setActiveStudent}
+                  hideIcon={hideIcon}
+                  activeCardId={activeCardId}
+                  setActiveCardId={setActiveCardId}
+                  setOnDelete={setOnDelete}
+                />
+              </div>
+            ))}
+            {userRole === "instructor" && (
+              <button
+                onClick={handleGenerateStudentReport}
+                className={`generate-studentCourse-report-btn ${!studentId ? 'disabled' : ''}`}
+                disabled={!studentId || isGenerating}
+              >
+                {isGenerating ? "Generating..." : "Generate Report"}
+              </button>
+            )}
+
+
+
+          </div>
+        ) : null}
+      </div>
+      {(userRole === "admin" || userRole === "instructor") && !showStudents && (
+        <button
+          className={`generate-report-btn ${!courseId || isGenerating ? "disabled" : ""}`}
+          onClick={handleGenerateCourseStudentReport}
+          disabled={!courseId || isGenerating}
+        >
+          {isGenerating ? "Generating..." : "Generate Report"}
+        </button>
+
+      )}
+
+
+      {showStudents && (
+        <div className="enrollContainer">
+          <div className="btn-container">
+            <button
+              className={
+                userRole === "admin"
+                  ? "admin-back-btn"
+                  : userRole === "instructor"
+                    ? "instructor-back-btn"
+                    : "back-btn"
+              }
+              onClick={handleBackToCourses}
+            >
               Back to Courses
             </button>
+
 
             {userRole === "admin" && (
               <button className="enroll-btn" onClick={handleEnrollStudents}>
                 Enroll Students
               </button>
             )}
-            {isPopupVisible && <AdminEnrollStudentsPopup setCourseStudents={setCourseStudents} studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
-
           </div>
+          {isPopupVisible && <AdminEnrollStudentsPopup setCourseStudents={setCourseStudents} studentFilters={studentFilters} onStudentFilterChange={onStudentFilterChange} courseStudentID={courseStudentID} onClose={handleClosePopup} />}
 
-        )}
-        {/* {userRole === "instructor" && (
+        </div>
+
+      )}
+      {/* {userRole === "instructor" && (
         <button className="back-btn" onClick={handleGenerateCourseStudentReport}>
           Generate Report
         </button>
       )} */}
-      </div>
+    </div>
 
-      );
+  );
 
 }
 
-      Course.propTypes = {
-        filters: PropTypes.shape({
-        code: PropTypes.string,
-      sort: PropTypes.string,
-      name: PropTypes.string,
+Course.propTypes = {
+  filters: PropTypes.shape({
+    code: PropTypes.string,
+    sort: PropTypes.string,
+    name: PropTypes.string,
   }),
 };

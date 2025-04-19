@@ -9,23 +9,31 @@ import "../CSS/SI.css"
 export default function Instructor({ refreshProfile, user, viewProfile, viewPanel, viewPanelIphone }) {
 
 
-
+  const [isNotificationStatusChanged, setIsNotificationStatusChanged] = useState(false);
   const [selectedText, setSelectedText] = useState(null);
   const [requestCount, setRequestCount] = useState(0);
 
+
+
+  useEffect(() => {
+    const fetchRequestCount = async () => {
+      try {
+        const requestCount = await getInstructorRequests();
+        const pendingRequests = requestCount.requests.filter(
+          (req) => req.status === "pending"
+        );
+        setRequestCount(pendingRequests.length);
+      } catch (error) {
+        console.error("Error fetching request count:", error);
+      }
+    };
+  
+    fetchRequestCount();
+  }, [isNotificationStatusChanged]);
+  
   useEffect(() => {
     refreshProfile();
-    fetchRequestCount();
   }, []);
-
-  const fetchRequestCount = async () => {
-    try {
-      const requestCount = await getInstructorRequests();
-      setRequestCount(requestCount.requests.length);
-    } catch (error) {
-      console.error("Error fetching request count:", error);
-    }
-  };
 
   const handleAdd = () => {
     console.log("View Profile")
@@ -88,8 +96,10 @@ export default function Instructor({ refreshProfile, user, viewProfile, viewPane
     <div className="whole-container">
       <ProfileTop viewProfile={viewProfile} refreshProfile={refreshProfile} user={user} onAdd={handleAdd} />
       <Logo />
-      <Dashboard DashboardItems={DashboardItems} onItemClick={handleItemClick} />
+      <Dashboard  DashboardItems={DashboardItems} onItemClick={handleItemClick} />
       <InstructorWholeContent
+        isNotificationStatusChanged={isNotificationStatusChanged}
+        setIsNotificationStatusChanged={setIsNotificationStatusChanged}
         viewPanelIphone={viewPanelIphone}
         setSelectedText={setSelectedText}
         viewPanel={viewPanel}

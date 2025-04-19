@@ -209,11 +209,11 @@ export default function AdminEditCourse({ editedCourse, setEditedCourse, setCour
                     <label htmlFor="Section">Section:</label>
                     <input
                         type="number"
-
                         name="Section"
                         value={courseData.Section}
                         onChange={handleChange}
                         required
+                        className="courseSection"
                     />
                 </div>
 

@@ -68,6 +68,7 @@ export default function AdminWholeContent(props) {
                 cursor: 'pointer',
                 color: '#666'
               }}
+              className="ml-x-icon"
               onClick={handleClose}
             >
               ×

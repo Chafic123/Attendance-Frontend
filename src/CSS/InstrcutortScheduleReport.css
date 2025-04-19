@@ -172,11 +172,14 @@ tbody tr:nth-child(even) {
       }
       
     .schedule-top-info span {
-        font-size: 10px;
+        font-size: 9px;
     }
     .schedule-report-container{
         margin-left: -30px;
         
+    }
+    .instructor-schedule-table-container {
+        max-width: 83%;
     }
     .schedule-th {
         padding: 6px;
@@ -217,3 +220,8 @@ tbody tr:nth-child(even) {
  
 }
 
+@media only screen and (max-width: 413px) and (max-height: 916px) {
+    .schedule-top-info label {
+        min-width: 30px;
+    }
+}

@@ -134,6 +134,7 @@
         width: 113%;
     }
 
+
     .student-card {
         min-width: 91%;
         height: 73px;
@@ -172,6 +173,7 @@
         overflow-x: hidden;
         overflow-y: auto;
         padding-top: 2px;
+        padding-bottom: 2px;
     }
     
 

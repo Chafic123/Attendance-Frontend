@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../../CSS/ActionIcons.css";
-
+import { useCourse } from "../../Contexts/CourseContext";
+import { useStudent } from "../../Contexts/getClickedStudentID";
 export default function ActionIcons({ onSearch, user, DashboardSelected, showAdminPanel, onCourseFilterChange }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
@@ -10,7 +11,8 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
   const [filterName, setFilterName] = useState("");
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
   const [isMobileDevice, setIsMobileDevice] = useState(false);
-
+  const {courseId} = useCourse;
+  const {studentId} = useStudent;
   useEffect(() => {
     // Check if the device matches either of the mobile media queries
     const mediaQuery1 = window.matchMedia('(max-width: 431px) and (max-height: 932px)');
@@ -84,7 +86,7 @@ export default function ActionIcons({ onSearch, user, DashboardSelected, showAdm
     <div className="iconsParent">
       {DashboardSelected !== "Notifications" && DashboardSelected !== "Schedule" && (
         <>
-          {userRole === "admin" && isMobileDevice && (
+          {userRole === "admin" && isMobileDevice && (!courseId && !studentId) && (
             <img
               className="search-icon"
               style={{height:"15px"}}

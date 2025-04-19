@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "../../CSS/InstrcutorRequestsCenter.css";
 import { updateRequestStatus } from "../../ApiService/InstructorRequestCorrections";
 import LoadingSpinner from "../Generals/LoadingSpinner";
-export default function InstructorNotificationCenter({ setIsRequestStatusChanged }) {
+export default function InstructorNotificationCenter({ isNotificationStatusChanged,setIsNotificationStatusChanged,setIsRequestStatusChanged }) {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -30,12 +30,15 @@ export default function InstructorNotificationCenter({ setIsRequestStatusChanged
     const handleRequestStatus = async (requestId, status) => {
         try {
             const result = await updateRequestStatus(requestId, status);
-            setIsRequestStatusChanged(true)
+            setIsRequestStatusChanged(true);
+            setIsNotificationStatusChanged(true);
             if (result) {
                 setRequests((prevRequests) =>
                     prevRequests.filter((request) => request.id !== requestId)
                 );
             }
+            if(isNotificationStatusChanged === true)
+                setIsNotificationStatusChanged(false)
         } catch (error) {
             console.error(`Error updating request status to ${status}:`, error);
         }

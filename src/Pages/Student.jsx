@@ -9,21 +9,20 @@ import "../CSS/SI.css";
 export default function Student({ refreshProfile, user, viewProfile, viewPanel, viewPanelIphone }) {
   const [selectedText, setSelectedText] = useState(null);
   const [notificationCount, setNotificationCount] = useState(0);
-
+  const [isNotificationStatusChanged, setIsNotificationStatusChanged] = useState(false);
   useEffect(() => {
     refreshProfile();
-    fetchNotificationCount();
   }, []);
 
 
   useEffect(() => {
     const firstItem = document.querySelectorAll('.dashboard-item')[0];
     if (firstItem) {
-      firstItem.classList.add('active'); 
-      setSelectedText(firstItem.textContent); 
+      firstItem.classList.add('active');
+      setSelectedText(firstItem.textContent);
     }
   }, []);
-  
+
 
   const handleItemClick = (text, event) => {
     document.querySelectorAll('.dashboard-item').forEach((el) => {
@@ -35,33 +34,37 @@ export default function Student({ refreshProfile, user, viewProfile, viewPanel, 
     setSelectedText(text);
   };
 
-  const fetchNotificationCount = async () => {
-    try {
-      const notifications = await getStudentNotifications();
-      const unreadCount = notifications.filter(n => !n.read_status).length;
-      setNotificationCount(unreadCount);
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
-  };
+  useEffect(() => {
+    const fetchNotificationCount = async () => {
+      try {
+        const notifications = await getStudentNotifications();
+        const unreadCount = notifications.filter(n => !n.read_status).length;
+        setNotificationCount(unreadCount);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotificationCount();
+  }, [isNotificationStatusChanged]);
 
   const DashboardItems = [
-    { 
-      imgSrc: "../public/Images/Course-icon.png", 
-      altText: "Course Icon", 
-      text: "View Courses", 
-      id: "course-navigate" 
+    {
+      imgSrc: "../public/Images/Course-icon.png",
+      altText: "Course Icon",
+      text: "View Courses",
+      id: "course-navigate"
     },
-    { 
-      imgSrc: "../public/Images/Schedule-icon.png", 
-      altText: "Schedule Icon", 
-      text: "View Schedule", 
-      id: "Schedule-navigate" 
+    {
+      imgSrc: "../public/Images/Schedule-icon.png",
+      altText: "Schedule Icon",
+      text: "View Schedule",
+      id: "Schedule-navigate"
     },
-    { 
-      imgSrc: "../public/Images/Notification-icon.png", 
-      altText: "Notification Icon", 
-      text: "View Notifications", 
+    {
+      imgSrc: "../public/Images/Notification-icon.png",
+      altText: "Notification Icon",
+      text: "View Notifications",
       id: "Notification-navigate",
       badgeCount: notificationCount
     },
@@ -71,14 +74,16 @@ export default function Student({ refreshProfile, user, viewProfile, viewPanel, 
     <div className="whole-container">
       <ProfileTop selectedAddItem={selectedText} refreshProfile={refreshProfile} user={user} viewProfile={viewProfile} />
       <Logo />
-      <Dashboard 
-        setSelectedText={setSelectedText} 
-        selectedAddItem={selectedText} 
+      <Dashboard
+        setSelectedText={setSelectedText}
+        selectedAddItem={selectedText}
         isStudent={"true"}
-        DashboardItems={DashboardItems} 
-        onItemClick={handleItemClick} 
+        DashboardItems={DashboardItems}
+        onItemClick={handleItemClick}
       />
       <StudentWholeContent
+        isNotificationStatusChanged={isNotificationStatusChanged}
+        setIsNotificationStatusChanged={setIsNotificationStatusChanged}
         refreshProfile={refreshProfile}
         viewPanel={viewPanel}
         viewPanelIphone={viewPanelIphone}

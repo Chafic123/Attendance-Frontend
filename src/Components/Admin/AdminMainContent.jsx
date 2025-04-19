@@ -14,7 +14,7 @@ import { Icon } from "@mui/material";
 import { useStudent } from "../../Contexts/getClickedStudentID";
 import { deleteStudentCourse } from "../../ApiService/AdminStudentService";
 import LoadingSpinner from "../Generals/LoadingSpinner";
-export default function AdminMainContent({ selectedText, setSelectedText, courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
+export default function AdminMainContent({ viewPanelIphone, selectedText, setSelectedText, courses, setCourses, instructors, setInstructors, students, setStudents, selectedDashboardITem, showAdminPanel, setEditedCourse, setEditedStudent, setEditedInstructor, setFilterTop, filterTop }) {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [viewCourseStudents, setViewCourseStudents] = useState(false);
@@ -38,7 +38,7 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
   const [hoveredCourseId, setHoveredCourseId] = useState(null);
 
   const { setCourseId } = useCourse();
-
+  const { courseId } = useCourse();
   const userRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
 
   const [showMenu, setShowMenu] = useState(false);
@@ -49,16 +49,40 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
   const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [studentCourseFilterOptions, setStudentCourseFilterOptions] = useState({ code: "", name: "", sort: "", section: "" });
 
-  useEffect(() => {
-      if(selectedText ==="View Courses"){
-        setCourseTitle("Courses"); 
-        setFilterTop("Courses")
 
-      }
-      if(selectedText !== "View Student Courses"){
-        setStudentTitle("Students");
-        setStudentCourses([]);
-      }
+
+  const handleViewAdminCalendar = () => {
+
+    const adminPanel = document.querySelector(".AdminPanelParent");
+    const addCourseCard = document.querySelector(".AdminPanelParent div");
+    const addStudentCard = document.querySelector(".add-student-card");
+
+    if (addCourseCard) addCourseCard.style.display = "none";
+    if (addStudentCard) addStudentCard.style.display = "none";
+
+    if (adminPanel) {
+      adminPanel.style.display = "block";
+      adminPanel.style.zIndex = "1000";
+    }
+
+    if (addCourseCard) {
+      addCourseCard.style.display = "block";
+    } else if (addStudentCard) {
+      addStudentCard.style.display = "block";
+    }
+  };
+
+
+  useEffect(() => {
+    if (selectedText === "View Courses") {
+      setCourseTitle("Courses");
+      setFilterTop("Courses")
+
+    }
+    if (selectedText !== "View Student Courses") {
+      setStudentTitle("Students");
+      setStudentCourses([]);
+    }
   }, [selectedText]);
 
   const [onDelete, setOnDelete] = useState(false)
@@ -343,10 +367,20 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
             position: "relative",
           }}
         >
+          {studentId &&
+            <img
+            style={{top:"16px", right:"-26px"}}
+
+              onClick={handleViewAdminCalendar}
+              className="notification-schedule-icon"
+              src="../public/Images/Notification-Schedule-icon.png"
+              alt=""
+            />
+          }
           <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={studentTitle} showAdminPanel={showAdminPanel} />
           <AdminFilter selectedText={selectedText} studentCourses={studentCourses} onStudentCoursesFilterChange={setStudentCourseFilterOptions} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="StudentFilter" />
           {loading ? (
-            <LoadingSpinner/>
+            <LoadingSpinner />
           ) : studentCourses.length === 0 ? (
             <div className="StudentContainer" style={{ display: "flex", flexWrap: "wrap" }}>
               {filteredStudents.length > 0 ? (
@@ -488,6 +522,15 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
             gap: "17px",
           }}
         >
+          {courseId &&
+            <img
+              onClick={handleViewAdminCalendar}
+              className="notification-schedule-icon"
+              src="../public/Images/Notification-Schedule-icon.png"
+              alt=""
+            />
+          }
+
           <AdminMainContentTop onCourseFilterChange={setCourseFilterOptions} title={courseTitle} />
           <AdminFilter filterTop={filterTop} onStudentFilterChange={setStudentFilterOptions} onCourseFilterChange={setCourseFilterOptions} title="CourseFilter" />
           <div className="">
@@ -497,21 +540,21 @@ export default function AdminMainContent({ selectedText, setSelectedText, course
         </div>
       ) : selectedDashboardITem === "View Instructors" ? (
         <div
-        style={{
-          width: "48%",
-          padding: "57px",
-          paddingBottom: "0",
-          borderRadius: "66px 0 0 66px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "17px",
-          ...( loading && { position: 'relative', minHeight: '500px' } )
-        }}
+          style={{
+            width: "48%",
+            padding: "57px",
+            paddingBottom: "0",
+            borderRadius: "66px 0 0 66px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "17px",
+            ...(loading && { position: 'relative', minHeight: '500px' })
+          }}
         >
           <AdminMainContentTop title="Instructors" />
           <AdminFilter onInstructorFilterChange={setInstructorFilterOptions} title="InstructorFilter" />
           {loading ? (
-            <LoadingSpinner/>
+            <LoadingSpinner />
           ) : (
             <div className="InstructorContainer" >
 

@@ -270,4 +270,13 @@
     white-space: nowrap;
     margin-bottom: 40px;
 }
+.ml-container{
+  width: 350px;
+  }
+  .ml-mobile-control button:last-child{
+    right: -22px;
+  }
+  .ml-x-icon{
+    right: -20px !important;
+  }
 }

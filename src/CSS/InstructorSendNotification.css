@@ -126,7 +126,8 @@
         font-size: 12px;
         height: 23px;
     }
-    #notification-container span {
+    #notification-container {
+        margin-top: -107px;
         font-size: 13px;
     }
 }
