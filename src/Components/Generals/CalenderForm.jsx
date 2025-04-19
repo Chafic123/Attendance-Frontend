@@ -12,7 +12,7 @@ import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarServic
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
 import { getAdminStudentCourseCalendar, getAdminCourseCalendar } from "../../ApiService/AdminCalendarService";
 
-export default function Calendar({ setCalendarTitle,selectedDashboardItem, setRequestCorrectionState, setSelectedAttendance }) {
+export default function Calendar({ notificationDate, setCalendarTitle, selectedDashboardItem, setRequestCorrectionState, setSelectedAttendance }) {
 
 
     const [calendarData, setCalendarData] = useState([]);
@@ -27,7 +27,7 @@ export default function Calendar({ setCalendarTitle,selectedDashboardItem, setRe
     const { studentId } = useStudent();
 
 
-    
+
     useEffect(() => {
         if (userRole?.toLowerCase() === "instructor" && selectedDashboardItem !== undefined) {
             setCalendarData([]);
@@ -48,24 +48,26 @@ export default function Calendar({ setCalendarTitle,selectedDashboardItem, setRe
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
-                if (userRole === "student" && selectedDashboardItem!=="View Notifications") {
+                if (userRole === "student" && selectedDashboardItem !== "View Notifications" && !notificationDate) {
                     const userID = localStorage.getItem("userID") || sessionStorage.getItem("userID");
                     if (userID && courseId) {
                         const data = await getStudentCourseCalendar(courseId, userID);
                         setCalendarData(Array.isArray(data) ? data : []);
-                    } else{
+                    } else {
                         setCalendarData([]);
                     }
+                } else if (userRole === "student" && notificationDate) {
+                    //s
                 } else if (userRole === "instructor") {
-                    if (!studentId && courseId) { 
+                    if (!studentId && courseId) {
                         const data = await courseCalendar(courseId);
                         setInstructorCalendarData(data?.sessions || []);
                         setCalendarData([]);
-                    } else if(courseId) {
+                    } else if (courseId) {
                         const studentData = await getInstructorStudentCourseCalendar(courseId, studentId);
                         setCalendarData(Array.isArray(studentData) ? studentData : []);
                         setInstructorCalendarData([]);
-                    } else{
+                    } else {
                         setInstructorCalendarData([]);
                         setCalendarData([]);
 
@@ -95,7 +97,7 @@ export default function Calendar({ setCalendarTitle,selectedDashboardItem, setRe
         };
 
         fetchCalendarData();
-    }, [courseId, userRole, studentId]);
+    }, [courseId, userRole, studentId, notificationDate]);
 
     const { dayStatusMap, instructorDayMap, adminDayMap } = useMemo(() => {
         // Student calendar data (has status)

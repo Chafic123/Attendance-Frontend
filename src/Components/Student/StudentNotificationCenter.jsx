@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../../CSS/StudentNorificationCenter.css";
 import { getStudentNotifications, markStudentNotificationAsRead } from "../../ApiService/NotificationService";
 import LoadingSpinner from "../Generals/LoadingSpinner";
-export default function StudentNotificationsCenter({isNotificationStatusChanged, setIsNotificationStatusChanged}) {
+export default function StudentNotificationsCenter({setNotificationDate, isNotificationStatusChanged, setIsNotificationStatusChanged}) {
   const [notifications, setNotifications] = useState([]);
   const [filteredNotifications, setFilteredNotifications] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -50,6 +50,13 @@ export default function StudentNotificationsCenter({isNotificationStatusChanged,
       setIsNotificationStatusChanged(false)
     }
   };
+  // const [notificationDate, setNotificationDate] = useState();
+
+  const handleNotificationClick = (notification) => {
+    const date = new Date(notification.created_at);
+    setNotificationDate(date); 
+    console.log(date)
+  };
   return (
     <div className="notifications-container">
       <div className="notifications-wrapper">
@@ -86,6 +93,7 @@ export default function StudentNotificationsCenter({isNotificationStatusChanged,
               <div
                 key={index}
                 className={`notification-card ${notification.read_status ? "read" : ""}`}
+                onClick={()=>handleNotificationClick(notification)}
               >
                 {!notification.read_status && (
                   <div className={`notification-unread-indicator ${notification.type === "Warning" ? "warning" : "regular"

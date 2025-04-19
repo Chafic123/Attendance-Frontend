@@ -13,16 +13,10 @@ const AdminAddStudent = ({ setStudents }) => {
         "Civil Engineering": "2",
         "Mechanical Engineering": "2",
         "Electrical Engineering": "2",
-        "Business Administration": "3",
+        "Human Resources": "3",
         "Marketing": "3",
         "Accounting and Finance": "3",
-        "Architecture": "2",
-        "Graphic Design": "2",
-        "Interior Design": "2",
-        "Nursing": "1",
-        "Medical Laboratory Sciences": "1",
-        "Law": "1",
-        "Education": "1",
+        "Graphic Design": "1",
     };
 
     const [studentData, setStudentData] = useState({
@@ -154,16 +148,10 @@ const AdminAddStudent = ({ setStudents }) => {
                         <option value="Civil Engineering">Civil Engineering</option>
                         <option value="Mechanical Engineering">Mechanical Engineering</option>
                         <option value="Electrical Engineering">Electrical Engineering</option>
-                        <option value="Business Administration">Business Administration</option>
+                        <option value="Human Resources">Human Resources</option>
                         <option value="Marketing">Marketing</option>
                         <option value="Accounting and Finance">Accounting and Finance</option>
-                        <option value="Architecture">Architecture</option>
                         <option value="Graphic Design">Graphic Design</option>
-                        <option value="Interior Design">Interior Design</option>
-                        <option value="Nursing">Nursing</option>
-                        <option value="Medical Laboratory Sciences">Medical Laboratory Sciences</option>
-                        <option value="Law">Law</option>
-                        <option value="Education">Education</option>
                     </select>
                 </div>
 

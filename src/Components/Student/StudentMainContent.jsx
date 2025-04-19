@@ -8,7 +8,7 @@ import StudentNotificationCenter from "./StudentNotificationCenter";
 import "../../CSS/StudentMainContent.css";
 import StudentScheduleReport from "./StudentScheduleReport";
 
-export default function StudentMainContent({ isNotificationStatusChanged,setIsNotificationStatusChanged,selectedDashboardITem, viewPanelIphone }) {
+export default function StudentMainContent({ setNotificationDate,isNotificationStatusChanged,setIsNotificationStatusChanged,selectedDashboardITem, viewPanelIphone }) {
   const [studentCourseFilters, setFilterOptions] = useState({ code: "", sort: "", name: "" });
   const [courses, setCourses] = useState([]);
 
@@ -90,7 +90,7 @@ export default function StudentMainContent({ isNotificationStatusChanged,setIsNo
             alt=""
           /> */}
           <MainContentTopSI title="Notifications" />
-          <StudentNotificationCenter isNotificationStatusChanged={isNotificationStatusChanged} setIsNotificationStatusChanged={setIsNotificationStatusChanged} />
+          <StudentNotificationCenter setNotificationDate={setNotificationDate} isNotificationStatusChanged={isNotificationStatusChanged} setIsNotificationStatusChanged={setIsNotificationStatusChanged} />
         </div>
       ) : (
         <div

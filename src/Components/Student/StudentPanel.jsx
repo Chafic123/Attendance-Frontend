@@ -9,7 +9,7 @@ import "../../CSS/Profile.css";
 import { useState } from "react";
 import StudentRequestCorrection from "./StudentRequestCorrection";
 
-export default function StudentPanel({ title, viewPanel,refreshProfile }) {
+export default function StudentPanel({ notificationDate,title, viewPanel,refreshProfile }) {
 
   const [requestCorrectionState,setRequestCorrectionState] = useState(false);
   const [selectedAttendance, setSelectedAttendance] = useState(null);
@@ -54,6 +54,7 @@ export default function StudentPanel({ title, viewPanel,refreshProfile }) {
     <div className="panel-container">
       <div className="panel-content">
         <Calender
+          notificationDate={notificationDate}
           selectedDashboardItem={title}
           setSelectedAttendance={setSelectedAttendance}
           setRequestCorrectionState={setRequestCorrectionState}
