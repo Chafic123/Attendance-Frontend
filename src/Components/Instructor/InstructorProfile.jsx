@@ -142,17 +142,6 @@ export default function InstructorProfile({ viewPanel, refreshProfile }) {
                         </div>
 
                         <div className="form-user-group">
-                            <label htmlFor="idNumber">ID Number:</label>
-                            <input
-                                type="text"
-                                id="idNumber"
-                                name="idNumber"
-                                value={instructor.Instructor.user_id}
-                                disabled
-                            />
-                        </div>
-
-                        <div className="form-user-group">
                             <label htmlFor="Email">Email:</label>
                             <input
                                 type="text"

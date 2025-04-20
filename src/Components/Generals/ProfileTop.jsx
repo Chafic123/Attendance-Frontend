@@ -9,6 +9,9 @@ export default function ProfileTop({ selectedAddItem, viewProfile, user }) {
 
     return (
         <div
+        style={{
+            cursor: "pointer"
+        }}
             className={`profileTop-container ${(selectedAddItem === "View Schedule" || selectedAddItem === "View Notifications") ? "profileTop-Schedule" : ""}`}
             onClick={viewProfile}>
             <div className="user-info">

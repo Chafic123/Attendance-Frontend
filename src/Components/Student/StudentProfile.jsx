@@ -81,20 +81,18 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Validate first name and last name
         if (!firstName.trim() || !lastName.trim()) {
             console.error("First name and last name are required.");
             return;
         }
 
-        // Check if anything was changed
         const isChanged = firstName !== student.user.first_name || lastName !== student.user.last_name || imageFilename || videoFilename;
 
         if (!isChanged) {
             setNoChangesMessage("Nothing has been changed.");
-            return; // Prevent submission if nothing has changed
+            return; 
         } else {
-            setNoChangesMessage(""); // Clear the "nothing changed" message if there are changes
+            setNoChangesMessage(""); 
         }
 
         try {
@@ -160,12 +158,6 @@ export default function StudentProfile({ viewPanel, refreshProfile }) {
             ) : (
                 <>
             <h2 className="profile-title">My Profile</h2>
-            <div className="user-info">
-                <p className="user-name" id="user-name">
-                    {student.user.first_name} {student.user.last_name}
-                </p>
-                <p className="user-id" id="user-id">{student.student.student_id}</p>
-            </div>
 
             {successMessage && (
                 <div className="popup-container">

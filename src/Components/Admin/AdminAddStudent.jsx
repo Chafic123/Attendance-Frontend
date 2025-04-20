@@ -8,7 +8,7 @@ const AdminAddStudent = ({ setStudents }) => {
 
     const majorToDepartmentMap = {
         "Computer Science": "1",
-        "Computer and Communication Engineering": "2",
+        "CCE": "2",
         "Biomedical Engineering": "2",
         "Civil Engineering": "2",
         "Mechanical Engineering": "2",

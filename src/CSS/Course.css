@@ -49,6 +49,10 @@
     gap: 10px;
 }
 
+.studentsContainer {
+    max-height: 384px;
+}
+
 .courseBorder {
     height: 91px;
     width: 24px;

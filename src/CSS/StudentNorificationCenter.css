@@ -93,6 +93,10 @@
     color: #543381;
   }
   
+  .notification-title.system {
+    color: #543381;
+  }
+
   .notification-message {
     font-size: 14px;
     color: #374151;
@@ -169,13 +173,20 @@
     background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
     color: white;
   }
+
+  .mark-as-read-btn.system {
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color: white;
+  }
   
   .mark-as-read-btn:hover {
-    background-color: #fde68a;
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color: white;
   }
   
   .mark-as-read-btn.regular:hover {
-    background-color: #bfdbfe;
+    background: linear-gradient(180deg, #604099 0%, #4A5DA9 100%);
+    color: white;
   }
   
   .btn-icon {

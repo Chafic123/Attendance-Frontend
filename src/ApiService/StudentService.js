@@ -23,6 +23,7 @@ export const getStudents = async () => {
       },
       withCredentials: true,
     });
+    console.log(data)
 
 
     return Array.isArray(data?.data) ? data.data : [];
