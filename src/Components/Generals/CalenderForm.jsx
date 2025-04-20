@@ -119,8 +119,13 @@ export default function Calendar({ requestDate, notificationDate, setCalendarTit
 
         // Instructor calendar data (past/future)
         const instructorMap = instructorCalendarData.reduce((map, session) => {
-            map[dayjs(session.date).format("YYYY-MM-DD")] =
-                dayjs(session.date).isBefore(dayjs(), 'day') ? "past" : "future";
+            const dateStr = dayjs(session.date).format("YYYY-MM-DD");
+            {console.log(session)}
+            if (session.instructorStatus === "request") {
+                map[dateStr] = "request";
+            } else {
+                map[dateStr] = dayjs(session.date).isBefore(dayjs(), 'day') ? "past" : "future";
+            }
             return map;
         }, {});
 
@@ -189,7 +194,7 @@ export default function Calendar({ requestDate, notificationDate, setCalendarTit
             borderRadius: "50%",
             color: "white"
         };
-        if (status === "notification" || status === "request") return {
+        if (status === "notification" || instructorStatus === "request") return {
             background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
             borderRadius: "50%",
             color: "white"
@@ -239,20 +244,16 @@ export default function Calendar({ requestDate, notificationDate, setCalendarTit
             else if (status === "notification") message = "Sent On";
 
         } else if (userRole === "instructor") {
-            {console.log(instructorStatus)}
-
-            if (instructorStatus === "request")
-                 message = "Sent On";
-
-            if (!studentId) {
+            if (instructorStatus === "request") {
+                message = "Sent On";
+            }
+            else if (!studentId) {
                 if (instructorStatus === "past") message = "Already Passed";
                 else if (instructorStatus === "future") message = "Upcoming";
-
             } else {
                 if (status === "present") message = "Present";
                 else if (status === "absent") message = "Absent";
                 else if (status === "upcoming") message = "Upcoming";
-
             }
 
         }
