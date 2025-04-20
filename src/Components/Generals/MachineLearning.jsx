@@ -177,9 +177,9 @@ export default function MachineLearning() {
                 <option value="">
                   {selectedCourse ? "Select a Section" : "Select a Course first"}
                 </option>
-                {selectedCourse && getSectionsForCourse().map(({ section, date }, index) => (
+                {selectedCourse && getSectionsForCourse().map(({ section }, index) => (
                   <option key={index} value={section}>
-                    {section} ({date})
+                    {section}
                   </option>
                 ))}
               </select>

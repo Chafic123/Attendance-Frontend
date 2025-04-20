@@ -18,8 +18,13 @@ export default function Login() {
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotError, setForgotError] = useState("");
 
+  
+  const [successMessage, setSuccessMessage] = useState("");
+  const [noSuccessMessage, setNoSuccessMessage] = useState("");
+
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
 
 
 
@@ -61,6 +66,23 @@ export default function Login() {
     <div className="login-container">
       <Logo />
 
+      {successMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: "#543381" }}>
+                        <p>{successMessage}</p>
+                        <button onClick={() => setSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
+
+            {noSuccessMessage && (
+                <div className="popup-container">
+                    <div className="popup-message" style={{ backgroundColor: 'white', color: 'red' }}>
+                        <p>{noSuccessMessage}</p>
+                        <button onClick={() => setNoSuccessMessage("")} className="popup-close-btn">Close</button>
+                    </div>
+                </div>
+            )}
       {showForgotPassword && (
         <div className="forgot-password-overlay">
           <div className="forgot-password-modal">
@@ -83,7 +105,7 @@ export default function Login() {
 
                   try {
                     await resetPassword(forgotEmail);
-                    alert("Password reset instructions sent to your email.");
+                    setSuccessMessage("Password reset instructions sent to your email");
                     setShowForgotPassword(false);
                     setForgotEmail("");
                     setForgotError("");

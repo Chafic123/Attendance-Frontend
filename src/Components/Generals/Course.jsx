@@ -349,11 +349,17 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
                 key={index}
                 onClick={() => handleCourseClick(index, userRole === "admin" ? course.id : course.course_id)}
               >
+              {console.log(course)}
+
                 <div className="courseDetails">
                   <div className="courseBorder"></div>
                   <div className="courseText">
                     <p className="courseCode">{course.course_code || course.Code}</p>
-                    <p className="courseName">{course.course_name || course.name}</p>
+                    {userRole?.toLowerCase() === "student"
+                          ? <p className="courseName">{course.course_name || course.name}</p>
+                          : 
+                          <p className="courseName">{course.course_name || course.name} - S{course.course_section || course.Section}</p>}
+                    
                     <p className="courseInstructor">
                       <span className="courseInstructor"> {/*It was <p>*/}
                         {userRole?.toLowerCase() === "instructor"
@@ -505,21 +511,35 @@ export default function Course({ setSelectedText, studentCourseFilters, setCours
           >
 
 
-            {filteredCourseStudents.map((student, index) => (
-              <div className="course-student-container">
-
-                <StudentCard
-                  key={student.student_id}
-                  student={student}
-                  setEditedStudent={setEditedStudent}
-                  setActiveStudent={setActiveStudent}
-                  hideIcon={hideIcon}
-                  activeCardId={activeCardId}
-                  setActiveCardId={setActiveCardId}
-                  setOnDelete={setOnDelete}
-                />
-              </div>
-            ))}
+{filteredCourseStudents.length > 0 ? (
+  filteredCourseStudents.map((student, index) => (
+    <div className="course-student-container" key={student.student_id}>
+      <StudentCard
+        student={student}
+        setEditedStudent={setEditedStudent}
+        setActiveStudent={setActiveStudent}
+        hideIcon={hideIcon}
+        activeCardId={activeCardId}
+        setActiveCardId={setActiveCardId}
+        setOnDelete={setOnDelete}
+      />
+    </div>
+  ))
+) : (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '16px',
+    padding: '32px',
+    color: '#666',
+    width: '100%',
+    textAlign: 'center'
+  }}>
+    <p style={{ marginTop: "170px" }}>No students found</p>
+  </div>
+)}
             {userRole === "instructor" && (
               <button
                 onClick={handleGenerateStudentReport}
