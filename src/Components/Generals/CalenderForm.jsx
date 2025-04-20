@@ -245,7 +245,7 @@ export default function Calendar({ requestDate, notificationDate, setCalendarTit
 
         } else if (userRole === "instructor") {
             if (instructorStatus === "request") {
-                message = "Sent On";
+                message = "Session Date";
             }
             else if (!studentId) {
                 if (instructorStatus === "past") message = "Already Passed";
