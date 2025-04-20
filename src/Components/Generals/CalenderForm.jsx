@@ -12,7 +12,7 @@ import { getStudentCourseCalendar } from "../../ApiService/StudentCalendarServic
 import { getInstructorStudentCourseCalendar } from "../../ApiService/InstructorCalendarService";
 import { getAdminStudentCourseCalendar, getAdminCourseCalendar } from "../../ApiService/AdminCalendarService";
 
-export default function Calendar({ notificationDate, setCalendarTitle, selectedDashboardItem, setRequestCorrectionState, setSelectedAttendance }) {
+export default function Calendar({ requestDate, notificationDate, setCalendarTitle, selectedDashboardItem, setRequestCorrectionState, setSelectedAttendance }) {
 
 
     const [calendarData, setCalendarData] = useState([]);
@@ -29,10 +29,9 @@ export default function Calendar({ notificationDate, setCalendarTitle, selectedD
 
 
     useEffect(() => {
-        if (userRole?.toLowerCase() === "instructor" && selectedDashboardItem !== undefined) {
             setCalendarData([]);
             setInstructorCalendarData([]);
-        }
+        
 
     }, [selectedDashboardItem]);
 
@@ -57,17 +56,29 @@ export default function Calendar({ notificationDate, setCalendarTitle, selectedD
                         setCalendarData([]);
                     }
                 } else if (userRole === "student" && notificationDate) {
-                    //s
+                    const notificationDateObj = {
+                        date: dayjs(notificationDate).format("YYYY-MM-DD"),
+                        status: "notification"
+                    };
+                    setCalendarData([notificationDateObj]);
                 } else if (userRole === "instructor") {
-                    if (!studentId && courseId) {
+                    if (!studentId && courseId && !requestDate) {
                         const data = await courseCalendar(courseId);
                         setInstructorCalendarData(data?.sessions || []);
                         setCalendarData([]);
-                    } else if (courseId) {
+                    } else if (courseId && !requestDate) {
                         const studentData = await getInstructorStudentCourseCalendar(courseId, studentId);
                         setCalendarData(Array.isArray(studentData) ? studentData : []);
                         setInstructorCalendarData([]);
-                    } else {
+                    } else if (requestDate) {
+                        const RequestDateObj = {
+                            date: dayjs(requestDate).format("YYYY-MM-DD"),
+                            instructorStatus: "request"
+                        };
+                        setInstructorCalendarData([RequestDateObj]);
+                        console.log()
+                    }
+                    else {
                         setInstructorCalendarData([]);
                         setCalendarData([]);
 
@@ -97,7 +108,7 @@ export default function Calendar({ notificationDate, setCalendarTitle, selectedD
         };
 
         fetchCalendarData();
-    }, [courseId, userRole, studentId, notificationDate]);
+    }, [courseId, userRole, studentId, notificationDate, requestDate]);
 
     const { dayStatusMap, instructorDayMap, adminDayMap } = useMemo(() => {
         // Student calendar data (has status)
@@ -178,6 +189,11 @@ export default function Calendar({ notificationDate, setCalendarTitle, selectedD
             borderRadius: "50%",
             color: "white"
         };
+        if (status === "notification" || status === "request") return {
+            background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
+            borderRadius: "50%",
+            color: "white"
+        };
         if (instructorStatus === "past") return {
             background: "linear-gradient(180deg, #604099 0%, #4A5DA9 100%)",
             borderRadius: "50%",
@@ -220,15 +236,25 @@ export default function Calendar({ notificationDate, setCalendarTitle, selectedD
             if (status === "present") message = "Present";
             else if (status === "absent") message = "Absent";
             else if (status === "upcoming") message = "Upcoming";
+            else if (status === "notification") message = "Sent On";
+
         } else if (userRole === "instructor") {
+            {console.log(instructorStatus)}
+
+            if (instructorStatus === "request")
+                 message = "Sent On";
+
             if (!studentId) {
                 if (instructorStatus === "past") message = "Already Passed";
                 else if (instructorStatus === "future") message = "Upcoming";
+
             } else {
                 if (status === "present") message = "Present";
                 else if (status === "absent") message = "Absent";
                 else if (status === "upcoming") message = "Upcoming";
+
             }
+
         }
 
         setTooltip({

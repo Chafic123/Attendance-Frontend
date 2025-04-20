@@ -79,6 +79,16 @@
     opacity: 0.5;
     font-size: 12px;
 }
+.request-card{
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding-left: 5px;
+}
+.request-card.active {
+    border-left: 4px solid #604099;
+
+  }
+  
 
 @media only screen and (max-width: 431px) and (max-height: 932px) {
     #request-container {

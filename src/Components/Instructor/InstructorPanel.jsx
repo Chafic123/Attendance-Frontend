@@ -47,7 +47,7 @@ export default function InstructorPanel(prop) {
           <div>
             <div className="panel-content">
               <div className="custom-calendar-wrapper">
-                <Calender selectedDashboardItem={prop.selectedDashboardItem} />
+                <Calender requestDate={prop.requestDate} selectedDashboardItem={prop.selectedDashboardItem} />
               </div>
               <InstructorRequests setIsRequestStatusChanged={prop.setIsRequestStatusChanged} isRequestStatusChanged={prop.isRequestStatusChanged} />
             </div>

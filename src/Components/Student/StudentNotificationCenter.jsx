@@ -3,11 +3,12 @@ import "../../CSS/StudentNorificationCenter.css";
 import { getStudentNotifications, markStudentNotificationAsRead } from "../../ApiService/NotificationService";
 import LoadingSpinner from "../Generals/LoadingSpinner";
 
-export default function StudentNotificationsCenter({setNotificationDate, isNotificationStatusChanged, setIsNotificationStatusChanged}) {
+export default function StudentNotificationsCenter({ setNotificationDate, isNotificationStatusChanged, setIsNotificationStatusChanged }) {
   const [notifications, setNotifications] = useState([]);
   const [filteredNotifications, setFilteredNotifications] = useState([]);
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
+  const [activeNotificationId, setActiveNotificationId] = useState(null);
 
   const applyFilter = (type, data = notifications) => {
     if (type === "read") {
@@ -15,7 +16,7 @@ export default function StudentNotificationsCenter({setNotificationDate, isNotif
     } else if (type === "unread") {
       setFilteredNotifications(data.filter((n) => !n.read_status));
     } else if (type === "system") {
-      setFilteredNotifications(data.filter((n) => 
+      setFilteredNotifications(data.filter((n) =>
         !n.instructor_name || n.instructor_name === 'System Notification'
       ));
     } else {
@@ -50,36 +51,36 @@ export default function StudentNotificationsCenter({setNotificationDate, isNotif
       setNotifications(updated);
       applyFilter(filter, updated);
     }
-    if(isNotificationStatusChanged===true){
+    if (isNotificationStatusChanged === true) {
       setIsNotificationStatusChanged(false)
     }
   };
 
   const handleNotificationClick = (notification) => {
     const date = new Date(notification.created_at);
-    setNotificationDate(date); 
-    console.log(date)
+    setNotificationDate(date);
+    setActiveNotificationId(notification.id);
   };
 
   const WarningIcon = () => (
     <svg className="notification-icon warning" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 9V11M12 15H12.01M5.07183 19H18.9282C20.4678 19 21.4301 17.3333 20.6603 16L13.7321 4C12.9623 2.66667 11.0378 2.66667 10.268 4L3.33978 16C2.56998 17.3333 3.53223 19 5.07183 19Z" stroke="#F22327" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 9V11M12 15H12.01M5.07183 19H18.9282C20.4678 19 21.4301 17.3333 20.6603 16L13.7321 4C12.9623 2.66667 11.0378 2.66667 10.268 4L3.33978 16C2.56998 17.3333 3.53223 19 5.07183 19Z" stroke="#F22327" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   );
 
   const RegularNotificationIcon = () => (
     <svg className="notification-icon regular" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 8V12" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 16H12.01" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M12 8V12" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M12 16H12.01" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   );
 
   const SystemNotificationIcon = () => (
     <svg className="notification-icon regular" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 8V12" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 16H12.01" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M12 8V12" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M12 16H12.01" stroke="#543381" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   );
 
@@ -109,7 +110,7 @@ export default function StudentNotificationsCenter({setNotificationDate, isNotif
               <img
                 src="../public/Images/NoNotification-icon.png"
                 alt="No Requests"
-                style={{ width: "100px", height: "100px", opacity: 0.6, marginTop:"70px" }}
+                style={{ width: "100px", height: "100px", opacity: 0.6, marginTop: "70px" }}
               />
               <p style={{ marginTop: "0px", fontSize: "24px", color: "#777" }}>
                 No Notifications Available
@@ -119,14 +120,15 @@ export default function StudentNotificationsCenter({setNotificationDate, isNotif
             filteredNotifications.map((notification, index) => (
               <div
                 key={index}
-                className={`notification-card ${notification.read_status ? "read" : ""}`}
+                className={`notification-card ${notification.read_status ? "read" : ""} ${activeNotificationId === notification.id ? "active" : ""
+                  }`}
                 onClick={() => handleNotificationClick(notification)}
               >
+                {console.log(notification)}
                 {!notification.read_status && (
-                  <div className={`notification-unread-indicator ${
-                    notification.type === "Warning" ? "warning" : 
-                    notification.instructor_name === 'System Notification' ? "system" : "regular"
-                  }`}></div>
+                  <div className={`notification-unread-indicator ${notification.type === "Warning" ? "warning" :
+                      notification.instructor_name === 'System Notification' ? "system" : "regular"
+                    }`}></div>
                 )}
 
                 <div className="notification-content-wrapper">
@@ -139,11 +141,10 @@ export default function StudentNotificationsCenter({setNotificationDate, isNotif
                       ) : (
                         <RegularNotificationIcon />
                       )}
-                      
-                      <span className={`notification-title ${
-                        notification.type === "Warning" ? "warning" : 
-                        notification.instructor_name === 'System Notification' ? "system" : "regular"
-                      }`}>
+
+                      <span className={`notification-title ${notification.type === "Warning" ? "warning" :
+                          notification.instructor_name === 'System Notification' ? "system" : "regular"
+                        }`}>
                         {notification.type
                           ? notification.type.charAt(0).toUpperCase() + notification.type.slice(1)
                           : "Notification"}
@@ -183,10 +184,9 @@ export default function StudentNotificationsCenter({setNotificationDate, isNotif
                           e.stopPropagation();
                           handleMarkAsRead(notification.id);
                         }}
-                        className={`mark-as-read-btn ${
-                          notification.type === "Warning" ? "warning" : 
-                          notification.instructor_name === 'System Notification' ? "system" : "regular"
-                        }`}
+                        className={`mark-as-read-btn ${notification.type === "Warning" ? "warning" :
+                            notification.instructor_name === 'System Notification' ? "system" : "regular"
+                          }`}
                       >
                         Mark as Read
                       </button>

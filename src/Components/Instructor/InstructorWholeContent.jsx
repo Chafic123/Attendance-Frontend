@@ -9,6 +9,8 @@ export default function InstructorWholeContent({ isNotificationStatusChanged,set
   const [filterTop, setFilterTop] = useState("Courses");
   const [editedStudent, setEditedStudent] = useState(null);
   const [isRequestStatusChanged, setIsRequestStatusChanged] = useState(false);
+  const [requestDate, setRequestDate] = useState();
+
   const handleStudentSelect = (student, index) => {
     setActiveStudent(student);
 
@@ -16,8 +18,8 @@ export default function InstructorWholeContent({ isNotificationStatusChanged,set
 
   return (
     <div className="whole-content-container">
-      <InstructorMainContent isNotificationStatusChanged={isNotificationStatusChanged} setIsNotificationStatusChanged={setIsNotificationStatusChanged} setIsRequestStatusChanged={setIsRequestStatusChanged} selectedText = {selectedAddItem} viewPanelIphone={viewPanelIphone} setSelectedText={setSelectedText} setEditedStudent={setEditedStudent} setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardItem={selectedDashboardItem} viewPanel={viewPanel} />
-      {selectedDashboardItem === "View Schedule" ? null : <InstructorPanel setIsRequestStatusChanged={setIsRequestStatusChanged} isRequestStatusChanged={isRequestStatusChanged}  selectedDashboardItem={selectedDashboardItem} setActiveStudent={setActiveStudent} selectedCourseID={selectedCourseID} selectedStudent={student} viewPanel={viewPanel} refreshProfile={refreshProfile} title={selectedAddItem} />}
+      <InstructorMainContent setRequestDate={setRequestDate} isNotificationStatusChanged={isNotificationStatusChanged} setIsNotificationStatusChanged={setIsNotificationStatusChanged} setIsRequestStatusChanged={setIsRequestStatusChanged} selectedText = {selectedAddItem} viewPanelIphone={viewPanelIphone} setSelectedText={setSelectedText} setEditedStudent={setEditedStudent} setFilterTop={setFilterTop} filterTop={filterTop} setActiveStudent={setActiveStudent} setSelectedCourseID={setSelectedCourseID} handleStudentSelect={handleStudentSelect} onAdd={onAdd} selectedDashboardItem={selectedDashboardItem} viewPanel={viewPanel} />
+      {selectedDashboardItem === "View Schedule" ? null : <InstructorPanel requestDate={requestDate} setIsRequestStatusChanged={setIsRequestStatusChanged} isRequestStatusChanged={isRequestStatusChanged}  selectedDashboardItem={selectedDashboardItem} setActiveStudent={setActiveStudent} selectedCourseID={selectedCourseID} selectedStudent={student} viewPanel={viewPanel} refreshProfile={refreshProfile} title={selectedAddItem} />}
     </div>
   );
 }

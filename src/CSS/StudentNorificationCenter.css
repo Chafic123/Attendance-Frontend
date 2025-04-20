@@ -31,15 +31,20 @@
     font-size: 14px;
   }
   
-  /* Notification Cards */
   .notification-card {
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 1px 5px rgba(0,0,0,0.1);
     padding: 16px;
     position: relative;
+    cursor: pointer;
     transition: all 0.3s ease;
   }
+  .notification-card.active {
+    background-color: #eef6ff;
+    border-left: 4px solid #604099;
+  }
+  
   
   .notification-unread-indicator {
     position: absolute;

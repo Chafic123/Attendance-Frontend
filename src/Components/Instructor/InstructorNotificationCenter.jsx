@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import "../../CSS/InstrcutorRequestsCenter.css";
 import { updateRequestStatus } from "../../ApiService/InstructorRequestCorrections";
 import LoadingSpinner from "../Generals/LoadingSpinner";
-export default function InstructorNotificationCenter({ isNotificationStatusChanged,setIsNotificationStatusChanged,setIsRequestStatusChanged }) {
+export default function InstructorNotificationCenter({ setRequestDate, isNotificationStatusChanged, setIsNotificationStatusChanged, setIsRequestStatusChanged }) {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activeRequestId, setActiveRequestId] = useState(null);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -37,50 +38,63 @@ export default function InstructorNotificationCenter({ isNotificationStatusChang
                     prevRequests.filter((request) => request.id !== requestId)
                 );
             }
-            if(isNotificationStatusChanged === true)
+            if (isNotificationStatusChanged === true)
                 setIsNotificationStatusChanged(false)
         } catch (error) {
             console.error(`Error updating request status to ${status}:`, error);
         }
     };
+    const handleRequestClick = (request) => {
+        const date = new Date(request.request_date);
+        setRequestDate(date);
+        setActiveRequestId(request.id);
 
+
+    }
     const isSmallScreen = window.innerWidth <= 431 && window.innerHeight <= 932;
 
     return (
 
         <div
-          className="requests-center-container"
-          style={
-            loading
-              ? {
-                  position: "relative",
-                  minHeight: "500px",
-                  ...(isSmallScreen && { marginLeft: "-52px" }),
-                }
-              : {}
-          }
+            className="requests-center-container"
+            style={
+                loading
+                    ? {
+                        position: "relative",
+                        minHeight: "500px",
+                        ...(isSmallScreen && { marginLeft: "-52px" }),
+                    }
+                    : {}
+            }
         >
 
             {loading ? (
-                <LoadingSpinner/>
+                <LoadingSpinner />
             ) : !requests.length ? (
                 <div className="no-notification-container">
                     <img
-                          src="../public/Images/NoNotification-icon.png"
-                          alt="No Requests"
-                        style={{ width: "100px", height: "100px", opacity: 0.6, marginTop:"70px" }}
+                        src="../public/Images/NoNotification-icon.png"
+                        alt="No Requests"
+
+                        style={{ width: "100px", height: "100px", opacity: 0.6, marginTop: "70px" }}
                     />
                     <p style={{ marginTop: "0px", fontSize: "24px", color: "#777" }}>
                         No Requests Available
                     </p>
                 </div>
-                ) : (
+            ) : (
                 <>
                     {requests.map((request, index) => (
-                        <div key={index}>
+                        <div
+                            onClick={() => { handleRequestClick(request) }}
+                            key={index}>
                             <div className="gray-line"></div>
                             <div className="requests">
-                                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }
+                                }
+                                className={`request-card ${activeRequestId === request.id ? "active" : ""}`}
+
+                                >
                                     <div className="request-center-title-container">
                                         <img
                                             className="purple-circle"
